@@ -29,7 +29,7 @@
 		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": ">=0.116.6+1.21.1",
-		"cobblemon": ">=1.8.0+1.21.1",
+		"cobblemon": ">=1.8.1+1.21.1",
 		"gooeylibs": ">=3.1.0"
 	},
 	"suggests": {
