@@ -56,7 +56,8 @@ public class ChatMiniMessagePokemonConfig
                 # This is an alternative to chat_strings.toml.
                 # Setting useMiniMessage in chat_settings.toml must be enabled.
 
-                [PokeInfo]
+                [%s]
+                # Here you can configure the default Pokémon template set.
                 # Used for general pokemon info chat hoverables and GUI item lores (such as the /partycheck command).
                 # You can use the following replacement templates:
                 # {Name} - The pokémon's nickname.
@@ -185,40 +186,16 @@ public class ChatMiniMessagePokemonConfig
                 # {CustomNeutered} - The pokémon's neuter state, following the configured template (not shown if not neutered).
                 # {OriginalTrainerName} - The pokémon's original trainer's username.
                 # {OriginalTrainerDisplayName} - The pokémon's original trainer's custom display name.
-                PokemonInfo = \"\"\"
-                <gradient:{Type1Color}:{Type2Color}>{Name}, {Title}</gradient>
-                {CustomTypes} <color:{DivisionColor}>│</Color> {Gender} <color:{DivisionColor}>│</color> {CaughtBall}
-                <color:{DivisionColor}>────────────────────────────
-                <color:{LabelColor}>Condition:</color> {CustomCondition}
-                <color:{LabelColor}>Species:</color> {CustomSpecies}
-                <color:{LabelColor}>Held Item:</color> <white>{HeldItem}</white> {CustomCosmeticItem}
-                <color:{LabelColor}>Ability:</color> <white>{Ability}</white> {CustomHiddenAbility}
-                <color:{LabelColor}>Nature</color>{CustomMintness}<color:{LabelColor}>:</color> <white>{Nature}</white> {CustomNatureStats}
-                <color:{LabelColor}>Level:</color> <white>{Level}</white> {CustomExperience}
-                <color:{LabelColor}>Friendship:</color> <white>{Friendship}</white>
-                <dark_gray>────────────────────────────
-                {CustomMoves}
-                <dark_gray>────────────────────────────
-                <color:{LabelColor}>IVs:</color> {CustomGeneralIVs}
-                    {CustomHpIVs} {CustomAtkIVs} {CustomDefIVs}
-                    {CustomSpaIVs} {CustomSpdIVs} {CustomSpeIVs}
-                <dark_gray>────────────────────────────
-                <color:{LabelColor}>EVs:</color> {CustomGeneralEVs}
-                    {CustomHpEV} {CustomAtkEV} {CustomDefEV}
-                    {CustomSpaEV} {CustomSpdEV} {CustomSpeEV}
-                <dark_gray>────────────────────────────
-                <color:{LabelColor}>Size:</color> <white>{Size}</white> <color:{LabelColor}>(</color><white>{ScaleModifier100}%% scale</white><color:{LabelColor}>)</color>
-                <color:{LabelColor}>Egg Groups:</color> <white>{EggGroups}</white>
-                {CustomNeutered}
-                <color:{LabelColor}>OT:</color> <white>{OriginalTrainerName}</white>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display a Pokémon's current status condition or fainted status.
                 # If the pokémon is healthy (status-wise) then this template is not shown (treated as empty).
                 # You can use the following replacement templates:
                 # {Status} - The pokémon's current status effect or fainted status.
-                CustomStatus = \"\"\"
-                <color:{LabelColor}>(</color>{Status}<color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display a Pokémon's general condition information.
@@ -226,8 +203,8 @@ public class ChatMiniMessagePokemonConfig
                 # {MaxHealth} - The pokémon's maximum health points.
                 # {Status} - The pokémon's current status effect or fainted status.
                 # {CustomStatus} - The pokémon's current status condition, using the configured template (not shown is healthy).
-                CustomCondition = \"\"\"
-                <green>{CurrentHealth}</green><color:{LabelColor}>/</color><green>{MaxHealth}</green> {CustomStatus}
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display a Pokémon's types
@@ -237,8 +214,8 @@ public class ChatMiniMessagePokemonConfig
                 # {Type1Color} - The pokémon's first type's color.
                 # {TeraType} - The pokémon's tera type.
                 # {TeraTypeColor} - The pokémon's tera type's color.
-                CustomTypesMonotype = \"\"\"
-                <color:{Type1Color}>{Type1}</color> <color:{TeraTypeColor}>{TeraType}</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display a Pokémon's types.
@@ -250,20 +227,20 @@ public class ChatMiniMessagePokemonConfig
                 # {Type2Color} - The pokémon's second type's color.
                 # {TeraType} - The pokémon's tera type.
                 # {TeraTypeColor} - The pokémon's tera type's color.
-                CustomTypesDuotype = \"\"\"
-                <color:{Type1Color}>{Type1}</color><color:{LabelColor}>/</color><color:{Type2Color}>{Type2}</color> <color:{TeraTypeColor}>{TeraType}</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used as the pokémon's shininess indicator.
                 # If the pokémon is not shiny then this template is not shown (treated as empty).
-                CustomShininess = \"\"\"
-                <color:{ShinyColor}> ★ </color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used as the pokémon's alphaness indicator.
                 # If the pokémon is not an alpha then this template is not shown (treated as empty).
-                CustomAlphaness = \"\"\"
-                <color:{AlphaColor}> α </color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display a Pokémon's forms.
@@ -271,8 +248,8 @@ public class ChatMiniMessagePokemonConfig
                 # This template will be used in {CustomForms} once per available form, in a row, with a space between each.
                 # You can use the following replacement templates:
                 # {Form} - One of the pokémon's forms or form-impacting aspects.
-                CustomForm = \"\"\"
-                <color:{LabelColor}>(</color><white>{Form}</white><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display a pokémon's species information.
@@ -283,8 +260,8 @@ public class ChatMiniMessagePokemonConfig
                 # {FormsExpanded} - The pokémon's form, expanded to account for some additional aspects.
                 # {FormsFullyExpanded} - The pokémon's forms, expanded, also including custom configured aspects.
                 # {CustomForms} - The pokémon's forms, each using the configured template (not shown if the only form is Normal).
-                CustomSpecies = \"\"\"
-                {CustomShininess}{CustomAlphaness} <white>{Species}</white> {CustomForms}
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display a Pokémon's held item.
@@ -292,8 +269,8 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # {HeldItem} - The pokémon's held item, ignoring custom name (or None if empty).
                 # {HeldItemCustomName} - The pokémon's held item, including custom name (or None if empty).
-                CustomHeldItem = \"\"\"
-                <color:{LabelColor}>(</color><white>{HeldItem}</white><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display a Pokémon's cosmetic item.
@@ -301,14 +278,14 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # {CosmeticItem} - The pokémon's cosmetic item, ignoring custom name (or None if empty).
                 # {CosmeticItemCustomName} - The pokémon's cosmetic item, including custom name (or None if empty).
-                CustomCosmeticItem = \"\"\"
-                <color:{LabelColor}>(</color><white>{CosmeticItem}</white><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display that a pokémon's ability is a hidden ability.
                 # If the pokémon's ability is not a hidden ability then this template is not shown (treated as empty).
-                CustomHiddenAbility = \"\"\"
-                <color:{LabelColor}>(</color><color:{HaColor}>HA</color><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display the pokémon's nature's increased and decreased stats.
@@ -316,14 +293,14 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # {NatureStatUp} - The pokémon's nature's increased stat.
                 # {NatureStatDown} - The pokémon's nature's decreased stat.
-                CustomNatureStats = \"\"\"
-                <color:{LabelColor}>(</color><color:{NatureStatUpColor}>↑{NatureStatUp}</color><color:{LabelColor}>/</color><color:{NatureStatDownColor}>↓{NatureStatDown}</color><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display whether the pokémon has been minted or not (nature was hypertrained).
                 # If a pokémon's nature has been hypertrained then this template will not be shown (treated as empty).
-                CustomMintness = \"\"\"
-                <color:{LabelColor}> (Minted)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display the pokémon's experience information.
@@ -332,8 +309,8 @@ public class ChatMiniMessagePokemonConfig
                 # {CurrentExperience} - The pokémon's current experience.
                 # {RequiredExperience} - The pokémon's next level's experience requirement.
                 # {RemainingExperience} - The pokémon's remaining experience for a level-up.
-                CustomExperience = \"\"\"
-                <color:{LabelColor}>(</color><white>{CurrentExperience}</white><color:{LabelColor}>/</color><white>{RequiredExperience}</white><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display the pokémon's PP information.
@@ -343,8 +320,8 @@ public class ChatMiniMessagePokemonConfig
                 # {MoveRemainingPP} - The amount of remaining PP for the pokémon's move.
                 # {MoveTotalPP} - The amount of total PP for the pokémon's move.
                 # {MoveRemainingPPColor} - The color that dynamically changes depending on how much PP is remaining for the move.
-                MoveCustomPP = \"\"\"
-                <color:{LabelColor}>(</color><color:{MoveRemainingPPColor}>{MoveRemainingPP}</color><color:{LabelColor}>/</color><color:{MoveRemainingPPColor}>{MoveTotalPP}</color><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # Used to display the pokémon's move information.
@@ -357,24 +334,24 @@ public class ChatMiniMessagePokemonConfig
                 # {MoveTotalPP} - The amount of total PP for the pokémon's move.
                 # {MoveRemainingPPColor} - The color that dynamically changes depending on how much PP is remaining for the move.
                 # {MoveCustomPP} - The pokémon's move's PP information, using the configured {MoveCustomPP} template.
-                CustomMove = \"\"\"
-                <color:{LabelColor}> ▶ </color><color:{MoveColor}>{Move}</color> {MoveCustomPP}
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The percentage (2 decimals) that corresponds to the pokémon's total base IVs out of 186.
                 # You can use the following replacement templates:
                 # {RealIVTotal} - The pokémon's total base IVs.
                 # {RealIVPercentage} - The percentage (2 decimals) that corresponds to the pokémon's total base IVs out of 186.
-                CustomRealIVPercentage = \"\"\"
-                <color:{LabelColor}>(</color><white>{RealIVPercentage}%%</white><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The percentage (2 decimals) that corresponds to the pokémon's total effective IVs out of 186.
                 # You can use the following replacement templates:
                 # {EffectiveIVTotal} - The pokémon's total effective IVs (counts hypertraining).
                 # {EffectiveIVPercentage} - The percentage (2 decimals) that corresponds to the pokémon's total effective IVs out of 186.
-                CustomEffectiveIVPercentage = \"\"\"
-                <color:{LabelColor}>(</color><white>{EffectiveIVPercentage}%%</white><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's general IV information.
@@ -385,8 +362,8 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveIVPercentage} - The percentage (2 decimals) that corresponds to the pokémon's total effective IVs out of 186.
                 # {CustomRealIVPercentage} - The pokémon's real IV percentage information, using the configured template.
                 # {CustomEffectiveIVPercentage} - The pokémon's effective IV percentage information, using the configured template.
-                CustomGeneralIVs = \"\"\"
-                <white>{EffectiveIVTotal}</white><color:{LabelColor}>/</color><white>186</white> {CustomEffectiveIVPercentage}
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's effective Hp IV value, using the configured template.
@@ -394,8 +371,8 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # {EffectiveHpIVs} - The pokémon's total effective IVs (counts hypertraining).
                 # {HpColor} - The Hp stat color.
-                CustomEffectiveHpIVs = \"\"\"
-                <color:{LabelColor}>(</color><color:{HpColor}>{EffectiveHpIVs}</color><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's Hp IV information.
@@ -404,8 +381,8 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveHpIVs} - The pokémon's effective Hp IV value (0 to 31, counts hypertraining).
                 # {HpColor} - The Hp stat color.
                 # {CustomEffectiveHpIVs} - The pokémon's effective Hp IV value, using the configured template (not shown if not hypertrained).
-                CustomHpIVs = \"\"\"
-                <color:{HpColor}>Hp {RealHpIVs}</color> {CustomEffectiveHpIVs}
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's effective Atk IV value, using the configured template.
@@ -413,8 +390,8 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # {EffectiveAtkIVs} - The pokémon's total effective IVs (counts hypertraining).
                 # {AtkColor} - The Atk stat color.
-                CustomEffectiveAtkIVs = \"\"\"
-                <color:{LabelColor}>(</color><color:{AtkColor}>{EffectiveAtkIVs}</color><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's Atk IV information.
@@ -423,8 +400,8 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveAtkIVs} - The pokémon's effective Atk IV value (0 to 31, counts hypertraining).
                 # {AtkColor} - The Atk stat color.
                 # {CustomEffectiveAtkIVs} - The pokémon's effective Atk IV value, using the configured template (not shown if not hypertrained).
-                CustomAtkIVs = \"\"\"
-                <color:{AtkColor}>Atk {RealAtkIVs}</color> {CustomEffectiveAtkIVs}
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's effective Def IV value, using the configured template.
@@ -432,8 +409,8 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # {EffectiveDefIVs} - The pokémon's total effective IVs (counts hypertraining).
                 # {DefColor} - The Def stat color.
-                CustomEffectiveDefIVs = \"\"\"
-                <color:{LabelColor}>(</color><color:{DefColor}>{EffectiveDefIVs}</color><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's Def IV information.
@@ -442,8 +419,8 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveDefIVs} - The pokémon's effective Def IV value (0 to 31, counts hypertraining).
                 # {DefColor} - The Def stat color.
                 # {CustomEffectiveDefIVs} - The pokémon's effective Def IV value, using the configured template (not shown if not hypertrained).
-                CustomDefIVs = \"\"\"
-                <color:{DefColor}>Def {RealDefIVs}</color> {CustomEffectiveDefIVs}
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's effective Spa IV value, using the configured template.
@@ -451,8 +428,8 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # {EffectiveSpaIVs} - The pokémon's total effective IVs (counts hypertraining).
                 # {SpaColor} - The Spa stat color.
-                CustomEffectiveSpaIVs = \"\"\"
-                <color:{LabelColor}>(</color><color:{SpaColor}>{EffectiveSpaIVs}</color><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's Spa IV information.
@@ -461,8 +438,8 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveSpaIVs} - The pokémon's effective Spa IV value (0 to 31, counts hypertraining).
                 # {SpaColor} - The Spa stat color.
                 # {CustomEffectiveSpaIVs} - The pokémon's effective Spa IV value, using the configured template (not shown if not hypertrained).
-                CustomSpaIVs = \"\"\"
-                <color:{SpaColor}>Spa {RealSpaIVs}</color> {CustomEffectiveSpaIVs}
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's effective Spd IV value, using the configured template.
@@ -470,8 +447,8 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # {EffectiveSpdIVs} - The pokémon's total effective IVs (counts hypertraining).
                 # {SpdColor} - The Spd stat color.
-                CustomEffectiveSpdIVs = \"\"\"
-                <color:{LabelColor}>(</color><color:{SpdColor}>{EffectiveSpdIVs}</color><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's Spd IV information.
@@ -480,8 +457,8 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveSpdIVs} - The pokémon's effective Spd IV value (0 to 31, counts hypertraining).
                 # {SpdColor} - The Spd stat color.
                 # {CustomEffectiveSpdIVs} - The pokémon's effective Spd IV value, using the configured template (not shown if not hypertrained).
-                CustomSpdIVs = \"\"\"
-                <color:{SpdColor}>Spd {RealSpdIVs}</color> {CustomEffectiveSpdIVs}
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's effective Spe IV value, using the configured template.
@@ -489,8 +466,8 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # {EffectiveSpeIVs} - The pokémon's total effective IVs (counts hypertraining).
                 # {SpeColor} - The Spe stat color.
-                CustomEffectiveSpeIVs = \"\"\"
-                <color:{LabelColor}>(</color><color:{SpeColor}>{EffectiveSpeIVs}</color><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's Spe IV information.
@@ -499,16 +476,16 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveSpeIVs} - The pokémon's effective Spe IV value (0 to 31, counts hypertraining).
                 # {SpeColor} - The Spe stat color.
                 # {CustomEffectiveSpeIVs} - The pokémon's effective Spe IV value, using the configured template (not shown if not hypertrained).
-                CustomSpeIVs = \"\"\"
-                <color:{SpeColor}>Spe {RealSpeIVs}</color> {CustomEffectiveSpeIVs}
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The percentage (2 decimals) that corresponds to the pokémon's total EVs out of 510.
                 # You can use the following replacement templates:
                 # {EVTotal} - The pokémon's total EVs.
                 # {EVPercentage} - The percentage (2 decimals) that corresponds to the pokémon's total EVs out of 510.
-                CustomEVPercentage = \"\"\"
-                <color:{LabelColor}>(</color><white>{EVPercentage}%%</white><color:{LabelColor}>)</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's general EV information.
@@ -516,96 +493,165 @@ public class ChatMiniMessagePokemonConfig
                 # {EVTotal} - The pokémon's total EVs.
                 # {EVPercentage} - The percentage (2 decimals) that corresponds to the pokémon's total EVs out of 510.
                 # {CustomEVPercentage} - The pokémon's EV percentage information, using the configured template.
-                CustomGeneralEVs = \"\"\"
-                <white>{EVTotal}</white><color:{LabelColor}>/</color><white>510</white> {CustomEVPercentage}
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's Hp EV information.
                 # You can use the following replacement templates:
                 # {HpEVs} - The pokémon's Hp EV value (0 to 255).
                 # {HpColor} - The Hp stat color.
-                CustomHpEVs = \"\"\"
-                <color:{HpColor}>Hp {HpEVs}</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's Atk EV information.
                 # You can use the following replacement templates:
                 # {AtkEVs} - The pokémon's Atk EV value (0 to 255).
                 # {AtkColor} - The Atk stat color.
-                CustomAtkEVs = \"\"\"
-                <color:{AtkColor}>Atk {AtkEVs}</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's Def EV information.
                 # You can use the following replacement templates:
                 # {DefEVs} - The pokémon's Def EV value (0 to 255).
                 # {DefColor} - The Def stat color.
-                CustomDefEVs = \"\"\"
-                <color:{DefColor}>Def {DefEVs}</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's Spa EV information.
                 # You can use the following replacement templates:
                 # {SpaEVs} - The pokémon's Spa EV value (0 to 255).
                 # {SpaColor} - The Spa stat color.
-                CustomSpaEVs = \"\"\"
-                <color:{SpaColor}>Spa {SpaEVs}</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's Spd EV information.
                 # You can use the following replacement templates:
                 # {SpdEVs} - The pokémon's Spd EV value (0 to 255).
                 # {SpdColor} - The Spd stat color.
-                CustomSpdEVs = \"\"\"
-                <color:{SpdColor}>Spd {SpdEVs}</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's Spe EV information.
                 # You can use the following replacement templates:
                 # {SpeEVs} - The pokémon's Spe EV value (0 to 255).
                 # {SpeColor} - The Spe stat color.
-                CustomSpeEVs = \"\"\"
-                <color:{SpeColor}>Spe {SpeEVs}</color>
+                %s = \"\"\"
+                %s
                 \"\"\"
 
                 # The pokémon's neuter state.
                 # You can use the following replacement templates:
                 # {Neutered} - The pokémon's neuter state, following the configured {True} and {False} templates.
-                CustomNeutered = \"\"\"
-                <color:{LabelColor}>Neutered:</color> {Neutered}
+                %s = \"\"\"
+                %s
                 \"\"\"
 
-                [Statuses]
+                [%s]
                 # Here you can configure how statuses get shown in the {Status} template.
-                Burn = \"<color:{BurnColor}>[BRN]</color>\"
-                Sleep = \"<color:{SleepColor}>[SLP]</color>\"
-                Paralysis = \"<color:{ParalysisColor}>[PAR]</color>\"
-                Poison = \"<color:{PoisonColor}>[PSN]</color>\"
-                Faint = \"<color:{FaintColor}>[FNT]</color>\"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
 
-                [EggGroups]
+                [%s]
                 # Here you can configure how egg groups get shown in the {EggGroups} template.
-                Amorphous = \"<white>Amorphous</white>\"
-                Bug = \"<white>Bug</white>\"
-                Ditto = \"<white>Ditto</white>\"
-                Dragon = \"<white>Dragon</white>\"
-                Fairy = \"<white>Fairy</white>\"
-                Field = \"<white>Field</white>\"
-                Flying = \"<white>Flying</white>\"
-                Grass = \"<white>Grass</white>\"
-                Human-Like = \"<white>Human-Like</white>\"
-                Mineral = \"<white>Mineral</white>\"
-                Monster = \"<white>Monster</white>\"
-                Undiscovered = \"<white>Undiscovered</white>\"
-                Water1 = \"<white>Water1</white>\"
-                Water2 = \"<white>Water2</white>\"
-                Water3 = \"<white>Water3</white>\"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
 
-                [Booleans]
+                [%s]
                 # Here you can configure how true/false messages appear as, such in the {Neutered} template.
-                True = \"<color:{TrueColor}>Yes</color>\"
-                False = \"<color:{FalseColor}>No</color>\"
-                """.formatted(MirageEssentials.MOD_NAME);
+                %s = "%s"
+                %s = "%s"
+                """.formatted(
+                    MirageEssentials.MOD_NAME,
+                    ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING,
+                    ChatMiniMessage.POKEMON_INFO_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_POKEMON_INFO,
+                    ChatMiniMessage.CUSTOM_STATUS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_STATUS,
+                    ChatMiniMessage.CUSTOM_CONDITION_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_CONDITION,
+                    ChatMiniMessage.CUSTOM_TYPES_MONOTYPE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_TYPES_MONOTYPE,
+                    ChatMiniMessage.CUSTOM_TYPES_DUOTYPE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_TYPES_DUOTYPE,
+                    ChatMiniMessage.CUSTOM_SHININESS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_SHININESS,
+                    ChatMiniMessage.CUSTOM_ALPHANESS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_ALPHANESS,
+                    ChatMiniMessage.CUSTOM_FORM_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_FORM,
+                    ChatMiniMessage.CUSTOM_SPECIES_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_SPECIES,
+                    ChatMiniMessage.CUSTOM_HELD_ITEM_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_HELD_ITEM,
+                    ChatMiniMessage.CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_COSMETIC_ITEM,
+                    ChatMiniMessage.CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_HIDDEN_ABILITY,
+                    ChatMiniMessage.CUSTOM_NATURE_STATS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_NATURE_STATS,
+                    ChatMiniMessage.CUSTOM_MINTNESS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_MINTNESS,
+                    ChatMiniMessage.CUSTOM_EXPERIENCE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EXPERIENCE,
+                    ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MOVE_CUSTOM_PP,
+                    ChatMiniMessage.CUSTOM_MOVE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_MOVE,
+                    ChatMiniMessage.CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_REAL_IV_PERCENTAGE,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EFFECTIVE_IV_PERCENTAGE,
+                    ChatMiniMessage.CUSTOM_GENERAL_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_GENERAL_IVS,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EFFECTIVE_HP_IVS,
+                    ChatMiniMessage.CUSTOM_HP_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_HP_IVS,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EFFECTIVE_ATK_IVS,
+                    ChatMiniMessage.CUSTOM_ATK_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_ATK_IVS,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EFFECTIVE_DEF_IVS,
+                    ChatMiniMessage.CUSTOM_DEF_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_DEF_IVS,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EFFECTIVE_SPA_IVS,
+                    ChatMiniMessage.CUSTOM_SPA_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_SPA_IVS,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EFFECTIVE_SPD_IVS,
+                    ChatMiniMessage.CUSTOM_SPD_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_SPD_IVS,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EFFECTIVE_SPE_IVS,
+                    ChatMiniMessage.CUSTOM_SPE_IVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_SPE_IVS,
+                    ChatMiniMessage.CUSTOM_EV_PERCENTAGE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EV_PERCENTAGE,
+                    ChatMiniMessage.CUSTOM_GENERAL_EVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_GENERAL_EVS,
+                    ChatMiniMessage.CUSTOM_HP_EVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_HP_EVS,
+                    ChatMiniMessage.CUSTOM_ATK_EVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_ATK_EVS,
+                    ChatMiniMessage.CUSTOM_DEF_EVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_DEF_EVS,
+                    ChatMiniMessage.CUSTOM_SPA_EVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_SPA_EVS,
+                    ChatMiniMessage.CUSTOM_SPD_EVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_SPD_EVS,
+                    ChatMiniMessage.CUSTOM_SPE_EVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_SPE_EVS,
+                    ChatMiniMessage.CUSTOM_NEUTERED_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_NEUTERED,
+                    ChatMiniMessage.TOML_STATUSES_SECTION_STRING,
+                    ChatMiniMessage.BURN_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_BURN,
+                    ChatMiniMessage.SLEEP_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SLEEP,
+                    ChatMiniMessage.PARALYSIS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_PARALYSIS,
+                    ChatMiniMessage.POISON_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_POISON,
+                    ChatMiniMessage.FAINT_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FAINT,
+                    ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING,
+                    ChatMiniMessage.AMORPHOUS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_AMORPHOUS,
+                    ChatMiniMessage.BUG_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_BUG,
+                    ChatMiniMessage.DITTO_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_DITTO,
+                    ChatMiniMessage.DRAGON_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_DRAGON,
+                    ChatMiniMessage.FAIRY_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FAIRY,
+                    ChatMiniMessage.FIELD_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FIELD,
+                    ChatMiniMessage.FLYING_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FLYING,
+                    ChatMiniMessage.GRASS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_GRASS,
+                    ChatMiniMessage.HUMAN_LIKE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_HUMAN_LIKE,
+                    ChatMiniMessage.MINERAL_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MINERAL,
+                    ChatMiniMessage.MONSTER_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MONSTER,
+                    ChatMiniMessage.UNDISCOVERED_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_UNDISCOVERED,
+                    ChatMiniMessage.WATER1_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_WATER1,
+                    ChatMiniMessage.WATER2_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_WATER2,
+                    ChatMiniMessage.WATER3_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_WATER3,
+                    ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING,
+                    ChatMiniMessage.TRUE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_TRUE,
+                    ChatMiniMessage.FALSE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FALSE
+                );
             
             Files.writeString(file.toPath(), defaultContent);
         }
