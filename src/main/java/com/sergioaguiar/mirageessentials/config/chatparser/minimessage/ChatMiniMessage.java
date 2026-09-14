@@ -61,13 +61,13 @@ public class ChatMiniMessage
     protected static final String CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING = "CustomEffectivespeIVs";
     protected static final String CUSTOM_SPE_IVS_TEMPLATE_STRING = "CustomspeIVs";
     protected static final String CUSTOM_EV_PERCENTAGE_TEMPLATE_STRING = "CustomEVPercentage";
-    protected static final String CUSTOM_GENERAL_EVS_TEMPLATE_STRING = "CustomGeneralIVs";
-    protected static final String CUSTOM_HP_EVS_TEMPLATE_STRING = "CustomHpIVs";
-    protected static final String CUSTOM_ATK_EVS_TEMPLATE_STRING = "CustomAtkIVs";
-    protected static final String CUSTOM_DEF_EVS_TEMPLATE_STRING = "CustomDefIVs";
-    protected static final String CUSTOM_SPA_EVS_TEMPLATE_STRING = "CustomSpaIVs";
-    protected static final String CUSTOM_SPD_EVS_TEMPLATE_STRING = "CustomSpdIVs";
-    protected static final String CUSTOM_SPE_EVS_TEMPLATE_STRING = "CustomSpeIVs";
+    protected static final String CUSTOM_GENERAL_EVS_TEMPLATE_STRING = "CustomGeneralEVs";
+    protected static final String CUSTOM_HP_EVS_TEMPLATE_STRING = "CustomHpEVs";
+    protected static final String CUSTOM_ATK_EVS_TEMPLATE_STRING = "CustomAtkEVs";
+    protected static final String CUSTOM_DEF_EVS_TEMPLATE_STRING = "CustomDefEVs";
+    protected static final String CUSTOM_SPA_EVS_TEMPLATE_STRING = "CustomSpaEVs";
+    protected static final String CUSTOM_SPD_EVS_TEMPLATE_STRING = "CustomSpdEVs";
+    protected static final String CUSTOM_SPE_EVS_TEMPLATE_STRING = "CustomSpeEVs";
     protected static final String CUSTOM_NEUTERED_TEMPLATE_STRING = "CustomNeutered";
 
     protected static final String BURN_TEMPLATE_STRING = "Burn";

@@ -48,56 +48,54 @@ public class ChatMiniMessageColorsConfig
 
             if (config.contains(ChatMiniMessage.TOML_CUSTOM_COLOR_SECTION_STRING))
             {
-                try (CommentedFileConfig colorsConfig = config.get(ChatMiniMessage.TOML_CUSTOM_COLOR_SECTION_STRING))
+                CommentedConfig colorsConfig = config.get(ChatMiniMessage.TOML_CUSTOM_COLOR_SECTION_STRING);
+                for (CommentedConfig.Entry colorEntry : colorsConfig.entrySet())
                 {
-                    for (CommentedConfig.Entry colorEntry : colorsConfig.entrySet())
-                    {
-                        String colorName = colorEntry.getKey();
-                        String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_CUSTOM_COLOR_SECTION_STRING, colorName));
-                        if (color != null && !color.isEmpty())
-                            ChatMiniMessage.setCustomColor(colorName, color);
-                    }
+                    String colorName = colorEntry.getKey();
+                    String color = config.get("%s".formatted(colorName));
+                    if (color != null && !color.isEmpty())
+                        ChatMiniMessage.setCustomColor(colorName, color);
                 }
             }
 
-            if (config.contains("%s.%s.".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.HP_COLOR_TEMPLATE_STRING)))
+            if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.HP_COLOR_TEMPLATE_STRING)))
             {
-                String color = config.get("%s.%s.".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.HP_COLOR_TEMPLATE_STRING));
+                String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.HP_COLOR_TEMPLATE_STRING));
                 if (color != null && !color.isEmpty())
                     ChatMiniMessage.setHpColor(TextColor.parse(color).getOrThrow());
             }
 
-            if (config.contains("%s.%s.".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.ATK_COLOR_TEMPLATE_STRING)))
+            if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.ATK_COLOR_TEMPLATE_STRING)))
             {
-                String color = config.get("%s.%s.".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.ATK_COLOR_TEMPLATE_STRING));
+                String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.ATK_COLOR_TEMPLATE_STRING));
                 if (color != null && !color.isEmpty())
                     ChatMiniMessage.setAtkColor(TextColor.parse(color).getOrThrow());
             }
 
-            if (config.contains("%s.%s.".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.DEF_COLOR_TEMPLATE_STRING)))
+            if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.DEF_COLOR_TEMPLATE_STRING)))
             {
-                String color = config.get("%s.%s.".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.DEF_COLOR_TEMPLATE_STRING));
+                String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.DEF_COLOR_TEMPLATE_STRING));
                 if (color != null && !color.isEmpty())
                     ChatMiniMessage.setDefColor(TextColor.parse(color).getOrThrow());
             }
 
-            if (config.contains("%s.%s.".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPA_COLOR_TEMPLATE_STRING)))
+            if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPA_COLOR_TEMPLATE_STRING)))
             {
-                String color = config.get("%s.%s.".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPA_COLOR_TEMPLATE_STRING));
+                String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPA_COLOR_TEMPLATE_STRING));
                 if (color != null && !color.isEmpty())
                     ChatMiniMessage.setSpaColor(TextColor.parse(color).getOrThrow());
             }
 
-            if (config.contains("%s.%s.".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPD_COLOR_TEMPLATE_STRING)))
+            if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPD_COLOR_TEMPLATE_STRING)))
             {
-                String color = config.get("%s.%s.".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPD_COLOR_TEMPLATE_STRING));
+                String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPD_COLOR_TEMPLATE_STRING));
                 if (color != null && !color.isEmpty())
                     ChatMiniMessage.setSpdColor(TextColor.parse(color).getOrThrow());
             }
 
-            if (config.contains("%s.%s.".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPE_COLOR_TEMPLATE_STRING)))
+            if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPE_COLOR_TEMPLATE_STRING)))
             {
-                String color = config.get("%s.%s.".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPE_COLOR_TEMPLATE_STRING));
+                String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPE_COLOR_TEMPLATE_STRING));
                 if (color != null && !color.isEmpty())
                     ChatMiniMessage.setSpeColor(TextColor.parse(color).getOrThrow());
             }

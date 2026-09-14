@@ -187,16 +187,14 @@ public class ChatMiniMessagePokemonConfig
                 # {OriginalTrainerName} - The pokémon's original trainer's username.
                 # {OriginalTrainerDisplayName} - The pokémon's original trainer's custom display name.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display a Pokémon's current status condition or fainted status.
                 # If the pokémon is healthy (status-wise) then this template is not shown (treated as empty).
                 # You can use the following replacement templates:
                 # {Status} - The pokémon's current status effect or fainted status.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display a Pokémon's general condition information.
                 # {CurrentHealth} - The pokémon's current health points.
@@ -204,8 +202,7 @@ public class ChatMiniMessagePokemonConfig
                 # {Status} - The pokémon's current status effect or fainted status.
                 # {CustomStatus} - The pokémon's current status condition, using the configured template (not shown is healthy).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display a Pokémon's types
                 # This template is used by {CustomTypes} when the pokémon only has 1 type.
@@ -215,8 +212,7 @@ public class ChatMiniMessagePokemonConfig
                 # {TeraType} - The pokémon's tera type.
                 # {TeraTypeColor} - The pokémon's tera type's color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display a Pokémon's types.
                 # This template is used by {CustomTypes} when the pokémon has 2 types.
@@ -228,20 +224,17 @@ public class ChatMiniMessagePokemonConfig
                 # {TeraType} - The pokémon's tera type.
                 # {TeraTypeColor} - The pokémon's tera type's color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used as the pokémon's shininess indicator.
                 # If the pokémon is not shiny then this template is not shown (treated as empty).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used as the pokémon's alphaness indicator.
                 # If the pokémon is not an alpha then this template is not shown (treated as empty).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display a Pokémon's forms.
                 # Shows base form and aspect-related forms, including specified custom ones.
@@ -249,8 +242,7 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # {Form} - One of the pokémon's forms or form-impacting aspects.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display a pokémon's species information.
                 # You can use the following replacement templates:
@@ -261,8 +253,7 @@ public class ChatMiniMessagePokemonConfig
                 # {FormsFullyExpanded} - The pokémon's forms, expanded, also including custom configured aspects.
                 # {CustomForms} - The pokémon's forms, each using the configured template (not shown if the only form is Normal).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display a Pokémon's held item.
                 # If the pokémon's held item slot is empty then this template is not shown (treated as empty).
@@ -270,8 +261,7 @@ public class ChatMiniMessagePokemonConfig
                 # {HeldItem} - The pokémon's held item, ignoring custom name (or None if empty).
                 # {HeldItemCustomName} - The pokémon's held item, including custom name (or None if empty).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display a Pokémon's cosmetic item.
                 # If the pokémon's cosmetic item slot is empty then this template is not shown (treated as empty).
@@ -285,8 +275,7 @@ public class ChatMiniMessagePokemonConfig
                 # Used to display that a pokémon's ability is a hidden ability.
                 # If the pokémon's ability is not a hidden ability then this template is not shown (treated as empty).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display the pokémon's nature's increased and decreased stats.
                 # If a pokémon's nature is neutral then this template will not be shown (treated as empty).
@@ -294,14 +283,12 @@ public class ChatMiniMessagePokemonConfig
                 # {NatureStatUp} - The pokémon's nature's increased stat.
                 # {NatureStatDown} - The pokémon's nature's decreased stat.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display whether the pokémon has been minted or not (nature was hypertrained).
                 # If a pokémon's nature has been hypertrained then this template will not be shown (treated as empty).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display the pokémon's experience information.
                 # If a pokémon is already max level then this template will not be shown (treated as empty).
@@ -310,8 +297,7 @@ public class ChatMiniMessagePokemonConfig
                 # {RequiredExperience} - The pokémon's next level's experience requirement.
                 # {RemainingExperience} - The pokémon's remaining experience for a level-up.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display the pokémon's PP information.
                 # This is meant to be used in the {CustomMove} template to be used for every move.
@@ -321,8 +307,7 @@ public class ChatMiniMessagePokemonConfig
                 # {MoveTotalPP} - The amount of total PP for the pokémon's move.
                 # {MoveRemainingPPColor} - The color that dynamically changes depending on how much PP is remaining for the move.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display the pokémon's move information.
                 # This is used by each move that gets displayed in {CustomMoves}.
@@ -335,24 +320,21 @@ public class ChatMiniMessagePokemonConfig
                 # {MoveRemainingPPColor} - The color that dynamically changes depending on how much PP is remaining for the move.
                 # {MoveCustomPP} - The pokémon's move's PP information, using the configured {MoveCustomPP} template.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The percentage (2 decimals) that corresponds to the pokémon's total base IVs out of 186.
                 # You can use the following replacement templates:
                 # {RealIVTotal} - The pokémon's total base IVs.
                 # {RealIVPercentage} - The percentage (2 decimals) that corresponds to the pokémon's total base IVs out of 186.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The percentage (2 decimals) that corresponds to the pokémon's total effective IVs out of 186.
                 # You can use the following replacement templates:
                 # {EffectiveIVTotal} - The pokémon's total effective IVs (counts hypertraining).
                 # {EffectiveIVPercentage} - The percentage (2 decimals) that corresponds to the pokémon's total effective IVs out of 186.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's general IV information.
                 # You can use the following replacement templates:
@@ -363,8 +345,7 @@ public class ChatMiniMessagePokemonConfig
                 # {CustomRealIVPercentage} - The pokémon's real IV percentage information, using the configured template.
                 # {CustomEffectiveIVPercentage} - The pokémon's effective IV percentage information, using the configured template.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's effective Hp IV value, using the configured template.
                 # If the pokémon's Hp IV has not been hypertrained then this template is not shown (treated as empty).
@@ -372,8 +353,7 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveHpIVs} - The pokémon's total effective IVs (counts hypertraining).
                 # {HpColor} - The Hp stat color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's Hp IV information.
                 # You can use the following replacement templates:
@@ -382,8 +362,7 @@ public class ChatMiniMessagePokemonConfig
                 # {HpColor} - The Hp stat color.
                 # {CustomEffectiveHpIVs} - The pokémon's effective Hp IV value, using the configured template (not shown if not hypertrained).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's effective Atk IV value, using the configured template.
                 # If the pokémon's Atk IV has not been hypertrained then this template is not shown (treated as empty).
@@ -391,8 +370,7 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveAtkIVs} - The pokémon's total effective IVs (counts hypertraining).
                 # {AtkColor} - The Atk stat color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's Atk IV information.
                 # You can use the following replacement templates:
@@ -401,8 +379,7 @@ public class ChatMiniMessagePokemonConfig
                 # {AtkColor} - The Atk stat color.
                 # {CustomEffectiveAtkIVs} - The pokémon's effective Atk IV value, using the configured template (not shown if not hypertrained).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's effective Def IV value, using the configured template.
                 # If the pokémon's Def IV has not been hypertrained then this template is not shown (treated as empty).
@@ -410,8 +387,7 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveDefIVs} - The pokémon's total effective IVs (counts hypertraining).
                 # {DefColor} - The Def stat color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's Def IV information.
                 # You can use the following replacement templates:
@@ -420,8 +396,7 @@ public class ChatMiniMessagePokemonConfig
                 # {DefColor} - The Def stat color.
                 # {CustomEffectiveDefIVs} - The pokémon's effective Def IV value, using the configured template (not shown if not hypertrained).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's effective Spa IV value, using the configured template.
                 # If the pokémon's Spa IV has not been hypertrained then this template is not shown (treated as empty).
@@ -429,8 +404,7 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveSpaIVs} - The pokémon's total effective IVs (counts hypertraining).
                 # {SpaColor} - The Spa stat color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's Spa IV information.
                 # You can use the following replacement templates:
@@ -439,8 +413,7 @@ public class ChatMiniMessagePokemonConfig
                 # {SpaColor} - The Spa stat color.
                 # {CustomEffectiveSpaIVs} - The pokémon's effective Spa IV value, using the configured template (not shown if not hypertrained).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's effective Spd IV value, using the configured template.
                 # If the pokémon's Spd IV has not been hypertrained then this template is not shown (treated as empty).
@@ -448,8 +421,7 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveSpdIVs} - The pokémon's total effective IVs (counts hypertraining).
                 # {SpdColor} - The Spd stat color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's Spd IV information.
                 # You can use the following replacement templates:
@@ -458,8 +430,7 @@ public class ChatMiniMessagePokemonConfig
                 # {SpdColor} - The Spd stat color.
                 # {CustomEffectiveSpdIVs} - The pokémon's effective Spd IV value, using the configured template (not shown if not hypertrained).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's effective Spe IV value, using the configured template.
                 # If the pokémon's Spe IV has not been hypertrained then this template is not shown (treated as empty).
@@ -467,8 +438,7 @@ public class ChatMiniMessagePokemonConfig
                 # {EffectiveSpeIVs} - The pokémon's total effective IVs (counts hypertraining).
                 # {SpeColor} - The Spe stat color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's Spe IV information.
                 # You can use the following replacement templates:
@@ -477,16 +447,14 @@ public class ChatMiniMessagePokemonConfig
                 # {SpeColor} - The Spe stat color.
                 # {CustomEffectiveSpeIVs} - The pokémon's effective Spe IV value, using the configured template (not shown if not hypertrained).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The percentage (2 decimals) that corresponds to the pokémon's total EVs out of 510.
                 # You can use the following replacement templates:
                 # {EVTotal} - The pokémon's total EVs.
                 # {EVPercentage} - The percentage (2 decimals) that corresponds to the pokémon's total EVs out of 510.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's general EV information.
                 # You can use the following replacement templates:
@@ -494,63 +462,55 @@ public class ChatMiniMessagePokemonConfig
                 # {EVPercentage} - The percentage (2 decimals) that corresponds to the pokémon's total EVs out of 510.
                 # {CustomEVPercentage} - The pokémon's EV percentage information, using the configured template.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's Hp EV information.
                 # You can use the following replacement templates:
                 # {HpEVs} - The pokémon's Hp EV value (0 to 255).
                 # {HpColor} - The Hp stat color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's Atk EV information.
                 # You can use the following replacement templates:
                 # {AtkEVs} - The pokémon's Atk EV value (0 to 255).
                 # {AtkColor} - The Atk stat color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's Def EV information.
                 # You can use the following replacement templates:
                 # {DefEVs} - The pokémon's Def EV value (0 to 255).
                 # {DefColor} - The Def stat color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's Spa EV information.
                 # You can use the following replacement templates:
                 # {SpaEVs} - The pokémon's Spa EV value (0 to 255).
                 # {SpaColor} - The Spa stat color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's Spd EV information.
                 # You can use the following replacement templates:
                 # {SpdEVs} - The pokémon's Spd EV value (0 to 255).
                 # {SpdColor} - The Spd stat color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's Spe EV information.
                 # You can use the following replacement templates:
                 # {SpeEVs} - The pokémon's Spe EV value (0 to 255).
                 # {SpeColor} - The Spe stat color.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # The pokémon's neuter state.
                 # You can use the following replacement templates:
                 # {Neutered} - The pokémon's neuter state, following the configured {True} and {False} templates.
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 [%s]
                 # Here you can configure how statuses get shown in the {Status} template.
