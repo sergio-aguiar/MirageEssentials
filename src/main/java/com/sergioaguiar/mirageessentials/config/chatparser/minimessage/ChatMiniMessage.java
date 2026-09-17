@@ -48,6 +48,11 @@ public class ChatMiniMessage
     protected static final String SPE_COLOR_TEMPLATE_STRING = "SpeColor";
 
     // PokeInfo Template Names
+    public static final String NAME_TEMPLATE_STRING = "Name";
+    public static final String TITLE_TEMPLATE_STRING = "Title";
+    public static final String GENDER_TEMPLATE_STRING = "Gender";
+    public static final String CAUGHT_BALL_TEMPLATE_STRING = "CaughtBall";
+
     protected static final String POKEMON_INFO_TEMPLATE_STRING = "PokemonInfo";
     protected static final String CUSTOM_STATUS_TEMPLATE_STRING = "CustomStatus";
     protected static final String CUSTOM_CONDITION_TEMPLATE_STRING = "CustomCondition";
@@ -437,6 +442,7 @@ public class ChatMiniMessage
     private static HashMap<String, String> POKE_INFO_TEMPLATES;
     private static HashMap<String, String> STATUS_TEMPLATES;
     private static HashMap<String, String> EGG_GROUP_TEMPLATES;
+    private static HashMap<String, String> GENDER_TEMPLATES;
     private static HashMap<String, String> BOOLEAN_TEMPLATES;
 
     public static void setDefaults()
@@ -448,6 +454,7 @@ public class ChatMiniMessage
             POKE_INFO_TEMPLATES = new HashMap<>();
             STATUS_TEMPLATES = new HashMap<>();
             EGG_GROUP_TEMPLATES = new HashMap<>();
+            GENDER_TEMPLATES = new HashMap<>();
             BOOLEAN_TEMPLATES = new HashMap<>();
 
             CUSTOM_COLORS.put(DIVISION_COLOR_TEMPLATE_STRING, DEFAULT_DIVISION_COLOR.getOrThrow());
@@ -540,6 +547,10 @@ public class ChatMiniMessage
             EGG_GROUP_TEMPLATES.put(WATER1_TEMPLATE_STRING, DEFAULT_WATER1);
             EGG_GROUP_TEMPLATES.put(WATER2_TEMPLATE_STRING, DEFAULT_WATER2);
             EGG_GROUP_TEMPLATES.put(WATER3_TEMPLATE_STRING, DEFAULT_WATER3);
+
+            GENDER_TEMPLATES.put(GENDER_MALE_TEMPLATE_STRING, DEFAULT_MALE_GENDER);
+            GENDER_TEMPLATES.put(GENDER_FEMALE_TEMPLATE_STRING, DEFAULT_FEMALE_GENDER);
+            GENDER_TEMPLATES.put(GENDER_GENDERLESS_TEMPLATE_STRING, DEFAULT_GENDERLESS_GENDER);
 
             BOOLEAN_TEMPLATES.put(TRUE_TEMPLATE_STRING, DEFAULT_TRUE);
             BOOLEAN_TEMPLATES.put(FALSE_TEMPLATE_STRING, DEFAULT_FALSE);
@@ -716,4 +727,12 @@ public class ChatMiniMessage
 
     protected static void setTrueTemplate(String template) { BOOLEAN_TEMPLATES.put(TRUE_TEMPLATE_STRING, template); }
     protected static void setFalseTemplate(String template) { BOOLEAN_TEMPLATES.put(FALSE_TEMPLATE_STRING, template); }
+
+    protected static void setMaleGenderTemplate(String template) { GENDER_TEMPLATES.put(GENDER_MALE_TEMPLATE_STRING, template); }
+    protected static void setFemaleGenderTemplate(String template) { GENDER_TEMPLATES.put(GENDER_FEMALE_TEMPLATE_STRING, template); }
+    protected static void setGenderlessGenderTemplate(String template) { GENDER_TEMPLATES.put(GENDER_GENDERLESS_TEMPLATE_STRING, template); }
+
+    public static String getMaleGenderTemplate() { return GENDER_TEMPLATES.get(GENDER_MALE_TEMPLATE_STRING); }
+    public static String getFemaleGenderTemplate() { return GENDER_TEMPLATES.get(GENDER_FEMALE_TEMPLATE_STRING); }
+    public static String getGenderlessGenderTemplate() { return GENDER_TEMPLATES.get(GENDER_GENDERLESS_TEMPLATE_STRING); }
 }
