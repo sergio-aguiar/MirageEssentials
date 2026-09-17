@@ -539,6 +539,12 @@ public class ChatMiniMessagePokemonConfig
                 %s = "%s"
 
                 [%s]
+                # Here you can configure how genders appear in the {Gender} template
+                %s = "%s"
+                %s = "%s"
+                %s = "%s"
+
+                [%s]
                 # Here you can configure how true/false messages appear as, such in the {Neutered} template.
                 %s = "%s"
                 %s = "%s"
@@ -608,6 +614,10 @@ public class ChatMiniMessagePokemonConfig
                     ChatMiniMessage.WATER1_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_WATER1,
                     ChatMiniMessage.WATER2_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_WATER2,
                     ChatMiniMessage.WATER3_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_WATER3,
+                    ChatMiniMessage.TOML_GENDERS_SECTION_STRING,
+                    ChatMiniMessage.GENDER_MALE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MALE_GENDER,
+                    ChatMiniMessage.GENDER_FEMALE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FEMALE_GENDER,
+                    ChatMiniMessage.GENDER_GENDERLESS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_GENDERLESS_GENDER,
                     ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING,
                     ChatMiniMessage.TRUE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_TRUE,
                     ChatMiniMessage.FALSE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FALSE

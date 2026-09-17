@@ -43,8 +43,6 @@ public class ChatMiniMessageColorsConfig
                 .build())
         {
             config.load();
-            
-            ChatMiniMessage.clearCustomColors();
 
             if (config.contains(ChatMiniMessage.TOML_CUSTOM_COLOR_SECTION_STRING))
             {
@@ -119,25 +117,31 @@ public class ChatMiniMessageColorsConfig
             # Here, you can create your own colors to use elsewhere.
             # Change the color here and it will affect every place you use it at, no need to manually change them all.
             # If you name a color ColorName, you can then use it with {ColorName}!
-            DivisionColor = \"#646464\"
-            LabelColor = \"#10F2F2\"
-            ShinyColor = \"#e7e436\"
-            AlphaColor = \"#d14040\"
-            HaColor = \"#31d6e2\"
-            NatureStatUpColor = \"#60d651\"
-            NatureStatDownColor = \"#d14040\"
-            TrueColor = \"#40d440\"
-            FalseColor = \"#d12828\"
-            BurnColor = \"#ff3333\"
-            SleepColor = \"#66ffff\"
-            ParalysisColor = \"#ffff00\"
-            PoisonColor = \"#990099\"
-            FaintColor = \"#808080\"
-            CommandPrefixGradientLeftColor = \"#1ce9e0\"
-            CommandPrefixGradientRightColor = \"#fa70f6\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
 
             [%s]
             # Here you can configure the colors to use for the specific templates of the same name.
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
             %s = \"%s\"
             %s = \"%s\"
             %s = \"%s\"
@@ -148,19 +152,32 @@ public class ChatMiniMessageColorsConfig
             (
                 MirageEssentials.MOD_NAME,
                 ChatMiniMessage.TOML_CUSTOM_COLOR_SECTION_STRING,
+                ChatMiniMessage.DIVISION_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_DIVISION_COLOR_STRING,
+                ChatMiniMessage.LABEL_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_LABEL_COLOR_STRING,
+                ChatMiniMessage.SHINY_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SHINY_COLOR_STRING,
+                ChatMiniMessage.ALPHA_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_ALPHA_COLOR_STRING,
+                ChatMiniMessage.HA_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_HA_COLOR_STRING,
+                ChatMiniMessage.NATURE_STAT_UP_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_NATURE_STAT_UP_COLOR_STRING,
+                ChatMiniMessage.NATURE_STAT_DOWN_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_NATURE_STAT_DOWN_COLOR_STRING,
+                ChatMiniMessage.TRUE_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_TRUE_COLOR_STRING,
+                ChatMiniMessage.FALSE_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FALSE_COLOR_STRING,
+                ChatMiniMessage.BURN_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_BURN_COLOR_STRING,
+                ChatMiniMessage.SLEEP_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SLEEP_COLOR_STRING,
+                ChatMiniMessage.PARALYSIS_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_PARALYSIS_COLOR_STRING,
+                ChatMiniMessage.POISON_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_POISON_COLOR_STRING,
+                ChatMiniMessage.FAINT_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FAINT_COLOR_STRING,
+                ChatMiniMessage.COMMAND_PREFIX_GRADIENT_LEFT_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_COMMAND_PREFIX_GRADIENT_LEFT_COLOR_STRING,
+                ChatMiniMessage.COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_STRING,
+                ChatMiniMessage.MALE_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MALE_COLOR_STRING,
+                ChatMiniMessage.FEMALE_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FEMALE_COLOR_STRING,
+                ChatMiniMessage.GENDERLESS_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_GENDERLESS_COLOR_STRING,
                 ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING,
-                ChatMiniMessage.HP_COLOR_TEMPLATE_STRING,
-                ChatMiniMessage.DEFAULT_HP_COLOR_STRING,
-                ChatMiniMessage.ATK_COLOR_TEMPLATE_STRING,
-                ChatMiniMessage.DEFAULT_ATK_COLOR_STRING,
-                ChatMiniMessage.DEF_COLOR_TEMPLATE_STRING,
-                ChatMiniMessage.DEFAULT_DEF_COLOR_STRING,
-                ChatMiniMessage.SPA_COLOR_TEMPLATE_STRING,
-                ChatMiniMessage.DEFAULT_SPA_COLOR_STRING,
-                ChatMiniMessage.SPD_COLOR_TEMPLATE_STRING,
-                ChatMiniMessage.DEFAULT_SPD_COLOR_STRING,
-                ChatMiniMessage.SPE_COLOR_TEMPLATE_STRING,
-                ChatMiniMessage.DEFAULT_SPE_COLOR_STRING
+                ChatMiniMessage.HP_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_HP_COLOR_STRING,
+                ChatMiniMessage.ATK_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_ATK_COLOR_STRING,
+                ChatMiniMessage.DEF_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_DEF_COLOR_STRING,
+                ChatMiniMessage.SPA_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SPA_COLOR_STRING,
+                ChatMiniMessage.SPD_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SPD_COLOR_STRING,
+                ChatMiniMessage.SPE_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SPE_COLOR_STRING
             );
         
         Files.writeString(file.toPath(), defaultContent);

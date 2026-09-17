@@ -18,8 +18,28 @@ public class ChatMiniMessage
     protected static final String TOML_STATUSES_SECTION_STRING = "Statuses";
     protected static final String TOML_EGG_GROUPS_SECTION_STRING = "EggGroups";
     protected static final String TOML_BOOLEANS_SECTION_STRING = "Booleans";
+    protected static final String TOML_GENDERS_SECTION_STRING = "Genders";
 
     // Colors Template Names
+    protected static final String DIVISION_COLOR_TEMPLATE_STRING = "DivisionColor";
+    protected static final String LABEL_COLOR_TEMPLATE_STRING = "LabelColor";
+    protected static final String SHINY_COLOR_TEMPLATE_STRING = "ShinyColor";
+    protected static final String ALPHA_COLOR_TEMPLATE_STRING = "AlphaColor";
+    protected static final String HA_COLOR_TEMPLATE_STRING = "HaColor";
+    protected static final String NATURE_STAT_UP_COLOR_TEMPLATE_STRING = "NatureStatUpColor";
+    protected static final String NATURE_STAT_DOWN_COLOR_TEMPLATE_STRING = "NatureStatDownColor";
+    protected static final String TRUE_COLOR_TEMPLATE_STRING = "TrueColor";
+    protected static final String FALSE_COLOR_TEMPLATE_STRING = "FalseColor";
+    protected static final String BURN_COLOR_TEMPLATE_STRING = "BurnColor";
+    protected static final String SLEEP_COLOR_TEMPLATE_STRING = "SleepColor";
+    protected static final String PARALYSIS_COLOR_TEMPLATE_STRING = "ParalysisColor";
+    protected static final String POISON_COLOR_TEMPLATE_STRING = "PoisonColor";
+    protected static final String FAINT_COLOR_TEMPLATE_STRING = "FaintColor";
+    protected static final String COMMAND_PREFIX_GRADIENT_LEFT_COLOR_TEMPLATE_STRING = "CommandPrefixGradientLeftColor";
+    protected static final String COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_TEMPLATE_STRING = "CommandPrefixGradientRightColor";
+    protected static final String MALE_COLOR_TEMPLATE_STRING = "MaleColor";
+    protected static final String FEMALE_COLOR_TEMPLATE_STRING = "FemaleColor";
+    protected static final String GENDERLESS_COLOR_TEMPLATE_STRING = "GenderlessColor";
     protected static final String HP_COLOR_TEMPLATE_STRING = "HpColor";
     protected static final String ATK_COLOR_TEMPLATE_STRING = "AtkColor";
     protected static final String DEF_COLOR_TEMPLATE_STRING = "DefColor";
@@ -92,10 +112,33 @@ public class ChatMiniMessage
     protected static final String WATER2_TEMPLATE_STRING = "Water2";
     protected static final String WATER3_TEMPLATE_STRING = "Water3";
 
+    protected static final String GENDER_MALE_TEMPLATE_STRING = "Male";
+    protected static final String GENDER_FEMALE_TEMPLATE_STRING = "Female";
+    protected static final String GENDER_GENDERLESS_TEMPLATE_STRING = "Genderless";
+
     protected static final String TRUE_TEMPLATE_STRING = "True";
     protected static final String FALSE_TEMPLATE_STRING = "False";
 
     // Color Defaults
+    protected static final String DEFAULT_DIVISION_COLOR_STRING = "#646464";
+    protected static final String DEFAULT_LABEL_COLOR_STRING = "#10F2F2";
+    protected static final String DEFAULT_SHINY_COLOR_STRING = "#e7e436";
+    protected static final String DEFAULT_ALPHA_COLOR_STRING = "#d14040";
+    protected static final String DEFAULT_HA_COLOR_STRING = "#31d6e2";
+    protected static final String DEFAULT_NATURE_STAT_UP_COLOR_STRING = "#60d651";
+    protected static final String DEFAULT_NATURE_STAT_DOWN_COLOR_STRING = "#d14040";
+    protected static final String DEFAULT_TRUE_COLOR_STRING = "#40d440";
+    protected static final String DEFAULT_FALSE_COLOR_STRING = "#d12828";
+    protected static final String DEFAULT_BURN_COLOR_STRING = "#ff3333";
+    protected static final String DEFAULT_SLEEP_COLOR_STRING = "#66ffff";
+    protected static final String DEFAULT_PARALYSIS_COLOR_STRING = "#ffff00";
+    protected static final String DEFAULT_POISON_COLOR_STRING = "#990099";
+    protected static final String DEFAULT_FAINT_COLOR_STRING = "#808080";
+    protected static final String DEFAULT_COMMAND_PREFIX_GRADIENT_LEFT_COLOR_STRING = "#1ce9e0";
+    protected static final String DEFAULT_COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_STRING = "#fa70f6";
+    protected static final String DEFAULT_MALE_COLOR_STRING = "#0984f7";
+    protected static final String DEFAULT_FEMALE_COLOR_STRING = "#e16ef0";
+    protected static final String DEFAULT_GENDERLESS_COLOR_STRING = "#bdbdbd";
     protected static final String DEFAULT_HP_COLOR_STRING = "#4f9c45";
     protected static final String DEFAULT_ATK_COLOR_STRING = "#b33f3f";
     protected static final String DEFAULT_DEF_COLOR_STRING = "#d1842c";
@@ -103,6 +146,25 @@ public class ChatMiniMessage
     protected static final String DEFAULT_SPD_COLOR_STRING = "#ddda36";
     protected static final String DEFAULT_SPE_COLOR_STRING = "#3bd8dd";
 
+    private static final DataResult<TextColor> DEFAULT_DIVISION_COLOR = TextColor.parse(DEFAULT_DIVISION_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_LABEL_COLOR = TextColor.parse(DEFAULT_LABEL_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_SHINY_COLOR = TextColor.parse(DEFAULT_SHINY_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_ALPHA_COLOR = TextColor.parse(DEFAULT_ALPHA_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_HA_COLOR = TextColor.parse(DEFAULT_HA_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_NATURE_STAT_UP_COLOR = TextColor.parse(DEFAULT_NATURE_STAT_UP_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_NATURE_STAT_DOWN_COLOR = TextColor.parse(DEFAULT_NATURE_STAT_DOWN_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_TRUE_COLOR = TextColor.parse(DEFAULT_TRUE_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_FALSE_COLOR = TextColor.parse(DEFAULT_FALSE_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_BURN_COLOR = TextColor.parse(DEFAULT_BURN_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_SLEEP_COLOR = TextColor.parse(DEFAULT_SLEEP_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_PARALYSIS_COLOR = TextColor.parse(DEFAULT_PARALYSIS_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_POISON_COLOR = TextColor.parse(DEFAULT_POISON_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_FAINT_COLOR = TextColor.parse(DEFAULT_FAINT_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_COMMAND_PREFIX_GRADIENT_LEFT_COLOR = TextColor.parse(DEFAULT_COMMAND_PREFIX_GRADIENT_LEFT_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_COMMAND_PREFIX_GRADIENT_RIGHT_COLOR = TextColor.parse(DEFAULT_COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_MALE_COLOR = TextColor.parse(DEFAULT_MALE_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_FEMALE_COLOR = TextColor.parse(DEFAULT_FEMALE_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_GENDERLESS_COLOR = TextColor.parse(DEFAULT_GENDERLESS_COLOR_STRING);
     private static final DataResult<TextColor> DEFAULT_HP_COLOR = TextColor.parse(DEFAULT_HP_COLOR_STRING);
     private static final DataResult<TextColor> DEFAULT_ATK_COLOR = TextColor.parse(DEFAULT_ATK_COLOR_STRING);
     private static final DataResult<TextColor> DEFAULT_DEF_COLOR = TextColor.parse(DEFAULT_DEF_COLOR_STRING);
@@ -362,6 +424,10 @@ public class ChatMiniMessage
     protected static final String DEFAULT_WATER2 = "<white>Water2</white>";
     protected static final String DEFAULT_WATER3 = "<white>Water3</white>";
 
+    protected static final String DEFAULT_MALE_GENDER = "<color:{MaleColor}>♂</color>";
+    protected static final String DEFAULT_FEMALE_GENDER = "<color:{FemaleColor}>♀</color>";
+    protected static final String DEFAULT_GENDERLESS_GENDER = "<color:{GenderlessColor}>⚲</color>";
+
     protected static final String DEFAULT_TRUE = "<color:{TrueColor}>Yes</color>";
     protected static final String DEFAULT_FALSE = "<color:{FalseColor}>No</color>";
 
@@ -383,6 +449,26 @@ public class ChatMiniMessage
             STATUS_TEMPLATES = new HashMap<>();
             EGG_GROUP_TEMPLATES = new HashMap<>();
             BOOLEAN_TEMPLATES = new HashMap<>();
+
+            CUSTOM_COLORS.put(DIVISION_COLOR_TEMPLATE_STRING, DEFAULT_DIVISION_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(LABEL_COLOR_TEMPLATE_STRING, DEFAULT_LABEL_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(SHINY_COLOR_TEMPLATE_STRING, DEFAULT_SHINY_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(ALPHA_COLOR_TEMPLATE_STRING, DEFAULT_ALPHA_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(HA_COLOR_TEMPLATE_STRING, DEFAULT_HA_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(NATURE_STAT_UP_COLOR_TEMPLATE_STRING, DEFAULT_NATURE_STAT_UP_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(NATURE_STAT_DOWN_COLOR_TEMPLATE_STRING, DEFAULT_NATURE_STAT_DOWN_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(TRUE_COLOR_TEMPLATE_STRING, DEFAULT_TRUE_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(FALSE_COLOR_TEMPLATE_STRING, DEFAULT_FALSE_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(BURN_COLOR_TEMPLATE_STRING, DEFAULT_BURN_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(SLEEP_COLOR_TEMPLATE_STRING, DEFAULT_SLEEP_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(PARALYSIS_COLOR_TEMPLATE_STRING, DEFAULT_PARALYSIS_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(POISON_COLOR_TEMPLATE_STRING, DEFAULT_POISON_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(FAINT_COLOR_TEMPLATE_STRING, DEFAULT_FAINT_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(COMMAND_PREFIX_GRADIENT_LEFT_COLOR_TEMPLATE_STRING, DEFAULT_COMMAND_PREFIX_GRADIENT_LEFT_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_TEMPLATE_STRING, DEFAULT_COMMAND_PREFIX_GRADIENT_RIGHT_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(MALE_COLOR_TEMPLATE_STRING, DEFAULT_MALE_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(FEMALE_COLOR_TEMPLATE_STRING, DEFAULT_FEMALE_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(GENDERLESS_COLOR_TEMPLATE_STRING, DEFAULT_GENDERLESS_COLOR.getOrThrow());
 
             STAT_COLORS.put(HP_COLOR_TEMPLATE_STRING, DEFAULT_HP_COLOR.getOrThrow());
             STAT_COLORS.put(ATK_COLOR_TEMPLATE_STRING, DEFAULT_ATK_COLOR.getOrThrow());
@@ -462,11 +548,6 @@ public class ChatMiniMessage
         {
             ModLogger.error("Failed to load default chat MiniMessage colors: %s".formatted(e.getMessage()), e);
         }
-    }
-
-    public static void clearCustomColors()
-    {
-        CUSTOM_COLORS.clear();
     }
 
     public static TextColor getCustomColor(String colorName) { return CUSTOM_COLORS.get(colorName); }
