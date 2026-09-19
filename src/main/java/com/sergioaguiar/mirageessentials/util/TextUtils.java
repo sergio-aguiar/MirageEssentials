@@ -546,7 +546,7 @@ public class TextUtils
 
         textBuilder.append
         (
-            String.valueOf(toTitleCase(type.getName())),
+            toTitleCase(type.getName()),
             TypeColor.fromTypeName(type.getName())
         );
 

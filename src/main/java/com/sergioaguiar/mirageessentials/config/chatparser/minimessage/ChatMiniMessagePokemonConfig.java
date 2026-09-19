@@ -519,6 +519,7 @@ public class ChatMiniMessagePokemonConfig
                 %s = "%s"
                 %s = "%s"
                 %s = "%s"
+                %s = "%s"
 
                 [%s]
                 # Here you can configure how egg groups get shown in the {EggGroups} template.
@@ -566,7 +567,7 @@ public class ChatMiniMessagePokemonConfig
                     ChatMiniMessage.CUSTOM_NATURE_STATS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_NATURE_STATS,
                     ChatMiniMessage.CUSTOM_MINTNESS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_MINTNESS,
                     ChatMiniMessage.CUSTOM_EXPERIENCE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EXPERIENCE,
-                    ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MOVE_CUSTOM_PP,
+                    ChatMiniMessage.CUSTOM_MOVE_PP_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MOVE_CUSTOM_PP,
                     ChatMiniMessage.CUSTOM_MOVE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_MOVE,
                     ChatMiniMessage.CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_REAL_IV_PERCENTAGE,
                     ChatMiniMessage.CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EFFECTIVE_IV_PERCENTAGE,
@@ -597,6 +598,7 @@ public class ChatMiniMessagePokemonConfig
                     ChatMiniMessage.SLEEP_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SLEEP,
                     ChatMiniMessage.PARALYSIS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_PARALYSIS,
                     ChatMiniMessage.POISON_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_POISON,
+                    ChatMiniMessage.FREEZE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FREEZE,
                     ChatMiniMessage.FAINT_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FAINT,
                     ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING,
                     ChatMiniMessage.AMORPHOUS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_AMORPHOUS,

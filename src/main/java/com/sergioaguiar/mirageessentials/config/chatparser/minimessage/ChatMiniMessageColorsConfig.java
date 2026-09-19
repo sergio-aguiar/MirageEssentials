@@ -136,6 +136,7 @@ public class ChatMiniMessageColorsConfig
             %s = \"%s\"
             %s = \"%s\"
             %s = \"%s\"
+            %s = \"%s\"
 
             [%s]
             # Here you can configure the colors to use for the specific templates of the same name.
@@ -165,6 +166,7 @@ public class ChatMiniMessageColorsConfig
                 ChatMiniMessage.SLEEP_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SLEEP_COLOR_STRING,
                 ChatMiniMessage.PARALYSIS_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_PARALYSIS_COLOR_STRING,
                 ChatMiniMessage.POISON_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_POISON_COLOR_STRING,
+                ChatMiniMessage.FREEZE_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FREEZE_COLOR_STRING,
                 ChatMiniMessage.FAINT_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FAINT_COLOR_STRING,
                 ChatMiniMessage.COMMAND_PREFIX_GRADIENT_LEFT_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_COMMAND_PREFIX_GRADIENT_LEFT_COLOR_STRING,
                 ChatMiniMessage.COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_STRING,

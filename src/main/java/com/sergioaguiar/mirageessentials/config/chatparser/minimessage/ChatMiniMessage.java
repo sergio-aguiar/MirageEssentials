@@ -34,6 +34,7 @@ public class ChatMiniMessage
     protected static final String SLEEP_COLOR_TEMPLATE_STRING = "SleepColor";
     protected static final String PARALYSIS_COLOR_TEMPLATE_STRING = "ParalysisColor";
     protected static final String POISON_COLOR_TEMPLATE_STRING = "PoisonColor";
+    protected static final String FREEZE_COLOR_TEMPLATE_STRING = "FreezeColor";
     protected static final String FAINT_COLOR_TEMPLATE_STRING = "FaintColor";
     protected static final String COMMAND_PREFIX_GRADIENT_LEFT_COLOR_TEMPLATE_STRING = "CommandPrefixGradientLeftColor";
     protected static final String COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_TEMPLATE_STRING = "CommandPrefixGradientRightColor";
@@ -52,14 +53,113 @@ public class ChatMiniMessage
     public static final String TITLE_TEMPLATE_STRING = "Title";
     public static final String GENDER_TEMPLATE_STRING = "Gender";
     public static final String CAUGHT_BALL_TEMPLATE_STRING = "CaughtBall";
+    public static final String CURRENT_HEALTH_TEMPLATE_STRING = "CurrentHealth";
+    public static final String MAX_HEALTH_TEMPLATE_STRING = "MaxHealth";
+    public static final String STATUS_TEMPLATE_STRING = "Status";
+    public static final String CUSTOM_STATUS_TEMPLATE_STRING = "CustomStatus";
+    public static final String CUSTOM_CONDITION_TEMPLATE_STRING = "CustomCondition";
+    public static final String TYPE1_TEMPLATE_STRING = "Type1";
+    public static final String TYPE1_COLOR_TEMPLATE_STRING = "Type1Color";
+    public static final String TYPE2_TEMPLATE_STRING = "Type2";
+    public static final String TYPE2_COLOR_TEMPLATE_STRING = "Type2Color";
+    public static final String TERA_TYPE_TEMPLATE_STRING = "TeraType";
+    public static final String TERA_TYPE_COLOR_TEMPLATE_STRING = "TeraTypeColor";
+    public static final String CUSTOM_TYPES_MONOTYPE_TEMPLATE_STRING = "CustomTypesMonotype";
+    public static final String CUSTOM_TYPES_DUOTYPE_TEMPLATE_STRING = "CustomTypesDuotype";
+    public static final String CUSTOM_TYPES_TEMPLATE_STRING = "CustomTypes";
+    public static final String CUSTOM_SHININESS_TEMPLATE_STRING = "CustomShininess";
+    public static final String CUSTOM_ALPHANESS_TEMPLATE_STRING = "CustomAlphaness";
+    public static final String FORM_TEMPLATE_STRING = "Form";
+    public static final String FORMS_EXPANDED_TEMPLATE_STRING = "FormsExpanded";
+    public static final String FORMS_FULLY_EXPANDED_TEMPLATE_STRING = "FormsFullyExpanded";
+    public static final String CUSTOM_FORMS_TEMPLATE_STRING = "CustomForms";
+    public static final String HELD_ITEM_TEMPLATE_STRING = "HeldItem";
+    public static final String HELD_ITEM_CUSTOM_NAME_TEMPLATE_STRING = "HeldItemCustomName";
+    public static final String COSMETIC_ITEM_TEMPLATE_STRING = "CosmeticItem";
+    public static final String COSMETIC_ITEM_CUSTOM_NAME_TEMPLATE_STRING = "CosmeticItemCustomName";
+    public static final String ABILITY_TEMPLATE_STRING = "Ability";
+    public static final String NATURE_TEMPLATE_STRING = "Nature";
+    public static final String NATURE_STAT_UP_TEMPLATE_STRING = "NatureStatUp";
+    public static final String NATURE_STAT_DOWN_TEMPLATE_STRING = "NatureStatDown";
+    public static final String LEVEL_TEMPLATE_STRING = "Level";
+    public static final String CURRENT_EXPERIENCE_TEMPLATE_STRING = "CurrentExperience";
+    public static final String REQUIRED_EXPERIENCE_TEMPLATE_STRING = "RequiredExperience";
+    public static final String REMAINING_EXPERIENCE_TEMPLATE_STRING = "RemainingExperience";
+    public static final String FRIENDSHIP_TEMPLATE_STRING = "Friendship";
+    public static final String MOVE1_TEMPLATE_STRING = "Move1";
+    public static final String MOVE1_COLOR_TEMPLATE_STRING = "Move1Color";
+    public static final String MOVE1_USED_PP_TEMPLATE_STRING = "Move1UsedPP";
+    public static final String MOVE1_REMAINING_PP_TEMPLATE_STRING = "Move1RemainingPP";
+    public static final String MOVE1_TOTAL_PP_TEMPLATE_STRING = "Move1TotalPP";
+    public static final String MOVE1_REMAINING_PP_COLOR_TEMPLATE_STRING = "Move1RemainingPPColor";
+    public static final String MOVE1_CUSTOM_PP_TEMPLATE_STRING = "Move1CustomPP";
+    public static final String MOVE2_TEMPLATE_STRING = "Move2";
+    public static final String MOVE2_COLOR_TEMPLATE_STRING = "Move2Color";
+    public static final String MOVE2_USED_PP_TEMPLATE_STRING = "Move2UsedPP";
+    public static final String MOVE2_REMAINING_PP_TEMPLATE_STRING = "Move2RemainingPP";
+    public static final String MOVE2_TOTAL_PP_TEMPLATE_STRING = "Move2TotalPP";
+    public static final String MOVE2_REMAINING_PP_COLOR_TEMPLATE_STRING = "Move2RemainingPPColor";
+    public static final String MOVE2_CUSTOM_PP_TEMPLATE_STRING = "Move2CustomPP";
+    public static final String MOVE3_TEMPLATE_STRING = "Move3";
+    public static final String MOVE3_COLOR_TEMPLATE_STRING = "Move3Color";
+    public static final String MOVE3_USED_PP_TEMPLATE_STRING = "Move3UsedPP";
+    public static final String MOVE3_REMAINING_PP_TEMPLATE_STRING = "Move3RemainingPP";
+    public static final String MOVE3_TOTAL_PP_TEMPLATE_STRING = "Move3TotalPP";
+    public static final String MOVE3_REMAINING_PP_COLOR_TEMPLATE_STRING = "Move3RemainingPPColor";
+    public static final String MOVE3_CUSTOM_PP_TEMPLATE_STRING = "Move3CustomPP";
+    public static final String MOVE4_TEMPLATE_STRING = "Move4";
+    public static final String MOVE4_COLOR_TEMPLATE_STRING = "Move4Color";
+    public static final String MOVE4_USED_PP_TEMPLATE_STRING = "Move4UsedPP";
+    public static final String MOVE4_REMAINING_PP_TEMPLATE_STRING = "Move4RemainingPP";
+    public static final String MOVE4_TOTAL_PP_TEMPLATE_STRING = "Move4TotalPP";
+    public static final String MOVE4_REMAINING_PP_COLOR_TEMPLATE_STRING = "Move4RemainingPPColor";
+    public static final String MOVE4_CUSTOM_PP_TEMPLATE_STRING = "Move4CustomPP";
+    public static final String CUSTOM_MOVES_TEMPLATE_STRING = "CustomMoves";
+    public static final String REAL_IV_TOTAL_TEMPLATE_STRING = "RealIVTotal";
+    public static final String EFFECTIVE_IV_TOTAL_TEMPLATE_STRING = "EffectiveIVTotal";
+    public static final String REAL_IV_PERCENTAGE_TEMPLATE_STRING = "RealIVPercentage";
+    public static final String EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING = "EffectiveIVPercentage";
+    public static final String REAL_HP_IVS_TEMPLATE_STRING = "RealHpIVs";
+    public static final String EFFECTIVE_HP_IVS_TEMPLATE_STRING = "EffectiveHpIVs";
+    public static final String CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING = "CustomEffectiveHpIVs";
+    public static final String REAL_ATK_IVS_TEMPLATE_STRING = "RealAtkIVs";
+    public static final String EFFECTIVE_ATK_IVS_TEMPLATE_STRING = "EffectiveAtkIVs";
+    public static final String CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_STRING = "CustomEffectiveAtkIVs";
+    public static final String REAL_DEF_IVS_TEMPLATE_STRING = "RealDefIVs";
+    public static final String EFFECTIVE_DEF_IVS_TEMPLATE_STRING = "EffectiveDefIVs";
+    public static final String CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_STRING = "CustomEffectiveDefIVs";
+    public static final String REAL_SPA_IVS_TEMPLATE_STRING = "RealSpaIVs";
+    public static final String EFFECTIVE_SPA_IVS_TEMPLATE_STRING = "EffectiveSpaIVs";
+    public static final String CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_STRING = "CustomEffectiveSpaIVs";
+    public static final String REAL_SPD_IVS_TEMPLATE_STRING = "RealSpdIVs";
+    public static final String EFFECTIVE_SPD_IVS_TEMPLATE_STRING = "EffectiveSpdIVs";
+    public static final String CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_STRING = "CustomEffectiveSpdIVs";
+    public static final String REAL_SPE_IVS_TEMPLATE_STRING = "RealSpeIVs";
+    public static final String EFFECTIVE_SPE_IVS_TEMPLATE_STRING = "EffectiveSpeIVs";
+    public static final String CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING = "CustomEffectiveSpeIVs";
+    public static final String EV_TOTAL_TEMPLATE_STRING = "EVTotal";
+    public static final String EV_PERCENTAGE_TEMPLATE_STRING = "EVPercentage";
+    public static final String HP_EV_TEMPLATE_STRING = "HpEVs";
+    public static final String CUSTOM_HP_EV_TEMPLATE_STRING = "CustomHpEVs";
+    public static final String ATK_EV_TEMPLATE_STRING = "AtkEVs";
+    public static final String CUSTOM_ATK_EV_TEMPLATE_STRING = "CustomAtkEVs";
+    public static final String DEF_EV_TEMPLATE_STRING = "DefEVs";
+    public static final String CUSTOM_DEF_EV_TEMPLATE_STRING = "CustomDefEVs";
+    public static final String SPA_EV_TEMPLATE_STRING = "SpaEVs";
+    public static final String CUSTOM_SPA_EV_TEMPLATE_STRING = "CustomSpaEVs";
+    public static final String SPD_EV_TEMPLATE_STRING = "SpdEVs";
+    public static final String CUSTOM_SPD_EV_TEMPLATE_STRING = "CustomSpdEVs";
+    public static final String SPE_EV_TEMPLATE_STRING = "SpeEVs";
+    public static final String CUSTOM_SPE_EV_TEMPLATE_STRING = "CustomSpeEVs";
+    public static final String SIZE_TEMPLATE_STRING = "Size";
+    public static final String SCALE_MODIFIER_TEMPLATE_STRING = "ScaleModifier";
+    public static final String SCALE_MODIFIER_100_TEMPLATE_STRING = "ScaleModifier100";
+    public static final String EGG_GROUPS_TEMPLATE_STRING = "EggGroups";
+    public static final String NEUTERED_TEMPLATE_STRING = "Neutered";
+    public static final String ORIGINAL_TRAINER_NAME_TEMPLATE_STRING = "OriginalTrainerName";
+    public static final String ORIGINAL_TRAINER_DISPLAY_NAME_TEMPLATE_STRING = "OriginalTrainerDisplayName";
 
     protected static final String POKEMON_INFO_TEMPLATE_STRING = "PokemonInfo";
-    protected static final String CUSTOM_STATUS_TEMPLATE_STRING = "CustomStatus";
-    protected static final String CUSTOM_CONDITION_TEMPLATE_STRING = "CustomCondition";
-    protected static final String CUSTOM_TYPES_MONOTYPE_TEMPLATE_STRING = "CustomTypesMonotype";
-    protected static final String CUSTOM_TYPES_DUOTYPE_TEMPLATE_STRING = "CustomTypesDuotype";
-    protected static final String CUSTOM_SHININESS_TEMPLATE_STRING = "CustomShininess";
-    protected static final String CUSTOM_ALPHANESS_TEMPLATE_STRING = "CustomAlphaness";
     protected static final String CUSTOM_FORM_TEMPLATE_STRING = "CustomForm";
     protected static final String CUSTOM_SPECIES_TEMPLATE_STRING = "CustomSpecies";
     protected static final String CUSTOM_HELD_ITEM_TEMPLATE_STRING = "CustomHeldItem";
@@ -68,22 +168,16 @@ public class ChatMiniMessage
     protected static final String CUSTOM_NATURE_STATS_TEMPLATE_STRING = "CustomNatureStats";
     protected static final String CUSTOM_MINTNESS_TEMPLATE_STRING = "CustomMintness";
     protected static final String CUSTOM_EXPERIENCE_TEMPLATE_STRING = "CustomExperience";
-    protected static final String MOVE_CUSTOM_PP_TEMPLATE_STRING = "MoveCustomPP";
+    protected static final String CUSTOM_MOVE_PP_TEMPLATE_STRING = "MoveCustomPP";
     protected static final String CUSTOM_MOVE_TEMPLATE_STRING = "CustomMove";
     protected static final String CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING = "CustomRealIVPercentage";
     protected static final String CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING = "CustomEffectiveIVPercentage";
     protected static final String CUSTOM_GENERAL_IVS_TEMPLATE_STRING = "CustomGeneralIVs";
-    protected static final String CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING = "CustomEffectiveHpIVs";
     protected static final String CUSTOM_HP_IVS_TEMPLATE_STRING = "CustomHpIVs";
-    protected static final String CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_STRING = "CustomEffectiveAtkIVs";
     protected static final String CUSTOM_ATK_IVS_TEMPLATE_STRING = "CustomAtkIVs";
-    protected static final String CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_STRING = "CustomEffectivedefIVs";
     protected static final String CUSTOM_DEF_IVS_TEMPLATE_STRING = "CustomdefIVs";
-    protected static final String CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_STRING = "CustomEffectivespaIVs";
     protected static final String CUSTOM_SPA_IVS_TEMPLATE_STRING = "CustomspaIVs";
-    protected static final String CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_STRING = "CustomEffectivespdIVs";
     protected static final String CUSTOM_SPD_IVS_TEMPLATE_STRING = "CustomspdIVs";
-    protected static final String CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING = "CustomEffectivespeIVs";
     protected static final String CUSTOM_SPE_IVS_TEMPLATE_STRING = "CustomspeIVs";
     protected static final String CUSTOM_EV_PERCENTAGE_TEMPLATE_STRING = "CustomEVPercentage";
     protected static final String CUSTOM_GENERAL_EVS_TEMPLATE_STRING = "CustomGeneralEVs";
@@ -99,6 +193,7 @@ public class ChatMiniMessage
     protected static final String SLEEP_TEMPLATE_STRING = "Sleep";
     protected static final String PARALYSIS_TEMPLATE_STRING = "Paralysis";
     protected static final String POISON_TEMPLATE_STRING = "Poison";
+    protected static final String FREEZE_TEMPLATE_STRING = "Freeze";
     protected static final String FAINT_TEMPLATE_STRING = "Faint";
 
     protected static final String AMORPHOUS_TEMPLATE_STRING = "Amorphous";
@@ -138,6 +233,7 @@ public class ChatMiniMessage
     protected static final String DEFAULT_SLEEP_COLOR_STRING = "#66ffff";
     protected static final String DEFAULT_PARALYSIS_COLOR_STRING = "#ffff00";
     protected static final String DEFAULT_POISON_COLOR_STRING = "#990099";
+    protected static final String DEFAULT_FREEZE_COLOR_STRING = "#66ddff";
     protected static final String DEFAULT_FAINT_COLOR_STRING = "#808080";
     protected static final String DEFAULT_COMMAND_PREFIX_GRADIENT_LEFT_COLOR_STRING = "#1ce9e0";
     protected static final String DEFAULT_COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_STRING = "#fa70f6";
@@ -164,6 +260,7 @@ public class ChatMiniMessage
     private static final DataResult<TextColor> DEFAULT_SLEEP_COLOR = TextColor.parse(DEFAULT_SLEEP_COLOR_STRING);
     private static final DataResult<TextColor> DEFAULT_PARALYSIS_COLOR = TextColor.parse(DEFAULT_PARALYSIS_COLOR_STRING);
     private static final DataResult<TextColor> DEFAULT_POISON_COLOR = TextColor.parse(DEFAULT_POISON_COLOR_STRING);
+    private static final DataResult<TextColor> DEFAULT_FREEZE_COLOR = TextColor.parse(DEFAULT_FREEZE_COLOR_STRING);
     private static final DataResult<TextColor> DEFAULT_FAINT_COLOR = TextColor.parse(DEFAULT_FAINT_COLOR_STRING);
     private static final DataResult<TextColor> DEFAULT_COMMAND_PREFIX_GRADIENT_LEFT_COLOR = TextColor.parse(DEFAULT_COMMAND_PREFIX_GRADIENT_LEFT_COLOR_STRING);
     private static final DataResult<TextColor> DEFAULT_COMMAND_PREFIX_GRADIENT_RIGHT_COLOR = TextColor.parse(DEFAULT_COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_STRING);
@@ -219,12 +316,12 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_CUSTOM_TYPES_MONOTYPE =
         """
-        <color:{Type1Color}>{Type1}</color> <color:{TeraTypeColor}>{TeraType}</color>
+        <color:{Type1Color}>{Type1}</color> <color:{LabelColor}>(</color><color:{TeraTypeColor}>{TeraType}</color><color:{LabelColor}>)</color>
         """;
 
     protected static final String DEFAULT_CUSTOM_TYPES_DUOTYPE =
         """
-        <color:{Type1Color}>{Type1}</color><color:{LabelColor}>/</color><color:{Type2Color}>{Type2}</color> <color:{TeraTypeColor}>{TeraType}</color>
+        <color:{Type1Color}>{Type1}</color><color:{LabelColor}>/</color><color:{Type2Color}>{Type2}</color> <color:{LabelColor}>(</color><color:{TeraTypeColor}>{TeraType}</color><color:{LabelColor}>)</color>
         """;
 
     protected static final String DEFAULT_CUSTOM_SHININESS =
@@ -411,6 +508,7 @@ public class ChatMiniMessage
     protected static final String DEFAULT_SLEEP = "<color:{SleepColor}>[SLP]</color>";
     protected static final String DEFAULT_PARALYSIS = "<color:{ParalysisColor}>[PAR]</color>";
     protected static final String DEFAULT_POISON = "<color:{PoisonColor}>[PSN]</color>";
+    protected static final String DEFAULT_FREEZE = "<color:{FreezeColor}>[FRZ]</color>";
     protected static final String DEFAULT_FAINT = "<color:{FaintColor}>[FNT]</color>";
 
     protected static final String DEFAULT_AMORPHOUS = "<white>Amorphous</white>";
@@ -470,6 +568,7 @@ public class ChatMiniMessage
             CUSTOM_COLORS.put(SLEEP_COLOR_TEMPLATE_STRING, DEFAULT_SLEEP_COLOR.getOrThrow());
             CUSTOM_COLORS.put(PARALYSIS_COLOR_TEMPLATE_STRING, DEFAULT_PARALYSIS_COLOR.getOrThrow());
             CUSTOM_COLORS.put(POISON_COLOR_TEMPLATE_STRING, DEFAULT_POISON_COLOR.getOrThrow());
+            CUSTOM_COLORS.put(FREEZE_COLOR_TEMPLATE_STRING, DEFAULT_FREEZE_COLOR.getOrThrow());
             CUSTOM_COLORS.put(FAINT_COLOR_TEMPLATE_STRING, DEFAULT_FAINT_COLOR.getOrThrow());
             CUSTOM_COLORS.put(COMMAND_PREFIX_GRADIENT_LEFT_COLOR_TEMPLATE_STRING, DEFAULT_COMMAND_PREFIX_GRADIENT_LEFT_COLOR.getOrThrow());
             CUSTOM_COLORS.put(COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_TEMPLATE_STRING, DEFAULT_COMMAND_PREFIX_GRADIENT_RIGHT_COLOR.getOrThrow());
@@ -499,7 +598,7 @@ public class ChatMiniMessage
             POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_STATS_TEMPLATE_STRING, DEFAULT_CUSTOM_NATURE_STATS);
             POKE_INFO_TEMPLATES.put(CUSTOM_MINTNESS_TEMPLATE_STRING, DEFAULT_CUSTOM_MINTNESS);
             POKE_INFO_TEMPLATES.put(CUSTOM_EXPERIENCE_TEMPLATE_STRING, DEFAULT_CUSTOM_EXPERIENCE);
-            POKE_INFO_TEMPLATES.put(MOVE_CUSTOM_PP_TEMPLATE_STRING, DEFAULT_MOVE_CUSTOM_PP);
+            POKE_INFO_TEMPLATES.put(CUSTOM_MOVE_PP_TEMPLATE_STRING, DEFAULT_MOVE_CUSTOM_PP);
             POKE_INFO_TEMPLATES.put(CUSTOM_MOVE_TEMPLATE_STRING, DEFAULT_CUSTOM_MOVE);
             POKE_INFO_TEMPLATES.put(CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING, DEFAULT_CUSTOM_REAL_IV_PERCENTAGE);
             POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING, DEFAULT_CUSTOM_EFFECTIVE_IV_PERCENTAGE);
@@ -609,7 +708,7 @@ public class ChatMiniMessage
     public static String getCustomNatureStatsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NATURE_STATS_TEMPLATE_STRING); }
     public static String getCustomMintnessTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_MINTNESS_TEMPLATE_STRING); }
     public static String getCustomExperienceTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EXPERIENCE_TEMPLATE_STRING); }
-    public static String getMoveCustomPPTemplate() { return POKE_INFO_TEMPLATES.get(MOVE_CUSTOM_PP_TEMPLATE_STRING); }
+    public static String getMoveCustomPPTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_MOVE_PP_TEMPLATE_STRING); }
     public static String getCustomMoveTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_MOVE_TEMPLATE_STRING); }
     public static String getCustomRealIVPercentageTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING); }
     public static String getCustomEffectiveIVPercentageTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING); }
@@ -651,7 +750,7 @@ public class ChatMiniMessage
     protected static void setCustomNatureStatsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_STATS_TEMPLATE_STRING, template); }
     protected static void setCustomMintnessTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_MINTNESS_TEMPLATE_STRING, template); }
     protected static void setCustomExperienceTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EXPERIENCE_TEMPLATE_STRING, template); }
-    protected static void setMoveCustomPPTemplate(String template) { POKE_INFO_TEMPLATES.put(MOVE_CUSTOM_PP_TEMPLATE_STRING, template); }
+    protected static void setMoveCustomPPTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_MOVE_PP_TEMPLATE_STRING, template); }
     protected static void setCustomMoveTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_MOVE_TEMPLATE_STRING, template); }
     protected static void setCustomRealIVPercentageTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING, template); }
     protected static void setCustomEffectiveIVPercentageTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING, template); }
@@ -682,12 +781,14 @@ public class ChatMiniMessage
     public static String getSleepTemplate() { return STATUS_TEMPLATES.get(SLEEP_TEMPLATE_STRING); }
     public static String getParalysisTemplate() { return STATUS_TEMPLATES.get(PARALYSIS_TEMPLATE_STRING); }
     public static String getPoisonTemplate() { return STATUS_TEMPLATES.get(POISON_TEMPLATE_STRING); }
+    public static String getFreezeTemplate() { return STATUS_TEMPLATES.get(FREEZE_TEMPLATE_STRING); }
     public static String getFaintTemplate() { return STATUS_TEMPLATES.get(FAINT_TEMPLATE_STRING); }
 
     protected static void setBurnTemplate(String template) { STATUS_TEMPLATES.put(BURN_TEMPLATE_STRING, template); }
     protected static void setSleepTemplate(String template) { STATUS_TEMPLATES.put(SLEEP_TEMPLATE_STRING, template); }
     protected static void setParalysisTemplate(String template) { STATUS_TEMPLATES.put(PARALYSIS_TEMPLATE_STRING, template); }
     protected static void setPoisonTemplate(String template) { STATUS_TEMPLATES.put(POISON_TEMPLATE_STRING, template); }
+    protected static void setFreezeTemplate(String template) { STATUS_TEMPLATES.put(FREEZE_TEMPLATE_STRING, template); }
     protected static void setFaintTemplate(String template) { STATUS_TEMPLATES.put(FAINT_TEMPLATE_STRING, template); }
 
     public static String getAmorphousTemplate() { return EGG_GROUP_TEMPLATES.get(AMORPHOUS_TEMPLATE_STRING); }
