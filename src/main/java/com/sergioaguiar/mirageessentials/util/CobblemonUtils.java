@@ -13,8 +13,13 @@ import com.cobblemon.mod.common.api.types.ElementalTypes;
 import com.cobblemon.mod.common.pokemon.IVs;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.pokemon.abilities.HiddenAbilityType;
+import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
+import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 
 public class CobblemonUtils 
 {
@@ -62,6 +67,50 @@ public class CobblemonUtils
         return StreamSupport
             .stream(pokemon.getTypes().spliterator(), false)
             .collect(Collectors.toUnmodifiableList());
+    }
+
+    public static String getPokemonBaseForm(Pokemon pokemon)
+    {
+        return pokemon.getForm().getName();
+    }
+
+    public static ItemStack getPokemonHeldItem(Pokemon pokemon)
+    {
+        return pokemon.getHeldItem$common();
+    }
+
+    public static ItemStack getPokemonCosmeticItem(Pokemon pokemon)
+    {
+        return pokemon.getCosmeticItem();
+    }
+
+    public static String getPokemonItemName(ItemStack item)
+    {
+        if (item == null || item.isEmpty()) return ChatStrings.getEmptyHeldItemString();
+
+        Text itemName = item.get(DataComponentTypes.ITEM_NAME);
+
+        return itemName != null && itemName.getString().length() > 0
+            ? itemName.getString()
+            : item.getName().getString();
+    }
+
+    public static String getPokemonItemCustomName(ItemStack item)
+    {
+        if (item == null || item.isEmpty()) return ChatStrings.getEmptyHeldItemString();
+
+        Text itemName = item.get(DataComponentTypes.ITEM_NAME);
+
+        return itemName != null && itemName.getString().length() > 0
+            ? itemName.getString()
+            : ChatSettings.shouldShowOriginalItemNames()
+                ? item.getItem().getName().getString()
+                : item.getName().getString();
+    }
+
+    public static String getPokemonAbility(Pokemon pokemon)
+    {
+        return Text.translatable(pokemon.getAbility().getDisplayName()).getString();
     }
 
     public static boolean hasHiddenAbility(Pokemon pokemon)

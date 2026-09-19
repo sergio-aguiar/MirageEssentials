@@ -78,7 +78,7 @@ public class ChatMiniMessagePokemonConfig
                 # {CustomTypes} - The pokémon's types, using the configured templates (customMonotype and customDuotype).
                 # {CustomShininess} - The pokémon's shininess indicator, using the configured template (not shown if not shiny).
                 # {CustomAlphaness} - The pokémon's alphaness indicator, using the configured template (not shown if not alpha).
-                # {Form} - The pokémon's base Cobblemon form (can appear as Regular).
+                # {Form} - The pokémon's base Cobblemon form (can appear as Normal).
                 # {FormsExpanded} - The pokémon's form, expanded to account for some additional aspects.
                 # {FormsFullyExpanded} - The pokémon's forms, expanded, also including custom configured aspects.
                 # {CustomForms} - The pokémon's forms, each using the configured template (not shown if the only form is Normal).
@@ -248,7 +248,7 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # {CustomShininess} - The pokémon's shininess indicator, using the configured template (not shown if not shiny).
                 # {CustomAlphaness} - The pokémon's alphaness indicator, using the configured template (not shown if not alpha).
-                # {Form} - The pokémon's base Cobblemon form (can appear as Regular).
+                # {Form} - The pokémon's base Cobblemon form (can appear as Normal).
                 # {FormsExpanded} - The pokémon's form, expanded to account for some additional aspects.
                 # {FormsFullyExpanded} - The pokémon's forms, expanded, also including custom configured aspects.
                 # {CustomForms} - The pokémon's forms, each using the configured template (not shown if the only form is Normal).

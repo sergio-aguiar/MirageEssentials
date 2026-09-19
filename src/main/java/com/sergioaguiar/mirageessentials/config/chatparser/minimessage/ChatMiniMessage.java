@@ -73,10 +73,13 @@ public class ChatMiniMessage
     public static final String FORMS_EXPANDED_TEMPLATE_STRING = "FormsExpanded";
     public static final String FORMS_FULLY_EXPANDED_TEMPLATE_STRING = "FormsFullyExpanded";
     public static final String CUSTOM_FORMS_TEMPLATE_STRING = "CustomForms";
+    public static final String CUSTOM_SPECIES_TEMPLATE_STRING = "CustomSpecies";
     public static final String HELD_ITEM_TEMPLATE_STRING = "HeldItem";
+    public static final String CUSTOM_HELD_ITEM_TEMPLATE_STRING = "CustomHeldItem";
     public static final String HELD_ITEM_CUSTOM_NAME_TEMPLATE_STRING = "HeldItemCustomName";
     public static final String COSMETIC_ITEM_TEMPLATE_STRING = "CosmeticItem";
     public static final String COSMETIC_ITEM_CUSTOM_NAME_TEMPLATE_STRING = "CosmeticItemCustomName";
+    public static final String CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING = "CustomCosmeticItem";
     public static final String ABILITY_TEMPLATE_STRING = "Ability";
     public static final String NATURE_TEMPLATE_STRING = "Nature";
     public static final String NATURE_STAT_UP_TEMPLATE_STRING = "NatureStatUp";
@@ -161,9 +164,6 @@ public class ChatMiniMessage
 
     protected static final String POKEMON_INFO_TEMPLATE_STRING = "PokemonInfo";
     protected static final String CUSTOM_FORM_TEMPLATE_STRING = "CustomForm";
-    protected static final String CUSTOM_SPECIES_TEMPLATE_STRING = "CustomSpecies";
-    protected static final String CUSTOM_HELD_ITEM_TEMPLATE_STRING = "CustomHeldItem";
-    protected static final String CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING = "CustomCosmeticItem";
     protected static final String CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING = "CustomHiddenAbility";
     protected static final String CUSTOM_NATURE_STATS_TEMPLATE_STRING = "CustomNatureStats";
     protected static final String CUSTOM_MINTNESS_TEMPLATE_STRING = "CustomMintness";
