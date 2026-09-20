@@ -41,6 +41,8 @@ public class ChatMiniMessagePokemonConfig
             {
                 config.load();
 
+
+
             ModLogger.info("MiniMessage configurations successfully loaded from chat_minimessage_pokemon.toml.");
             }
             catch (Exception e)
@@ -91,10 +93,14 @@ public class ChatMiniMessagePokemonConfig
                 # {CustomCosmeticItem} - The pokémon's cosmetic item, using the configured template (not shown if empty).
                 # {Ability} - The pokémon's ability.
                 # {CustomHiddenAbility} - Whether the pokémon's ability is hidden ability or not, using the configured template (not shown if not hidden ability).
-                # {Nature} - The pokémon's nature.
-                # {NatureStatUp} - The pokémon's nature's increased stat.
-                # {NatureStatDown} - The pokémon's nature's decreased stat.
-                # {CustomNatureStats} - The pokémon's nature's increased and decreased stats, using the configured template (not shown if neutral nature).
+                # {NatureReal} - The pokémon's base nature.
+                # {NatureRealStatUp} - The pokémon's real nature's increased stat.
+                # {NatureRealStatDown} - The pokémon's real nature's decreased stat.
+                # {NatureEffective} - The pokémon's effective nature (real or minted).
+                # {NatureEffectiveStatUp} - The pokémon's effective nature's increased stat.
+                # {NatureEffectiveStatDown} - The pokémon's effective nature's decreased stat.
+                # {CustomNatureRealStats} - The pokémon's real nature's increased and decreased stats, using the configured template (not shown if neutral nature).
+                # {CustomNatureEffectiveStats} - The pokémon's effective nature's increased and decreased stats, using the configured template (not shown if neutral nature).
                 # {CustomMintness} - Whether the pokémon was minted or not, using the configured template (not shown if not minted).
                 # {Level} - The pokémon's level.
                 # {CurrentExperience} - The pokémon's current experience.
@@ -107,28 +113,24 @@ public class ChatMiniMessagePokemonConfig
                 # {Move1UsedPP} - The amount of used PP for the pokémon's move in slot 1 (0 if no move).
                 # {Move1RemainingPP} - The amount of remaining PP for the pokémon's move in slot 1 (0 if no move).
                 # {Move1TotalPP} - The amount of total PP for the pokémon's move in slot 1 (0 if no move).
-                # {Move1RemainingPPColor} - The color that dynamically changes depending on how much PP is remaining for the move in slot 1.
                 # {Move1CustomPP} - The pokémon's move in slot 1's PP information, using the configured template (not shown if no move).
                 # {Move2} - The pokémon's move in slot 2 (empty if no move).
                 # {Move2Color} - The color of the pokemon's move in slot 2 (#FFFFFF if no move).
                 # {Move2UsedPP} - The amount of used PP for the pokémon's move in slot 2 (0 if no move).
                 # {Move2RemainingPP} - The amount of remaining PP for the pokémon's move in slot 2 (0 if no move).
                 # {Move2TotalPP} - The amount of total PP for the pokémon's move in slot 2 (0 if no move).
-                # {Move2RemainingPPColor} - The color that dynamically changes depending on how much PP is remaining for the move in slot 2.
                 # {Move2CustomPP} - The pokémon's move in slot 2's PP information, using the configured template (not shown if no move).
                 # {Move3} - The pokémon's move in slot 3 (empty if no move).
                 # {Move3Color} - The color of the pokemon's move in slot 3 (#FFFFFF if no move).
                 # {Move3UsedPP} - The amount of used PP for the pokémon's move in slot 3 (0 if no move).
                 # {Move3RemainingPP} - The amount of remaining PP for the pokémon's move in slot 3 (0 if no move).
                 # {Move3TotalPP} - The amount of total PP for the pokémon's move in slot 3 (0 if no move).
-                # {Move3RemainingPPColor} - The color that dynamically changes depending on how much PP is remaining for the move in slot 3.
                 # {Move3CustomPP} - The pokémon's move in slot 3's PP information, using the configured template (not shown if no move).
                 # {Move4} - The pokémon's move in slot 4 (empty if no move).
                 # {Move4Color} - The color of the pokemon's move in slot 4 (#FFFFFF if no move).
                 # {Move4UsedPP} - The amount of used PP for the pokémon's move in slot 4 (0 if no move).
                 # {Move4RemainingPP} - The amount of remaining PP for the pokémon's move in slot 4 (0 if no move).
                 # {Move4TotalPP} - The amount of total PP for the pokémon's move in slot 4 (0 if no move).
-                # {Move4RemainingPPColor} - The color that dynamically changes depending on how much PP is remaining for the move in slot 4.
                 # {Move4CustomPP} - The pokémon's move in slot 4's PP information, using the configured template (not shown if no move).
                 # {CustomMoves} - The pokémon's moves, using the configured template (one customMove template used per existing move).
                 # {RealIVTotal} - The pokémon's total base IVs.
@@ -277,11 +279,19 @@ public class ChatMiniMessagePokemonConfig
                 %s = \"\"\"
                 %s\"\"\"
 
-                # Used to display the pokémon's nature's increased and decreased stats.
+                # Used to display the pokémon's real nature's increased and decreased stats.
                 # If a pokémon's nature is neutral then this template will not be shown (treated as empty).
                 # You can use the following replacement templates:
-                # {NatureStatUp} - The pokémon's nature's increased stat.
-                # {NatureStatDown} - The pokémon's nature's decreased stat.
+                # {NatureRealStatUp} - The pokémon's real nature's increased stat.
+                # {NatureRealStatDown} - The pokémon's real nature's decreased stat.
+                %s = \"\"\"
+                %s\"\"\"
+
+                # Used to display the pokémon's effective nature's increased and decreased stats.
+                # If a pokémon's nature is neutral then this template will not be shown (treated as empty).
+                # You can use the following replacement templates:
+                # {NatureEffectiveStatUp} - The pokémon's effective nature's increased stat.
+                # {NatureEffectiveStatDown} - The pokémon's effective nature's decreased stat.
                 %s = \"\"\"
                 %s\"\"\"
 
@@ -305,7 +315,6 @@ public class ChatMiniMessagePokemonConfig
                 # {MoveUsedPP} - The amount of used PP for the pokémon's move.
                 # {MoveRemainingPP} - The amount of remaining PP for the pokémon's move.
                 # {MoveTotalPP} - The amount of total PP for the pokémon's move.
-                # {MoveRemainingPPColor} - The color that dynamically changes depending on how much PP is remaining for the move.
                 %s = \"\"\"
                 %s\"\"\"
 
@@ -317,7 +326,6 @@ public class ChatMiniMessagePokemonConfig
                 # {MoveUsedPP} - The amount of used PP for the pokémon's move.
                 # {MoveRemainingPP} - The amount of remaining PP for the pokémon's move.
                 # {MoveTotalPP} - The amount of total PP for the pokémon's move.
-                # {MoveRemainingPPColor} - The color that dynamically changes depending on how much PP is remaining for the move.
                 # {MoveCustomPP} - The pokémon's move's PP information, using the configured {MoveCustomPP} template.
                 %s = \"\"\"
                 %s\"\"\"
@@ -564,10 +572,11 @@ public class ChatMiniMessagePokemonConfig
                     ChatMiniMessage.CUSTOM_HELD_ITEM_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_HELD_ITEM,
                     ChatMiniMessage.CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_COSMETIC_ITEM,
                     ChatMiniMessage.CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_HIDDEN_ABILITY,
-                    ChatMiniMessage.CUSTOM_NATURE_STATS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_NATURE_STATS,
+                    ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_NATURE_REAL_STATS,
+                    ChatMiniMessage.CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_NATURE_EFFECTIVE_STATS,
                     ChatMiniMessage.CUSTOM_MINTNESS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_MINTNESS,
                     ChatMiniMessage.CUSTOM_EXPERIENCE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EXPERIENCE,
-                    ChatMiniMessage.CUSTOM_MOVE_PP_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MOVE_CUSTOM_PP,
+                    ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MOVE_CUSTOM_PP,
                     ChatMiniMessage.CUSTOM_MOVE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_MOVE,
                     ChatMiniMessage.CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_REAL_IV_PERCENTAGE,
                     ChatMiniMessage.CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_EFFECTIVE_IV_PERCENTAGE,

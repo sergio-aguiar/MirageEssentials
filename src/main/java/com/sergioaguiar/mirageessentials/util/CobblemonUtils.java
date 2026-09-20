@@ -7,10 +7,12 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import com.cobblemon.mod.common.api.abilities.PotentialAbility;
+import com.cobblemon.mod.common.api.moves.Move;
 import com.cobblemon.mod.common.api.pokemon.stats.Stats;
 import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.api.types.ElementalTypes;
 import com.cobblemon.mod.common.pokemon.IVs;
+import com.cobblemon.mod.common.pokemon.Nature;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.pokemon.abilities.HiddenAbilityType;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
@@ -134,6 +136,65 @@ public class CobblemonUtils
         if (pokemon == null) return false;
         if (pokemon.getAbility().getForced()) return true;
         return false;
+    }
+
+    public static String getPokemonNatureName(Nature nature)
+    {
+        return nature.getDisplayName().toString();
+    }
+
+    public static String getPokemonNatureIncreasedStat(Nature nature)
+    {
+        return nature.getIncreasedStat().toString();
+    }
+
+    public static String getPokemonNatureDecreasedStat(Nature nature)
+    {
+        return nature.getIncreasedStat().toString();
+    }
+
+    public static boolean isNeutralNature(Nature nature)
+    {
+        return nature.getIncreasedStat() != null && nature.getDecreasedStat() != null;
+    }
+
+    public static boolean isMinted(Nature realNature, Nature effectiveNature)
+    {
+        return !realNature.getDisplayName().toString().equals(effectiveNature.getDisplayName().toString());
+    }
+
+    public static String getPokemonFriendship(Pokemon pokemon)
+    {
+        return Integer.toString(pokemon.getFriendship());
+    }
+
+    public static List<Move> getPokemonMoves(Pokemon pokemon)
+    {
+        return pokemon.getMoveSet().getMoves();
+    }
+
+    public static int getRealIVTotal(IVs ivs)
+    {
+        int hp = ivs.get(Stats.HP);
+        int atk = ivs.get(Stats.ATTACK);
+        int def = ivs.get(Stats.DEFENCE);
+        int spa = ivs.get(Stats.SPECIAL_ATTACK);
+        int spd = ivs.get(Stats.SPECIAL_DEFENCE);
+        int spe = ivs.get(Stats.SPEED);
+
+        return hp + atk + def + spa + spd + spe;
+    }
+
+    public static int getEffectiveIVTotal(IVs ivs)
+    {
+        int hp = ivs.getEffectiveBattleIV(Stats.HP);
+        int atk = ivs.getEffectiveBattleIV(Stats.ATTACK);
+        int def = ivs.getEffectiveBattleIV(Stats.DEFENCE);
+        int spa = ivs.getEffectiveBattleIV(Stats.SPECIAL_ATTACK);
+        int spd = ivs.getEffectiveBattleIV(Stats.SPECIAL_DEFENCE);
+        int spe = ivs.getEffectiveBattleIV(Stats.SPEED);
+
+        return hp + atk + def + spa + spd + spe;
     }
 
     public static boolean isHyperTrained(IVs ivs)

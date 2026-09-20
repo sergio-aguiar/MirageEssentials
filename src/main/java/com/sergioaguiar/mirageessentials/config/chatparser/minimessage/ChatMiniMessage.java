@@ -81,47 +81,56 @@ public class ChatMiniMessage
     public static final String COSMETIC_ITEM_CUSTOM_NAME_TEMPLATE_STRING = "CosmeticItemCustomName";
     public static final String CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING = "CustomCosmeticItem";
     public static final String ABILITY_TEMPLATE_STRING = "Ability";
-    public static final String NATURE_TEMPLATE_STRING = "Nature";
-    public static final String NATURE_STAT_UP_TEMPLATE_STRING = "NatureStatUp";
-    public static final String NATURE_STAT_DOWN_TEMPLATE_STRING = "NatureStatDown";
+    public static final String NATURE_REAL_TEMPLATE_STRING = "NatureReal";
+    public static final String NATURE_REAL_STAT_UP_TEMPLATE_STRING = "NatureRealStatUp";
+    public static final String NATURE_REAL_STAT_DOWN_TEMPLATE_STRING = "NatureRealStatDown";
+    public static final String NATURE_EFFECTIVE_TEMPLATE_STRING = "NatureEffective";
+    public static final String NATURE_EFFECTIVE_STAT_UP_TEMPLATE_STRING = "NatureEffectiveStatUp";
+    public static final String NATURE_EFFECTIVE_STAT_DOWN_TEMPLATE_STRING = "NatureEffectiveStatDown";
+    public static final String CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING = "CustomNatureRealStats";
+    public static final String CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING = "CustomNatureEffectiveStats";
+    public static final String CUSTOM_MINTNESS_TEMPLATE_STRING = "CustomMintness";
     public static final String LEVEL_TEMPLATE_STRING = "Level";
     public static final String CURRENT_EXPERIENCE_TEMPLATE_STRING = "CurrentExperience";
     public static final String REQUIRED_EXPERIENCE_TEMPLATE_STRING = "RequiredExperience";
     public static final String REMAINING_EXPERIENCE_TEMPLATE_STRING = "RemainingExperience";
+    public static final String CUSTOM_EXPERIENCE_TEMPLATE_STRING = "CustomExperience";
     public static final String FRIENDSHIP_TEMPLATE_STRING = "Friendship";
     public static final String MOVE1_TEMPLATE_STRING = "Move1";
     public static final String MOVE1_COLOR_TEMPLATE_STRING = "Move1Color";
     public static final String MOVE1_USED_PP_TEMPLATE_STRING = "Move1UsedPP";
     public static final String MOVE1_REMAINING_PP_TEMPLATE_STRING = "Move1RemainingPP";
     public static final String MOVE1_TOTAL_PP_TEMPLATE_STRING = "Move1TotalPP";
-    public static final String MOVE1_REMAINING_PP_COLOR_TEMPLATE_STRING = "Move1RemainingPPColor";
     public static final String MOVE1_CUSTOM_PP_TEMPLATE_STRING = "Move1CustomPP";
     public static final String MOVE2_TEMPLATE_STRING = "Move2";
     public static final String MOVE2_COLOR_TEMPLATE_STRING = "Move2Color";
     public static final String MOVE2_USED_PP_TEMPLATE_STRING = "Move2UsedPP";
     public static final String MOVE2_REMAINING_PP_TEMPLATE_STRING = "Move2RemainingPP";
     public static final String MOVE2_TOTAL_PP_TEMPLATE_STRING = "Move2TotalPP";
-    public static final String MOVE2_REMAINING_PP_COLOR_TEMPLATE_STRING = "Move2RemainingPPColor";
     public static final String MOVE2_CUSTOM_PP_TEMPLATE_STRING = "Move2CustomPP";
     public static final String MOVE3_TEMPLATE_STRING = "Move3";
     public static final String MOVE3_COLOR_TEMPLATE_STRING = "Move3Color";
     public static final String MOVE3_USED_PP_TEMPLATE_STRING = "Move3UsedPP";
     public static final String MOVE3_REMAINING_PP_TEMPLATE_STRING = "Move3RemainingPP";
     public static final String MOVE3_TOTAL_PP_TEMPLATE_STRING = "Move3TotalPP";
-    public static final String MOVE3_REMAINING_PP_COLOR_TEMPLATE_STRING = "Move3RemainingPPColor";
     public static final String MOVE3_CUSTOM_PP_TEMPLATE_STRING = "Move3CustomPP";
     public static final String MOVE4_TEMPLATE_STRING = "Move4";
     public static final String MOVE4_COLOR_TEMPLATE_STRING = "Move4Color";
     public static final String MOVE4_USED_PP_TEMPLATE_STRING = "Move4UsedPP";
     public static final String MOVE4_REMAINING_PP_TEMPLATE_STRING = "Move4RemainingPP";
     public static final String MOVE4_TOTAL_PP_TEMPLATE_STRING = "Move4TotalPP";
-    public static final String MOVE4_REMAINING_PP_COLOR_TEMPLATE_STRING = "Move4RemainingPPColor";
     public static final String MOVE4_CUSTOM_PP_TEMPLATE_STRING = "Move4CustomPP";
+    public static final String MOVE_TEMPLATE_STRING = "Move";
+    public static final String MOVE_COLOR_TEMPLATE_STRING = "MoveColor";
+    public static final String MOVE_CUSTOM_PP_TEMPLATE_STRING = "MoveCustomPP";
     public static final String CUSTOM_MOVES_TEMPLATE_STRING = "CustomMoves";
     public static final String REAL_IV_TOTAL_TEMPLATE_STRING = "RealIVTotal";
     public static final String EFFECTIVE_IV_TOTAL_TEMPLATE_STRING = "EffectiveIVTotal";
     public static final String REAL_IV_PERCENTAGE_TEMPLATE_STRING = "RealIVPercentage";
     public static final String EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING = "EffectiveIVPercentage";
+    public static final String CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING = "CustomRealIVPercentage";
+    public static final String CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING = "CustomEffectiveIVPercentage";
+    public static final String CUSTOM_GENERAL_IVS_TEMPLATE_STRING = "CustomGeneralIVs";
     public static final String REAL_HP_IVS_TEMPLATE_STRING = "RealHpIVs";
     public static final String EFFECTIVE_HP_IVS_TEMPLATE_STRING = "EffectiveHpIVs";
     public static final String CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING = "CustomEffectiveHpIVs";
@@ -165,14 +174,7 @@ public class ChatMiniMessage
     protected static final String POKEMON_INFO_TEMPLATE_STRING = "PokemonInfo";
     protected static final String CUSTOM_FORM_TEMPLATE_STRING = "CustomForm";
     protected static final String CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING = "CustomHiddenAbility";
-    protected static final String CUSTOM_NATURE_STATS_TEMPLATE_STRING = "CustomNatureStats";
-    protected static final String CUSTOM_MINTNESS_TEMPLATE_STRING = "CustomMintness";
-    protected static final String CUSTOM_EXPERIENCE_TEMPLATE_STRING = "CustomExperience";
-    protected static final String CUSTOM_MOVE_PP_TEMPLATE_STRING = "MoveCustomPP";
     protected static final String CUSTOM_MOVE_TEMPLATE_STRING = "CustomMove";
-    protected static final String CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING = "CustomRealIVPercentage";
-    protected static final String CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING = "CustomEffectiveIVPercentage";
-    protected static final String CUSTOM_GENERAL_IVS_TEMPLATE_STRING = "CustomGeneralIVs";
     protected static final String CUSTOM_HP_IVS_TEMPLATE_STRING = "CustomHpIVs";
     protected static final String CUSTOM_ATK_IVS_TEMPLATE_STRING = "CustomAtkIVs";
     protected static final String CUSTOM_DEF_IVS_TEMPLATE_STRING = "CustomdefIVs";
@@ -284,7 +286,7 @@ public class ChatMiniMessage
         <color:{LabelColor}>Species:</color> {CustomSpecies}
         <color:{LabelColor}>Held Item:</color> <white>{HeldItem}</white> {CustomCosmeticItem}
         <color:{LabelColor}>Ability:</color> <white>{Ability}</white> {CustomHiddenAbility}
-        <color:{LabelColor}>Nature</color>{CustomMintness}<color:{LabelColor}>:</color> <white>{Nature}</white> {CustomNatureStats}
+        <color:{LabelColor}>Nature</color>{CustomMintness}<color:{LabelColor}>:</color> <white>{NatureEffective}</white> {CustomNatureStats}
         <color:{LabelColor}>Level:</color> <white>{Level}</white> {CustomExperience}
         <color:{LabelColor}>Friendship:</color> <white>{Friendship}</white>
         <dark_gray>────────────────────────────
@@ -359,9 +361,14 @@ public class ChatMiniMessage
         <color:{LabelColor}>(</color><color:{HaColor}>HA</color><color:{LabelColor}>)</color>
         """;
 
-    protected static final String DEFAULT_CUSTOM_NATURE_STATS =
+    protected static final String DEFAULT_CUSTOM_NATURE_REAL_STATS =
         """
-        <color:{LabelColor}>(</color><color:{NatureStatUpColor}>↑{NatureStatUp}</color><color:{LabelColor}>/</color><color:{NatureStatDownColor}>↓{NatureStatDown}</color><color:{LabelColor}>)</color>
+        <color:{LabelColor}>(</color><color:{NatureStatUpColor}>↑{NatureRealStatUp}</color><color:{LabelColor}>/</color><color:{NatureStatDownColor}>↓{NatureRealStatDown}</color><color:{LabelColor}>)</color>
+        """;
+
+    protected static final String DEFAULT_CUSTOM_NATURE_EFFECTIVE_STATS =
+        """
+        <color:{LabelColor}>(</color><color:{NatureStatUpColor}>↑{NatureEffectiveStatUp}</color><color:{LabelColor}>/</color><color:{NatureStatDownColor}>↓{NatureEffectiveStatDown}</color><color:{LabelColor}>)</color>
         """;
 
     protected static final String DEFAULT_CUSTOM_MINTNESS =
@@ -376,7 +383,7 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_MOVE_CUSTOM_PP =
         """
-        <color:{LabelColor}>(</color><color:{MoveRemainingPPColor}>{MoveRemainingPP}</color><color:{LabelColor}>/</color><color:{MoveRemainingPPColor}>{MoveTotalPP}</color><color:{LabelColor}>)</color>
+        <color:{LabelColor}>(</color><white}>{MoveRemainingPP}</white><color:{LabelColor}>/</color><white>{MoveTotalPP}</white><color:{LabelColor}>)</color>
         """;
 
     protected static final String DEFAULT_CUSTOM_MOVE =
@@ -595,10 +602,11 @@ public class ChatMiniMessage
             POKE_INFO_TEMPLATES.put(CUSTOM_HELD_ITEM_TEMPLATE_STRING, DEFAULT_CUSTOM_HELD_ITEM);
             POKE_INFO_TEMPLATES.put(CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING, DEFAULT_CUSTOM_COSMETIC_ITEM);
             POKE_INFO_TEMPLATES.put(CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING, DEFAULT_CUSTOM_HIDDEN_ABILITY);
-            POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_STATS_TEMPLATE_STRING, DEFAULT_CUSTOM_NATURE_STATS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING, DEFAULT_CUSTOM_NATURE_REAL_STATS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING, DEFAULT_CUSTOM_NATURE_EFFECTIVE_STATS);
             POKE_INFO_TEMPLATES.put(CUSTOM_MINTNESS_TEMPLATE_STRING, DEFAULT_CUSTOM_MINTNESS);
             POKE_INFO_TEMPLATES.put(CUSTOM_EXPERIENCE_TEMPLATE_STRING, DEFAULT_CUSTOM_EXPERIENCE);
-            POKE_INFO_TEMPLATES.put(CUSTOM_MOVE_PP_TEMPLATE_STRING, DEFAULT_MOVE_CUSTOM_PP);
+            POKE_INFO_TEMPLATES.put(MOVE_CUSTOM_PP_TEMPLATE_STRING, DEFAULT_MOVE_CUSTOM_PP);
             POKE_INFO_TEMPLATES.put(CUSTOM_MOVE_TEMPLATE_STRING, DEFAULT_CUSTOM_MOVE);
             POKE_INFO_TEMPLATES.put(CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING, DEFAULT_CUSTOM_REAL_IV_PERCENTAGE);
             POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING, DEFAULT_CUSTOM_EFFECTIVE_IV_PERCENTAGE);
@@ -705,10 +713,11 @@ public class ChatMiniMessage
     public static String getCustomHeldItemTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_HELD_ITEM_TEMPLATE_STRING); }
     public static String getCustomCosmeticItemTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING); }
     public static String getCustomHiddenAbilityTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING); }
-    public static String getCustomNatureStatsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NATURE_STATS_TEMPLATE_STRING); }
+    public static String getCustomNatureRealStatsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING); }
+    public static String getCustomNatureEffectiveStatsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING); }
     public static String getCustomMintnessTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_MINTNESS_TEMPLATE_STRING); }
     public static String getCustomExperienceTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EXPERIENCE_TEMPLATE_STRING); }
-    public static String getMoveCustomPPTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_MOVE_PP_TEMPLATE_STRING); }
+    public static String getMoveCustomPPTemplate() { return POKE_INFO_TEMPLATES.get(MOVE_CUSTOM_PP_TEMPLATE_STRING); }
     public static String getCustomMoveTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_MOVE_TEMPLATE_STRING); }
     public static String getCustomRealIVPercentageTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING); }
     public static String getCustomEffectiveIVPercentageTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING); }
@@ -747,10 +756,11 @@ public class ChatMiniMessage
     protected static void setCustomHeldItemTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_HELD_ITEM_TEMPLATE_STRING, template); }
     protected static void setCustomCosmeticItemTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING, template); }
     protected static void setCustomHiddenAbilityTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING, template); }
-    protected static void setCustomNatureStatsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_STATS_TEMPLATE_STRING, template); }
+    protected static void setCustomNatureRealStatsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING, template); }
+    protected static void setCustomNatureCustomStatsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING, template); }
     protected static void setCustomMintnessTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_MINTNESS_TEMPLATE_STRING, template); }
     protected static void setCustomExperienceTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EXPERIENCE_TEMPLATE_STRING, template); }
-    protected static void setMoveCustomPPTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_MOVE_PP_TEMPLATE_STRING, template); }
+    protected static void setMoveCustomPPTemplate(String template) { POKE_INFO_TEMPLATES.put(MOVE_CUSTOM_PP_TEMPLATE_STRING, template); }
     protected static void setCustomMoveTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_MOVE_TEMPLATE_STRING, template); }
     protected static void setCustomRealIVPercentageTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING, template); }
     protected static void setCustomEffectiveIVPercentageTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING, template); }

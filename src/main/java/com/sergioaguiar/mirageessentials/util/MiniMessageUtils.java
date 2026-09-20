@@ -1,16 +1,21 @@
 package com.sergioaguiar.mirageessentials.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import com.cobblemon.mod.common.api.moves.Move;
 import com.cobblemon.mod.common.api.pokemon.feature.SpeciesFeature;
 import com.cobblemon.mod.common.api.pokemon.feature.StringSpeciesFeature;
 import com.cobblemon.mod.common.api.pokemon.status.Statuses;
 import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.api.types.tera.TeraType;
 import com.cobblemon.mod.common.pokemon.Gender;
+import com.cobblemon.mod.common.pokemon.IVs;
+import com.cobblemon.mod.common.pokemon.Nature;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspects;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
@@ -54,6 +59,15 @@ public class MiniMessageUtils
         ItemStack cosmeticItem = CobblemonUtils.getPokemonCosmeticItem(pokemon);
         String cosmeticItemName = CobblemonUtils.getPokemonItemName(cosmeticItem);
         String cosmeticItemCustomName = CobblemonUtils.getPokemonItemCustomName(cosmeticItem);
+        Nature realNature = pokemon.getNature();
+        Nature effectiveNature = pokemon.getEffectiveNature();
+        int level = pokemon.getLevel();
+        int currentExperience = pokemon.getExperience();
+        int RemainingExperience = pokemon.getExperienceToNextLevel();
+        List<Move> moves = CobblemonUtils.getPokemonMoves(pokemon);
+        IVs ivs = pokemon.getIvs();
+        int totalRealIVs = CobblemonUtils.getRealIVTotal(ivs);
+        int totalEffectiveIVs = CobblemonUtils.getEffectiveIVTotal(ivs);
 
         return TagResolver.builder()
                 .resolver(getNameResolver(CobblemonUtils.getPokemonName(pokemon.getNickname(), species)))
@@ -72,6 +86,36 @@ public class MiniMessageUtils
                 .resolvers(getCustomCosmeticItemResolvers(cosmeticItemName, cosmeticItemCustomName))
                 .resolver(getAbilityResolver(CobblemonUtils.getPokemonAbility(pokemon)))
                 .resolver(getCustomHiddenAbilityResolver(CobblemonUtils.hasHiddenAbility(pokemon)))
+                .resolver(getNatureRealResolver(CobblemonUtils.getPokemonNatureName(realNature)))
+                .resolver(getNatureEffectiveResolver(CobblemonUtils.getPokemonNatureName(effectiveNature)))
+                .resolver(getCustomNatureRealStatsResolver(realNature))
+                .resolvers(getCustomNatureRealStatsResolver(realNature))
+                .resolver(getCustomNatureEffectiveStatsResolver(effectiveNature))
+                .resolvers(getCustomNatureEffectiveStatsResolver(effectiveNature))
+                .resolver(getCustomMintnessResolver(CobblemonUtils.isMinted(realNature, effectiveNature)))
+                .resolver(getLevelResolver(String.valueOf(level)))
+                .resolver(getCustomExperienceResolver(level, currentExperience, RemainingExperience))
+                .resolvers(getCustomExperienceResolvers(currentExperience, RemainingExperience))
+                .resolver(getFriendshipResolver(CobblemonUtils.getPokemonFriendship(pokemon)))
+                .resolver(getMove1Resolver(moves))
+                .resolver(getMove1ColorResolver(moves))
+                .resolver(getMove1CustomPPResolver(moves))
+                .resolvers(getMove1CustomPPResolvers(moves))
+                .resolver(getMove2Resolver(moves))
+                .resolver(getMove2ColorResolver(moves))
+                .resolver(getMove2CustomPPResolver(moves))
+                .resolvers(getMove2CustomPPResolvers(moves))
+                .resolver(getMove3Resolver(moves))
+                .resolver(getMove3ColorResolver(moves))
+                .resolver(getMove3CustomPPResolver(moves))
+                .resolvers(getMove3CustomPPResolvers(moves))
+                .resolver(getMove4Resolver(moves))
+                .resolver(getMove4ColorResolver(moves))
+                .resolver(getMove4CustomPPResolver(moves))
+                .resolvers(getMove4CustomPPResolvers(moves))
+                .resolver(getCustomMovesResolver(moves))
+                .resolver(getCustomGeneralIVsResolver(totalRealIVs, totalEffectiveIVs))
+                .resolvers(getCustomGeneralIVsResolvers(totalRealIVs, totalEffectiveIVs))
                 .build();
     }
 
@@ -223,12 +267,10 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getType1ColorResolver(ElementalType type)
     {
-        ElementalType elementalType = CobblemonUtils.getElementalTypeFromShowdownId(type.getShowdownId());
-
         return Placeholder.unparsed
         (
             ChatMiniMessage.TYPE1_COLOR_TEMPLATE_STRING,
-            String.format("#%06x", elementalType.getPrimaryColor())
+            String.format("#%06x", type.getPrimaryColor())
         );
     }
 
@@ -243,12 +285,10 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getType2ColorResolver(ElementalType type)
     {
-        ElementalType elementalType = CobblemonUtils.getElementalTypeFromShowdownId(type.getShowdownId());
-
         return Placeholder.unparsed
         (
             ChatMiniMessage.TYPE2_COLOR_TEMPLATE_STRING,
-            String.format("#%06x", elementalType.getPrimaryColor())
+            String.format("#%06x", type.getPrimaryColor())
         );
     }
 
@@ -353,10 +393,10 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getFormResolver(String form)
     {
-        return Placeholder.parsed
+        return Placeholder.unparsed
         (
             ChatMiniMessage.FORM_TEMPLATE_STRING,
-            renderCustomForm(form)
+            form
         );
     }
 
@@ -457,13 +497,11 @@ public class MiniMessageUtils
 
     private static String renderCustomForm(String form)
     {
-        String template = ChatMiniMessage.getCustomFormTemplate();
-
         return MiniMessage.miniMessage().serialize
         (
             MiniMessage.miniMessage().deserialize
             (
-                template,
+                ChatMiniMessage.getCustomFormTemplate(),
                 TagResolver
                     .builder()
                     .resolver(getFormResolver(form))
@@ -605,7 +643,7 @@ public class MiniMessageUtils
     {
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomHeldItemTemplate(),
+            ChatMiniMessage.getCustomCosmeticItemTemplate(),
             TagResolver.builder()
                 .resolvers(getCustomHeldItemResolvers(cosmeticItemName, cosmeticItemCustomName))
                 .build()
@@ -643,5 +681,710 @@ public class MiniMessageUtils
             ChatMiniMessage.ABILITY_TEMPLATE_STRING,
             isHA ? ChatMiniMessage.getCustomHiddenAbilityTemplate() : ""
         );
+    }
+
+    private static TagResolver.Single getNatureRealResolver(String nature)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.NATURE_REAL_TEMPLATE_STRING,
+            nature
+        );
+    }
+
+    private static TagResolver.Single getNatureEffectiveResolver(String nature)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.NATURE_EFFECTIVE_TEMPLATE_STRING,
+            nature
+        );
+    }
+
+    private static TagResolver.Single getNatureRealStatUpResolver(String stat)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.NATURE_REAL_STAT_UP_TEMPLATE_STRING,
+            stat
+        );
+    }
+
+    private static TagResolver.Single getNatureRealStatDownResolver(String stat)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.NATURE_REAL_STAT_DOWN_TEMPLATE_STRING,
+            stat
+        );
+    }
+
+    private static TagResolver.Single getNatureEffectiveStatUpResolver(String stat)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.NATURE_EFFECTIVE_STAT_UP_TEMPLATE_STRING,
+            stat
+        );
+    }
+
+    private static TagResolver.Single getNatureEffectiveStatDownResolver(String stat)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.NATURE_EFFECTIVE_STAT_DOWN_TEMPLATE_STRING,
+            stat
+        );
+    }
+
+    public static TagResolver.Single getCustomNatureRealStatsResolver(Nature realNature)
+    {
+        if (CobblemonUtils.isNeutralNature(realNature))
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomNatureRealStatsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomNatureRealStatsResolvers(realNature))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomNatureRealStatsResolvers(Nature realNature)
+    {
+        return new TagResolver.Single[]
+        {
+            getNatureRealStatUpResolver(CobblemonUtils.getPokemonNatureIncreasedStat(realNature)),
+            getNatureRealStatDownResolver(CobblemonUtils.getPokemonNatureDecreasedStat(realNature))
+        };
+    }
+
+    public static TagResolver.Single getCustomNatureEffectiveStatsResolver(Nature effectiveNature)
+    {
+        if (CobblemonUtils.isNeutralNature(effectiveNature))
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomNatureEffectiveStatsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomNatureEffectiveStatsResolvers(effectiveNature))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomNatureEffectiveStatsResolvers(Nature effectiveNature)
+    {
+        return new TagResolver.Single[]
+        {
+            getNatureEffectiveStatUpResolver(CobblemonUtils.getPokemonNatureIncreasedStat(effectiveNature)),
+            getNatureEffectiveStatDownResolver(CobblemonUtils.getPokemonNatureDecreasedStat(effectiveNature))
+        };
+    }
+
+    private static TagResolver.Single getCustomMintnessResolver(boolean isMinted)
+    {
+        return Placeholder.parsed
+        (
+            ChatMiniMessage.CUSTOM_MINTNESS_TEMPLATE_STRING,
+            isMinted ? ChatMiniMessage.getCustomMintnessTemplate() : ""
+        );
+    }
+
+    private static TagResolver.Single getLevelResolver(String level)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.LEVEL_TEMPLATE_STRING,
+            level
+        );
+    }
+
+    private static TagResolver.Single getCurrentExperienceResolver(String exp)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.CURRENT_EXPERIENCE_TEMPLATE_STRING,
+            exp
+        );
+    }
+
+    private static TagResolver.Single getRequiredExperienceResolver(String exp)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.REQUIRED_EXPERIENCE_TEMPLATE_STRING,
+            exp
+        );
+    }
+
+    private static TagResolver.Single getRemainingExperienceResolver(String exp)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.REMAINING_EXPERIENCE_TEMPLATE_STRING,
+            exp
+        );
+    }
+
+    public static TagResolver.Single getCustomExperienceResolver(int level, int currentExp, int remainingExp)
+    {
+        if (level == 100)
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.CUSTOM_EXPERIENCE_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomExperienceTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomExperienceResolvers(currentExp, remainingExp))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_EXPERIENCE_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomExperienceResolvers(int currentExp, int remainingExp)
+    {
+        return new TagResolver.Single[]
+        {
+            getCurrentExperienceResolver(String.valueOf(currentExp)),
+            getRequiredExperienceResolver(String.valueOf(currentExp + remainingExp)),
+            getRemainingExperienceResolver(String.valueOf(remainingExp))
+        };
+    }
+
+    private static TagResolver.Single getFriendshipResolver(String friendship)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.FRIENDSHIP_TEMPLATE_STRING,
+            friendship
+        );
+    }
+
+    private static TagResolver.Single getMove1Resolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE1_TEMPLATE_STRING,
+            moves.size() > 0 ? moves.get(0).getDisplayName().toString() : ""
+        );
+    }
+
+    private static TagResolver.Single getMove1ColorResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE1_COLOR_TEMPLATE_STRING,
+            moves.size() > 0 ? String.format("#%06x", moves.get(0).getType().getPrimaryColor()) : ""
+        );
+    }
+
+    private static TagResolver.Single getMove1UsedPPResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE1_USED_PP_TEMPLATE_STRING,
+            String.valueOf(moves.size() > 0 ? moves.get(0).getMaxPp() - moves.get(0).getCurrentPp() : 0) 
+        );
+    }
+
+    private static TagResolver.Single getMove1RemainingPPResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE1_REMAINING_PP_TEMPLATE_STRING,
+            String.valueOf(moves.size() > 0 ? moves.get(0).getCurrentPp() : 0)
+        );
+    }
+
+    private static TagResolver.Single getMove1TotalPPResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE1_TOTAL_PP_TEMPLATE_STRING,
+            String.valueOf(moves.size() > 0 ? moves.get(0).getMaxPp() : 0) 
+        );
+    }
+
+    public static TagResolver.Single getMove1CustomPPResolver(List<Move> moves)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getMoveCustomPPTemplate(),
+            TagResolver.builder()
+                .resolvers(getMove1CustomPPResolvers(moves))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.MOVE1_CUSTOM_PP_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getMove1CustomPPResolvers(List<Move> moves)
+    {
+        return new TagResolver.Single[]
+        {
+            getMove1UsedPPResolver(moves),
+            getMove1RemainingPPResolver(moves),
+            getMove1TotalPPResolver(moves)
+        };
+    }
+
+    private static TagResolver.Single getMove2Resolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE2_TEMPLATE_STRING,
+            moves.size() > 1 ? moves.get(1).getDisplayName().toString() : ""
+        );
+    }
+
+    private static TagResolver.Single getMove2ColorResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE2_COLOR_TEMPLATE_STRING,
+            moves.size() > 1 ? String.format("#%06x", moves.get(1).getType().getPrimaryColor()) : ""
+        );
+    }
+
+    private static TagResolver.Single getMove2UsedPPResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE2_USED_PP_TEMPLATE_STRING,
+            String.valueOf(moves.size() > 1 ? moves.get(1).getMaxPp() - moves.get(1).getCurrentPp() : 0) 
+        );
+    }
+
+    private static TagResolver.Single getMove2RemainingPPResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE2_REMAINING_PP_TEMPLATE_STRING,
+            String.valueOf(moves.size() > 1 ? moves.get(1).getCurrentPp() : 0)
+        );
+    }
+
+    private static TagResolver.Single getMove2TotalPPResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE2_TOTAL_PP_TEMPLATE_STRING,
+            String.valueOf(moves.size() > 1 ? moves.get(1).getMaxPp() : 0) 
+        );
+    }
+
+    public static TagResolver.Single getMove2CustomPPResolver(List<Move> moves)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getMoveCustomPPTemplate(),
+            TagResolver.builder()
+                .resolvers(getMove2CustomPPResolvers(moves))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.MOVE2_CUSTOM_PP_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getMove2CustomPPResolvers(List<Move> moves)
+    {
+        return new TagResolver.Single[]
+        {
+            getMove2UsedPPResolver(moves),
+            getMove2RemainingPPResolver(moves),
+            getMove2TotalPPResolver(moves)
+        };
+    }
+
+    private static TagResolver.Single getMove3Resolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE3_TEMPLATE_STRING,
+            moves.size() > 2 ? moves.get(2).getDisplayName().toString() : ""
+        );
+    }
+
+    private static TagResolver.Single getMove3ColorResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE3_COLOR_TEMPLATE_STRING,
+            moves.size() > 2 ? String.format("#%06x", moves.get(2).getType().getPrimaryColor()) : ""
+        );
+    }
+
+    private static TagResolver.Single getMove3UsedPPResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE3_USED_PP_TEMPLATE_STRING,
+            String.valueOf(moves.size() > 2 ? moves.get(2).getMaxPp() - moves.get(2).getCurrentPp() : 0) 
+        );
+    }
+
+    private static TagResolver.Single getMove3RemainingPPResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE3_REMAINING_PP_TEMPLATE_STRING,
+            String.valueOf(moves.size() > 2 ? moves.get(2).getCurrentPp() : 0)
+        );
+    }
+
+    private static TagResolver.Single getMove3TotalPPResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE3_TOTAL_PP_TEMPLATE_STRING,
+            String.valueOf(moves.size() > 2 ? moves.get(2).getMaxPp() : 0) 
+        );
+    }
+
+    public static TagResolver.Single getMove3CustomPPResolver(List<Move> moves)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getMoveCustomPPTemplate(),
+            TagResolver.builder()
+                .resolvers(getMove3CustomPPResolvers(moves))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.MOVE3_CUSTOM_PP_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getMove3CustomPPResolvers(List<Move> moves)
+    {
+        return new TagResolver.Single[]
+        {
+            getMove3UsedPPResolver(moves),
+            getMove3RemainingPPResolver(moves),
+            getMove3TotalPPResolver(moves)
+        };
+    }
+
+    private static TagResolver.Single getMove4Resolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE4_TEMPLATE_STRING,
+            moves.size() > 3 ? moves.get(3).getDisplayName().toString() : ""
+        );
+    }
+
+    private static TagResolver.Single getMove4ColorResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE4_COLOR_TEMPLATE_STRING,
+            moves.size() > 3 ? String.format("#%06x", moves.get(3).getType().getPrimaryColor()) : ""
+        );
+    }
+
+    private static TagResolver.Single getMove4UsedPPResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE4_USED_PP_TEMPLATE_STRING,
+            String.valueOf(moves.size() > 3 ? moves.get(3).getMaxPp() - moves.get(3).getCurrentPp() : 0) 
+        );
+    }
+
+    private static TagResolver.Single getMove4RemainingPPResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE4_REMAINING_PP_TEMPLATE_STRING,
+            String.valueOf(moves.size() > 3 ? moves.get(3).getCurrentPp() : 0)
+        );
+    }
+
+    private static TagResolver.Single getMove4TotalPPResolver(List<Move> moves)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE4_TOTAL_PP_TEMPLATE_STRING,
+            String.valueOf(moves.size() > 3 ? moves.get(3).getMaxPp() : 0) 
+        );
+    }
+
+    public static TagResolver.Single getMove4CustomPPResolver(List<Move> moves)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getMoveCustomPPTemplate(),
+            TagResolver.builder()
+                .resolvers(getMove4CustomPPResolvers(moves))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.MOVE4_CUSTOM_PP_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getMove4CustomPPResolvers(List<Move> moves)
+    {
+        return new TagResolver.Single[]
+        {
+            getMove4UsedPPResolver(moves),
+            getMove4RemainingPPResolver(moves),
+            getMove4TotalPPResolver(moves)
+        };
+    }
+
+    public static TagResolver.Single getCustomMovesResolver(List<Move> moves)
+    {
+        Component component = Component.empty();
+
+        for (Move move : moves)
+        {
+            Component moveComponent = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+            (
+                ChatMiniMessage.getCustomMoveTemplate(),
+                TagResolver.builder()
+                    .resolver(getMoveResolver(move))
+                    .resolver(getMoveColorResolver(move))
+                    .resolver(getCustomMovePPResolver(move))
+                    .build()
+            );
+
+            component = component.append(moveComponent);
+        }
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_MOVES_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getMoveResolver(Move move)
+    {
+        return Placeholder.unparsed(
+            ChatMiniMessage.MOVE_TEMPLATE_STRING,
+            move.getDisplayName().toString()
+        );
+    }
+
+    private static TagResolver.Single getMoveColorResolver(Move move)
+    {
+        return Placeholder.unparsed(
+            ChatMiniMessage.MOVE_COLOR_TEMPLATE_STRING,
+            String.format("#%06x", move.getType().getPrimaryColor())
+        );
+    }
+
+    private static TagResolver.Single getCustomMovePPResolver(Move move)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize(
+            ChatMiniMessage.getMoveCustomPPTemplate(),
+            TagResolver.builder()
+                .resolver(getMoveUsedPPResolver(move))
+                .resolver(getMoveRemainingPPResolver(move))
+                .resolver(getMoveTotalPPResolver(move))
+                .build()
+        );
+
+        return Placeholder.component(
+            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getMoveUsedPPResolver(Move move)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING,
+            String.valueOf(move.getMaxPp() - move.getCurrentPp())
+        );
+    }
+
+    private static TagResolver.Single getMoveRemainingPPResolver(Move move)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING,
+            String.valueOf(move.getCurrentPp())
+        );
+    }
+
+    private static TagResolver.Single getMoveTotalPPResolver(Move move)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING,
+            String.valueOf(move.getMaxPp())
+        );
+    }
+
+    private static TagResolver.Single getRealIVTotalResolver(int ivTotal)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.REAL_IV_TOTAL_TEMPLATE_STRING,
+            String.valueOf(ivTotal)
+        );
+    }
+
+    private static TagResolver.Single getEffectiveIVTotalResolver(int ivTotal)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.EFFECTIVE_IV_TOTAL_TEMPLATE_STRING,
+            String.valueOf(ivTotal)
+        );
+    }
+
+    private static TagResolver.Single getRealIVPercentageResolver(int ivTotal)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.REAL_IV_PERCENTAGE_TEMPLATE_STRING,
+            String.valueOf((ivTotal / 186.0) * 100.0)
+        );
+    }
+
+    private static TagResolver.Single getEffectiveIVPercentageResolver(int ivTotal)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING,
+            String.valueOf((ivTotal / 186.0) * 100.0)
+        );
+    }
+
+    public static TagResolver.Single getCustomRealIVPercentageResolver(int totalIvs)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomRealIVPercentageTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomRealIVPercentageResolvers(totalIvs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomRealIVPercentageResolvers(int totalIvs)
+    {
+        return new TagResolver.Single[]
+        {
+            getRealIVTotalResolver(totalIvs),
+            getRealIVPercentageResolver(totalIvs)
+        };
+    }
+
+    public static TagResolver.Single getCustomEffectiveIVPercentageResolver(int totalIvs)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomEffectiveIVPercentageTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomEffectiveIVPercentageResolvers(totalIvs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomEffectiveIVPercentageResolvers(int totalIvs)
+    {
+        return new TagResolver.Single[]
+        {
+            getEffectiveIVTotalResolver(totalIvs),
+            getEffectiveIVPercentageResolver(totalIvs)
+        };
+    }
+
+    public static TagResolver.Single getCustomGeneralIVsResolver(int totalRealIVs, int totalEffectiveIVs)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomGeneralIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomGeneralIVsResolvers(totalRealIVs, totalEffectiveIVs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_GENERAL_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomGeneralIVsResolvers(int totalRealIVs, int totalEffectiveIVs)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getCustomRealIVPercentageResolver(totalRealIVs));
+        resolvers.addAll(Arrays.asList(getCustomRealIVPercentageResolvers(totalRealIVs)));
+        resolvers.add(getCustomEffectiveIVPercentageResolver(totalEffectiveIVs));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveIVPercentageResolvers(totalEffectiveIVs)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 }
