@@ -11,6 +11,7 @@ import com.cobblemon.mod.common.api.moves.Move;
 import com.cobblemon.mod.common.api.pokemon.stats.Stats;
 import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.api.types.ElementalTypes;
+import com.cobblemon.mod.common.pokemon.EVs;
 import com.cobblemon.mod.common.pokemon.IVs;
 import com.cobblemon.mod.common.pokemon.Nature;
 import com.cobblemon.mod.common.pokemon.Pokemon;
@@ -220,6 +221,18 @@ public class CobblemonUtils
         if (ivs.get(Stats.SPEED) != ivs.getEffectiveBattleIV(Stats.SPEED)) hyperTrainedStats.add(Stats.SPEED);
 
         return hyperTrainedStats;
+    }
+
+    public static int getEVTotal(EVs evs)
+    {
+        int hp = evs.get(Stats.HP);
+        int atk = evs.get(Stats.ATTACK);
+        int def = evs.get(Stats.DEFENCE);
+        int spa = evs.get(Stats.SPECIAL_ATTACK);
+        int spd = evs.get(Stats.SPECIAL_DEFENCE);
+        int spe = evs.get(Stats.SPEED);
+
+        return hp + atk + def + spa + spd + spe;
     }
 
     public static String getPokemonSizeName(Pokemon pokemon)

@@ -142,26 +142,32 @@ public class ChatMiniMessagePokemonConfig
                 # {CustomGeneralIVs} - The pokémon's general IV information, using the configured template.
                 # {RealHpIVs} - The pokémon's real Hp IV value (0 to 31).
                 # {EffectiveHpIVs} - The pokémon's effective Hp IV value (0 to 31, counts hypertraining).
+                # {HpColor} - The Hp stat color.
                 # {CustomEffectiveHpIVs} - The pokémon's effective Hp IV value, using the configured template (not shown if not hypertrained).
                 # {CustomHpIVs} - The pokémon's Hp IV information, using the configured template.
                 # {RealAtkIVs} - The pokémon's real Atk IV value (0 to 31).
                 # {EffectivAtkIVs} - The pokémon's effective Atk IV value (0 to 31, counts hypertraining).
+                # {AtkColor} - The Atk stat color.
                 # {CustomEffectiveAtkIVs} - The pokémon's effective Atk IV value, using the configured template (not shown if not hypertrained).
                 # {CustomAtkIVs} - The pokémon's Atk IV information, using the configured template.
                 # {RealDefIVs} - The pokémon's real Def IV value (0 to 31).
                 # {EffectiveDefIVs} - The pokémon's effective Def IV value (0 to 31, counts hypertraining).
+                # {DefColor} - The Def stat color.
                 # {CustomEffectiveDefIVs} - The pokémon's effective Def IV value, using the configured template (not shown if not hypertrained).
                 # {CustomDefIVs} - The pokémon's Def IV information, using the configured template.
                 # {RealSpaIVs} - The pokémon's real Spa IV value (0 to 31).
                 # {EffectiveSpaIVs} - The pokémon's effective Spa IV value (0 to 31, counts hypertraining).
+                # {SpaColor} - The Spa stat color.
                 # {CustomEffectiveSpaIVs} - The pokémon's effective Spa IV value, using the configured template (not shown if not hypertrained).
                 # {CustomSpaIVs} - The pokémon's Spa IV information, using the configured template.
                 # {RealSpdIVs} - The pokémon's real Spd IV value (0 to 31).
                 # {EffectiveSpdIVs} - The pokémon's effective Spd IV value (0 to 31, counts hypertraining).
+                # {SpdColor} - The Spd stat color.
                 # {CustomEffectiveSpdIVs} - The pokémon's effective Spd IV value, using the configured template (not shown if not hypertrained).
                 # {CustomSpdIVs} - The pokémon's Spd IV information, using the configured template.
                 # {RealSpeIVs} - The pokémon's real Spe IV value (0 to 31).
                 # {EffectiveSpeIVs} - The pokémon's effective Spe IV value (0 to 31, counts hypertraining).
+                # {SpeColor} - The Spe stat color.
                 # {CustomEffectiveSpeIVs} - The pokémon's effective Spe IV value, using the configured template (not shown if not hypertrained).
                 # {CustomSpeIVs} - The pokémon's Spe IV information, using the configured template.
                 # {EVTotal} - The pokémon's total EVs.

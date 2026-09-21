@@ -10,9 +10,11 @@ import java.util.Set;
 import com.cobblemon.mod.common.api.moves.Move;
 import com.cobblemon.mod.common.api.pokemon.feature.SpeciesFeature;
 import com.cobblemon.mod.common.api.pokemon.feature.StringSpeciesFeature;
+import com.cobblemon.mod.common.api.pokemon.stats.Stats;
 import com.cobblemon.mod.common.api.pokemon.status.Statuses;
 import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.api.types.tera.TeraType;
+import com.cobblemon.mod.common.pokemon.EVs;
 import com.cobblemon.mod.common.pokemon.Gender;
 import com.cobblemon.mod.common.pokemon.IVs;
 import com.cobblemon.mod.common.pokemon.Nature;
@@ -68,6 +70,9 @@ public class MiniMessageUtils
         IVs ivs = pokemon.getIvs();
         int totalRealIVs = CobblemonUtils.getRealIVTotal(ivs);
         int totalEffectiveIVs = CobblemonUtils.getEffectiveIVTotal(ivs);
+        Set<Stats> hyperTrainedStats = CobblemonUtils.getHyperTrainedStats(ivs);
+        EVs evs = pokemon.getEvs();
+        int totalEvs = CobblemonUtils.getEVTotal(evs);
 
         return TagResolver.builder()
                 .resolver(getNameResolver(CobblemonUtils.getPokemonName(pokemon.getNickname(), species)))
@@ -116,6 +121,32 @@ public class MiniMessageUtils
                 .resolver(getCustomMovesResolver(moves))
                 .resolver(getCustomGeneralIVsResolver(totalRealIVs, totalEffectiveIVs))
                 .resolvers(getCustomGeneralIVsResolvers(totalRealIVs, totalEffectiveIVs))
+                .resolver(getCustomHpIVsResolver(ivs, hyperTrainedStats))
+                .resolvers(getCustomHpIVsResolvers(ivs, hyperTrainedStats))
+                .resolver(getCustomAtkIVsResolver(ivs, hyperTrainedStats))
+                .resolvers(getCustomAtkIVsResolvers(ivs, hyperTrainedStats))
+                .resolver(getCustomDefIVsResolver(ivs, hyperTrainedStats))
+                .resolvers(getCustomDefIVsResolvers(ivs, hyperTrainedStats))
+                .resolver(getCustomSpaIVsResolver(ivs, hyperTrainedStats))
+                .resolvers(getCustomSpaIVsResolvers(ivs, hyperTrainedStats))
+                .resolver(getCustomSpdIVsResolver(ivs, hyperTrainedStats))
+                .resolvers(getCustomSpdIVsResolvers(ivs, hyperTrainedStats))
+                .resolver(getCustomSpeIVsResolver(ivs, hyperTrainedStats))
+                .resolvers(getCustomSpeIVsResolvers(ivs, hyperTrainedStats))
+                .resolver(getCustomGeneralEVsResolver(totalEvs))
+                .resolvers(getCustomGeneralEVsResolvers(totalEvs))
+                .resolver(getCustomHpEVsResolver(evs))
+                .resolvers(getCustomHpEVsResolvers(evs))
+                .resolver(getCustomAtkEVsResolver(evs))
+                .resolvers(getCustomAtkEVsResolvers(evs))
+                .resolver(getCustomDefEVsResolver(evs))
+                .resolvers(getCustomDefEVsResolvers(evs))
+                .resolver(getCustomSpaEVsResolver(evs))
+                .resolvers(getCustomSpaEVsResolvers(evs))
+                .resolver(getCustomSpdEVsResolver(evs))
+                .resolvers(getCustomSpdEVsResolvers(evs))
+                .resolver(getCustomSpeEVsResolver(evs))
+                .resolvers(getCustomSpeEVsResolvers(evs))
                 .build();
     }
 
@@ -944,6 +975,15 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getMove1CustomPPResolver(List<Move> moves)
     {
+        if (moves.size() < 1)
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.MOVE1_CUSTOM_PP_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             ChatMiniMessage.getMoveCustomPPTemplate(),
@@ -1016,6 +1056,15 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getMove2CustomPPResolver(List<Move> moves)
     {
+        if (moves.size() < 2)
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.MOVE2_CUSTOM_PP_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             ChatMiniMessage.getMoveCustomPPTemplate(),
@@ -1088,6 +1137,15 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getMove3CustomPPResolver(List<Move> moves)
     {
+        if (moves.size() < 3)
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.MOVE3_CUSTOM_PP_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             ChatMiniMessage.getMoveCustomPPTemplate(),
@@ -1160,6 +1218,15 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getMove4CustomPPResolver(List<Move> moves)
     {
+        if (moves.size() < 4)
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.MOVE4_CUSTOM_PP_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             ChatMiniMessage.getMoveCustomPPTemplate(),
@@ -1384,6 +1451,832 @@ public class MiniMessageUtils
         resolvers.addAll(Arrays.asList(getCustomRealIVPercentageResolvers(totalRealIVs)));
         resolvers.add(getCustomEffectiveIVPercentageResolver(totalEffectiveIVs));
         resolvers.addAll(Arrays.asList(getCustomEffectiveIVPercentageResolvers(totalEffectiveIVs)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getRealHpIVsResolver(IVs ivs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.REAL_HP_IVS_TEMPLATE_STRING,
+            String.valueOf(ivs.get(Stats.HP))
+        );
+    }
+
+    private static TagResolver.Single getEffectiveHpIVsResolver(IVs ivs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.EFFECTIVE_HP_IVS_TEMPLATE_STRING,
+            String.valueOf(ivs.getEffectiveBattleIV(Stats.HP))
+        );
+    }
+
+    private static TagResolver.Single getHpColorResolver()
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.HP_COLOR_TEMPLATE_STRING,
+            String.format("#%06x", ChatMiniMessage.getHpColor().getRgb())
+        );
+    }
+
+    public static TagResolver.Single getCustomEffectiveHpIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        if (hyperTrainedStats.contains(Stats.HP))
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomEffectiveHpIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomEffectiveHpIVsResolvers(ivs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomEffectiveHpIVsResolvers(IVs ivs)
+    {
+        return new TagResolver.Single[]
+        {
+            getEffectiveHpIVsResolver(ivs),
+            getHpColorResolver()
+        };
+    }
+
+    public static TagResolver.Single getCustomHpIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomHpIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomHpIVsResolvers(ivs, hyperTrainedStats))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_HP_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomHpIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getRealHpIVsResolver(ivs));
+        resolvers.add(getCustomEffectiveHpIVsResolver(ivs, hyperTrainedStats));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveHpIVsResolvers(ivs)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getRealAtkIVsResolver(IVs ivs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.REAL_ATK_IVS_TEMPLATE_STRING,
+            String.valueOf(ivs.get(Stats.ATTACK))
+        );
+    }
+
+    private static TagResolver.Single getEffectiveAtkIVsResolver(IVs ivs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.EFFECTIVE_ATK_IVS_TEMPLATE_STRING,
+            String.valueOf(ivs.getEffectiveBattleIV(Stats.ATTACK))
+        );
+    }
+
+    private static TagResolver.Single getAtkColorResolver()
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.ATK_COLOR_TEMPLATE_STRING,
+            String.format("#%06x", ChatMiniMessage.getAtkColor().getRgb())
+        );
+    }
+
+    public static TagResolver.Single getCustomEffectiveAtkIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        if (hyperTrainedStats.contains(Stats.ATTACK))
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomEffectiveAtkIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomEffectiveAtkIVsResolvers(ivs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomEffectiveAtkIVsResolvers(IVs ivs)
+    {
+        return new TagResolver.Single[]
+        {
+            getEffectiveAtkIVsResolver(ivs),
+            getAtkColorResolver()
+        };
+    }
+
+    public static TagResolver.Single getCustomAtkIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomAtkIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomAtkIVsResolvers(ivs, hyperTrainedStats))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_HP_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomAtkIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getRealAtkIVsResolver(ivs));
+        resolvers.add(getCustomEffectiveAtkIVsResolver(ivs, hyperTrainedStats));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveAtkIVsResolvers(ivs)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getRealDefIVsResolver(IVs ivs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.REAL_DEF_IVS_TEMPLATE_STRING,
+            String.valueOf(ivs.get(Stats.DEFENCE))
+        );
+    }
+
+    private static TagResolver.Single getEffectiveDefIVsResolver(IVs ivs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.EFFECTIVE_DEF_IVS_TEMPLATE_STRING,
+            String.valueOf(ivs.getEffectiveBattleIV(Stats.DEFENCE))
+        );
+    }
+
+    private static TagResolver.Single getDefColorResolver()
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.DEF_COLOR_TEMPLATE_STRING,
+            String.format("#%06x", ChatMiniMessage.getDefColor().getRgb())
+        );
+    }
+
+    public static TagResolver.Single getCustomEffectiveDefIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        if (hyperTrainedStats.contains(Stats.DEFENCE))
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomEffectiveDefIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomEffectiveDefIVsResolvers(ivs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomEffectiveDefIVsResolvers(IVs ivs)
+    {
+        return new TagResolver.Single[]
+        {
+            getEffectiveDefIVsResolver(ivs),
+            getDefColorResolver()
+        };
+    }
+
+    public static TagResolver.Single getCustomDefIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomDefIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomDefIVsResolvers(ivs, hyperTrainedStats))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_DEF_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomDefIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getRealDefIVsResolver(ivs));
+        resolvers.add(getCustomEffectiveDefIVsResolver(ivs, hyperTrainedStats));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveDefIVsResolvers(ivs)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getRealSpaIVsResolver(IVs ivs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.REAL_SPA_IVS_TEMPLATE_STRING,
+            String.valueOf(ivs.get(Stats.SPECIAL_ATTACK))
+        );
+    }
+
+    private static TagResolver.Single getEffectiveSpaIVsResolver(IVs ivs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.EFFECTIVE_SPA_IVS_TEMPLATE_STRING,
+            String.valueOf(ivs.getEffectiveBattleIV(Stats.SPECIAL_ATTACK))
+        );
+    }
+
+    private static TagResolver.Single getSpaColorResolver()
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.SPA_COLOR_TEMPLATE_STRING,
+            String.format("#%06x", ChatMiniMessage.getSpaColor().getRgb())
+        );
+    }
+
+    public static TagResolver.Single getCustomEffectiveSpaIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        if (hyperTrainedStats.contains(Stats.SPECIAL_ATTACK))
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomEffectiveSpaIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomEffectiveSpaIVsResolvers(ivs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomEffectiveSpaIVsResolvers(IVs ivs)
+    {
+        return new TagResolver.Single[]
+        {
+            getEffectiveSpaIVsResolver(ivs),
+            getSpaColorResolver()
+        };
+    }
+
+    public static TagResolver.Single getCustomSpaIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomSpaIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomSpaIVsResolvers(ivs, hyperTrainedStats))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_SPA_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomSpaIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getRealSpaIVsResolver(ivs));
+        resolvers.add(getCustomEffectiveSpaIVsResolver(ivs, hyperTrainedStats));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveSpaIVsResolvers(ivs)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getRealSpdIVsResolver(IVs ivs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.REAL_SPD_IVS_TEMPLATE_STRING,
+            String.valueOf(ivs.get(Stats.SPECIAL_DEFENCE))
+        );
+    }
+
+    private static TagResolver.Single getEffectiveSpdIVsResolver(IVs ivs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.EFFECTIVE_SPD_IVS_TEMPLATE_STRING,
+            String.valueOf(ivs.getEffectiveBattleIV(Stats.SPECIAL_DEFENCE))
+        );
+    }
+
+    private static TagResolver.Single getSpdColorResolver()
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.SPD_COLOR_TEMPLATE_STRING,
+            String.format("#%06x", ChatMiniMessage.getSpdColor().getRgb())
+        );
+    }
+
+    public static TagResolver.Single getCustomEffectiveSpdIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        if (hyperTrainedStats.contains(Stats.SPECIAL_DEFENCE))
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomEffectiveSpdIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomEffectiveSpdIVsResolvers(ivs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomEffectiveSpdIVsResolvers(IVs ivs)
+    {
+        return new TagResolver.Single[]
+        {
+            getEffectiveSpdIVsResolver(ivs),
+            getSpdColorResolver()
+        };
+    }
+
+    public static TagResolver.Single getCustomSpdIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomSpdIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomSpdIVsResolvers(ivs, hyperTrainedStats))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_SPD_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomSpdIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getRealSpdIVsResolver(ivs));
+        resolvers.add(getCustomEffectiveSpdIVsResolver(ivs, hyperTrainedStats));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveSpdIVsResolvers(ivs)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getRealSpeIVsResolver(IVs ivs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.REAL_SPE_IVS_TEMPLATE_STRING,
+            String.valueOf(ivs.get(Stats.SPEED))
+        );
+    }
+
+    private static TagResolver.Single getEffectiveSpeIVsResolver(IVs ivs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.EFFECTIVE_SPE_IVS_TEMPLATE_STRING,
+            String.valueOf(ivs.getEffectiveBattleIV(Stats.SPEED))
+        );
+    }
+
+    private static TagResolver.Single getSpeColorResolver()
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.SPE_COLOR_TEMPLATE_STRING,
+            String.format("#%06x", ChatMiniMessage.getSpeColor().getRgb())
+        );
+    }
+
+    public static TagResolver.Single getCustomEffectiveSpeIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        if (hyperTrainedStats.contains(Stats.SPEED))
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING,
+                    Component.empty()
+            );
+        }
+
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomEffectiveSpeIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomEffectiveSpeIVsResolvers(ivs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomEffectiveSpeIVsResolvers(IVs ivs)
+    {
+        return new TagResolver.Single[]
+        {
+            getEffectiveSpeIVsResolver(ivs),
+            getSpeColorResolver()
+        };
+    }
+
+    public static TagResolver.Single getCustomSpeIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomSpeIVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomSpeIVsResolvers(ivs, hyperTrainedStats))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_SPE_IVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomSpeIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getRealSpeIVsResolver(ivs));
+        resolvers.add(getCustomEffectiveSpeIVsResolver(ivs, hyperTrainedStats));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveSpeIVsResolvers(ivs)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getEVTotalResolver(int evTotal)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.EV_TOTAL_TEMPLATE_STRING,
+            String.valueOf(evTotal)
+        );
+    }
+
+    private static TagResolver.Single getEVPercentageResolver(int evTotal)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.EV_PERCENTAGE_TEMPLATE_STRING,
+            String.valueOf((evTotal / 510.0) * 100.0)
+        );
+    }
+
+    public static TagResolver.Single getCustomEVPercentageResolver(int evTotal)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomEVPercentageTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomEVPercentageResolvers(evTotal))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_EV_PERCENTAGE_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomEVPercentageResolvers(int evTotal)
+    {
+        return new TagResolver.Single[]
+        {
+            getEVTotalResolver(evTotal),
+            getEVPercentageResolver(evTotal)
+        };
+    }
+
+    public static TagResolver.Single getCustomGeneralEVsResolver(int evTotal)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomGeneralEVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomGeneralEVsResolvers(evTotal))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_GENERAL_EVS_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomGeneralEVsResolvers(int evTotal)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.addAll(Arrays.asList(getCustomEVPercentageResolvers(evTotal)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getHpEVResolver(EVs evs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.HP_EV_TEMPLATE_STRING,
+            String.valueOf(evs.get(Stats.HP))
+        );
+    }
+
+    public static TagResolver.Single getCustomHpEVsResolver(EVs evs)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomHpEVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomHpEVsResolvers(evs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_HP_EV_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomHpEVsResolvers(EVs evs)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getHpEVResolver(evs));
+        resolvers.add(getHpColorResolver());
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getAtkEVResolver(EVs evs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.ATK_EV_TEMPLATE_STRING,
+            String.valueOf(evs.get(Stats.ATTACK))
+        );
+    }
+
+    public static TagResolver.Single getCustomAtkEVsResolver(EVs evs)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomAtkEVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomAtkEVsResolvers(evs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_ATK_EV_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomAtkEVsResolvers(EVs evs)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getAtkEVResolver(evs));
+        resolvers.add(getAtkColorResolver());
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getDefEVResolver(EVs evs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.DEF_EV_TEMPLATE_STRING,
+            String.valueOf(evs.get(Stats.DEFENCE))
+        );
+    }
+
+    public static TagResolver.Single getCustomDefEVsResolver(EVs evs)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomDefEVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomDefEVsResolvers(evs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_DEF_EV_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomDefEVsResolvers(EVs evs)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getDefEVResolver(evs));
+        resolvers.add(getDefColorResolver());
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getSpaEVResolver(EVs evs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.SPA_EV_TEMPLATE_STRING,
+            String.valueOf(evs.get(Stats.SPECIAL_ATTACK))
+        );
+    }
+
+    public static TagResolver.Single getCustomSpaEVsResolver(EVs evs)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomSpaEVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomSpaEVsResolvers(evs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_SPA_EV_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomSpaEVsResolvers(EVs evs)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getSpaEVResolver(evs));
+        resolvers.add(getSpaColorResolver());
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getSpdEVResolver(EVs evs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.SPD_EV_TEMPLATE_STRING,
+            String.valueOf(evs.get(Stats.SPECIAL_DEFENCE))
+        );
+    }
+
+    public static TagResolver.Single getCustomSpdEVsResolver(EVs evs)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomSpdEVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomSpdEVsResolvers(evs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_SPD_EV_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomSpdEVsResolvers(EVs evs)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getSpdEVResolver(evs));
+        resolvers.add(getSpdColorResolver());
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getSpeEVResolver(EVs evs)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.SPE_EV_TEMPLATE_STRING,
+            String.valueOf(evs.get(Stats.SPEED))
+        );
+    }
+
+    public static TagResolver.Single getCustomSpeEVsResolver(EVs evs)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomSpeEVsTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomSpeEVsResolvers(evs))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_HP_EV_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomSpeEVsResolvers(EVs evs)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getSpeEVResolver(evs));
+        resolvers.add(getSpeColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
