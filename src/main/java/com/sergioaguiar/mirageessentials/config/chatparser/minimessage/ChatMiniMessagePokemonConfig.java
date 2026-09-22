@@ -192,8 +192,7 @@ public class ChatMiniMessagePokemonConfig
                 # {EggGroups} - The pokémon's egg groups, following the configured template.
                 # {Neutered} - The pokémon's neuter state, following the configured {True} and {False} templates.
                 # {CustomNeutered} - The pokémon's neuter state, following the configured template (not shown if not neutered).
-                # {OriginalTrainerName} - The pokémon's original trainer's username.
-                # {OriginalTrainerDisplayName} - The pokémon's original trainer's custom display name.
+                # {OriginalTrainerName} - The pokémon's original trainer's username (or UUID).
                 %s = \"\"\"
                 %s\"\"\"
 

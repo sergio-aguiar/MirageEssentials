@@ -8,6 +8,7 @@ import java.util.stream.StreamSupport;
 
 import com.cobblemon.mod.common.api.abilities.PotentialAbility;
 import com.cobblemon.mod.common.api.moves.Move;
+import com.cobblemon.mod.common.api.pokemon.egg.EggGroup;
 import com.cobblemon.mod.common.api.pokemon.stats.Stats;
 import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.api.types.ElementalTypes;
@@ -261,5 +262,53 @@ public class CobblemonUtils
         if (showdownId.equals(ElementalTypes.STEEL.getShowdownId())) return ElementalTypes.STEEL;
         if (showdownId.equals(ElementalTypes.WATER.getShowdownId())) return ElementalTypes.WATER;
         return ElementalTypes.BUG;
+    }
+
+    public static String getEggGroupTemplateName(EggGroup eggGroup)
+    {
+        switch (eggGroup) {
+            case AMORPHOUS:
+                return "Amorphous";
+            case BUG:
+                return "Bug";
+            case DITTO:
+                return "Ditto";
+            case DRAGON:
+                return "Dragon";
+            case FAIRY:
+                return "Fairy";
+            case FIELD:
+                return "Field";
+            case FLYING:
+                return "Flying";
+            case GRASS:
+                return "Grass";
+            case HUMAN_LIKE:
+                return "Human-Like";
+            case MINERAL:
+                return "Mineral";
+            case MONSTER:
+                return "Monster";
+            case UNDISCOVERED:
+                return "Undiscovered";
+            case WATER_1:
+                return "Water1";
+            case WATER_2:
+                return "Water2";
+            case WATER_3:
+                return "Water3";
+            default:
+                return "Undiscovered";
+        }
+    }
+
+    public static String getPokemonOTName(Pokemon pokemon)
+    {
+        return pokemon.getOriginalTrainer();
+    }
+
+    public static String getPokemonOTDisplayName(Pokemon pokemon)
+    {
+        return pokemon.getOriginalTrainerName();
     }
 }

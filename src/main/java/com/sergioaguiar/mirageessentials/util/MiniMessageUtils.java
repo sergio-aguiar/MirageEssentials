@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.cobblemon.mod.common.api.moves.Move;
+import com.cobblemon.mod.common.api.pokemon.egg.EggGroup;
 import com.cobblemon.mod.common.api.pokemon.feature.SpeciesFeature;
 import com.cobblemon.mod.common.api.pokemon.feature.StringSpeciesFeature;
 import com.cobblemon.mod.common.api.pokemon.stats.Stats;
@@ -24,11 +25,13 @@ import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniM
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 
+import net.kyori.adventure.platform.fabric.FabricAudiences;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 
 public class MiniMessageUtils
 {
@@ -49,9 +52,36 @@ public class MiniMessageUtils
         return MINIMESSAGE_INSTANCE;
     }
 
+    public static Text render(String template, TagResolver placeholders)
+    {
+        Component component = MINIMESSAGE_INSTANCE.deserialize
+        (
+            template,
+            placeholders
+        );
+
+        return toMinecraftText(component);
+    }
+
+    public static List<Text> renderLines(String template, TagResolver placeholders)
+    {
+        List<Text> lines = new ArrayList<>();
+
+        if (template == null || template.isEmpty()) return lines;
+
+        String[] split = template.split("\\R", -1);
+        for (String line : split) lines.add(render(line,placeholders));
+
+        return lines;
+    }
+
+    public static Text toMinecraftText(Component component)
+    {
+        return FabricAudiences.nonWrappingSerializer().serialize(component);
+    }
+
     public static TagResolver getPokeInfoTagResolver(Pokemon pokemon)
     {
-        String species = CobblemonUtils.getPokemonSpecies(pokemon);
         List<ElementalType> types = CobblemonUtils.getPokemonTypes(pokemon);
         boolean isMonotype = types.size() == 1;
         TeraType teraType = pokemon.getTeraType();
@@ -73,9 +103,11 @@ public class MiniMessageUtils
         Set<Stats> hyperTrainedStats = CobblemonUtils.getHyperTrainedStats(ivs);
         EVs evs = pokemon.getEvs();
         int totalEvs = CobblemonUtils.getEVTotal(evs);
+        float scale = pokemon.getScaleModifier();
+        boolean isNeutered = NeoDaycareUtils.isNeutered(pokemon);
 
         return TagResolver.builder()
-                .resolver(getNameResolver(CobblemonUtils.getPokemonName(pokemon.getNickname(), species)))
+                .resolver(getNameResolver(CobblemonUtils.getPokemonName(pokemon.getNickname(), CobblemonUtils.getPokemonSpecies(pokemon))))
                 .resolver(getTitleResolver(CobblemonUtils.getPokemonTitle(pokemon)))
                 .resolver(getGenderResolver(pokemon.getGender()))
                 .resolver(getCaughtBallResolver(CobblemonUtils.getPokemonCaughtBall(pokemon)))
@@ -147,6 +179,13 @@ public class MiniMessageUtils
                 .resolvers(getCustomSpdEVsResolvers(evs))
                 .resolver(getCustomSpeEVsResolver(evs))
                 .resolvers(getCustomSpeEVsResolvers(evs))
+                .resolver(getSizeResolver(CobblemonUtils.getPokemonSizeName(pokemon)))
+                .resolver(getScaleModifierResolver(scale))
+                .resolver(getScaleModifier100Resolver(scale))
+                .resolver(getEggGroupsResolver(pokemon.getSpecies().getEggGroups()))
+                .resolver(getCustomNeuteredResolver(isNeutered))
+                .resolvers(getCustomNeuteredResolvers(isNeutered))
+                .resolver(getOriginalTrainerNameResolver(cosmeticItemCustomName))
                 .build();
     }
 
@@ -709,7 +748,7 @@ public class MiniMessageUtils
     {
         return Placeholder.parsed
         (
-            ChatMiniMessage.ABILITY_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING,
             isHA ? ChatMiniMessage.getCustomHiddenAbilityTemplate() : ""
         );
     }
@@ -2086,7 +2125,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_HP_EV_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_HP_EVS_TEMPLATE_STRING,
             component
         );
     }
@@ -2122,7 +2161,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_ATK_EV_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_ATK_EVS_TEMPLATE_STRING,
             component
         );
     }
@@ -2158,7 +2197,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_DEF_EV_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_DEF_EVS_TEMPLATE_STRING,
             component
         );
     }
@@ -2194,7 +2233,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_SPA_EV_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_SPA_EVS_TEMPLATE_STRING,
             component
         );
     }
@@ -2230,7 +2269,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_SPD_EV_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_SPD_EVS_TEMPLATE_STRING,
             component
         );
     }
@@ -2266,7 +2305,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_HP_EV_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_SPE_EVS_TEMPLATE_STRING,
             component
         );
     }
@@ -2279,5 +2318,93 @@ public class MiniMessageUtils
         resolvers.add(getSpeColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getSizeResolver(String size)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.SIZE_TEMPLATE_STRING,
+            size
+        );
+    }
+
+    private static TagResolver.Single getScaleModifierResolver(float scale)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.SCALE_MODIFIER_TEMPLATE_STRING,
+            String.format("%.2f", scale)
+        );
+    }
+
+    private static TagResolver.Single getScaleModifier100Resolver(float scale)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.SCALE_MODIFIER_100_TEMPLATE_STRING,
+            String.format("%d", (int) (scale * 100))
+        );
+    }
+
+    private static TagResolver.Single getEggGroupsResolver(HashSet<EggGroup> eggGroups)
+    {
+        StringBuilder template = new StringBuilder();
+
+        for (EggGroup eggGroup : eggGroups)
+        {
+            if (!template.isEmpty()) template.append(", ");
+            template.append("{%s}".formatted(CobblemonUtils.getEggGroupTemplateName(eggGroup)));
+        }
+
+        return Placeholder.parsed
+        (
+            ChatMiniMessage.EGG_GROUPS_TEMPLATE_STRING,
+            template.toString()
+        );
+    }
+
+    private static TagResolver.Single getNeuteredResolver(boolean neutered)
+    {
+        return Placeholder.parsed
+        (
+            ChatMiniMessage.NEUTERED_TEMPLATE_STRING,
+            neutered ? ChatMiniMessage.getTrueTemplate() : ChatMiniMessage.getFalseTemplate()
+        );
+    }
+
+    public static TagResolver.Single getCustomNeuteredResolver(boolean neutered)
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getCustomNeuteredTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomNeuteredResolvers(neutered))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_NEUTERED_TEMPLATE_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomNeuteredResolvers(boolean neutered)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getNeuteredResolver(neutered));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getOriginalTrainerNameResolver(String ot)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.ORIGINAL_TRAINER_NAME_TEMPLATE_STRING,
+            ot
+        );
     }
 }
