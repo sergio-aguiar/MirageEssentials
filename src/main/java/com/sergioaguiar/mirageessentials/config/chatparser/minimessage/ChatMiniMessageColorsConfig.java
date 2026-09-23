@@ -11,8 +11,6 @@ import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.sergioaguiar.mirageessentials.MirageEssentials;
 import com.sergioaguiar.mirageessentials.util.ModLogger;
 
-import net.minecraft.text.TextColor;
-
 public class ChatMiniMessageColorsConfig
 {
     private static final Path CONFIG_PATH = Paths.get("config", "mirageessentials", "chat_module", "minimessage", "chat_minimessage_colors.toml");
@@ -50,9 +48,9 @@ public class ChatMiniMessageColorsConfig
                 for (CommentedConfig.Entry colorEntry : colorsConfig.entrySet())
                 {
                     String colorName = colorEntry.getKey();
-                    String color = config.get("%s".formatted(colorName));
+                    String color = colorsConfig.get("%s".formatted(colorName));
                     if (color != null && !color.isEmpty())
-                        ChatMiniMessage.setCustomColor(colorName, color);
+                        ChatMiniMessage.setCustomColor(colorName.toLowerCase(), color.toLowerCase());
                 }
             }
 
@@ -60,42 +58,42 @@ public class ChatMiniMessageColorsConfig
             {
                 String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.HP_COLOR_TEMPLATE_STRING));
                 if (color != null && !color.isEmpty())
-                    ChatMiniMessage.setHpColor(TextColor.parse(color).getOrThrow());
+                    ChatMiniMessage.setHpColor(color);
             }
 
             if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.ATK_COLOR_TEMPLATE_STRING)))
             {
                 String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.ATK_COLOR_TEMPLATE_STRING));
                 if (color != null && !color.isEmpty())
-                    ChatMiniMessage.setAtkColor(TextColor.parse(color).getOrThrow());
+                    ChatMiniMessage.setAtkColor(color);
             }
 
             if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.DEF_COLOR_TEMPLATE_STRING)))
             {
                 String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.DEF_COLOR_TEMPLATE_STRING));
                 if (color != null && !color.isEmpty())
-                    ChatMiniMessage.setDefColor(TextColor.parse(color).getOrThrow());
+                    ChatMiniMessage.setDefColor(color);
             }
 
             if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPA_COLOR_TEMPLATE_STRING)))
             {
                 String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPA_COLOR_TEMPLATE_STRING));
                 if (color != null && !color.isEmpty())
-                    ChatMiniMessage.setSpaColor(TextColor.parse(color).getOrThrow());
+                    ChatMiniMessage.setSpaColor(color);
             }
 
             if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPD_COLOR_TEMPLATE_STRING)))
             {
                 String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPD_COLOR_TEMPLATE_STRING));
                 if (color != null && !color.isEmpty())
-                    ChatMiniMessage.setSpdColor(TextColor.parse(color).getOrThrow());
+                    ChatMiniMessage.setSpdColor(color);
             }
 
             if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPE_COLOR_TEMPLATE_STRING)))
             {
                 String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STAT_COLOR_SECTION_STRING, ChatMiniMessage.SPE_COLOR_TEMPLATE_STRING));
                 if (color != null && !color.isEmpty())
-                    ChatMiniMessage.setSpeColor(TextColor.parse(color).getOrThrow());
+                    ChatMiniMessage.setSpeColor(color);
             }
 
             ModLogger.info("MiniMessage configurations successfully loaded from chat_minimessage_colors.toml.");
@@ -140,9 +138,6 @@ public class ChatMiniMessageColorsConfig
 
             [%s]
             # Here you can configure the colors to use for the specific templates of the same name.
-            %s = \"%s\"
-            %s = \"%s\"
-            %s = \"%s\"
             %s = \"%s\"
             %s = \"%s\"
             %s = \"%s\"

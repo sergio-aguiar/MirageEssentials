@@ -17,6 +17,7 @@ import com.cobblemon.mod.common.pokemon.IVs;
 import com.cobblemon.mod.common.pokemon.Nature;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.pokemon.abilities.HiddenAbilityType;
+import com.cobblemon.mod.common.pokemon.status.PersistentStatusContainer;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 
@@ -63,7 +64,9 @@ public class CobblemonUtils
 
     public static String getPokemonStatus(Pokemon pokemon)
     {
-        return pokemon.getStatus().getStatus().getShowdownName();
+        PersistentStatusContainer status = pokemon.getStatus();
+
+        return status == null ? "" : status.getStatus().getShowdownName();
     }
 
     public static List<ElementalType> getPokemonTypes(Pokemon pokemon)

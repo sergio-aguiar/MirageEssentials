@@ -22,11 +22,12 @@ import com.cobblemon.mod.common.pokemon.IVs;
 import com.cobblemon.mod.common.pokemon.Nature;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.pokemon.Species;
-import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspects;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
+import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 import com.sergioaguiar.mirageessentials.util.CobblemonUtils;
+import com.sergioaguiar.mirageessentials.util.MiniMessageUtils;
 import com.sergioaguiar.mirageessentials.util.NeoDaycareUtils;
 import com.sergioaguiar.mirageessentials.util.TextUtils;
 
@@ -136,6 +137,13 @@ public class PlaceholderResolver
 
     public static Text buildPokemonText(Pokemon pokemon, boolean isClosedSheet) 
     {
+        return MiniMessageUtils.render
+        (
+            ChatMiniMessage.getPokemonInfoTemplate(),
+            MiniMessageUtils.getPokeInfoTagResolver(pokemon)
+        );
+
+        /**
         return TextUtils.hoverableText
         (
             pokemon.getSpecies().getName(), 
@@ -148,6 +156,7 @@ public class PlaceholderResolver
             pokemon.isUltraBeast(),
             ChatAspects.isCustomPokemon(pokemon.getAspects())
         );
+        */
     }
 
     public static Text getMainHandItem(ServerPlayerEntity player)

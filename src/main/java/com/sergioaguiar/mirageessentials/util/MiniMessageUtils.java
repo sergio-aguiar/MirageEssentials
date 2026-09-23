@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.cobblemon.mod.common.api.moves.Move;
@@ -193,7 +194,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.NAME_TEMPLATE_STRING,
+            ChatMiniMessage.NAME_TEMPLATE_TAG_STRING,
             name
         );
     }
@@ -202,7 +203,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.TITLE_TEMPLATE_STRING,
+            ChatMiniMessage.TITLE_TEMPLATE_TAG_STRING,
             title
         );
     }
@@ -218,7 +219,7 @@ public class MiniMessageUtils
 
         return Placeholder.parsed
         (
-            ChatMiniMessage.GENDER_TEMPLATE_STRING,
+            ChatMiniMessage.GENDER_TEMPLATE_TAG_STRING,
             template
         );
     }
@@ -227,7 +228,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.CAUGHT_BALL_TEMPLATE_STRING,
+            ChatMiniMessage.CAUGHT_BALL_TEMPLATE_TAG_STRING,
             caughtBall
         );
     }
@@ -236,7 +237,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.CURRENT_HEALTH_TEMPLATE_STRING,
+            ChatMiniMessage.CURRENT_HEALTH_TEMPLATE_TAG_STRING,
             currentHealth
         );
     }
@@ -245,7 +246,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MAX_HEALTH_TEMPLATE_STRING,
+            ChatMiniMessage.MAX_HEALTH_TEMPLATE_TAG_STRING,
             maxHealth
         );
     }
@@ -268,7 +269,7 @@ public class MiniMessageUtils
 
         return Placeholder.parsed
         (
-            ChatMiniMessage.STATUS_TEMPLATE_STRING,
+            ChatMiniMessage.STATUS_TEMPLATE_TAG_STRING,
             template
         );
     }
@@ -285,7 +286,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_STATUS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_STATUS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -310,7 +311,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_CONDITION_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_CONDITION_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -330,7 +331,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.TYPE1_TEMPLATE_STRING,
+            ChatMiniMessage.TYPE1_TEMPLATE_TAG_STRING,
             TextUtils.toTitleCase(type.getName())
         );
     }
@@ -339,7 +340,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.TYPE1_COLOR_TEMPLATE_STRING,
+            ChatMiniMessage.TYPE1_COLOR_TEMPLATE_TAG_STRING,
             String.format("#%06x", type.getPrimaryColor())
         );
     }
@@ -348,7 +349,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.TYPE2_TEMPLATE_STRING,
+            ChatMiniMessage.TYPE2_TEMPLATE_TAG_STRING,
             TextUtils.toTitleCase(type.getName())
         );
     }
@@ -357,7 +358,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.TYPE2_COLOR_TEMPLATE_STRING,
+            ChatMiniMessage.TYPE2_COLOR_TEMPLATE_TAG_STRING,
             String.format("#%06x", type.getPrimaryColor())
         );
     }
@@ -366,7 +367,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.TERA_TYPE_TEMPLATE_STRING,
+            ChatMiniMessage.TERA_TYPE_TEMPLATE_TAG_STRING,
             TextUtils.toTitleCase(type.getName())
         );
     }
@@ -377,7 +378,7 @@ public class MiniMessageUtils
 
         return Placeholder.unparsed
         (
-            ChatMiniMessage.TERA_TYPE_COLOR_TEMPLATE_STRING,
+            ChatMiniMessage.TERA_TYPE_COLOR_TEMPLATE_TAG_STRING,
             String.format("#%06x", elementalType.getPrimaryColor())
         );
     }
@@ -386,7 +387,7 @@ public class MiniMessageUtils
     {
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_TYPES_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_TYPES_TEMPLATE_TAG_STRING,
             isMonotype 
                 ? getCustomTypesMonotypeComponent(types, teraType, isMonotype)
                 : getCustomTypesDuotypeComponent(types, teraType, isMonotype)
@@ -443,7 +444,7 @@ public class MiniMessageUtils
     {
         return Placeholder.parsed
         (
-            ChatMiniMessage.CUSTOM_SHININESS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_SHININESS_TEMPLATE_TAG_STRING,
             pokemon.getShiny()
                 ? ChatMiniMessage.getCustomShininessTemplate()
                 : ""
@@ -454,7 +455,7 @@ public class MiniMessageUtils
     {
         return Placeholder.parsed
         (
-            ChatMiniMessage.CUSTOM_ALPHANESS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_ALPHANESS_TEMPLATE_TAG_STRING,
             pokemon.getShiny()
                 ? ChatMiniMessage.getCustomAlphanessTemplate()
                 : ""
@@ -465,7 +466,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.FORM_TEMPLATE_STRING,
+            ChatMiniMessage.FORM_TEMPLATE_TAG_STRING,
             form
         );
     }
@@ -475,7 +476,7 @@ public class MiniMessageUtils
         StringBuilder result = getExpandedFormStringBuilder(form, features);
 
         return Placeholder.component(
-                ChatMiniMessage.FORMS_EXPANDED_TEMPLATE_STRING,
+                ChatMiniMessage.FORMS_EXPANDED_TEMPLATE_TAG_STRING,
                 MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize(result.toString())
         );
     }
@@ -486,7 +487,7 @@ public class MiniMessageUtils
         result = getFullyExpandedFormStringBuilder(result, aspects);
 
         return Placeholder.component(
-                ChatMiniMessage.FORMS_FULLY_EXPANDED_TEMPLATE_STRING,
+                ChatMiniMessage.FORMS_FULLY_EXPANDED_TEMPLATE_TAG_STRING,
                 MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize(result.toString())
         );
     }
@@ -592,7 +593,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_FORMS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_FORMS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -625,7 +626,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_SPECIES_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_SPECIES_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -651,7 +652,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.HELD_ITEM_TEMPLATE_STRING,
+            ChatMiniMessage.HELD_ITEM_TEMPLATE_TAG_STRING,
             heldItem
         );
     }
@@ -660,7 +661,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.HELD_ITEM_TEMPLATE_STRING,
+            ChatMiniMessage.HELD_ITEM_TEMPLATE_TAG_STRING,
             heldItem
         );
     }
@@ -677,7 +678,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_HELD_ITEM_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_HELD_ITEM_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -695,7 +696,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.COSMETIC_ITEM_TEMPLATE_STRING,
+            ChatMiniMessage.COSMETIC_ITEM_TEMPLATE_TAG_STRING,
             cosmeticItem
         );
     }
@@ -704,7 +705,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.COSMETIC_ITEM_CUSTOM_NAME_TEMPLATE_STRING,
+            ChatMiniMessage.COSMETIC_ITEM_CUSTOM_NAME_TEMPLATE_TAG_STRING,
             cosmeticItem
         );
     }
@@ -721,7 +722,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_COSMETIC_ITEM_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -739,7 +740,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.ABILITY_TEMPLATE_STRING,
+            ChatMiniMessage.ABILITY_TEMPLATE_TAG_STRING,
             ability
         );
     }
@@ -748,7 +749,7 @@ public class MiniMessageUtils
     {
         return Placeholder.parsed
         (
-            ChatMiniMessage.CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_HIDDEN_ABILITY_TEMPLATE_TAG_STRING,
             isHA ? ChatMiniMessage.getCustomHiddenAbilityTemplate() : ""
         );
     }
@@ -757,7 +758,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.NATURE_REAL_TEMPLATE_STRING,
+            ChatMiniMessage.NATURE_REAL_TEMPLATE_TAG_STRING,
             nature
         );
     }
@@ -766,7 +767,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.NATURE_EFFECTIVE_TEMPLATE_STRING,
+            ChatMiniMessage.NATURE_EFFECTIVE_TEMPLATE_TAG_STRING,
             nature
         );
     }
@@ -775,7 +776,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.NATURE_REAL_STAT_UP_TEMPLATE_STRING,
+            ChatMiniMessage.NATURE_REAL_STAT_UP_TEMPLATE_TAG_STRING,
             stat
         );
     }
@@ -784,7 +785,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.NATURE_REAL_STAT_DOWN_TEMPLATE_STRING,
+            ChatMiniMessage.NATURE_REAL_STAT_DOWN_TEMPLATE_TAG_STRING,
             stat
         );
     }
@@ -793,7 +794,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.NATURE_EFFECTIVE_STAT_UP_TEMPLATE_STRING,
+            ChatMiniMessage.NATURE_EFFECTIVE_STAT_UP_TEMPLATE_TAG_STRING,
             stat
         );
     }
@@ -802,7 +803,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.NATURE_EFFECTIVE_STAT_DOWN_TEMPLATE_STRING,
+            ChatMiniMessage.NATURE_EFFECTIVE_STAT_DOWN_TEMPLATE_TAG_STRING,
             stat
         );
     }
@@ -813,7 +814,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING,
+                    ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -828,7 +829,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -848,7 +849,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING,
+                    ChatMiniMessage.CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -863,7 +864,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -881,7 +882,7 @@ public class MiniMessageUtils
     {
         return Placeholder.parsed
         (
-            ChatMiniMessage.CUSTOM_MINTNESS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_MINTNESS_TEMPLATE_TAG_STRING,
             isMinted ? ChatMiniMessage.getCustomMintnessTemplate() : ""
         );
     }
@@ -890,7 +891,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.LEVEL_TEMPLATE_STRING,
+            ChatMiniMessage.LEVEL_TEMPLATE_TAG_STRING,
             level
         );
     }
@@ -899,7 +900,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.CURRENT_EXPERIENCE_TEMPLATE_STRING,
+            ChatMiniMessage.CURRENT_EXPERIENCE_TEMPLATE_TAG_STRING,
             exp
         );
     }
@@ -908,7 +909,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.REQUIRED_EXPERIENCE_TEMPLATE_STRING,
+            ChatMiniMessage.REQUIRED_EXPERIENCE_TEMPLATE_TAG_STRING,
             exp
         );
     }
@@ -917,7 +918,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.REMAINING_EXPERIENCE_TEMPLATE_STRING,
+            ChatMiniMessage.REMAINING_EXPERIENCE_TEMPLATE_TAG_STRING,
             exp
         );
     }
@@ -928,7 +929,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EXPERIENCE_TEMPLATE_STRING,
+                    ChatMiniMessage.CUSTOM_EXPERIENCE_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -943,7 +944,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_EXPERIENCE_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_EXPERIENCE_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -962,7 +963,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.FRIENDSHIP_TEMPLATE_STRING,
+            ChatMiniMessage.FRIENDSHIP_TEMPLATE_TAG_STRING,
             friendship
         );
     }
@@ -971,7 +972,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE1_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE1_TEMPLATE_TAG_STRING,
             moves.size() > 0 ? moves.get(0).getDisplayName().toString() : ""
         );
     }
@@ -980,7 +981,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE1_COLOR_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE1_COLOR_TEMPLATE_TAG_STRING,
             moves.size() > 0 ? String.format("#%06x", moves.get(0).getType().getPrimaryColor()) : ""
         );
     }
@@ -989,7 +990,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE1_USED_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE1_USED_PP_TEMPLATE_TAG_STRING,
             String.valueOf(moves.size() > 0 ? moves.get(0).getMaxPp() - moves.get(0).getCurrentPp() : 0) 
         );
     }
@@ -998,7 +999,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE1_REMAINING_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE1_REMAINING_PP_TEMPLATE_TAG_STRING,
             String.valueOf(moves.size() > 0 ? moves.get(0).getCurrentPp() : 0)
         );
     }
@@ -1007,7 +1008,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE1_TOTAL_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE1_TOTAL_PP_TEMPLATE_TAG_STRING,
             String.valueOf(moves.size() > 0 ? moves.get(0).getMaxPp() : 0) 
         );
     }
@@ -1018,7 +1019,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.MOVE1_CUSTOM_PP_TEMPLATE_STRING,
+                    ChatMiniMessage.MOVE1_CUSTOM_PP_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -1033,7 +1034,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.MOVE1_CUSTOM_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE1_CUSTOM_PP_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1052,7 +1053,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE2_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE2_TEMPLATE_TAG_STRING,
             moves.size() > 1 ? moves.get(1).getDisplayName().toString() : ""
         );
     }
@@ -1061,7 +1062,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE2_COLOR_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE2_COLOR_TEMPLATE_TAG_STRING,
             moves.size() > 1 ? String.format("#%06x", moves.get(1).getType().getPrimaryColor()) : ""
         );
     }
@@ -1070,7 +1071,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE2_USED_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE2_USED_PP_TEMPLATE_TAG_STRING,
             String.valueOf(moves.size() > 1 ? moves.get(1).getMaxPp() - moves.get(1).getCurrentPp() : 0) 
         );
     }
@@ -1079,7 +1080,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE2_REMAINING_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE2_REMAINING_PP_TEMPLATE_TAG_STRING,
             String.valueOf(moves.size() > 1 ? moves.get(1).getCurrentPp() : 0)
         );
     }
@@ -1088,7 +1089,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE2_TOTAL_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE2_TOTAL_PP_TEMPLATE_TAG_STRING,
             String.valueOf(moves.size() > 1 ? moves.get(1).getMaxPp() : 0) 
         );
     }
@@ -1099,7 +1100,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.MOVE2_CUSTOM_PP_TEMPLATE_STRING,
+                    ChatMiniMessage.MOVE2_CUSTOM_PP_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -1114,7 +1115,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.MOVE2_CUSTOM_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE2_CUSTOM_PP_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1133,7 +1134,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE3_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE3_TEMPLATE_TAG_STRING,
             moves.size() > 2 ? moves.get(2).getDisplayName().toString() : ""
         );
     }
@@ -1142,7 +1143,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE3_COLOR_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE3_COLOR_TEMPLATE_TAG_STRING,
             moves.size() > 2 ? String.format("#%06x", moves.get(2).getType().getPrimaryColor()) : ""
         );
     }
@@ -1151,7 +1152,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE3_USED_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE3_USED_PP_TEMPLATE_TAG_STRING,
             String.valueOf(moves.size() > 2 ? moves.get(2).getMaxPp() - moves.get(2).getCurrentPp() : 0) 
         );
     }
@@ -1160,7 +1161,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE3_REMAINING_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE3_REMAINING_PP_TEMPLATE_TAG_STRING,
             String.valueOf(moves.size() > 2 ? moves.get(2).getCurrentPp() : 0)
         );
     }
@@ -1169,7 +1170,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE3_TOTAL_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE3_TOTAL_PP_TEMPLATE_TAG_STRING,
             String.valueOf(moves.size() > 2 ? moves.get(2).getMaxPp() : 0) 
         );
     }
@@ -1180,7 +1181,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.MOVE3_CUSTOM_PP_TEMPLATE_STRING,
+                    ChatMiniMessage.MOVE3_CUSTOM_PP_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -1195,7 +1196,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.MOVE3_CUSTOM_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE3_CUSTOM_PP_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1214,7 +1215,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE4_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE4_TEMPLATE_TAG_STRING,
             moves.size() > 3 ? moves.get(3).getDisplayName().toString() : ""
         );
     }
@@ -1223,7 +1224,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE4_COLOR_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE4_COLOR_TEMPLATE_TAG_STRING,
             moves.size() > 3 ? String.format("#%06x", moves.get(3).getType().getPrimaryColor()) : ""
         );
     }
@@ -1232,7 +1233,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE4_USED_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE4_USED_PP_TEMPLATE_TAG_STRING,
             String.valueOf(moves.size() > 3 ? moves.get(3).getMaxPp() - moves.get(3).getCurrentPp() : 0) 
         );
     }
@@ -1241,7 +1242,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE4_REMAINING_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE4_REMAINING_PP_TEMPLATE_TAG_STRING,
             String.valueOf(moves.size() > 3 ? moves.get(3).getCurrentPp() : 0)
         );
     }
@@ -1250,7 +1251,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE4_TOTAL_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE4_TOTAL_PP_TEMPLATE_TAG_STRING,
             String.valueOf(moves.size() > 3 ? moves.get(3).getMaxPp() : 0) 
         );
     }
@@ -1261,7 +1262,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.MOVE4_CUSTOM_PP_TEMPLATE_STRING,
+                    ChatMiniMessage.MOVE4_CUSTOM_PP_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -1276,7 +1277,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.MOVE4_CUSTOM_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE4_CUSTOM_PP_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1312,7 +1313,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_MOVES_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_MOVES_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1320,7 +1321,7 @@ public class MiniMessageUtils
     private static TagResolver.Single getMoveResolver(Move move)
     {
         return Placeholder.unparsed(
-            ChatMiniMessage.MOVE_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE_TEMPLATE_TAG_STRING,
             move.getDisplayName().toString()
         );
     }
@@ -1328,7 +1329,7 @@ public class MiniMessageUtils
     private static TagResolver.Single getMoveColorResolver(Move move)
     {
         return Placeholder.unparsed(
-            ChatMiniMessage.MOVE_COLOR_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE_COLOR_TEMPLATE_TAG_STRING,
             String.format("#%06x", move.getType().getPrimaryColor())
         );
     }
@@ -1345,7 +1346,7 @@ public class MiniMessageUtils
         );
 
         return Placeholder.component(
-            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1354,7 +1355,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_TAG_STRING,
             String.valueOf(move.getMaxPp() - move.getCurrentPp())
         );
     }
@@ -1363,7 +1364,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_TAG_STRING,
             String.valueOf(move.getCurrentPp())
         );
     }
@@ -1372,7 +1373,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_TAG_STRING,
             String.valueOf(move.getMaxPp())
         );
     }
@@ -1381,7 +1382,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.REAL_IV_TOTAL_TEMPLATE_STRING,
+            ChatMiniMessage.REAL_IV_TOTAL_TEMPLATE_TAG_STRING,
             String.valueOf(ivTotal)
         );
     }
@@ -1390,7 +1391,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.EFFECTIVE_IV_TOTAL_TEMPLATE_STRING,
+            ChatMiniMessage.EFFECTIVE_IV_TOTAL_TEMPLATE_TAG_STRING,
             String.valueOf(ivTotal)
         );
     }
@@ -1399,7 +1400,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.REAL_IV_PERCENTAGE_TEMPLATE_STRING,
+            ChatMiniMessage.REAL_IV_PERCENTAGE_TEMPLATE_TAG_STRING,
             String.valueOf((ivTotal / 186.0) * 100.0)
         );
     }
@@ -1408,7 +1409,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING,
+            ChatMiniMessage.EFFECTIVE_IV_PERCENTAGE_TEMPLATE_TAG_STRING,
             String.valueOf((ivTotal / 186.0) * 100.0)
         );
     }
@@ -1425,7 +1426,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1451,7 +1452,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1477,7 +1478,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_GENERAL_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_GENERAL_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1498,7 +1499,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.REAL_HP_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.REAL_HP_IVS_TEMPLATE_TAG_STRING,
             String.valueOf(ivs.get(Stats.HP))
         );
     }
@@ -1507,7 +1508,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.EFFECTIVE_HP_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.EFFECTIVE_HP_IVS_TEMPLATE_TAG_STRING,
             String.valueOf(ivs.getEffectiveBattleIV(Stats.HP))
         );
     }
@@ -1516,8 +1517,8 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.HP_COLOR_TEMPLATE_STRING,
-            String.format("#%06x", ChatMiniMessage.getHpColor().getRgb())
+            ChatMiniMessage.HP_COLOR_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.getHpColor()
         );
     }
 
@@ -1527,7 +1528,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -1542,7 +1543,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1568,7 +1569,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_HP_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_HP_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1588,7 +1589,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.REAL_ATK_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.REAL_ATK_IVS_TEMPLATE_TAG_STRING,
             String.valueOf(ivs.get(Stats.ATTACK))
         );
     }
@@ -1597,7 +1598,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.EFFECTIVE_ATK_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.EFFECTIVE_ATK_IVS_TEMPLATE_TAG_STRING,
             String.valueOf(ivs.getEffectiveBattleIV(Stats.ATTACK))
         );
     }
@@ -1606,8 +1607,8 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.ATK_COLOR_TEMPLATE_STRING,
-            String.format("#%06x", ChatMiniMessage.getAtkColor().getRgb())
+            ChatMiniMessage.ATK_COLOR_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.getAtkColor()
         );
     }
 
@@ -1617,7 +1618,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_STRING,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -1632,7 +1633,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1658,7 +1659,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_HP_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_HP_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1678,7 +1679,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.REAL_DEF_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.REAL_DEF_IVS_TEMPLATE_TAG_STRING,
             String.valueOf(ivs.get(Stats.DEFENCE))
         );
     }
@@ -1687,7 +1688,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.EFFECTIVE_DEF_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.EFFECTIVE_DEF_IVS_TEMPLATE_TAG_STRING,
             String.valueOf(ivs.getEffectiveBattleIV(Stats.DEFENCE))
         );
     }
@@ -1696,8 +1697,8 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.DEF_COLOR_TEMPLATE_STRING,
-            String.format("#%06x", ChatMiniMessage.getDefColor().getRgb())
+            ChatMiniMessage.DEF_COLOR_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.getDefColor()
         );
     }
 
@@ -1707,7 +1708,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_STRING,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -1722,7 +1723,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1748,7 +1749,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_DEF_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_DEF_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1768,7 +1769,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.REAL_SPA_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.REAL_SPA_IVS_TEMPLATE_TAG_STRING,
             String.valueOf(ivs.get(Stats.SPECIAL_ATTACK))
         );
     }
@@ -1777,7 +1778,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.EFFECTIVE_SPA_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.EFFECTIVE_SPA_IVS_TEMPLATE_TAG_STRING,
             String.valueOf(ivs.getEffectiveBattleIV(Stats.SPECIAL_ATTACK))
         );
     }
@@ -1786,8 +1787,8 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.SPA_COLOR_TEMPLATE_STRING,
-            String.format("#%06x", ChatMiniMessage.getSpaColor().getRgb())
+            ChatMiniMessage.SPA_COLOR_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.getSpaColor()
         );
     }
 
@@ -1797,7 +1798,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_STRING,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -1812,7 +1813,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1838,7 +1839,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_SPA_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_SPA_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1858,7 +1859,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.REAL_SPD_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.REAL_SPD_IVS_TEMPLATE_TAG_STRING,
             String.valueOf(ivs.get(Stats.SPECIAL_DEFENCE))
         );
     }
@@ -1867,7 +1868,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.EFFECTIVE_SPD_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.EFFECTIVE_SPD_IVS_TEMPLATE_TAG_STRING,
             String.valueOf(ivs.getEffectiveBattleIV(Stats.SPECIAL_DEFENCE))
         );
     }
@@ -1876,8 +1877,8 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.SPD_COLOR_TEMPLATE_STRING,
-            String.format("#%06x", ChatMiniMessage.getSpdColor().getRgb())
+            ChatMiniMessage.SPD_COLOR_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.getSpdColor()
         );
     }
 
@@ -1887,7 +1888,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_STRING,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -1902,7 +1903,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1928,7 +1929,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_SPD_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_SPD_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1948,7 +1949,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.REAL_SPE_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.REAL_SPE_IVS_TEMPLATE_TAG_STRING,
             String.valueOf(ivs.get(Stats.SPEED))
         );
     }
@@ -1957,7 +1958,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.EFFECTIVE_SPE_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.EFFECTIVE_SPE_IVS_TEMPLATE_TAG_STRING,
             String.valueOf(ivs.getEffectiveBattleIV(Stats.SPEED))
         );
     }
@@ -1966,8 +1967,8 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.SPE_COLOR_TEMPLATE_STRING,
-            String.format("#%06x", ChatMiniMessage.getSpeColor().getRgb())
+            ChatMiniMessage.SPE_COLOR_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.getSpeColor()
         );
     }
 
@@ -1977,7 +1978,7 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING,
+                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_TAG_STRING,
                     Component.empty()
             );
         }
@@ -1992,7 +1993,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -2018,7 +2019,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_SPE_IVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_SPE_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -2038,7 +2039,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.EV_TOTAL_TEMPLATE_STRING,
+            ChatMiniMessage.EV_TOTAL_TEMPLATE_TAG_STRING,
             String.valueOf(evTotal)
         );
     }
@@ -2047,7 +2048,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.EV_PERCENTAGE_TEMPLATE_STRING,
+            ChatMiniMessage.EV_PERCENTAGE_TEMPLATE_TAG_STRING,
             String.valueOf((evTotal / 510.0) * 100.0)
         );
     }
@@ -2064,7 +2065,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_EV_PERCENTAGE_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_EV_PERCENTAGE_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -2090,7 +2091,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_GENERAL_EVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_GENERAL_EVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -2108,7 +2109,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.HP_EV_TEMPLATE_STRING,
+            ChatMiniMessage.HP_EV_TEMPLATE_TAG_STRING,
             String.valueOf(evs.get(Stats.HP))
         );
     }
@@ -2125,7 +2126,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_HP_EVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_HP_EVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -2144,7 +2145,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.ATK_EV_TEMPLATE_STRING,
+            ChatMiniMessage.ATK_EV_TEMPLATE_TAG_STRING,
             String.valueOf(evs.get(Stats.ATTACK))
         );
     }
@@ -2161,7 +2162,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_ATK_EVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_ATK_EVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -2180,7 +2181,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.DEF_EV_TEMPLATE_STRING,
+            ChatMiniMessage.DEF_EV_TEMPLATE_TAG_STRING,
             String.valueOf(evs.get(Stats.DEFENCE))
         );
     }
@@ -2197,7 +2198,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_DEF_EVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_DEF_EVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -2216,7 +2217,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.SPA_EV_TEMPLATE_STRING,
+            ChatMiniMessage.SPA_EV_TEMPLATE_TAG_STRING,
             String.valueOf(evs.get(Stats.SPECIAL_ATTACK))
         );
     }
@@ -2233,7 +2234,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_SPA_EVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_SPA_EVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -2252,7 +2253,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.SPD_EV_TEMPLATE_STRING,
+            ChatMiniMessage.SPD_EV_TEMPLATE_TAG_STRING,
             String.valueOf(evs.get(Stats.SPECIAL_DEFENCE))
         );
     }
@@ -2269,7 +2270,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_SPD_EVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_SPD_EVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -2288,7 +2289,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.SPE_EV_TEMPLATE_STRING,
+            ChatMiniMessage.SPE_EV_TEMPLATE_TAG_STRING,
             String.valueOf(evs.get(Stats.SPEED))
         );
     }
@@ -2305,7 +2306,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_SPE_EVS_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_SPE_EVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -2324,7 +2325,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.SIZE_TEMPLATE_STRING,
+            ChatMiniMessage.SIZE_TEMPLATE_TAG_STRING,
             size
         );
     }
@@ -2333,7 +2334,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.SCALE_MODIFIER_TEMPLATE_STRING,
+            ChatMiniMessage.SCALE_MODIFIER_TEMPLATE_TAG_STRING,
             String.format("%.2f", scale)
         );
     }
@@ -2342,7 +2343,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.SCALE_MODIFIER_100_TEMPLATE_STRING,
+            ChatMiniMessage.SCALE_MODIFIER_100_TEMPLATE_TAG_STRING,
             String.format("%d", (int) (scale * 100))
         );
     }
@@ -2354,12 +2355,12 @@ public class MiniMessageUtils
         for (EggGroup eggGroup : eggGroups)
         {
             if (!template.isEmpty()) template.append(", ");
-            template.append("{%s}".formatted(CobblemonUtils.getEggGroupTemplateName(eggGroup)));
+            template.append("<%s>".formatted(CobblemonUtils.getEggGroupTemplateName(eggGroup)));
         }
 
         return Placeholder.parsed
         (
-            ChatMiniMessage.EGG_GROUPS_TEMPLATE_STRING,
+            ChatMiniMessage.EGG_GROUPS_TEMPLATE_TAG_STRING,
             template.toString()
         );
     }
@@ -2368,7 +2369,7 @@ public class MiniMessageUtils
     {
         return Placeholder.parsed
         (
-            ChatMiniMessage.NEUTERED_TEMPLATE_STRING,
+            ChatMiniMessage.NEUTERED_TEMPLATE_TAG_STRING,
             neutered ? ChatMiniMessage.getTrueTemplate() : ChatMiniMessage.getFalseTemplate()
         );
     }
@@ -2385,7 +2386,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_NEUTERED_TEMPLATE_STRING,
+            ChatMiniMessage.CUSTOM_NEUTERED_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -2403,8 +2404,27 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.ORIGINAL_TRAINER_NAME_TEMPLATE_STRING,
+            ChatMiniMessage.ORIGINAL_TRAINER_NAME_TEMPLATE_TAG_STRING,
             ot
         );
+    }
+
+    public static TagResolver.Single[] getCustomColorResolvers(boolean neutered)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        for (Entry<String, String> customColor : ChatMiniMessage.getCustomColors().entrySet())
+        {
+            resolvers.add
+            (
+                Placeholder.unparsed
+                (
+                    "<%s>".formatted(customColor.getKey()),
+                    customColor.getValue()
+                )
+            );
+        }
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 }
