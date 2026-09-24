@@ -293,10 +293,12 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomStatusResolvers(Pokemon pokemon)
     {
-        return new TagResolver.Single[]
-        {
-            getStatusResolver(CobblemonUtils.getPokemonStatus(pokemon), pokemon.isFainted())
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getStatusResolver(CobblemonUtils.getPokemonStatus(pokemon), pokemon.isFainted()));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomConditionResolver(Pokemon pokemon)
@@ -318,13 +320,14 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomConditionResolvers(Pokemon pokemon)
     {
-        return new TagResolver.Single[]
-        {
-            getCurrentHealthResolver(CobblemonUtils.getPokemonCurrentHealth(pokemon)),
-            getMaxHealthResolver(CobblemonUtils.getPokemonCurrentHealth(pokemon)),
-            getStatusResolver(CobblemonUtils.getPokemonStatus(pokemon), pokemon.isFainted()),
-            getCustomStatusResolver(pokemon)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getCurrentHealthResolver(CobblemonUtils.getPokemonCurrentHealth(pokemon)));
+        resolvers.add(getMaxHealthResolver(CobblemonUtils.getPokemonCurrentHealth(pokemon)));
+        resolvers.add(getCustomStatusResolver(pokemon));
+        resolvers.addAll(Arrays.asList(getCustomStatusResolvers(pokemon)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     private static TagResolver.Single getType1Resolver(ElementalType type)
@@ -418,26 +421,26 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomTypesMonotypeResolvers(List<ElementalType> types, TeraType teraType , boolean isMonotype)
     {
-        return new TagResolver.Single[]
-        {
-            getType1Resolver(types.get(0)),
-            getType1ColorResolver(types.get(0)),
-            getTeraTypeResolver(teraType),
-            getTeraTypeColorResolver(teraType)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getType1Resolver(types.get(0)));
+        resolvers.add(getType1ColorResolver(types.get(0)));
+        resolvers.add(getTeraTypeResolver(teraType));
+        resolvers.add(getTeraTypeColorResolver(teraType));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single[] getCustomTypesDuotypeResolvers(List<ElementalType> types, TeraType teraType , boolean isMonotype)
     {
-        return new TagResolver.Single[]
-        {
-            getType1Resolver(types.get(0)),
-            getType1ColorResolver(types.get(0)),
-            getType2Resolver(isMonotype ? types.get(0) : types.get(1)),
-            getType2ColorResolver(isMonotype ? types.get(0) : types.get(1)),
-            getTeraTypeResolver(teraType),
-            getTeraTypeColorResolver(teraType)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getType2Resolver(isMonotype ? types.get(0) : types.get(1)));
+        resolvers.add(getType2ColorResolver(isMonotype ? types.get(0) : types.get(1)));
+        resolvers.addAll(Arrays.asList(getCustomTypesMonotypeResolvers(types, teraType, isMonotype)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     private static TagResolver.Single getCustomShininessResolver(Pokemon pokemon)
@@ -604,21 +607,23 @@ public class MiniMessageUtils
         Set<String> aspects = pokemon.getAspects();
         List<SpeciesFeature> features = pokemon.getFeatures();
 
-        return new TagResolver.Single[]
-        {
-            getCustomShininessResolver(pokemon),
-            getCustomAlphanessResolver(pokemon),
-            getFormResolver(form),
-            getFormsExpandedResolver(form, features),
-            getFormsFullyExpandedResolver(form, features, aspects)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getCustomShininessResolver(pokemon));
+        resolvers.add(getCustomAlphanessResolver(pokemon));
+        resolvers.add(getFormResolver(form));
+        resolvers.add(getFormsExpandedResolver(form, features));
+        resolvers.add(getFormsFullyExpandedResolver(form, features, aspects));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomSpeciesResolver(Pokemon pokemon)
     {
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomStatusTemplate(),
+            ChatMiniMessage.getCustomSpeciesTemplate(),
             TagResolver.builder()
                 .resolvers(getCustomSpeciesResolvers(pokemon))
                 .build()
@@ -633,19 +638,12 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomSpeciesResolvers(Pokemon pokemon)
     {
-        String form = CobblemonUtils.getPokemonBaseForm(pokemon);
-        Set<String> aspects = pokemon.getAspects();
-        List<SpeciesFeature> features = pokemon.getFeatures();
+        List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        return new TagResolver.Single[]
-        {
-            getCustomShininessResolver(pokemon),
-            getCustomAlphanessResolver(pokemon),
-            getFormResolver(form),
-            getFormsExpandedResolver(form, features),
-            getFormsFullyExpandedResolver(form, features, aspects),
-            getCustomFormsResolver(pokemon)
-        };
+        resolvers.add(getCustomFormsResolver(pokemon));
+        resolvers.addAll(Arrays.asList(getCustomFormsResolvers(pokemon)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     private static TagResolver.Single getHeldItemResolver(String heldItem)
@@ -685,11 +683,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomHeldItemResolvers(String heldItemName, String heldItemCustomName)
     {
-        return new TagResolver.Single[]
-        {
-            getHeldItemResolver(heldItemName),
-            getHeldItemCustomNameResolver(heldItemCustomName)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getHeldItemResolver(heldItemName));
+        resolvers.add(getHeldItemCustomNameResolver(heldItemCustomName));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     private static TagResolver.Single getCosmeticItemResolver(String cosmeticItem)
@@ -716,7 +716,7 @@ public class MiniMessageUtils
         (
             ChatMiniMessage.getCustomCosmeticItemTemplate(),
             TagResolver.builder()
-                .resolvers(getCustomHeldItemResolvers(cosmeticItemName, cosmeticItemCustomName))
+                .resolvers(getCustomCosmeticItemResolvers(cosmeticItemName, cosmeticItemCustomName))
                 .build()
         );
 
@@ -729,11 +729,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomCosmeticItemResolvers(String cosmeticItemName, String cosmeticItemCustomName)
     {
-        return new TagResolver.Single[]
-        {
-            getCosmeticItemResolver(cosmeticItemName.equals(ChatStrings.getEmptyHeldItemString()) ? "" : cosmeticItemName),
-            getCosmeticItemCustomNameResolver(cosmeticItemCustomName.equals(ChatStrings.getEmptyHeldItemString()) ? "" : cosmeticItemCustomName)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getCosmeticItemResolver(cosmeticItemName.equals(ChatStrings.getEmptyHeldItemString()) ? "" : cosmeticItemName));
+        resolvers.add(getCosmeticItemCustomNameResolver(cosmeticItemCustomName.equals(ChatStrings.getEmptyHeldItemString()) ? "" : cosmeticItemCustomName));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     private static TagResolver.Single getAbilityResolver(String ability)
@@ -814,8 +816,8 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_TAG_STRING,
-                    Component.empty()
+                ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_TAG_STRING,
+                Component.empty()
             );
         }
 
@@ -836,11 +838,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomNatureRealStatsResolvers(Nature realNature)
     {
-        return new TagResolver.Single[]
-        {
-            getNatureRealStatUpResolver(CobblemonUtils.getPokemonNatureIncreasedStat(realNature)),
-            getNatureRealStatDownResolver(CobblemonUtils.getPokemonNatureDecreasedStat(realNature))
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getNatureRealStatUpResolver(CobblemonUtils.getPokemonNatureIncreasedStat(realNature)));
+        resolvers.add(getNatureRealStatDownResolver(CobblemonUtils.getPokemonNatureDecreasedStat(realNature)));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomNatureEffectiveStatsResolver(Nature effectiveNature)
@@ -871,11 +875,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomNatureEffectiveStatsResolvers(Nature effectiveNature)
     {
-        return new TagResolver.Single[]
-        {
-            getNatureEffectiveStatUpResolver(CobblemonUtils.getPokemonNatureIncreasedStat(effectiveNature)),
-            getNatureEffectiveStatDownResolver(CobblemonUtils.getPokemonNatureDecreasedStat(effectiveNature))
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getNatureEffectiveStatUpResolver(CobblemonUtils.getPokemonNatureIncreasedStat(effectiveNature)));
+        resolvers.add(getNatureEffectiveStatDownResolver(CobblemonUtils.getPokemonNatureDecreasedStat(effectiveNature)));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     private static TagResolver.Single getCustomMintnessResolver(boolean isMinted)
@@ -951,12 +957,14 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomExperienceResolvers(int currentExp, int remainingExp)
     {
-        return new TagResolver.Single[]
-        {
-            getCurrentExperienceResolver(String.valueOf(currentExp)),
-            getRequiredExperienceResolver(String.valueOf(currentExp + remainingExp)),
-            getRemainingExperienceResolver(String.valueOf(remainingExp))
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getCurrentExperienceResolver(String.valueOf(currentExp)));
+        resolvers.add(getRequiredExperienceResolver(String.valueOf(currentExp + remainingExp)));
+        resolvers.add(getRemainingExperienceResolver(String.valueOf(remainingExp)));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     private static TagResolver.Single getFriendshipResolver(String friendship)
@@ -1041,12 +1049,14 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getMove1CustomPPResolvers(List<Move> moves)
     {
-        return new TagResolver.Single[]
-        {
-            getMove1UsedPPResolver(moves),
-            getMove1RemainingPPResolver(moves),
-            getMove1TotalPPResolver(moves)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getMove1UsedPPResolver(moves));
+        resolvers.add(getMove1RemainingPPResolver(moves));
+        resolvers.add(getMove1TotalPPResolver(moves));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     private static TagResolver.Single getMove2Resolver(List<Move> moves)
@@ -1100,8 +1110,8 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.MOVE2_CUSTOM_PP_TEMPLATE_TAG_STRING,
-                    Component.empty()
+                ChatMiniMessage.MOVE2_CUSTOM_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
             );
         }
 
@@ -1122,12 +1132,14 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getMove2CustomPPResolvers(List<Move> moves)
     {
-        return new TagResolver.Single[]
-        {
-            getMove2UsedPPResolver(moves),
-            getMove2RemainingPPResolver(moves),
-            getMove2TotalPPResolver(moves)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getMove2UsedPPResolver(moves));
+        resolvers.add(getMove2RemainingPPResolver(moves));
+        resolvers.add(getMove2TotalPPResolver(moves));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     private static TagResolver.Single getMove3Resolver(List<Move> moves)
@@ -1203,12 +1215,14 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getMove3CustomPPResolvers(List<Move> moves)
     {
-        return new TagResolver.Single[]
-        {
-            getMove3UsedPPResolver(moves),
-            getMove3RemainingPPResolver(moves),
-            getMove3TotalPPResolver(moves)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getMove3UsedPPResolver(moves));
+        resolvers.add(getMove3RemainingPPResolver(moves));
+        resolvers.add(getMove3TotalPPResolver(moves));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     private static TagResolver.Single getMove4Resolver(List<Move> moves)
@@ -1284,12 +1298,14 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getMove4CustomPPResolvers(List<Move> moves)
     {
-        return new TagResolver.Single[]
-        {
-            getMove4UsedPPResolver(moves),
-            getMove4RemainingPPResolver(moves),
-            getMove4TotalPPResolver(moves)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getMove4UsedPPResolver(moves));
+        resolvers.add(getMove4RemainingPPResolver(moves));
+        resolvers.add(getMove4TotalPPResolver(moves));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomMovesResolver(List<Move> moves)
@@ -1305,6 +1321,7 @@ public class MiniMessageUtils
                     .resolver(getMoveResolver(move))
                     .resolver(getMoveColorResolver(move))
                     .resolver(getCustomMovePPResolver(move))
+                    .resolvers(getCustomColorResolvers())
                     .build()
             );
 
@@ -1322,7 +1339,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed(
             ChatMiniMessage.MOVE_TEMPLATE_TAG_STRING,
-            move.getDisplayName().toString()
+            move.getDisplayName().getString()
         );
     }
 
@@ -1342,6 +1359,7 @@ public class MiniMessageUtils
                 .resolver(getMoveUsedPPResolver(move))
                 .resolver(getMoveRemainingPPResolver(move))
                 .resolver(getMoveTotalPPResolver(move))
+                .resolvers(getCustomColorResolvers())
                 .build()
         );
 
@@ -1355,7 +1373,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.MOVE1_USED_PP_TEMPLATE_STRING,
             String.valueOf(move.getMaxPp() - move.getCurrentPp())
         );
     }
@@ -1364,7 +1382,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.MOVE_REMAINING_PP_TEMPLATE_STRING,
             String.valueOf(move.getCurrentPp())
         );
     }
@@ -1373,7 +1391,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.MOVE_TOTAL_PP_TEMPLATE_STRING,
             String.valueOf(move.getMaxPp())
         );
     }
@@ -1401,7 +1419,7 @@ public class MiniMessageUtils
         return Placeholder.unparsed
         (
             ChatMiniMessage.REAL_IV_PERCENTAGE_TEMPLATE_TAG_STRING,
-            String.valueOf((ivTotal / 186.0) * 100.0)
+            "%.2f".formatted((ivTotal / 186.0) * 100.0)
         );
     }
 
@@ -1410,7 +1428,7 @@ public class MiniMessageUtils
         return Placeholder.unparsed
         (
             ChatMiniMessage.EFFECTIVE_IV_PERCENTAGE_TEMPLATE_TAG_STRING,
-            String.valueOf((ivTotal / 186.0) * 100.0)
+            "%.2f".formatted((ivTotal / 186.0) * 100.0)
         );
     }
 
@@ -1433,11 +1451,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomRealIVPercentageResolvers(int totalIvs)
     {
-        return new TagResolver.Single[]
-        {
-            getRealIVTotalResolver(totalIvs),
-            getRealIVPercentageResolver(totalIvs)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getRealIVTotalResolver(totalIvs));
+        resolvers.add(getRealIVPercentageResolver(totalIvs));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomEffectiveIVPercentageResolver(int totalIvs)
@@ -1459,11 +1479,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomEffectiveIVPercentageResolvers(int totalIvs)
     {
-        return new TagResolver.Single[]
-        {
-            getEffectiveIVTotalResolver(totalIvs),
-            getEffectiveIVPercentageResolver(totalIvs)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getEffectiveIVTotalResolver(totalIvs));
+        resolvers.add(getEffectiveIVPercentageResolver(totalIvs));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomGeneralIVsResolver(int totalRealIVs, int totalEffectiveIVs)
@@ -1550,11 +1572,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomEffectiveHpIVsResolvers(IVs ivs)
     {
-        return new TagResolver.Single[]
-        {
-            getEffectiveHpIVsResolver(ivs),
-            getHpColorResolver()
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getEffectiveHpIVsResolver(ivs));
+        resolvers.add(getHpColorResolver());
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomHpIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
@@ -1618,8 +1642,8 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_TAG_STRING,
-                    Component.empty()
+                ChatMiniMessage.CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
             );
         }
 
@@ -1640,11 +1664,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomEffectiveAtkIVsResolvers(IVs ivs)
     {
-        return new TagResolver.Single[]
-        {
-            getEffectiveAtkIVsResolver(ivs),
-            getAtkColorResolver()
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getEffectiveAtkIVsResolver(ivs));
+        resolvers.add(getAtkColorResolver());
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomAtkIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
@@ -1659,7 +1685,7 @@ public class MiniMessageUtils
 
         return Placeholder.component
         (
-            ChatMiniMessage.CUSTOM_HP_IVS_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.CUSTOM_ATK_IVS_TEMPLATE_TAG_STRING,
             component
         );
     }
@@ -1708,8 +1734,8 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_TAG_STRING,
-                    Component.empty()
+                ChatMiniMessage.CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
             );
         }
 
@@ -1730,11 +1756,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomEffectiveDefIVsResolvers(IVs ivs)
     {
-        return new TagResolver.Single[]
-        {
-            getEffectiveDefIVsResolver(ivs),
-            getDefColorResolver()
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getEffectiveDefIVsResolver(ivs));
+        resolvers.add(getDefColorResolver());
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomDefIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
@@ -1798,8 +1826,8 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_TAG_STRING,
-                    Component.empty()
+                ChatMiniMessage.CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
             );
         }
 
@@ -1820,11 +1848,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomEffectiveSpaIVsResolvers(IVs ivs)
     {
-        return new TagResolver.Single[]
-        {
-            getEffectiveSpaIVsResolver(ivs),
-            getSpaColorResolver()
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getEffectiveSpaIVsResolver(ivs));
+        resolvers.add(getSpaColorResolver());
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomSpaIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
@@ -1888,8 +1918,8 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_TAG_STRING,
-                    Component.empty()
+                ChatMiniMessage.CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
             );
         }
 
@@ -1910,11 +1940,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomEffectiveSpdIVsResolvers(IVs ivs)
     {
-        return new TagResolver.Single[]
-        {
-            getEffectiveSpdIVsResolver(ivs),
-            getSpdColorResolver()
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getEffectiveSpdIVsResolver(ivs));
+        resolvers.add(getSpdColorResolver());
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomSpdIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
@@ -1978,8 +2010,8 @@ public class MiniMessageUtils
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_TAG_STRING,
-                    Component.empty()
+                ChatMiniMessage.CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
             );
         }
 
@@ -2000,11 +2032,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomEffectiveSpeIVsResolvers(IVs ivs)
     {
-        return new TagResolver.Single[]
-        {
-            getEffectiveSpeIVsResolver(ivs),
-            getSpeColorResolver()
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getEffectiveSpeIVsResolver(ivs));
+        resolvers.add(getSpeColorResolver());
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomSpeIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
@@ -2049,7 +2083,7 @@ public class MiniMessageUtils
         return Placeholder.unparsed
         (
             ChatMiniMessage.EV_PERCENTAGE_TEMPLATE_TAG_STRING,
-            String.valueOf((evTotal / 510.0) * 100.0)
+            "%.2f".formatted((evTotal / 510.0) * 100.0)
         );
     }
 
@@ -2072,11 +2106,13 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomEVPercentageResolvers(int evTotal)
     {
-        return new TagResolver.Single[]
-        {
-            getEVTotalResolver(evTotal),
-            getEVPercentageResolver(evTotal)
-        };
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getEVTotalResolver(evTotal));
+        resolvers.add(getEVPercentageResolver(evTotal));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomGeneralEVsResolver(int evTotal)
@@ -2137,6 +2173,7 @@ public class MiniMessageUtils
 
         resolvers.add(getHpEVResolver(evs));
         resolvers.add(getHpColorResolver());
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2173,6 +2210,7 @@ public class MiniMessageUtils
 
         resolvers.add(getAtkEVResolver(evs));
         resolvers.add(getAtkColorResolver());
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2209,6 +2247,7 @@ public class MiniMessageUtils
 
         resolvers.add(getDefEVResolver(evs));
         resolvers.add(getDefColorResolver());
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2245,6 +2284,7 @@ public class MiniMessageUtils
 
         resolvers.add(getSpaEVResolver(evs));
         resolvers.add(getSpaColorResolver());
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2281,6 +2321,7 @@ public class MiniMessageUtils
 
         resolvers.add(getSpdEVResolver(evs));
         resolvers.add(getSpdColorResolver());
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2317,6 +2358,7 @@ public class MiniMessageUtils
 
         resolvers.add(getSpeEVResolver(evs));
         resolvers.add(getSpeColorResolver());
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2396,6 +2438,7 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getNeuteredResolver(neutered));
+        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2409,7 +2452,7 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomColorResolvers(boolean neutered)
+    public static TagResolver.Single[] getCustomColorResolvers()
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
@@ -2419,7 +2462,7 @@ public class MiniMessageUtils
             (
                 Placeholder.unparsed
                 (
-                    "<%s>".formatted(customColor.getKey()),
+                    "%s".formatted(customColor.getKey()),
                     customColor.getValue()
                 )
             );

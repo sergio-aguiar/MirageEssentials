@@ -19,25 +19,45 @@ public class ChatMiniMessage
 
     // Colors Template Names
     protected static final String DIVISION_COLOR_TEMPLATE_STRING = "DivisionColor";
+    protected static final String DIVISION_COLOR_TEMPLATE_TAG_STRING = "divisioncolor";
     protected static final String LABEL_COLOR_TEMPLATE_STRING = "LabelColor";
+    protected static final String LABEL_COLOR_TEMPLATE_TAG_STRING = "labelcolor";
     protected static final String SHINY_COLOR_TEMPLATE_STRING = "ShinyColor";
+    protected static final String SHINY_COLOR_TEMPLATE_TAG_STRING = "shinycolor";
     protected static final String ALPHA_COLOR_TEMPLATE_STRING = "AlphaColor";
+    protected static final String ALPHA_COLOR_TEMPLATE_TAG_STRING = "alphacolor";
     protected static final String HA_COLOR_TEMPLATE_STRING = "HaColor";
+    protected static final String HA_COLOR_TEMPLATE_TAG_STRING = "hacolor";
     protected static final String NATURE_STAT_UP_COLOR_TEMPLATE_STRING = "NatureStatUpColor";
+    protected static final String NATURE_STAT_UP_COLOR_TEMPLATE_TAG_STRING = "naturestatupcolor";
     protected static final String NATURE_STAT_DOWN_COLOR_TEMPLATE_STRING = "NatureStatDownColor";
+    protected static final String NATURE_STAT_DOWN_COLOR_TEMPLATE_TAG_STRING = "naturestatdowncolor";
     protected static final String TRUE_COLOR_TEMPLATE_STRING = "TrueColor";
+    protected static final String TRUE_COLOR_TEMPLATE_TAG_STRING = "truecolor";
     protected static final String FALSE_COLOR_TEMPLATE_STRING = "FalseColor";
+    protected static final String FALSE_COLOR_TEMPLATE_TAG_STRING = "falsecolor";
     protected static final String BURN_COLOR_TEMPLATE_STRING = "BurnColor";
+    protected static final String BURN_COLOR_TEMPLATE_TAG_STRING = "burncolor";
     protected static final String SLEEP_COLOR_TEMPLATE_STRING = "SleepColor";
+    protected static final String SLEEP_COLOR_TEMPLATE_TAG_STRING = "sleepcolor";
     protected static final String PARALYSIS_COLOR_TEMPLATE_STRING = "ParalysisColor";
+    protected static final String PARALYSIS_COLOR_TEMPLATE_TAG_STRING = "paralysiscolor";
     protected static final String POISON_COLOR_TEMPLATE_STRING = "PoisonColor";
+    protected static final String POISON_COLOR_TEMPLATE_TAG_STRING = "poisoncolor";
     protected static final String FREEZE_COLOR_TEMPLATE_STRING = "FreezeColor";
+    protected static final String FREEZE_COLOR_TEMPLATE_TAG_STRING = "freezecolor";
     protected static final String FAINT_COLOR_TEMPLATE_STRING = "FaintColor";
+    protected static final String FAINT_COLOR_TEMPLATE_TAG_STRING = "faintcolor";
     protected static final String COMMAND_PREFIX_GRADIENT_LEFT_COLOR_TEMPLATE_STRING = "CommandPrefixGradientLeftColor";
+    protected static final String COMMAND_PREFIX_GRADIENT_LEFT_COLOR_TEMPLATE_TAG_STRING = "commandprefixgradientleftcolor";
     protected static final String COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_TEMPLATE_STRING = "CommandPrefixGradientRightColor";
+    protected static final String COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_TEMPLATE_TAG_STRING = "commandprefixgradientrightcolor";
     protected static final String MALE_COLOR_TEMPLATE_STRING = "MaleColor";
+    protected static final String MALE_COLOR_TEMPLATE_TAG_STRING = "malecolor";
     protected static final String FEMALE_COLOR_TEMPLATE_STRING = "FemaleColor";
+    protected static final String FEMALE_COLOR_TEMPLATE_TAG_STRING = "femalecolor";
     protected static final String GENDERLESS_COLOR_TEMPLATE_STRING = "GenderlessColor";
+    protected static final String GENDERLESS_COLOR_TEMPLATE_TAG_STRING = "genderlesscolor";
 
     // PokeInfo Template Names
     public static final String NAME_TEMPLATE_STRING = "Name";
@@ -188,6 +208,12 @@ public class ChatMiniMessage
     public static final String MOVE_TEMPLATE_TAG_STRING = "move";
     public static final String MOVE_COLOR_TEMPLATE_STRING = "MoveColor";
     public static final String MOVE_COLOR_TEMPLATE_TAG_STRING = "movecolor";
+    public static final String MOVE_USED_PP_TEMPLATE_STRING = "MoveUsedPP";
+    public static final String MOVE_USED_PP_TEMPLATE_TAG_STRING = "moveusedpp";
+    public static final String MOVE_REMAINING_PP_TEMPLATE_STRING = "MoveRemainingPP";
+    public static final String MOVE_REMAINING_PP_TEMPLATE_TAG_STRING = "moveremainingpp";
+    public static final String MOVE_TOTAL_PP_TEMPLATE_STRING = "MoveTotalPP";
+    public static final String MOVE_TOTAL_PP_TEMPLATE_TAG_STRING = "movetotalpp";
     public static final String MOVE_CUSTOM_PP_TEMPLATE_STRING = "MoveCustomPP";
     public static final String MOVE_CUSTOM_PP_TEMPLATE_TAG_STRING = "movecustompp";
     public static final String CUSTOM_MOVES_TEMPLATE_STRING = "CustomMoves";
@@ -414,7 +440,7 @@ public class ChatMiniMessage
         <color:<labelcolor>>Species:</color> <customspecies>
         <color:<labelcolor>>Held Item:</color> <white><helditem></white> <customcosmeticitem>
         <color:<labelcolor>>Ability:</color> <white><ability></white> <customhiddenability>
-        <color:<labelcolor>>Nature</color><custommintness><color:<labelcolor>>:</color> <white><natureeffective></white> <customnaturestats>
+        <color:<labelcolor>>Nature</color><custommintness><color:<labelcolor>>:</color> <white><natureeffective></white> <customnatureeffectivestats>
         <color:<labelcolor>>Level:</color> <white><level></white> <customexperience>
         <color:<labelcolor>>Friendship:</color> <white><friendship></white>
         <dark_gray>────────────────────────────
@@ -428,7 +454,7 @@ public class ChatMiniMessage
             <customhpev> <customatkev> <customdefev>
             <customspaev> <customspdev> <customspeev>
         <dark_gray>────────────────────────────
-        <color:<labelcolor>>Size:</color> <white><size></white> <color:<labelcolor>>(</color><white><scalemodifier100>%% scale</white><color:<labelcolor>>)</color>
+        <color:<labelcolor>>Size:</color> <white><size></white> <color:<labelcolor>>(</color><white><scalemodifier100>% scale</white><color:<labelcolor>>)</color>
         <color:<labelcolor>>Egg Groups:</color> <white><egggroups></white>
         <customneutered>
         <color:<labelcolor>>OT:</color> <white><originaltrainername></white>
@@ -521,12 +547,12 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_CUSTOM_REAL_IV_PERCENTAGE =
         """
-        <color:<labelcolor>>(</color><white><realivpercentage>%%</white><color:<labelcolor>>)</color>
+        <color:<labelcolor>>(</color><white><realivpercentage>%</white><color:<labelcolor>>)</color>
         """;
 
     protected static final String DEFAULT_CUSTOM_EFFECTIVE_IV_PERCENTAGE =
         """
-        <color:<labelcolor>>(</color><white><effectiveivpercentage>%%</white><color:<labelcolor>>)</color>
+        <color:<labelcolor>>(</color><white><effectiveivpercentage>%</white><color:<labelcolor>>)</color>
         """;
 
     protected static final String DEFAULT_CUSTOM_GENERAL_IVS =
@@ -596,7 +622,7 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_CUSTOM_EV_PERCENTAGE =
         """
-        <color:<labelcolor>>(</color><white><evpercentage>%%</white><color:<labelcolor>>)</color>
+        <color:<labelcolor>>(</color><white><evpercentage>%</white><color:<labelcolor>>)</color>
         """;
 
     protected static final String DEFAULT_CUSTOM_GENERAL_EVS =
@@ -690,105 +716,105 @@ public class ChatMiniMessage
             GENDER_TEMPLATES = new HashMap<>();
             BOOLEAN_TEMPLATES = new HashMap<>();
 
-            CUSTOM_COLORS.put(DIVISION_COLOR_TEMPLATE_STRING, DEFAULT_DIVISION_COLOR_STRING);
-            CUSTOM_COLORS.put(LABEL_COLOR_TEMPLATE_STRING, DEFAULT_LABEL_COLOR_STRING);
-            CUSTOM_COLORS.put(SHINY_COLOR_TEMPLATE_STRING, DEFAULT_SHINY_COLOR_STRING);
-            CUSTOM_COLORS.put(ALPHA_COLOR_TEMPLATE_STRING, DEFAULT_ALPHA_COLOR_STRING);
-            CUSTOM_COLORS.put(HA_COLOR_TEMPLATE_STRING, DEFAULT_HA_COLOR_STRING);
-            CUSTOM_COLORS.put(NATURE_STAT_UP_COLOR_TEMPLATE_STRING, DEFAULT_NATURE_STAT_UP_COLOR_STRING);
-            CUSTOM_COLORS.put(NATURE_STAT_DOWN_COLOR_TEMPLATE_STRING, DEFAULT_NATURE_STAT_DOWN_COLOR_STRING);
-            CUSTOM_COLORS.put(TRUE_COLOR_TEMPLATE_STRING, DEFAULT_TRUE_COLOR_STRING);
-            CUSTOM_COLORS.put(FALSE_COLOR_TEMPLATE_STRING, DEFAULT_FALSE_COLOR_STRING);
-            CUSTOM_COLORS.put(BURN_COLOR_TEMPLATE_STRING, DEFAULT_BURN_COLOR_STRING);
-            CUSTOM_COLORS.put(SLEEP_COLOR_TEMPLATE_STRING, DEFAULT_SLEEP_COLOR_STRING);
-            CUSTOM_COLORS.put(PARALYSIS_COLOR_TEMPLATE_STRING, DEFAULT_PARALYSIS_COLOR_STRING);
-            CUSTOM_COLORS.put(POISON_COLOR_TEMPLATE_STRING, DEFAULT_POISON_COLOR_STRING);
-            CUSTOM_COLORS.put(FREEZE_COLOR_TEMPLATE_STRING, DEFAULT_FREEZE_COLOR_STRING);
-            CUSTOM_COLORS.put(FAINT_COLOR_TEMPLATE_STRING, DEFAULT_FAINT_COLOR_STRING);
-            CUSTOM_COLORS.put(COMMAND_PREFIX_GRADIENT_LEFT_COLOR_TEMPLATE_STRING, DEFAULT_COMMAND_PREFIX_GRADIENT_LEFT_COLOR_STRING);
-            CUSTOM_COLORS.put(COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_TEMPLATE_STRING, DEFAULT_COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_STRING);
-            CUSTOM_COLORS.put(MALE_COLOR_TEMPLATE_STRING, DEFAULT_MALE_COLOR_STRING);
-            CUSTOM_COLORS.put(FEMALE_COLOR_TEMPLATE_STRING, DEFAULT_FEMALE_COLOR_STRING);
-            CUSTOM_COLORS.put(GENDERLESS_COLOR_TEMPLATE_STRING, DEFAULT_GENDERLESS_COLOR_STRING);
+            CUSTOM_COLORS.put(DIVISION_COLOR_TEMPLATE_TAG_STRING, DEFAULT_DIVISION_COLOR_STRING);
+            CUSTOM_COLORS.put(LABEL_COLOR_TEMPLATE_TAG_STRING, DEFAULT_LABEL_COLOR_STRING);
+            CUSTOM_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SHINY_COLOR_STRING);
+            CUSTOM_COLORS.put(ALPHA_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ALPHA_COLOR_STRING);
+            CUSTOM_COLORS.put(HA_COLOR_TEMPLATE_TAG_STRING, DEFAULT_HA_COLOR_STRING);
+            CUSTOM_COLORS.put(NATURE_STAT_UP_COLOR_TEMPLATE_TAG_STRING, DEFAULT_NATURE_STAT_UP_COLOR_STRING);
+            CUSTOM_COLORS.put(NATURE_STAT_DOWN_COLOR_TEMPLATE_TAG_STRING, DEFAULT_NATURE_STAT_DOWN_COLOR_STRING);
+            CUSTOM_COLORS.put(TRUE_COLOR_TEMPLATE_TAG_STRING, DEFAULT_TRUE_COLOR_STRING);
+            CUSTOM_COLORS.put(FALSE_COLOR_TEMPLATE_TAG_STRING, DEFAULT_FALSE_COLOR_STRING);
+            CUSTOM_COLORS.put(BURN_COLOR_TEMPLATE_TAG_STRING, DEFAULT_BURN_COLOR_STRING);
+            CUSTOM_COLORS.put(SLEEP_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SLEEP_COLOR_STRING);
+            CUSTOM_COLORS.put(PARALYSIS_COLOR_TEMPLATE_TAG_STRING, DEFAULT_PARALYSIS_COLOR_STRING);
+            CUSTOM_COLORS.put(POISON_COLOR_TEMPLATE_TAG_STRING, DEFAULT_POISON_COLOR_STRING);
+            CUSTOM_COLORS.put(FREEZE_COLOR_TEMPLATE_TAG_STRING, DEFAULT_FREEZE_COLOR_STRING);
+            CUSTOM_COLORS.put(FAINT_COLOR_TEMPLATE_TAG_STRING, DEFAULT_FAINT_COLOR_STRING);
+            CUSTOM_COLORS.put(COMMAND_PREFIX_GRADIENT_LEFT_COLOR_TEMPLATE_TAG_STRING, DEFAULT_COMMAND_PREFIX_GRADIENT_LEFT_COLOR_STRING);
+            CUSTOM_COLORS.put(COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_TEMPLATE_TAG_STRING, DEFAULT_COMMAND_PREFIX_GRADIENT_RIGHT_COLOR_STRING);
+            CUSTOM_COLORS.put(MALE_COLOR_TEMPLATE_TAG_STRING, DEFAULT_MALE_COLOR_STRING);
+            CUSTOM_COLORS.put(FEMALE_COLOR_TEMPLATE_TAG_STRING, DEFAULT_FEMALE_COLOR_STRING);
+            CUSTOM_COLORS.put(GENDERLESS_COLOR_TEMPLATE_TAG_STRING, DEFAULT_GENDERLESS_COLOR_STRING);
 
-            STAT_COLORS.put(HP_COLOR_TEMPLATE_STRING, DEFAULT_HP_COLOR_STRING);
-            STAT_COLORS.put(ATK_COLOR_TEMPLATE_STRING, DEFAULT_ATK_COLOR_STRING);
-            STAT_COLORS.put(DEF_COLOR_TEMPLATE_STRING, DEFAULT_DEF_COLOR_STRING);
-            STAT_COLORS.put(SPA_COLOR_TEMPLATE_STRING, DEFAULT_SPA_COLOR_STRING);
-            STAT_COLORS.put(SPD_COLOR_TEMPLATE_STRING, DEFAULT_SPD_COLOR_STRING);
-            STAT_COLORS.put(SPE_COLOR_TEMPLATE_STRING, DEFAULT_SPE_COLOR_STRING);
+            STAT_COLORS.put(HP_COLOR_TEMPLATE_TAG_STRING, DEFAULT_HP_COLOR_STRING);
+            STAT_COLORS.put(ATK_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ATK_COLOR_STRING);
+            STAT_COLORS.put(DEF_COLOR_TEMPLATE_TAG_STRING, DEFAULT_DEF_COLOR_STRING);
+            STAT_COLORS.put(SPA_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SPA_COLOR_STRING);
+            STAT_COLORS.put(SPD_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SPD_COLOR_STRING);
+            STAT_COLORS.put(SPE_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SPE_COLOR_STRING);
 
-            POKE_INFO_TEMPLATES.put(POKEMON_INFO_TEMPLATE_STRING, DEFAULT_POKEMON_INFO);
-            POKE_INFO_TEMPLATES.put(CUSTOM_STATUS_TEMPLATE_STRING, DEFAULT_CUSTOM_STATUS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_CONDITION_TEMPLATE_STRING, DEFAULT_CUSTOM_CONDITION);
-            POKE_INFO_TEMPLATES.put(CUSTOM_TYPES_MONOTYPE_TEMPLATE_STRING, DEFAULT_CUSTOM_TYPES_MONOTYPE);
-            POKE_INFO_TEMPLATES.put(CUSTOM_TYPES_DUOTYPE_TEMPLATE_STRING, DEFAULT_CUSTOM_TYPES_DUOTYPE);
-            POKE_INFO_TEMPLATES.put(CUSTOM_SHININESS_TEMPLATE_STRING, DEFAULT_CUSTOM_SHININESS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_ALPHANESS_TEMPLATE_STRING, DEFAULT_CUSTOM_ALPHANESS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_FORM_TEMPLATE_STRING, DEFAULT_CUSTOM_FORM);
-            POKE_INFO_TEMPLATES.put(CUSTOM_SPECIES_TEMPLATE_STRING, DEFAULT_CUSTOM_SPECIES);
-            POKE_INFO_TEMPLATES.put(CUSTOM_HELD_ITEM_TEMPLATE_STRING, DEFAULT_CUSTOM_HELD_ITEM);
-            POKE_INFO_TEMPLATES.put(CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING, DEFAULT_CUSTOM_COSMETIC_ITEM);
-            POKE_INFO_TEMPLATES.put(CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING, DEFAULT_CUSTOM_HIDDEN_ABILITY);
-            POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING, DEFAULT_CUSTOM_NATURE_REAL_STATS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING, DEFAULT_CUSTOM_NATURE_EFFECTIVE_STATS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_MINTNESS_TEMPLATE_STRING, DEFAULT_CUSTOM_MINTNESS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_EXPERIENCE_TEMPLATE_STRING, DEFAULT_CUSTOM_EXPERIENCE);
-            POKE_INFO_TEMPLATES.put(MOVE_CUSTOM_PP_TEMPLATE_STRING, DEFAULT_MOVE_CUSTOM_PP);
-            POKE_INFO_TEMPLATES.put(CUSTOM_MOVE_TEMPLATE_STRING, DEFAULT_CUSTOM_MOVE);
-            POKE_INFO_TEMPLATES.put(CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING, DEFAULT_CUSTOM_REAL_IV_PERCENTAGE);
-            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING, DEFAULT_CUSTOM_EFFECTIVE_IV_PERCENTAGE);
-            POKE_INFO_TEMPLATES.put(CUSTOM_GENERAL_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_GENERAL_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_EFFECTIVE_HP_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_HP_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_HP_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_EFFECTIVE_ATK_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_ATK_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_ATK_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_EFFECTIVE_DEF_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_DEF_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_DEF_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_EFFECTIVE_SPA_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_SPA_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_SPA_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_EFFECTIVE_SPD_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_SPD_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_SPD_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_EFFECTIVE_SPE_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_SPE_IVS_TEMPLATE_STRING, DEFAULT_CUSTOM_SPE_IVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_EV_PERCENTAGE_TEMPLATE_STRING, DEFAULT_CUSTOM_EV_PERCENTAGE);
-            POKE_INFO_TEMPLATES.put(CUSTOM_GENERAL_EVS_TEMPLATE_STRING, DEFAULT_CUSTOM_GENERAL_EVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_HP_EVS_TEMPLATE_STRING, DEFAULT_CUSTOM_HP_EVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_ATK_EVS_TEMPLATE_STRING, DEFAULT_CUSTOM_ATK_EVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_DEF_EVS_TEMPLATE_STRING, DEFAULT_CUSTOM_DEF_EVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_SPA_EVS_TEMPLATE_STRING, DEFAULT_CUSTOM_SPA_EVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_SPD_EVS_TEMPLATE_STRING, DEFAULT_CUSTOM_SPD_EVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_SPE_EVS_TEMPLATE_STRING, DEFAULT_CUSTOM_SPE_EVS);
-            POKE_INFO_TEMPLATES.put(CUSTOM_NEUTERED_TEMPLATE_STRING, DEFAULT_CUSTOM_NEUTERED);
+            POKE_INFO_TEMPLATES.put(POKEMON_INFO_TEMPLATE_TAG_STRING, DEFAULT_POKEMON_INFO);
+            POKE_INFO_TEMPLATES.put(CUSTOM_STATUS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_STATUS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_CONDITION_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_CONDITION);
+            POKE_INFO_TEMPLATES.put(CUSTOM_TYPES_MONOTYPE_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_TYPES_MONOTYPE);
+            POKE_INFO_TEMPLATES.put(CUSTOM_TYPES_DUOTYPE_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_TYPES_DUOTYPE);
+            POKE_INFO_TEMPLATES.put(CUSTOM_SHININESS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_SHININESS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_ALPHANESS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_ALPHANESS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_FORM_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_FORM);
+            POKE_INFO_TEMPLATES.put(CUSTOM_SPECIES_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_SPECIES);
+            POKE_INFO_TEMPLATES.put(CUSTOM_HELD_ITEM_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_HELD_ITEM);
+            POKE_INFO_TEMPLATES.put(CUSTOM_COSMETIC_ITEM_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_COSMETIC_ITEM);
+            POKE_INFO_TEMPLATES.put(CUSTOM_HIDDEN_ABILITY_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_HIDDEN_ABILITY);
+            POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_REAL_STATS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_NATURE_REAL_STATS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_NATURE_EFFECTIVE_STATS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_MINTNESS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_MINTNESS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_EXPERIENCE_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_EXPERIENCE);
+            POKE_INFO_TEMPLATES.put(MOVE_CUSTOM_PP_TEMPLATE_TAG_STRING, DEFAULT_MOVE_CUSTOM_PP);
+            POKE_INFO_TEMPLATES.put(CUSTOM_MOVE_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_MOVE);
+            POKE_INFO_TEMPLATES.put(CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_REAL_IV_PERCENTAGE);
+            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_EFFECTIVE_IV_PERCENTAGE);
+            POKE_INFO_TEMPLATES.put(CUSTOM_GENERAL_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_GENERAL_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_EFFECTIVE_HP_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_HP_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_HP_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_EFFECTIVE_ATK_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_ATK_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_ATK_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_EFFECTIVE_DEF_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_DEF_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_DEF_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_EFFECTIVE_SPA_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_SPA_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_SPA_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_EFFECTIVE_SPD_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_SPD_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_SPD_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_EFFECTIVE_SPE_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_SPE_IVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_SPE_IVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_EV_PERCENTAGE_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_EV_PERCENTAGE);
+            POKE_INFO_TEMPLATES.put(CUSTOM_GENERAL_EVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_GENERAL_EVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_HP_EVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_HP_EVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_ATK_EVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_ATK_EVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_DEF_EVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_DEF_EVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_SPA_EVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_SPA_EVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_SPD_EVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_SPD_EVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_SPE_EVS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_SPE_EVS);
+            POKE_INFO_TEMPLATES.put(CUSTOM_NEUTERED_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_NEUTERED);
 
-            STATUS_TEMPLATES.put(BURN_TEMPLATE_STRING, DEFAULT_BURN);
-            STATUS_TEMPLATES.put(SLEEP_TEMPLATE_STRING, DEFAULT_SLEEP);
-            STATUS_TEMPLATES.put(PARALYSIS_TEMPLATE_STRING, DEFAULT_PARALYSIS);
-            STATUS_TEMPLATES.put(POISON_TEMPLATE_STRING, DEFAULT_POISON);
-            STATUS_TEMPLATES.put(FAINT_TEMPLATE_STRING, DEFAULT_FAINT);
+            STATUS_TEMPLATES.put(BURN_TEMPLATE_TAG_STRING, DEFAULT_BURN);
+            STATUS_TEMPLATES.put(SLEEP_TEMPLATE_TAG_STRING, DEFAULT_SLEEP);
+            STATUS_TEMPLATES.put(PARALYSIS_TEMPLATE_TAG_STRING, DEFAULT_PARALYSIS);
+            STATUS_TEMPLATES.put(POISON_TEMPLATE_TAG_STRING, DEFAULT_POISON);
+            STATUS_TEMPLATES.put(FAINT_TEMPLATE_TAG_STRING, DEFAULT_FAINT);
 
-            EGG_GROUP_TEMPLATES.put(AMORPHOUS_TEMPLATE_STRING, DEFAULT_AMORPHOUS);
-            EGG_GROUP_TEMPLATES.put(BUG_TEMPLATE_STRING, DEFAULT_BUG);
-            EGG_GROUP_TEMPLATES.put(DITTO_TEMPLATE_STRING, DEFAULT_DITTO);
-            EGG_GROUP_TEMPLATES.put(DRAGON_TEMPLATE_STRING, DEFAULT_DRAGON);
-            EGG_GROUP_TEMPLATES.put(FAIRY_TEMPLATE_STRING, DEFAULT_FAIRY);
-            EGG_GROUP_TEMPLATES.put(FIELD_TEMPLATE_STRING, DEFAULT_FIELD);
-            EGG_GROUP_TEMPLATES.put(FLYING_TEMPLATE_STRING, DEFAULT_FLYING);
-            EGG_GROUP_TEMPLATES.put(GRASS_TEMPLATE_STRING, DEFAULT_GRASS);
-            EGG_GROUP_TEMPLATES.put(HUMAN_LIKE_TEMPLATE_STRING, DEFAULT_HUMAN_LIKE);
-            EGG_GROUP_TEMPLATES.put(MINERAL_TEMPLATE_STRING, DEFAULT_MINERAL);
-            EGG_GROUP_TEMPLATES.put(MONSTER_TEMPLATE_STRING, DEFAULT_MONSTER);
-            EGG_GROUP_TEMPLATES.put(UNDISCOVERED_TEMPLATE_STRING, DEFAULT_UNDISCOVERED);
-            EGG_GROUP_TEMPLATES.put(WATER1_TEMPLATE_STRING, DEFAULT_WATER1);
-            EGG_GROUP_TEMPLATES.put(WATER2_TEMPLATE_STRING, DEFAULT_WATER2);
-            EGG_GROUP_TEMPLATES.put(WATER3_TEMPLATE_STRING, DEFAULT_WATER3);
+            EGG_GROUP_TEMPLATES.put(AMORPHOUS_TEMPLATE_TAG_STRING, DEFAULT_AMORPHOUS);
+            EGG_GROUP_TEMPLATES.put(BUG_TEMPLATE_TAG_STRING, DEFAULT_BUG);
+            EGG_GROUP_TEMPLATES.put(DITTO_TEMPLATE_TAG_STRING, DEFAULT_DITTO);
+            EGG_GROUP_TEMPLATES.put(DRAGON_TEMPLATE_TAG_STRING, DEFAULT_DRAGON);
+            EGG_GROUP_TEMPLATES.put(FAIRY_TEMPLATE_TAG_STRING, DEFAULT_FAIRY);
+            EGG_GROUP_TEMPLATES.put(FIELD_TEMPLATE_TAG_STRING, DEFAULT_FIELD);
+            EGG_GROUP_TEMPLATES.put(FLYING_TEMPLATE_TAG_STRING, DEFAULT_FLYING);
+            EGG_GROUP_TEMPLATES.put(GRASS_TEMPLATE_TAG_STRING, DEFAULT_GRASS);
+            EGG_GROUP_TEMPLATES.put(HUMAN_LIKE_TEMPLATE_TAG_STRING, DEFAULT_HUMAN_LIKE);
+            EGG_GROUP_TEMPLATES.put(MINERAL_TEMPLATE_TAG_STRING, DEFAULT_MINERAL);
+            EGG_GROUP_TEMPLATES.put(MONSTER_TEMPLATE_TAG_STRING, DEFAULT_MONSTER);
+            EGG_GROUP_TEMPLATES.put(UNDISCOVERED_TEMPLATE_TAG_STRING, DEFAULT_UNDISCOVERED);
+            EGG_GROUP_TEMPLATES.put(WATER1_TEMPLATE_TAG_STRING, DEFAULT_WATER1);
+            EGG_GROUP_TEMPLATES.put(WATER2_TEMPLATE_TAG_STRING, DEFAULT_WATER2);
+            EGG_GROUP_TEMPLATES.put(WATER3_TEMPLATE_TAG_STRING, DEFAULT_WATER3);
 
-            GENDER_TEMPLATES.put(GENDER_MALE_TEMPLATE_STRING, DEFAULT_MALE_GENDER);
-            GENDER_TEMPLATES.put(GENDER_FEMALE_TEMPLATE_STRING, DEFAULT_FEMALE_GENDER);
-            GENDER_TEMPLATES.put(GENDER_GENDERLESS_TEMPLATE_STRING, DEFAULT_GENDERLESS_GENDER);
+            GENDER_TEMPLATES.put(GENDER_MALE_TEMPLATE_TAG_STRING, DEFAULT_MALE_GENDER);
+            GENDER_TEMPLATES.put(GENDER_FEMALE_TEMPLATE_TAG_STRING, DEFAULT_FEMALE_GENDER);
+            GENDER_TEMPLATES.put(GENDER_GENDERLESS_TEMPLATE_TAG_STRING, DEFAULT_GENDERLESS_GENDER);
 
-            BOOLEAN_TEMPLATES.put(TRUE_TEMPLATE_STRING, DEFAULT_TRUE);
-            BOOLEAN_TEMPLATES.put(FALSE_TEMPLATE_STRING, DEFAULT_FALSE);
+            BOOLEAN_TEMPLATES.put(TRUE_TEMPLATE_TAG_STRING, DEFAULT_TRUE);
+            BOOLEAN_TEMPLATES.put(FALSE_TEMPLATE_TAG_STRING, DEFAULT_FALSE);
         }
         catch (IllegalStateException e) 
         {
@@ -806,164 +832,164 @@ public class ChatMiniMessage
     }
 
     // Colors Setters and Getters
-    public static String getHpColor() { return STAT_COLORS.get(HP_COLOR_TEMPLATE_STRING); }
-    public static String getAtkColor() { return STAT_COLORS.get(ATK_COLOR_TEMPLATE_STRING); }
-    public static String getDefColor() { return STAT_COLORS.get(DEF_COLOR_TEMPLATE_STRING); }
-    public static String getSpaColor() { return STAT_COLORS.get(SPA_COLOR_TEMPLATE_STRING); }
-    public static String getSpdColor() { return STAT_COLORS.get(SPD_COLOR_TEMPLATE_STRING); }
-    public static String getSpeColor() { return STAT_COLORS.get(SPE_COLOR_TEMPLATE_STRING); }
+    public static String getHpColor() { return STAT_COLORS.get(HP_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getAtkColor() { return STAT_COLORS.get(ATK_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getDefColor() { return STAT_COLORS.get(DEF_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getSpaColor() { return STAT_COLORS.get(SPA_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getSpdColor() { return STAT_COLORS.get(SPD_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getSpeColor() { return STAT_COLORS.get(SPE_COLOR_TEMPLATE_TAG_STRING); }
 
-    protected static void setHpColor(String color) { STAT_COLORS.put(HP_COLOR_TEMPLATE_STRING, color); }
-    protected static void setAtkColor(String color) { STAT_COLORS.put(ATK_COLOR_TEMPLATE_STRING, color); }
-    protected static void setDefColor(String color) { STAT_COLORS.put(DEF_COLOR_TEMPLATE_STRING, color); }
-    protected static void setSpaColor(String color) { STAT_COLORS.put(SPA_COLOR_TEMPLATE_STRING, color); }
-    protected static void setSpdColor(String color) { STAT_COLORS.put(SPD_COLOR_TEMPLATE_STRING, color); }
-    protected static void setSpeColor(String color) { STAT_COLORS.put(SPE_COLOR_TEMPLATE_STRING, color); }
+    protected static void setHpColor(String color) { STAT_COLORS.put(HP_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setAtkColor(String color) { STAT_COLORS.put(ATK_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setDefColor(String color) { STAT_COLORS.put(DEF_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setSpaColor(String color) { STAT_COLORS.put(SPA_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setSpdColor(String color) { STAT_COLORS.put(SPD_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setSpeColor(String color) { STAT_COLORS.put(SPE_COLOR_TEMPLATE_TAG_STRING, color); }
 
     // PokeInfo Setters and Getters
-    public static String getPokemonInfoTemplate() { return POKE_INFO_TEMPLATES.get(POKEMON_INFO_TEMPLATE_STRING); }
-    public static String getCustomStatusTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_STATUS_TEMPLATE_STRING); }
-    public static String getCustomConditionTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_CONDITION_TEMPLATE_STRING); }
-    public static String getCustomTypesMonotypeTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_TYPES_MONOTYPE_TEMPLATE_STRING); }
-    public static String getCustomTypesDuotypeTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_TYPES_DUOTYPE_TEMPLATE_STRING); }
-    public static String getCustomShininessTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SHININESS_TEMPLATE_STRING); }
-    public static String getCustomAlphanessTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_ALPHANESS_TEMPLATE_STRING); }
-    public static String getCustomFormTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_FORM_TEMPLATE_STRING); }
-    public static String getCustomSpeciesTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPECIES_TEMPLATE_STRING); }
-    public static String getCustomHeldItemTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_HELD_ITEM_TEMPLATE_STRING); }
-    public static String getCustomCosmeticItemTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING); }
-    public static String getCustomHiddenAbilityTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING); }
-    public static String getCustomNatureRealStatsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING); }
-    public static String getCustomNatureEffectiveStatsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING); }
-    public static String getCustomMintnessTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_MINTNESS_TEMPLATE_STRING); }
-    public static String getCustomExperienceTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EXPERIENCE_TEMPLATE_STRING); }
-    public static String getMoveCustomPPTemplate() { return POKE_INFO_TEMPLATES.get(MOVE_CUSTOM_PP_TEMPLATE_STRING); }
-    public static String getCustomMoveTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_MOVE_TEMPLATE_STRING); }
-    public static String getCustomRealIVPercentageTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING); }
-    public static String getCustomEffectiveIVPercentageTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING); }
-    public static String getCustomGeneralIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_GENERAL_IVS_TEMPLATE_STRING); }
-    public static String getCustomEffectiveHpIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING); }
-    public static String getCustomHpIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_HP_IVS_TEMPLATE_STRING); }
-    public static String getCustomEffectiveAtkIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_STRING); }
-    public static String getCustomAtkIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_ATK_IVS_TEMPLATE_STRING); }
-    public static String getCustomEffectiveDefIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_STRING); }
-    public static String getCustomDefIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_DEF_IVS_TEMPLATE_STRING); }
-    public static String getCustomEffectiveSpaIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_STRING); }
-    public static String getCustomSpaIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPA_IVS_TEMPLATE_STRING); }
-    public static String getCustomEffectiveSpdIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_STRING); }
-    public static String getCustomSpdIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPD_IVS_TEMPLATE_STRING); }
-    public static String getCustomEffectiveSpeIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING); }
-    public static String getCustomSpeIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPE_IVS_TEMPLATE_STRING); }
-    public static String getCustomEVPercentageTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EV_PERCENTAGE_TEMPLATE_STRING); }
-    public static String getCustomGeneralEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_GENERAL_EVS_TEMPLATE_STRING); }
-    public static String getCustomHpEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_HP_EVS_TEMPLATE_STRING); }
-    public static String getCustomAtkEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_ATK_EVS_TEMPLATE_STRING); }
-    public static String getCustomDefEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_DEF_EVS_TEMPLATE_STRING); }
-    public static String getCustomSpaEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPA_EVS_TEMPLATE_STRING); }
-    public static String getCustomSpdEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPD_EVS_TEMPLATE_STRING); }
-    public static String getCustomSpeEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPE_EVS_TEMPLATE_STRING); }
-    public static String getCustomNeuteredTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NEUTERED_TEMPLATE_STRING); }
+    public static String getPokemonInfoTemplate() { return POKE_INFO_TEMPLATES.get(POKEMON_INFO_TEMPLATE_TAG_STRING); }
+    public static String getCustomStatusTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_STATUS_TEMPLATE_TAG_STRING); }
+    public static String getCustomConditionTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_CONDITION_TEMPLATE_TAG_STRING); }
+    public static String getCustomTypesMonotypeTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_TYPES_MONOTYPE_TEMPLATE_TAG_STRING); }
+    public static String getCustomTypesDuotypeTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_TYPES_DUOTYPE_TEMPLATE_TAG_STRING); }
+    public static String getCustomShininessTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SHININESS_TEMPLATE_TAG_STRING); }
+    public static String getCustomAlphanessTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_ALPHANESS_TEMPLATE_TAG_STRING); }
+    public static String getCustomFormTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_FORM_TEMPLATE_TAG_STRING); }
+    public static String getCustomSpeciesTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPECIES_TEMPLATE_TAG_STRING); }
+    public static String getCustomHeldItemTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_HELD_ITEM_TEMPLATE_TAG_STRING); }
+    public static String getCustomCosmeticItemTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_COSMETIC_ITEM_TEMPLATE_TAG_STRING); }
+    public static String getCustomHiddenAbilityTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_HIDDEN_ABILITY_TEMPLATE_TAG_STRING); }
+    public static String getCustomNatureRealStatsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NATURE_REAL_STATS_TEMPLATE_TAG_STRING); }
+    public static String getCustomNatureEffectiveStatsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_TAG_STRING); }
+    public static String getCustomMintnessTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_MINTNESS_TEMPLATE_TAG_STRING); }
+    public static String getCustomExperienceTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EXPERIENCE_TEMPLATE_TAG_STRING); }
+    public static String getMoveCustomPPTemplate() { return POKE_INFO_TEMPLATES.get(MOVE_CUSTOM_PP_TEMPLATE_TAG_STRING); }
+    public static String getCustomMoveTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_MOVE_TEMPLATE_TAG_STRING); }
+    public static String getCustomRealIVPercentageTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_TAG_STRING); }
+    public static String getCustomEffectiveIVPercentageTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_TAG_STRING); }
+    public static String getCustomGeneralIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_GENERAL_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomEffectiveHpIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomHpIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_HP_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomEffectiveAtkIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomAtkIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_ATK_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomEffectiveDefIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomDefIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_DEF_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomEffectiveSpaIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomSpaIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPA_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomEffectiveSpdIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomSpdIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPD_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomEffectiveSpeIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomSpeIVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPE_IVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomEVPercentageTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_EV_PERCENTAGE_TEMPLATE_TAG_STRING); }
+    public static String getCustomGeneralEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_GENERAL_EVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomHpEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_HP_EVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomAtkEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_ATK_EVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomDefEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_DEF_EVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomSpaEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPA_EVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomSpdEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPD_EVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomSpeEVsTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_SPE_EVS_TEMPLATE_TAG_STRING); }
+    public static String getCustomNeuteredTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NEUTERED_TEMPLATE_TAG_STRING); }
 
-    protected static void setPokemonInfoTemplate(String template) { POKE_INFO_TEMPLATES.put(POKEMON_INFO_TEMPLATE_STRING, template); }
-    protected static void setCustomStatusTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_STATUS_TEMPLATE_STRING, template); }
-    protected static void setCustomConditionTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_CONDITION_TEMPLATE_STRING, template); }
-    protected static void setCustomTypesMonotypeTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_TYPES_MONOTYPE_TEMPLATE_STRING, template); }
-    protected static void setCustomTypesDuotypeTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_TYPES_DUOTYPE_TEMPLATE_STRING, template); }
-    protected static void setCustomShininessTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SHININESS_TEMPLATE_STRING, template); }
-    protected static void setCustomAlphanessTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_ALPHANESS_TEMPLATE_STRING, template); }
-    protected static void setCustomFormTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_FORM_TEMPLATE_STRING, template); }
-    protected static void setCustomSpeciesTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPECIES_TEMPLATE_STRING, template); }
-    protected static void setCustomHeldItemTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_HELD_ITEM_TEMPLATE_STRING, template); }
-    protected static void setCustomCosmeticItemTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING, template); }
-    protected static void setCustomHiddenAbilityTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING, template); }
-    protected static void setCustomNatureRealStatsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING, template); }
-    protected static void setCustomNatureCustomStatsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING, template); }
-    protected static void setCustomMintnessTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_MINTNESS_TEMPLATE_STRING, template); }
-    protected static void setCustomExperienceTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EXPERIENCE_TEMPLATE_STRING, template); }
-    protected static void setMoveCustomPPTemplate(String template) { POKE_INFO_TEMPLATES.put(MOVE_CUSTOM_PP_TEMPLATE_STRING, template); }
-    protected static void setCustomMoveTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_MOVE_TEMPLATE_STRING, template); }
-    protected static void setCustomRealIVPercentageTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING, template); }
-    protected static void setCustomEffectiveIVPercentageTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING, template); }
-    protected static void setCustomGeneralIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_GENERAL_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomEffectiveHpIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomHpIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_HP_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomEffectiveAtkIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomAtkIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_ATK_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomEffectiveDefIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomDefIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_DEF_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomEffectiveSpaIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomSpaIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPA_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomEffectiveSpdIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomSpdIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPD_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomEffectiveSpeIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomSpeIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPE_IVS_TEMPLATE_STRING, template); }
-    protected static void setCustomEVPercentageTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EV_PERCENTAGE_TEMPLATE_STRING, template); }
-    protected static void setCustomGeneralEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_GENERAL_EVS_TEMPLATE_STRING, template); }
-    protected static void setCustomHpEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_HP_EVS_TEMPLATE_STRING, template); }
-    protected static void setCustomAtkEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_ATK_EVS_TEMPLATE_STRING, template); }
-    protected static void setCustomDefEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_DEF_EVS_TEMPLATE_STRING, template); }
-    protected static void setCustomSpaEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPA_EVS_TEMPLATE_STRING, template); }
-    protected static void setCustomSpdEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPD_EVS_TEMPLATE_STRING, template); }
-    protected static void setCustomSpeEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPE_EVS_TEMPLATE_STRING, template); }
-    protected static void setCustomNeuteredTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_NEUTERED_TEMPLATE_STRING, template); }
+    protected static void setPokemonInfoTemplate(String template) { POKE_INFO_TEMPLATES.put(POKEMON_INFO_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomStatusTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_STATUS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomConditionTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_CONDITION_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomTypesMonotypeTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_TYPES_MONOTYPE_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomTypesDuotypeTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_TYPES_DUOTYPE_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomShininessTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SHININESS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomAlphanessTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_ALPHANESS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomFormTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_FORM_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomSpeciesTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPECIES_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomHeldItemTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_HELD_ITEM_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomCosmeticItemTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_COSMETIC_ITEM_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomHiddenAbilityTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_HIDDEN_ABILITY_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomNatureRealStatsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_REAL_STATS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomNatureCustomStatsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomMintnessTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_MINTNESS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomExperienceTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EXPERIENCE_TEMPLATE_TAG_STRING, template); }
+    protected static void setMoveCustomPPTemplate(String template) { POKE_INFO_TEMPLATES.put(MOVE_CUSTOM_PP_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomMoveTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_MOVE_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomRealIVPercentageTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomEffectiveIVPercentageTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomGeneralIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_GENERAL_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomEffectiveHpIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomHpIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_HP_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomEffectiveAtkIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomAtkIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_ATK_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomEffectiveDefIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomDefIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_DEF_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomEffectiveSpaIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomSpaIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPA_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomEffectiveSpdIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomSpdIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPD_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomEffectiveSpeIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomSpeIVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPE_IVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomEVPercentageTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_EV_PERCENTAGE_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomGeneralEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_GENERAL_EVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomHpEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_HP_EVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomAtkEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_ATK_EVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomDefEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_DEF_EVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomSpaEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPA_EVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomSpdEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPD_EVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomSpeEVsTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_SPE_EVS_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomNeuteredTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_NEUTERED_TEMPLATE_TAG_STRING, template); }
 
-    public static String getBurnTemplate() { return STATUS_TEMPLATES.get(BURN_TEMPLATE_STRING); }
-    public static String getSleepTemplate() { return STATUS_TEMPLATES.get(SLEEP_TEMPLATE_STRING); }
-    public static String getParalysisTemplate() { return STATUS_TEMPLATES.get(PARALYSIS_TEMPLATE_STRING); }
-    public static String getPoisonTemplate() { return STATUS_TEMPLATES.get(POISON_TEMPLATE_STRING); }
-    public static String getFreezeTemplate() { return STATUS_TEMPLATES.get(FREEZE_TEMPLATE_STRING); }
-    public static String getFaintTemplate() { return STATUS_TEMPLATES.get(FAINT_TEMPLATE_STRING); }
+    public static String getBurnTemplate() { return STATUS_TEMPLATES.get(BURN_TEMPLATE_TAG_STRING); }
+    public static String getSleepTemplate() { return STATUS_TEMPLATES.get(SLEEP_TEMPLATE_TAG_STRING); }
+    public static String getParalysisTemplate() { return STATUS_TEMPLATES.get(PARALYSIS_TEMPLATE_TAG_STRING); }
+    public static String getPoisonTemplate() { return STATUS_TEMPLATES.get(POISON_TEMPLATE_TAG_STRING); }
+    public static String getFreezeTemplate() { return STATUS_TEMPLATES.get(FREEZE_TEMPLATE_TAG_STRING); }
+    public static String getFaintTemplate() { return STATUS_TEMPLATES.get(FAINT_TEMPLATE_TAG_STRING); }
 
-    protected static void setBurnTemplate(String template) { STATUS_TEMPLATES.put(BURN_TEMPLATE_STRING, template); }
-    protected static void setSleepTemplate(String template) { STATUS_TEMPLATES.put(SLEEP_TEMPLATE_STRING, template); }
-    protected static void setParalysisTemplate(String template) { STATUS_TEMPLATES.put(PARALYSIS_TEMPLATE_STRING, template); }
-    protected static void setPoisonTemplate(String template) { STATUS_TEMPLATES.put(POISON_TEMPLATE_STRING, template); }
-    protected static void setFreezeTemplate(String template) { STATUS_TEMPLATES.put(FREEZE_TEMPLATE_STRING, template); }
-    protected static void setFaintTemplate(String template) { STATUS_TEMPLATES.put(FAINT_TEMPLATE_STRING, template); }
+    protected static void setBurnTemplate(String template) { STATUS_TEMPLATES.put(BURN_TEMPLATE_TAG_STRING, template); }
+    protected static void setSleepTemplate(String template) { STATUS_TEMPLATES.put(SLEEP_TEMPLATE_TAG_STRING, template); }
+    protected static void setParalysisTemplate(String template) { STATUS_TEMPLATES.put(PARALYSIS_TEMPLATE_TAG_STRING, template); }
+    protected static void setPoisonTemplate(String template) { STATUS_TEMPLATES.put(POISON_TEMPLATE_TAG_STRING, template); }
+    protected static void setFreezeTemplate(String template) { STATUS_TEMPLATES.put(FREEZE_TEMPLATE_TAG_STRING, template); }
+    protected static void setFaintTemplate(String template) { STATUS_TEMPLATES.put(FAINT_TEMPLATE_TAG_STRING, template); }
 
-    public static String getAmorphousTemplate() { return EGG_GROUP_TEMPLATES.get(AMORPHOUS_TEMPLATE_STRING); }
-    public static String getBugTemplate() { return EGG_GROUP_TEMPLATES.get(BUG_TEMPLATE_STRING); }
-    public static String getDittoTemplate() { return EGG_GROUP_TEMPLATES.get(DITTO_TEMPLATE_STRING); }
-    public static String getDragonTemplate() { return EGG_GROUP_TEMPLATES.get(DRAGON_TEMPLATE_STRING); }
-    public static String getFairyTemplate() { return EGG_GROUP_TEMPLATES.get(FAIRY_TEMPLATE_STRING); }
-    public static String getFieldTemplate() { return EGG_GROUP_TEMPLATES.get(FIELD_TEMPLATE_STRING); }
-    public static String getFlyingTemplate() { return EGG_GROUP_TEMPLATES.get(FLYING_TEMPLATE_STRING); }
-    public static String getGrassTemplate() { return EGG_GROUP_TEMPLATES.get(GRASS_TEMPLATE_STRING); }
-    public static String getHumanLikeTemplate() { return EGG_GROUP_TEMPLATES.get(HUMAN_LIKE_TEMPLATE_STRING); }
-    public static String getMineralTemplate() { return EGG_GROUP_TEMPLATES.get(MINERAL_TEMPLATE_STRING); }
-    public static String getMonsterTemplate() { return EGG_GROUP_TEMPLATES.get(MONSTER_TEMPLATE_STRING); }
-    public static String getUndiscoveredTemplate() { return EGG_GROUP_TEMPLATES.get(UNDISCOVERED_TEMPLATE_STRING); }
-    public static String getWater1Template() { return EGG_GROUP_TEMPLATES.get(WATER1_TEMPLATE_STRING); }
-    public static String getWater2Template() { return EGG_GROUP_TEMPLATES.get(WATER2_TEMPLATE_STRING); }
-    public static String getWater3Template() { return EGG_GROUP_TEMPLATES.get(WATER3_TEMPLATE_STRING); }
+    public static String getAmorphousTemplate() { return EGG_GROUP_TEMPLATES.get(AMORPHOUS_TEMPLATE_TAG_STRING); }
+    public static String getBugTemplate() { return EGG_GROUP_TEMPLATES.get(BUG_TEMPLATE_TAG_STRING); }
+    public static String getDittoTemplate() { return EGG_GROUP_TEMPLATES.get(DITTO_TEMPLATE_TAG_STRING); }
+    public static String getDragonTemplate() { return EGG_GROUP_TEMPLATES.get(DRAGON_TEMPLATE_TAG_STRING); }
+    public static String getFairyTemplate() { return EGG_GROUP_TEMPLATES.get(FAIRY_TEMPLATE_TAG_STRING); }
+    public static String getFieldTemplate() { return EGG_GROUP_TEMPLATES.get(FIELD_TEMPLATE_TAG_STRING); }
+    public static String getFlyingTemplate() { return EGG_GROUP_TEMPLATES.get(FLYING_TEMPLATE_TAG_STRING); }
+    public static String getGrassTemplate() { return EGG_GROUP_TEMPLATES.get(GRASS_TEMPLATE_TAG_STRING); }
+    public static String getHumanLikeTemplate() { return EGG_GROUP_TEMPLATES.get(HUMAN_LIKE_TEMPLATE_TAG_STRING); }
+    public static String getMineralTemplate() { return EGG_GROUP_TEMPLATES.get(MINERAL_TEMPLATE_TAG_STRING); }
+    public static String getMonsterTemplate() { return EGG_GROUP_TEMPLATES.get(MONSTER_TEMPLATE_TAG_STRING); }
+    public static String getUndiscoveredTemplate() { return EGG_GROUP_TEMPLATES.get(UNDISCOVERED_TEMPLATE_TAG_STRING); }
+    public static String getWater1Template() { return EGG_GROUP_TEMPLATES.get(WATER1_TEMPLATE_TAG_STRING); }
+    public static String getWater2Template() { return EGG_GROUP_TEMPLATES.get(WATER2_TEMPLATE_TAG_STRING); }
+    public static String getWater3Template() { return EGG_GROUP_TEMPLATES.get(WATER3_TEMPLATE_TAG_STRING); }
 
-    protected static void setAmorphousTemplate(String template) { EGG_GROUP_TEMPLATES.put(AMORPHOUS_TEMPLATE_STRING, template); }
-    protected static void setBugTemplate(String template) { EGG_GROUP_TEMPLATES.put(BUG_TEMPLATE_STRING, template); }
-    protected static void setDittoTemplate(String template) { EGG_GROUP_TEMPLATES.put(DITTO_TEMPLATE_STRING, template); }
-    protected static void setDragonTemplate(String template) { EGG_GROUP_TEMPLATES.put(DRAGON_TEMPLATE_STRING, template); }
-    protected static void setFairyTemplate(String template) { EGG_GROUP_TEMPLATES.put(FAIRY_TEMPLATE_STRING, template); }
-    protected static void setFieldTemplate(String template) { EGG_GROUP_TEMPLATES.put(FIELD_TEMPLATE_STRING, template); }
-    protected static void setFlyingTemplate(String template) { EGG_GROUP_TEMPLATES.put(FLYING_TEMPLATE_STRING, template); }
-    protected static void setGrassTemplate(String template) { EGG_GROUP_TEMPLATES.put(GRASS_TEMPLATE_STRING, template); }
-    protected static void setHumanLikeTemplate(String template) { EGG_GROUP_TEMPLATES.put(HUMAN_LIKE_TEMPLATE_STRING, template); }
-    protected static void setMineralTemplate(String template) { EGG_GROUP_TEMPLATES.put(MINERAL_TEMPLATE_STRING, template); }
-    protected static void setMonsterTemplate(String template) { EGG_GROUP_TEMPLATES.put(MONSTER_TEMPLATE_STRING, template); }
-    protected static void setUndiscoveredTemplate(String template) { EGG_GROUP_TEMPLATES.put(UNDISCOVERED_TEMPLATE_STRING, template); }
-    protected static void setWater1Template(String template) { EGG_GROUP_TEMPLATES.put(WATER1_TEMPLATE_STRING, template); }
-    protected static void setWater2Template(String template) { EGG_GROUP_TEMPLATES.put(WATER2_TEMPLATE_STRING, template); }
-    protected static void setWater3Template(String template) { EGG_GROUP_TEMPLATES.put(WATER3_TEMPLATE_STRING, template); }
+    protected static void setAmorphousTemplate(String template) { EGG_GROUP_TEMPLATES.put(AMORPHOUS_TEMPLATE_TAG_STRING, template); }
+    protected static void setBugTemplate(String template) { EGG_GROUP_TEMPLATES.put(BUG_TEMPLATE_TAG_STRING, template); }
+    protected static void setDittoTemplate(String template) { EGG_GROUP_TEMPLATES.put(DITTO_TEMPLATE_TAG_STRING, template); }
+    protected static void setDragonTemplate(String template) { EGG_GROUP_TEMPLATES.put(DRAGON_TEMPLATE_TAG_STRING, template); }
+    protected static void setFairyTemplate(String template) { EGG_GROUP_TEMPLATES.put(FAIRY_TEMPLATE_TAG_STRING, template); }
+    protected static void setFieldTemplate(String template) { EGG_GROUP_TEMPLATES.put(FIELD_TEMPLATE_TAG_STRING, template); }
+    protected static void setFlyingTemplate(String template) { EGG_GROUP_TEMPLATES.put(FLYING_TEMPLATE_TAG_STRING, template); }
+    protected static void setGrassTemplate(String template) { EGG_GROUP_TEMPLATES.put(GRASS_TEMPLATE_TAG_STRING, template); }
+    protected static void setHumanLikeTemplate(String template) { EGG_GROUP_TEMPLATES.put(HUMAN_LIKE_TEMPLATE_TAG_STRING, template); }
+    protected static void setMineralTemplate(String template) { EGG_GROUP_TEMPLATES.put(MINERAL_TEMPLATE_TAG_STRING, template); }
+    protected static void setMonsterTemplate(String template) { EGG_GROUP_TEMPLATES.put(MONSTER_TEMPLATE_TAG_STRING, template); }
+    protected static void setUndiscoveredTemplate(String template) { EGG_GROUP_TEMPLATES.put(UNDISCOVERED_TEMPLATE_TAG_STRING, template); }
+    protected static void setWater1Template(String template) { EGG_GROUP_TEMPLATES.put(WATER1_TEMPLATE_TAG_STRING, template); }
+    protected static void setWater2Template(String template) { EGG_GROUP_TEMPLATES.put(WATER2_TEMPLATE_TAG_STRING, template); }
+    protected static void setWater3Template(String template) { EGG_GROUP_TEMPLATES.put(WATER3_TEMPLATE_TAG_STRING, template); }
 
-    public static String getTrueTemplate() { return BOOLEAN_TEMPLATES.get(TRUE_TEMPLATE_STRING); }
-    public static String getFalseTemplate() { return BOOLEAN_TEMPLATES.get(FALSE_TEMPLATE_STRING); }
+    public static String getTrueTemplate() { return BOOLEAN_TEMPLATES.get(TRUE_TEMPLATE_TAG_STRING); }
+    public static String getFalseTemplate() { return BOOLEAN_TEMPLATES.get(FALSE_TEMPLATE_TAG_STRING); }
 
-    protected static void setTrueTemplate(String template) { BOOLEAN_TEMPLATES.put(TRUE_TEMPLATE_STRING, template); }
-    protected static void setFalseTemplate(String template) { BOOLEAN_TEMPLATES.put(FALSE_TEMPLATE_STRING, template); }
+    protected static void setTrueTemplate(String template) { BOOLEAN_TEMPLATES.put(TRUE_TEMPLATE_TAG_STRING, template); }
+    protected static void setFalseTemplate(String template) { BOOLEAN_TEMPLATES.put(FALSE_TEMPLATE_TAG_STRING, template); }
 
-    protected static void setMaleGenderTemplate(String template) { GENDER_TEMPLATES.put(GENDER_MALE_TEMPLATE_STRING, template); }
-    protected static void setFemaleGenderTemplate(String template) { GENDER_TEMPLATES.put(GENDER_FEMALE_TEMPLATE_STRING, template); }
-    protected static void setGenderlessGenderTemplate(String template) { GENDER_TEMPLATES.put(GENDER_GENDERLESS_TEMPLATE_STRING, template); }
+    protected static void setMaleGenderTemplate(String template) { GENDER_TEMPLATES.put(GENDER_MALE_TEMPLATE_TAG_STRING, template); }
+    protected static void setFemaleGenderTemplate(String template) { GENDER_TEMPLATES.put(GENDER_FEMALE_TEMPLATE_TAG_STRING, template); }
+    protected static void setGenderlessGenderTemplate(String template) { GENDER_TEMPLATES.put(GENDER_GENDERLESS_TEMPLATE_TAG_STRING, template); }
 
-    public static String getMaleGenderTemplate() { return GENDER_TEMPLATES.get(GENDER_MALE_TEMPLATE_STRING); }
-    public static String getFemaleGenderTemplate() { return GENDER_TEMPLATES.get(GENDER_FEMALE_TEMPLATE_STRING); }
-    public static String getGenderlessGenderTemplate() { return GENDER_TEMPLATES.get(GENDER_GENDERLESS_TEMPLATE_STRING); }
+    public static String getMaleGenderTemplate() { return GENDER_TEMPLATES.get(GENDER_MALE_TEMPLATE_TAG_STRING); }
+    public static String getFemaleGenderTemplate() { return GENDER_TEMPLATES.get(GENDER_FEMALE_TEMPLATE_TAG_STRING); }
+    public static String getGenderlessGenderTemplate() { return GENDER_TEMPLATES.get(GENDER_GENDERLESS_TEMPLATE_TAG_STRING); }
 }

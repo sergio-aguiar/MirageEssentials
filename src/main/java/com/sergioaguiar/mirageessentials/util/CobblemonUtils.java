@@ -145,7 +145,7 @@ public class CobblemonUtils
 
     public static String getPokemonNatureName(Nature nature)
     {
-        return nature.getDisplayName().toString();
+        return Text.translatable(nature.getDisplayName().toString()).getString();
     }
 
     public static String getPokemonNatureIncreasedStat(Nature nature)
