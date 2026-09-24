@@ -451,8 +451,8 @@ public class ChatMiniMessage
             <customspaivs> <customspdivs> <customspeivs>
         <dark_gray>────────────────────────────
         <color:<labelcolor>>EVs:</color> <customgeneralevs>
-            <customhpev> <customatkev> <customdefev>
-            <customspaev> <customspdev> <customspeev>
+            <customhpevs> <customatkevs> <customdefevs>
+            <customspaevs> <customspdevs> <customspeevs>
         <dark_gray>────────────────────────────
         <color:<labelcolor>>Size:</color> <white><size></white> <color:<labelcolor>>(</color><white><scalemodifier100>% scale</white><color:<labelcolor>>)</color>
         <color:<labelcolor>>Egg Groups:</color> <white><egggroups></white>

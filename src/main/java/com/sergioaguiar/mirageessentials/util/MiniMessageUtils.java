@@ -2397,7 +2397,7 @@ public class MiniMessageUtils
         for (EggGroup eggGroup : eggGroups)
         {
             if (!template.isEmpty()) template.append(", ");
-            template.append("<%s>".formatted(CobblemonUtils.getEggGroupTemplateName(eggGroup)));
+            template.append("<%s>".formatted(CobblemonUtils.getEggGroupTemplateName(eggGroup).toLowerCase()));
         }
 
         return Placeholder.parsed
