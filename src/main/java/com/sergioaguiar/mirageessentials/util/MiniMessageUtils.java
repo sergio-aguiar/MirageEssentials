@@ -64,6 +64,28 @@ public class MiniMessageUtils
         return toMinecraftText(component);
     }
 
+    public static Component parseTwice(String template, TagResolver firstResolvers)
+    {
+        Component first = MINIMESSAGE_INSTANCE.deserialize(
+            template,
+            firstResolvers
+        );
+
+        String intermediate = MINIMESSAGE_INSTANCE.serialize(first);
+
+        ModLogger.info("===== INTERMEDIATE =====");
+        ModLogger.info(intermediate);
+        ModLogger.info("========================");
+
+        Component second = MINIMESSAGE_INSTANCE.deserialize(intermediate);
+
+        ModLogger.info("===== SECOND SERIALIZED =====");
+        ModLogger.info(MINIMESSAGE_INSTANCE.serialize(second));
+        ModLogger.info("=============================");
+
+        return second;
+    }
+
     public static List<Text> renderLines(String template, TagResolver placeholders)
     {
         List<Text> lines = new ArrayList<>();
@@ -459,7 +481,7 @@ public class MiniMessageUtils
         return Placeholder.parsed
         (
             ChatMiniMessage.CUSTOM_ALPHANESS_TEMPLATE_TAG_STRING,
-            pokemon.getShiny()
+            pokemon.isAlpha()
                 ? ChatMiniMessage.getCustomAlphanessTemplate()
                 : ""
         );
@@ -2401,10 +2423,296 @@ public class MiniMessageUtils
             template.append("<%s>".formatted(CobblemonUtils.getEggGroupTemplateName(eggGroup).toLowerCase()));
         }
 
-        return Placeholder.parsed
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            template.toString(),
+            TagResolver.builder()
+                .resolvers(getEggGroupsResolvers())
+                .build()
+        );
+
+        return Placeholder.component
         (
             ChatMiniMessage.EGG_GROUPS_TEMPLATE_TAG_STRING,
-            template.toString()
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getEggGroupsResolvers()
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getAmorphousResolver());
+        resolvers.add(getBugResolver());
+        resolvers.add(getDittoResolver());
+        resolvers.add(getDragonResolver());
+        resolvers.add(getFairyResolver());
+        resolvers.add(getFieldResolver());
+        resolvers.add(getFlyingResolver());
+        resolvers.add(getGrassResolver());
+        resolvers.add(getHumanLikeResolver());
+        resolvers.add(getMineralResolver());
+        resolvers.add(getMonsterResolver());
+        resolvers.add(getUndiscoveredResolver());
+        resolvers.add(getWater1Resolver());
+        resolvers.add(getWater2Resolver());
+        resolvers.add(getWater3Resolver());
+
+        return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static TagResolver.Single getAmorphousResolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getAmorphousTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.AMORPHOUS_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getBugResolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getBugTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.BUG_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getDittoResolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getDittoTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.DITTO_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getDragonResolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getDragonTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.DRAGON_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getFairyResolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getFairyTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.FAIRY_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getFieldResolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getFieldTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.FIELD_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getFlyingResolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getFlyingTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.FLYING_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getGrassResolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getGrassTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.GRASS_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getHumanLikeResolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getHumanLikeTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.HUMAN_LIKE_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getMineralResolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getMineralTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.MINERAL_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getMonsterResolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getMonsterTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.MONSTER_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getUndiscoveredResolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getUndiscoveredTemplate(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.UNDISCOVERED_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getWater1Resolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getWater1Template(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.WATER1_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getWater2Resolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getWater2Template(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.WATER2_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getWater3Resolver()
+    {
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            ChatMiniMessage.getWater3Template(),
+            TagResolver.builder()
+                .resolvers(getCustomColorResolvers())
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.WATER3_TEMPLATE_TAG_STRING,
+            component
         );
     }
 

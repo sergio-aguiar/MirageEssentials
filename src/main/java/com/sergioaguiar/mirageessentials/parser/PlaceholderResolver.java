@@ -137,10 +137,12 @@ public class PlaceholderResolver
 
     public static Text buildPokemonText(Pokemon pokemon, boolean isClosedSheet) 
     {
-        return MiniMessageUtils.render
-        (
-            ChatMiniMessage.getPokemonInfoTemplate(),
-            MiniMessageUtils.getPokeInfoTagResolver(pokemon)
+        return MiniMessageUtils.toMinecraftText(
+            MiniMessageUtils.parseTwice
+            (
+                ChatMiniMessage.getPokemonInfoTemplate(),
+                MiniMessageUtils.getPokeInfoTagResolver(pokemon)
+            )
         );
 
         /**

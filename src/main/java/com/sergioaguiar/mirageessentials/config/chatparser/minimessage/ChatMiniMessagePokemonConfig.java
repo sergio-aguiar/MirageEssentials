@@ -276,8 +276,7 @@ public class ChatMiniMessagePokemonConfig
                 # {CosmeticItem} - The pokémon's cosmetic item, ignoring custom name (or None if empty).
                 # {CosmeticItemCustomName} - The pokémon's cosmetic item, including custom name (or None if empty).
                 %s = \"\"\"
-                %s
-                \"\"\"
+                %s\"\"\"
 
                 # Used to display that a pokémon's ability is a hidden ability.
                 # If the pokémon's ability is not a hidden ability then this template is not shown (treated as empty).

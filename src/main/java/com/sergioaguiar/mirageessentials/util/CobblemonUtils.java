@@ -9,6 +9,7 @@ import java.util.stream.StreamSupport;
 import com.cobblemon.mod.common.api.abilities.PotentialAbility;
 import com.cobblemon.mod.common.api.moves.Move;
 import com.cobblemon.mod.common.api.pokemon.egg.EggGroup;
+import com.cobblemon.mod.common.api.pokemon.stats.Stat;
 import com.cobblemon.mod.common.api.pokemon.stats.Stats;
 import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.api.types.ElementalTypes;
@@ -44,7 +45,7 @@ public class CobblemonUtils
     {
         return pokemon.getActiveMark() == null
             ? "" 
-            : pokemon.getActiveMark().getTitle();
+            : Text.translatable(pokemon.getActiveMark().getTitle()).getString();
     }
 
     public static String getPokemonCaughtBall(Pokemon pokemon)
@@ -150,12 +151,16 @@ public class CobblemonUtils
 
     public static String getPokemonNatureIncreasedStat(Nature nature)
     {
-        return nature.getIncreasedStat().toString();
+        Stat stat = nature.getIncreasedStat();
+
+        return stat == null ? "" : stat.toString();
     }
 
     public static String getPokemonNatureDecreasedStat(Nature nature)
     {
-        return nature.getIncreasedStat().toString();
+        Stat stat = nature.getDecreasedStat();
+
+        return stat == null ? "" : stat.toString();
     }
 
     public static boolean isNeutralNature(Nature nature)

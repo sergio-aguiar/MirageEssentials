@@ -360,35 +360,35 @@ public class ChatMiniMessage
     protected static final String FAINT_TEMPLATE_TAG_STRING = "faint";
 
     protected static final String AMORPHOUS_TEMPLATE_STRING = "Amorphous";
-    protected static final String AMORPHOUS_TEMPLATE_TAG_STRING = "amorphous";
+    public static final String AMORPHOUS_TEMPLATE_TAG_STRING = "amorphous";
     protected static final String BUG_TEMPLATE_STRING = "Bug";
-    protected static final String BUG_TEMPLATE_TAG_STRING = "bug";
+    public static final String BUG_TEMPLATE_TAG_STRING = "bug";
     protected static final String DITTO_TEMPLATE_STRING = "Ditto";
-    protected static final String DITTO_TEMPLATE_TAG_STRING = "ditto";
+    public static final String DITTO_TEMPLATE_TAG_STRING = "ditto";
     protected static final String DRAGON_TEMPLATE_STRING = "Dragon";
-    protected static final String DRAGON_TEMPLATE_TAG_STRING = "dragon";
+    public static final String DRAGON_TEMPLATE_TAG_STRING = "dragon";
     protected static final String FAIRY_TEMPLATE_STRING = "Fairy";
-    protected static final String FAIRY_TEMPLATE_TAG_STRING = "fairy";
+    public static final String FAIRY_TEMPLATE_TAG_STRING = "fairy";
     protected static final String FIELD_TEMPLATE_STRING = "Field";
-    protected static final String FIELD_TEMPLATE_TAG_STRING = "field";
+    public static final String FIELD_TEMPLATE_TAG_STRING = "field";
     protected static final String FLYING_TEMPLATE_STRING = "Flying";
-    protected static final String FLYING_TEMPLATE_TAG_STRING = "flying";
+    public static final String FLYING_TEMPLATE_TAG_STRING = "flying";
     protected static final String GRASS_TEMPLATE_STRING = "Grass";
-    protected static final String GRASS_TEMPLATE_TAG_STRING = "grass";
+    public static final String GRASS_TEMPLATE_TAG_STRING = "grass";
     protected static final String HUMAN_LIKE_TEMPLATE_STRING = "Human-Like";
-    protected static final String HUMAN_LIKE_TEMPLATE_TAG_STRING = "human-like";
+    public static final String HUMAN_LIKE_TEMPLATE_TAG_STRING = "human-like";
     protected static final String MINERAL_TEMPLATE_STRING = "Mineral";
-    protected static final String MINERAL_TEMPLATE_TAG_STRING = "mineral";
+    public static final String MINERAL_TEMPLATE_TAG_STRING = "mineral";
     protected static final String MONSTER_TEMPLATE_STRING = "Monster";
-    protected static final String MONSTER_TEMPLATE_TAG_STRING = "monster";
+    public static final String MONSTER_TEMPLATE_TAG_STRING = "monster";
     protected static final String UNDISCOVERED_TEMPLATE_STRING = "Undiscovered";
-    protected static final String UNDISCOVERED_TEMPLATE_TAG_STRING = "undiscovered";
+    public static final String UNDISCOVERED_TEMPLATE_TAG_STRING = "undiscovered";
     protected static final String WATER1_TEMPLATE_STRING = "Water1";
-    protected static final String WATER1_TEMPLATE_TAG_STRING = "water1";
+    public static final String WATER1_TEMPLATE_TAG_STRING = "water1";
     protected static final String WATER2_TEMPLATE_STRING = "Water2";
-    protected static final String WATER2_TEMPLATE_TAG_STRING = "water2";
+    public static final String WATER2_TEMPLATE_TAG_STRING = "water2";
     protected static final String WATER3_TEMPLATE_STRING = "Water3";
-    protected static final String WATER3_TEMPLATE_TAG_STRING = "water3";
+    public static final String WATER3_TEMPLATE_TAG_STRING = "water3";
 
     protected static final String GENDER_MALE_TEMPLATE_STRING = "Male";
     protected static final String GENDER_MALE_TEMPLATE_TAG_STRING = "male";
@@ -435,7 +435,7 @@ public class ChatMiniMessage
         """
         <gradient:<type1color>:<type2color>><name>, <title></gradient>
         <customtypes> <color:<divisioncolor>>│</Color> <gender> <color:<divisioncolor>>│</color> <caughtball>
-        <color:<divisioncolor>>────────────────────────────
+        <color:<divisioncolor>>────────────────────────────</dark_gray>
         <color:<labelcolor>>Condition:</color> <customcondition>
         <color:<labelcolor>>Species:</color> <customspecies>
         <color:<labelcolor>>Held Item:</color> <white><helditem></white> <customcosmeticitem>
@@ -443,17 +443,17 @@ public class ChatMiniMessage
         <color:<labelcolor>>Nature</color><custommintness><color:<labelcolor>>:</color> <white><natureeffective></white> <customnatureeffectivestats>
         <color:<labelcolor>>Level:</color> <white><level></white> <customexperience>
         <color:<labelcolor>>Friendship:</color> <white><friendship></white>
-        <dark_gray>────────────────────────────
+        <dark_gray>────────────────────────────</dark_gray>
         <custommoves>
-        <dark_gray>────────────────────────────
+        <dark_gray>────────────────────────────</dark_gray>
         <color:<labelcolor>>IVs:</color> <customgeneralivs>
             <customhpivs> <customatkivs> <customdefivs>
             <customspaivs> <customspdivs> <customspeivs>
-        <dark_gray>────────────────────────────
+        <dark_gray>────────────────────────────</dark_gray>
         <color:<labelcolor>>EVs:</color> <customgeneralevs>
             <customhpevs> <customatkevs> <customdefevs>
             <customspaevs> <customspdevs> <customspeevs>
-        <dark_gray>────────────────────────────
+        <dark_gray>────────────────────────────</dark_gray>
         <color:<labelcolor>>Size:</color> <white><size></white> <color:<labelcolor>>(</color><white><scalemodifier100>% scale</white><color:<labelcolor>>)</color>
         <color:<labelcolor>>Egg Groups:</color> <white><egggroups></white>
         <customneutered>
@@ -462,208 +462,167 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_CUSTOM_STATUS =
         """
-        <color:<labelcolor>>(</color><status><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><status><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_CONDITION =
         """
-        <green><currenthealth></green><color:<labelcolor>>/</color><green><maxhealth></green> <customstatus>
-        """;
+        <green><currenthealth></green><color:<labelcolor>>/</color><green><maxhealth></green> <customstatus>""";
 
     protected static final String DEFAULT_CUSTOM_TYPES_MONOTYPE =
         """
-        <color:<type1color>><type1></color> <color:<labelcolor>>(</color><color:<teratypecolor>><teratype></color><color:<labelcolor>>)</color>
-        """;
+        <color:<type1color>><type1></color> <color:<labelcolor>>(</color><color:<teratypecolor>><teratype></color><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_TYPES_DUOTYPE =
         """
-        <color:<type1color>><type1></color><color:<labelcolor>>/</color><color:<type2color>><type2></color> <color:<labelcolor>>(</color><color:<teratypecolor>><teratype></color><color:<labelcolor>>)</color>
-        """;
+        <color:<type1color>><type1></color><color:<labelcolor>>/</color><color:<type2color>><type2></color> <color:<labelcolor>>(</color><color:<teratypecolor>><teratype></color><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_SHININESS =
         """
-        <color:<shinycolor>> ★ </color>
-        """;
+        <color:<shinycolor>> ★ </color>""";
 
     protected static final String DEFAULT_CUSTOM_ALPHANESS =
         """
-        <color:<alphacolor>> α </color>
-        """;
+        <color:<alphacolor>> α </color>""";
 
     protected static final String DEFAULT_CUSTOM_FORM =
         """
-        <color:<labelcolor>>(</color><white><form></white><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><white><form></white><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_SPECIES =
         """
-        <customshininess><customalphaness> <white><species></white> <customforms>
-        """;
+        <customshininess><customalphaness> <white><species></white> <customforms>""";
 
     protected static final String DEFAULT_CUSTOM_HELD_ITEM =
         """
-        <color:<labelcolor>>(</color><white><helditem></white><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><white><helditem></white><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_COSMETIC_ITEM =
         """
-        <color:<labelcolor>>(</color><white><cosmeticitem></white><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><white><cosmeticitem></white><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_HIDDEN_ABILITY =
         """
-        <color:<labelcolor>>(</color><color:<hacolor>>HA</color><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><color:<hacolor>>HA</color><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_NATURE_REAL_STATS =
         """
-        <color:<labelcolor>>(</color><color:<naturestatupcolor>>↑<naturerealstatup></color><color:<labelcolor>>/</color><color:<naturestatdowncolor>>↓<naturerealstatdown></color><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><color:<naturestatupcolor>>↑<naturerealstatup></color><color:<labelcolor>>/</color><color:<naturestatdowncolor>>↓<naturerealstatdown></color><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_NATURE_EFFECTIVE_STATS =
         """
-        <color:<labelcolor>>(</color><color:<naturestatupcolor>>↑<natureeffectivestatup></color><color:<labelcolor>>/</color><color:<naturestatdowncolor>>↓<natureeffectivestatdown></color><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><color:<naturestatupcolor>>↑<natureeffectivestatup></color><color:<labelcolor>>/</color><color:<naturestatdowncolor>>↓<natureeffectivestatdown></color><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_MINTNESS =
         """
-        <color:<labelcolor>> (Minted)</color>
-        """;
+        <color:<labelcolor>> (Minted)</color>""";
 
     protected static final String DEFAULT_CUSTOM_EXPERIENCE =
         """
-        <color:<labelcolor>>(</color><white><currentexperience></white><color:<labelcolor>>/</color><white><requiredexperience></white><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><white><currentexperience></white><color:<labelcolor>>/</color><white><requiredexperience></white><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_MOVE_CUSTOM_PP =
         """
-        <color:<labelcolor>>(</color><white>><moveremainingpp></white><color:<labelcolor>>/</color><white><movetotalpp></white><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><white>><moveremainingpp></white><color:<labelcolor>>/</color><white><movetotalpp></white><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_MOVE =
         """
-        <color:<labelcolor>> ▶ </color><color:<movecolor>><move></color> <movecustompp>
-        """;
+        <color:<labelcolor>> ▶ </color><color:<movecolor>><move></color> <movecustompp>""";
 
     protected static final String DEFAULT_CUSTOM_REAL_IV_PERCENTAGE =
         """
-        <color:<labelcolor>>(</color><white><realivpercentage>%</white><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><white><realivpercentage>%</white><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_EFFECTIVE_IV_PERCENTAGE =
         """
-        <color:<labelcolor>>(</color><white><effectiveivpercentage>%</white><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><white><effectiveivpercentage>%</white><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_GENERAL_IVS =
         """
-        <white><effectiveivtotal></white><color:<labelcolor>>/</color><white>186</white> <customeffectiveivpercentage>
-        """;
+        <white><effectiveivtotal></white><color:<labelcolor>>/</color><white>186</white> <customeffectiveivpercentage>""";
 
     protected static final String DEFAULT_CUSTOM_EFFECTIVE_HP_IVS =
         """
-        <color:<labelcolor>>(</color><color:<hpcolor>><effectivehpivs></color><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><color:<hpcolor>><effectivehpivs></color><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_HP_IVS =
         """
-        <color:<hpcolor>>Hp <realhpivs></color> <customeffectivehpivs>
-        """;
+        <color:<hpcolor>>Hp <realhpivs></color> <customeffectivehpivs>""";
 
     protected static final String DEFAULT_CUSTOM_EFFECTIVE_ATK_IVS =
         """
-        <color:<labelcolor>>(</color><color:<atkcolor>><effectiveatkivs></color><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><color:<atkcolor>><effectiveatkivs></color><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_ATK_IVS =
         """
-        <color:<atkcolor>>Atk <realatkivs></color> <customeffectiveatkivs>
-        """;
+        <color:<atkcolor>>Atk <realatkivs></color> <customeffectiveatkivs>""";
 
     protected static final String DEFAULT_CUSTOM_EFFECTIVE_DEF_IVS =
         """
-        <color:<labelcolor>>(</color><color:<defcolor>><effectivedefivs></color><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><color:<defcolor>><effectivedefivs></color><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_DEF_IVS =
         """
-        <color:<defcolor>>Def <realdefivs></color> <customeffectivedefivs>
-        """;
+        <color:<defcolor>>Def <realdefivs></color> <customeffectivedefivs>""";
 
     protected static final String DEFAULT_CUSTOM_EFFECTIVE_SPA_IVS =
         """
-        <color:<labelcolor>>(</color><color:<spacolor>><effectivespaivs></color><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><color:<spacolor>><effectivespaivs></color><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_SPA_IVS =
         """
-        <color:<spacolor>>Spa <realspaivs></color> <customeffectivespaivs>
-        """;
+        <color:<spacolor>>Spa <realspaivs></color> <customeffectivespaivs>""";
 
     protected static final String DEFAULT_CUSTOM_EFFECTIVE_SPD_IVS =
         """
-        <color:<labelcolor>>(</color><color:<spdcolor>><effectivespdivs></color><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><color:<spdcolor>><effectivespdivs></color><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_SPD_IVS =
         """
-        <color:<spdcolor>>Spd <realspdivs></color> <customeffectivespdivs>
-        """;
+        <color:<spdcolor>>Spd <realspdivs></color> <customeffectivespdivs>""";
 
     protected static final String DEFAULT_CUSTOM_EFFECTIVE_SPE_IVS =
         """
-        <color:<labelcolor>>(</color><color:<specolor>><effectivespeivs></color><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><color:<specolor>><effectivespeivs></color><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_SPE_IVS =
         """
-        <color:<specolor>>Spe <realspeivs></color> <customeffectivespeivs>
-        """;
+        <color:<specolor>>Spe <realspeivs></color> <customeffectivespeivs>""";
 
     protected static final String DEFAULT_CUSTOM_EV_PERCENTAGE =
         """
-        <color:<labelcolor>>(</color><white><evpercentage>%</white><color:<labelcolor>>)</color>
-        """;
+        <color:<labelcolor>>(</color><white><evpercentage>%</white><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_GENERAL_EVS =
         """
-        <white><evtotal></white><color:<labelcolor>>/</color><white>510</white> <customevpercentage>
-        """;
+        <white><evtotal></white><color:<labelcolor>>/</color><white>510</white> <customevpercentage>""";
 
     protected static final String DEFAULT_CUSTOM_HP_EVS =
         """
-        <color:<hpcolor>>Hp <hpevs></color>
-        """;
+        <color:<hpcolor>>Hp <hpevs></color>""";
 
     protected static final String DEFAULT_CUSTOM_ATK_EVS =
         """
-        <color:<atkcolor>>Atk <atkevs></color>
-        """;
+        <color:<atkcolor>>Atk <atkevs></color>""";
 
     protected static final String DEFAULT_CUSTOM_DEF_EVS =
         """
-        <color:<defcolor>>Def <defevs></color>
-        """;
+        <color:<defcolor>>Def <defevs></color>""";
 
     protected static final String DEFAULT_CUSTOM_SPA_EVS =
         """
-        <color:<spacolor>>Spa <spaevs></color>
-        """;
+        <color:<spacolor>>Spa <spaevs></color>""";
 
     protected static final String DEFAULT_CUSTOM_SPD_EVS =
         """
-        <color:<spdcolor>>Spd <spdevs></color>
-        """;
+        <color:<spdcolor>>Spd <spdevs></color>""";
 
     protected static final String DEFAULT_CUSTOM_SPE_EVS =
         """
-        <color:<specolor>>Spe <speevs></color>
-        """;
+        <color:<specolor>>Spe <speevs></color>""";
 
     protected static final String DEFAULT_CUSTOM_NEUTERED =
         """
-        <color:<labelcolor>>Neutered:</color> <neutered>
-        """;
+        <color:<labelcolor>>Neutered:</color> <neutered>""";
 
     protected static final String DEFAULT_BURN = "<color:<burncolor>>[BRN]</color>";
     protected static final String DEFAULT_SLEEP = "<color:<sleepcolor>>[SLP]</color>";
