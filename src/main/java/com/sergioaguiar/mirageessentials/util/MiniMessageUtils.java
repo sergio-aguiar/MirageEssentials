@@ -588,7 +588,7 @@ public class MiniMessageUtils
     {
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomStatusTemplate(),
+            ChatMiniMessage.CUSTOM_FORMS_TEMPLATE_TAG_STRING,
             TagResolver.builder()
                 .resolvers(getCustomFormsResolvers(pokemon))
                 .build()
@@ -1320,7 +1320,7 @@ public class MiniMessageUtils
                 TagResolver.builder()
                     .resolver(getMoveResolver(move))
                     .resolver(getMoveColorResolver(move))
-                    .resolver(getCustomMovePPResolver(move))
+                    .resolver(getMoveCustomPPResolver(move))
                     .resolvers(getCustomColorResolvers())
                     .build()
             );
@@ -1351,7 +1351,7 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getCustomMovePPResolver(Move move)
+    private static TagResolver.Single getMoveCustomPPResolver(Move move)
     {
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize(
             ChatMiniMessage.getMoveCustomPPTemplate(),
@@ -1373,7 +1373,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE1_USED_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE_USED_PP_TEMPLATE_TAG_STRING,
             String.valueOf(move.getMaxPp() - move.getCurrentPp())
         );
     }
@@ -1382,7 +1382,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE_REMAINING_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE_REMAINING_PP_TEMPLATE_TAG_STRING,
             String.valueOf(move.getCurrentPp())
         );
     }
@@ -1391,7 +1391,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.MOVE_TOTAL_PP_TEMPLATE_STRING,
+            ChatMiniMessage.MOVE_TOTAL_PP_TEMPLATE_TAG_STRING,
             String.valueOf(move.getMaxPp())
         );
     }
@@ -2136,6 +2136,7 @@ public class MiniMessageUtils
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
+        resolvers.add(getCustomEVPercentageResolver(evTotal));
         resolvers.addAll(Arrays.asList(getCustomEVPercentageResolvers(evTotal)));
 
         return resolvers.toArray(new TagResolver.Single[0]);
