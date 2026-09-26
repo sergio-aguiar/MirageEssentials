@@ -403,7 +403,7 @@ public class ChatMiniMessage
     protected static final String FALSE_TEMPLATE_TAG_STRING = "false";
     
     // Color Defaults
-    protected static final String DEFAULT_DIVISION_COLOR_STRING = "#646464";
+    protected static final String DEFAULT_DIVISION_COLOR_STRING = "#ada8a8";
     protected static final String DEFAULT_LABEL_COLOR_STRING = "#10F2F2";
     protected static final String DEFAULT_SHINY_COLOR_STRING = "#e7e436";
     protected static final String DEFAULT_ALPHA_COLOR_STRING = "#d14040";
@@ -433,7 +433,7 @@ public class ChatMiniMessage
     // PokeInfo Defaults
     protected static final String DEFAULT_POKEMON_INFO =
         """
-        <gradient:<type1color>:<type2color>><name>, <title></gradient>
+        <gradient:<type1color>:<type2color>><name> <title></gradient>
         <customtypes> <color:<divisioncolor>>│</Color> <gender> <color:<divisioncolor>>│</color> <caughtball>
         <color:<divisioncolor>>────────────────────────────</dark_gray>
         <color:<labelcolor>>Condition:</color> <customcondition>
@@ -457,8 +457,7 @@ public class ChatMiniMessage
         <color:<labelcolor>>Size:</color> <white><size></white> <color:<labelcolor>>(</color><white><scalemodifier100>% scale</white><color:<labelcolor>>)</color>
         <color:<labelcolor>>Egg Groups:</color> <white><egggroups></white>
         <customneutered>
-        <color:<labelcolor>>OT:</color> <white><originaltrainername></white>
-        """;
+        <color:<labelcolor>>OT:</color> <white><originaltrainername></white>""";
 
     protected static final String DEFAULT_CUSTOM_STATUS =
         """

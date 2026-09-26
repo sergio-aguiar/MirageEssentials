@@ -55,9 +55,11 @@ public class MiniMessageUtils
 
     public static Text render(String template, TagResolver placeholders)
     {
+        String newTemplate = resolveCustomColors(template);
+
         Component component = MINIMESSAGE_INSTANCE.deserialize
         (
-            template,
+            newTemplate,
             placeholders
         );
 
@@ -136,6 +138,8 @@ public class MiniMessageUtils
                 .resolver(getCaughtBallResolver(CobblemonUtils.getPokemonCaughtBall(pokemon)))
                 .resolver(getCustomConditionResolver(pokemon))
                 .resolvers(getCustomConditionResolvers(pokemon))
+                .resolver(getCustomSpeciesResolver(pokemon))
+                .resolvers(getCustomSpeciesResolvers(pokemon))
                 .resolver(getCustomTypesResolver(types, teraType, isMonotype))
                 .resolvers(getCustomTypesDuotypeResolvers(types, teraType, isMonotype))
                 .resolver(getCustomFormsResolver(pokemon))
@@ -239,10 +243,12 @@ public class MiniMessageUtils
             default -> ChatMiniMessage.getGenderlessGenderTemplate();
         };
 
+        String newTemplate = resolveCustomColors(template);
+
         return Placeholder.parsed
         (
             ChatMiniMessage.GENDER_TEMPLATE_TAG_STRING,
-            template
+            newTemplate
         );
     }
 
@@ -289,18 +295,22 @@ public class MiniMessageUtils
                                 ? ChatMiniMessage.getFreezeTemplate()
                                 : "";
 
+        String newTemplate = resolveCustomColors(template);
+
         return Placeholder.parsed
         (
             ChatMiniMessage.STATUS_TEMPLATE_TAG_STRING,
-            template
+            newTemplate
         );
     }
 
     public static TagResolver.Single getCustomStatusResolver(Pokemon pokemon)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomStatusTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomStatusTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomStatusResolvers(pokemon))
                 .build()
@@ -318,16 +328,17 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getStatusResolver(CobblemonUtils.getPokemonStatus(pokemon), pokemon.isFainted()));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomConditionResolver(Pokemon pokemon)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomConditionTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomConditionTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomConditionResolvers(pokemon))
                 .build()
@@ -421,9 +432,11 @@ public class MiniMessageUtils
 
     public static Component getCustomTypesMonotypeComponent(List<ElementalType> types, TeraType teraType , boolean isMonotype)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomTypesMonotypeTemplate());
+
         return MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomTypesMonotypeTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomTypesMonotypeResolvers(types, teraType, isMonotype))
                 .build()
@@ -432,9 +445,11 @@ public class MiniMessageUtils
 
     public static Component getCustomTypesDuotypeComponent(List<ElementalType> types, TeraType teraType , boolean isMonotype)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomTypesDuotypeTemplate());
+
         return MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomTypesDuotypeTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomTypesDuotypeResolvers(types, teraType, isMonotype))
                 .build()
@@ -449,7 +464,6 @@ public class MiniMessageUtils
         resolvers.add(getType1ColorResolver(types.get(0)));
         resolvers.add(getTeraTypeResolver(teraType));
         resolvers.add(getTeraTypeColorResolver(teraType));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -467,22 +481,26 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getCustomShininessResolver(Pokemon pokemon)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomShininessTemplate());
+
         return Placeholder.parsed
         (
             ChatMiniMessage.CUSTOM_SHININESS_TEMPLATE_TAG_STRING,
             pokemon.getShiny()
-                ? ChatMiniMessage.getCustomShininessTemplate()
+                ? newTemplate
                 : ""
         );
     }
 
     private static TagResolver.Single getCustomAlphanessResolver(Pokemon pokemon)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomAlphanessTemplate());
+
         return Placeholder.parsed
         (
             ChatMiniMessage.CUSTOM_ALPHANESS_TEMPLATE_TAG_STRING,
             pokemon.isAlpha()
-                ? ChatMiniMessage.getCustomAlphanessTemplate()
+                ? newTemplate
                 : ""
         );
     }
@@ -500,9 +518,11 @@ public class MiniMessageUtils
     {
         StringBuilder result = getExpandedFormStringBuilder(form, features);
 
+        String newTemplate = resolveCustomColors(result.toString());
+
         return Placeholder.component(
                 ChatMiniMessage.FORMS_EXPANDED_TEMPLATE_TAG_STRING,
-                MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize(result.toString())
+                MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize(newTemplate)
         );
     }
 
@@ -511,9 +531,11 @@ public class MiniMessageUtils
         StringBuilder result = getExpandedFormStringBuilder(form, features);
         result = getFullyExpandedFormStringBuilder(result, aspects);
 
+        String newTemplate = resolveCustomColors(result.toString());
+
         return Placeholder.component(
                 ChatMiniMessage.FORMS_FULLY_EXPANDED_TEMPLATE_TAG_STRING,
-                MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize(result.toString())
+                MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize(newTemplate)
         );
     }
 
@@ -608,9 +630,11 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomFormsResolver(Pokemon pokemon)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomFormTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.CUSTOM_FORMS_TEMPLATE_TAG_STRING,
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomFormsResolvers(pokemon))
                 .build()
@@ -636,16 +660,17 @@ public class MiniMessageUtils
         resolvers.add(getFormResolver(form));
         resolvers.add(getFormsExpandedResolver(form, features));
         resolvers.add(getFormsFullyExpandedResolver(form, features, aspects));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomSpeciesResolver(Pokemon pokemon)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpeciesTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomSpeciesTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomSpeciesResolvers(pokemon))
                 .build()
@@ -688,9 +713,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getCustomHeldItemResolver(String heldItemName, String heldItemCustomName)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomHeldItemTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomHeldItemTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomHeldItemResolvers(heldItemName, heldItemCustomName))
                 .build()
@@ -709,7 +736,6 @@ public class MiniMessageUtils
 
         resolvers.add(getHeldItemResolver(heldItemName));
         resolvers.add(getHeldItemCustomNameResolver(heldItemCustomName));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -734,9 +760,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getCustomCosmeticItemResolver(String cosmeticItemName, String cosmeticItemCustomName)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomCosmeticItemTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomCosmeticItemTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomCosmeticItemResolvers(cosmeticItemName, cosmeticItemCustomName))
                 .build()
@@ -755,7 +783,6 @@ public class MiniMessageUtils
 
         resolvers.add(getCosmeticItemResolver(cosmeticItemName.equals(ChatStrings.getEmptyHeldItemString()) ? "" : cosmeticItemName));
         resolvers.add(getCosmeticItemCustomNameResolver(cosmeticItemCustomName.equals(ChatStrings.getEmptyHeldItemString()) ? "" : cosmeticItemCustomName));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -771,10 +798,12 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getCustomHiddenAbilityResolver(boolean isHA)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomHiddenAbilityTemplate());
+
         return Placeholder.parsed
         (
             ChatMiniMessage.CUSTOM_HIDDEN_ABILITY_TEMPLATE_TAG_STRING,
-            isHA ? ChatMiniMessage.getCustomHiddenAbilityTemplate() : ""
+            isHA ? newTemplate : ""
         );
     }
 
@@ -843,9 +872,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomNatureRealStatsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomNatureRealStatsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomNatureRealStatsResolvers(realNature))
                 .build()
@@ -864,7 +895,6 @@ public class MiniMessageUtils
 
         resolvers.add(getNatureRealStatUpResolver(CobblemonUtils.getPokemonNatureIncreasedStat(realNature)));
         resolvers.add(getNatureRealStatDownResolver(CobblemonUtils.getPokemonNatureDecreasedStat(realNature)));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -880,9 +910,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomNatureEffectiveStatsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomNatureEffectiveStatsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomNatureEffectiveStatsResolvers(effectiveNature))
                 .build()
@@ -901,17 +933,18 @@ public class MiniMessageUtils
 
         resolvers.add(getNatureEffectiveStatUpResolver(CobblemonUtils.getPokemonNatureIncreasedStat(effectiveNature)));
         resolvers.add(getNatureEffectiveStatDownResolver(CobblemonUtils.getPokemonNatureDecreasedStat(effectiveNature)));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     private static TagResolver.Single getCustomMintnessResolver(boolean isMinted)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomMintnessTemplate());
+
         return Placeholder.parsed
         (
             ChatMiniMessage.CUSTOM_MINTNESS_TEMPLATE_TAG_STRING,
-            isMinted ? ChatMiniMessage.getCustomMintnessTemplate() : ""
+            isMinted ? newTemplate : ""
         );
     }
 
@@ -962,9 +995,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomExperienceTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomExperienceTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomExperienceResolvers(currentExp, remainingExp))
                 .build()
@@ -984,7 +1019,6 @@ public class MiniMessageUtils
         resolvers.add(getCurrentExperienceResolver(String.valueOf(currentExp)));
         resolvers.add(getRequiredExperienceResolver(String.valueOf(currentExp + remainingExp)));
         resolvers.add(getRemainingExperienceResolver(String.valueOf(remainingExp)));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -1054,9 +1088,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getMoveCustomPPTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getMoveCustomPPTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getMove1CustomPPResolvers(moves))
                 .build()
@@ -1076,7 +1112,6 @@ public class MiniMessageUtils
         resolvers.add(getMove1UsedPPResolver(moves));
         resolvers.add(getMove1RemainingPPResolver(moves));
         resolvers.add(getMove1TotalPPResolver(moves));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -1137,9 +1172,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getMoveCustomPPTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getMoveCustomPPTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getMove2CustomPPResolvers(moves))
                 .build()
@@ -1159,7 +1196,6 @@ public class MiniMessageUtils
         resolvers.add(getMove2UsedPPResolver(moves));
         resolvers.add(getMove2RemainingPPResolver(moves));
         resolvers.add(getMove2TotalPPResolver(moves));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -1220,9 +1256,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getMoveCustomPPTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getMoveCustomPPTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getMove3CustomPPResolvers(moves))
                 .build()
@@ -1242,7 +1280,6 @@ public class MiniMessageUtils
         resolvers.add(getMove3UsedPPResolver(moves));
         resolvers.add(getMove3RemainingPPResolver(moves));
         resolvers.add(getMove3TotalPPResolver(moves));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -1303,9 +1340,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getMoveCustomPPTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getMoveCustomPPTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getMove4CustomPPResolvers(moves))
                 .build()
@@ -1325,7 +1364,6 @@ public class MiniMessageUtils
         resolvers.add(getMove4UsedPPResolver(moves));
         resolvers.add(getMove4RemainingPPResolver(moves));
         resolvers.add(getMove4TotalPPResolver(moves));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -1334,11 +1372,13 @@ public class MiniMessageUtils
     {
         Component component = Component.empty();
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomMoveTemplate());
+
         for (Move move : moves)
         {
             Component moveComponent = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
             (
-                ChatMiniMessage.getCustomMoveTemplate(),
+                newTemplate,
                 TagResolver.builder()
                     .resolver(getMoveResolver(move))
                     .resolver(getMoveColorResolver(move))
@@ -1375,8 +1415,10 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getMoveCustomPPResolver(Move move)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getMoveCustomPPTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize(
-            ChatMiniMessage.getMoveCustomPPTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolver(getMoveUsedPPResolver(move))
                 .resolver(getMoveRemainingPPResolver(move))
@@ -1456,9 +1498,11 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomRealIVPercentageResolver(int totalIvs)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomRealIVPercentageTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomRealIVPercentageTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomRealIVPercentageResolvers(totalIvs))
                 .build()
@@ -1477,16 +1521,17 @@ public class MiniMessageUtils
 
         resolvers.add(getRealIVTotalResolver(totalIvs));
         resolvers.add(getRealIVPercentageResolver(totalIvs));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomEffectiveIVPercentageResolver(int totalIvs)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveIVPercentageTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomEffectiveIVPercentageTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomEffectiveIVPercentageResolvers(totalIvs))
                 .build()
@@ -1505,16 +1550,17 @@ public class MiniMessageUtils
 
         resolvers.add(getEffectiveIVTotalResolver(totalIvs));
         resolvers.add(getEffectiveIVPercentageResolver(totalIvs));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomGeneralIVsResolver(int totalRealIVs, int totalEffectiveIVs)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomGeneralIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomGeneralIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomGeneralIVsResolvers(totalRealIVs, totalEffectiveIVs))
                 .build()
@@ -1577,9 +1623,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveHpIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomEffectiveHpIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomEffectiveHpIVsResolvers(ivs))
                 .build()
@@ -1598,16 +1646,17 @@ public class MiniMessageUtils
 
         resolvers.add(getEffectiveHpIVsResolver(ivs));
         resolvers.add(getHpColorResolver());
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomHpIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomHpIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomHpIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomHpIVsResolvers(ivs, hyperTrainedStats))
                 .build()
@@ -1669,9 +1718,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveAtkIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomEffectiveAtkIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomEffectiveAtkIVsResolvers(ivs))
                 .build()
@@ -1690,16 +1741,17 @@ public class MiniMessageUtils
 
         resolvers.add(getEffectiveAtkIVsResolver(ivs));
         resolvers.add(getAtkColorResolver());
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomAtkIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomAtkIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomAtkIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomAtkIVsResolvers(ivs, hyperTrainedStats))
                 .build()
@@ -1761,9 +1813,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveDefIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomEffectiveDefIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomEffectiveDefIVsResolvers(ivs))
                 .build()
@@ -1782,16 +1836,17 @@ public class MiniMessageUtils
 
         resolvers.add(getEffectiveDefIVsResolver(ivs));
         resolvers.add(getDefColorResolver());
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomDefIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomDefIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomDefIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomDefIVsResolvers(ivs, hyperTrainedStats))
                 .build()
@@ -1853,9 +1908,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveSpaIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomEffectiveSpaIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomEffectiveSpaIVsResolvers(ivs))
                 .build()
@@ -1874,16 +1931,17 @@ public class MiniMessageUtils
 
         resolvers.add(getEffectiveSpaIVsResolver(ivs));
         resolvers.add(getSpaColorResolver());
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomSpaIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpaIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomSpaIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomSpaIVsResolvers(ivs, hyperTrainedStats))
                 .build()
@@ -1945,9 +2003,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveSpdIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomEffectiveSpdIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomEffectiveSpdIVsResolvers(ivs))
                 .build()
@@ -1966,16 +2026,17 @@ public class MiniMessageUtils
 
         resolvers.add(getEffectiveSpdIVsResolver(ivs));
         resolvers.add(getSpdColorResolver());
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomSpdIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpdIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomSpdIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomSpdIVsResolvers(ivs, hyperTrainedStats))
                 .build()
@@ -2037,9 +2098,11 @@ public class MiniMessageUtils
             );
         }
 
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveSpeIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomEffectiveSpeIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomEffectiveSpeIVsResolvers(ivs))
                 .build()
@@ -2058,16 +2121,17 @@ public class MiniMessageUtils
 
         resolvers.add(getEffectiveSpeIVsResolver(ivs));
         resolvers.add(getSpeColorResolver());
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomSpeIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpeIVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomSpeIVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomSpeIVsResolvers(ivs, hyperTrainedStats))
                 .build()
@@ -2111,9 +2175,11 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomEVPercentageResolver(int evTotal)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEVPercentageTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomEVPercentageTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomEVPercentageResolvers(evTotal))
                 .build()
@@ -2132,16 +2198,17 @@ public class MiniMessageUtils
 
         resolvers.add(getEVTotalResolver(evTotal));
         resolvers.add(getEVPercentageResolver(evTotal));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomGeneralEVsResolver(int evTotal)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomGeneralEVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomGeneralEVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomGeneralEVsResolvers(evTotal))
                 .build()
@@ -2175,9 +2242,11 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomHpEVsResolver(EVs evs)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomHpEVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomHpEVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomHpEVsResolvers(evs))
                 .build()
@@ -2196,7 +2265,6 @@ public class MiniMessageUtils
 
         resolvers.add(getHpEVResolver(evs));
         resolvers.add(getHpColorResolver());
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2212,9 +2280,11 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomAtkEVsResolver(EVs evs)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomAtkEVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomAtkEVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomAtkEVsResolvers(evs))
                 .build()
@@ -2233,7 +2303,6 @@ public class MiniMessageUtils
 
         resolvers.add(getAtkEVResolver(evs));
         resolvers.add(getAtkColorResolver());
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2249,9 +2318,11 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomDefEVsResolver(EVs evs)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomDefEVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomDefEVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomDefEVsResolvers(evs))
                 .build()
@@ -2270,7 +2341,6 @@ public class MiniMessageUtils
 
         resolvers.add(getDefEVResolver(evs));
         resolvers.add(getDefColorResolver());
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2286,9 +2356,11 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomSpaEVsResolver(EVs evs)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpaEVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomSpaEVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomSpaEVsResolvers(evs))
                 .build()
@@ -2307,7 +2379,6 @@ public class MiniMessageUtils
 
         resolvers.add(getSpaEVResolver(evs));
         resolvers.add(getSpaColorResolver());
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2323,9 +2394,11 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomSpdEVsResolver(EVs evs)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpdEVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomSpdEVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomSpdEVsResolvers(evs))
                 .build()
@@ -2344,7 +2417,6 @@ public class MiniMessageUtils
 
         resolvers.add(getSpdEVResolver(evs));
         resolvers.add(getSpdColorResolver());
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2360,9 +2432,11 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomSpeEVsResolver(EVs evs)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpeEVsTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomSpeEVsTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomSpeEVsResolvers(evs))
                 .build()
@@ -2381,7 +2455,6 @@ public class MiniMessageUtils
 
         resolvers.add(getSpeEVResolver(evs));
         resolvers.add(getSpeColorResolver());
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2463,9 +2536,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getAmorphousResolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getAmorphousTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getAmorphousTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2480,9 +2555,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getBugResolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getBugTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getBugTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2497,9 +2574,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getDittoResolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getDittoTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getDittoTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2514,9 +2593,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getDragonResolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getDragonTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getDragonTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2531,9 +2612,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getFairyResolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getFairyTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getFairyTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2548,9 +2631,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getFieldResolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getFieldTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getFieldTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2565,9 +2650,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getFlyingResolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getFlyingTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getFlyingTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2582,9 +2669,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getGrassResolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getGrassTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getGrassTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2599,9 +2688,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getHumanLikeResolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getHumanLikeTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getHumanLikeTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2616,9 +2707,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getMineralResolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getMineralTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getMineralTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2633,9 +2726,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getMonsterResolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getMonsterTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getMonsterTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2650,9 +2745,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getUndiscoveredResolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getUndiscoveredTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getUndiscoveredTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2667,9 +2764,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getWater1Resolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getWater1Template());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getWater1Template(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2684,9 +2783,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getWater2Resolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getWater2Template());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getWater2Template(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2701,9 +2802,11 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getWater3Resolver()
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getWater3Template());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getWater3Template(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomColorResolvers())
                 .build()
@@ -2718,18 +2821,22 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getNeuteredResolver(boolean neutered)
     {
+        String newTemplate = resolveCustomColors(neutered ? ChatMiniMessage.getTrueTemplate() : ChatMiniMessage.getFalseTemplate());
+
         return Placeholder.parsed
         (
             ChatMiniMessage.NEUTERED_TEMPLATE_TAG_STRING,
-            neutered ? ChatMiniMessage.getTrueTemplate() : ChatMiniMessage.getFalseTemplate()
+            newTemplate
         );
     }
 
     public static TagResolver.Single getCustomNeuteredResolver(boolean neutered)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomNeuteredTemplate());
+
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
-            ChatMiniMessage.getCustomNeuteredTemplate(),
+            newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomNeuteredResolvers(neutered))
                 .build()
@@ -2747,7 +2854,6 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getNeuteredResolver(neutered));
-        resolvers.addAll(Arrays.asList(getCustomColorResolvers()));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2778,5 +2884,18 @@ public class MiniMessageUtils
         }
 
         return resolvers.toArray(new TagResolver.Single[0]);
+    }
+
+    private static String resolveCustomColors(String template)
+    {
+        for (Entry<String, String> customColor : ChatMiniMessage.getCustomColors().entrySet())
+        {
+            template = template.replace(
+                "<%s>".formatted(customColor.getKey()),
+                customColor.getValue()
+            );
+        }
+
+        return template;
     }
 }
