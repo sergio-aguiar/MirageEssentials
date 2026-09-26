@@ -48,6 +48,13 @@ public class CobblemonUtils
             : Text.translatable(pokemon.getActiveMark().getTitle()).getString();
     }
 
+    public static String getPokemonTitleColor(Pokemon pokemon)
+    {
+        return pokemon.getActiveMark() == null
+            ? "#ffffff" 
+            : "#%s".formatted(pokemon.getActiveMark().getTitleColour()).toLowerCase();
+    }
+
     public static String getPokemonCaughtBall(Pokemon pokemon)
     {
         return pokemon.getCaughtBall().item.getName().getString();
@@ -165,7 +172,7 @@ public class CobblemonUtils
 
     public static boolean isNeutralNature(Nature nature)
     {
-        return nature.getIncreasedStat() != null && nature.getDecreasedStat() != null;
+        return nature.getIncreasedStat() == null || nature.getDecreasedStat() == null;
     }
 
     public static boolean isMinted(Nature realNature, Nature effectiveNature)

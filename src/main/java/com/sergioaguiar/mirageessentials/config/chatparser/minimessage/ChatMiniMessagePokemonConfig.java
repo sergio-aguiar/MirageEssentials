@@ -64,6 +64,7 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # {Name} - The pokémon's nickname.
                 # {Title} - The pokémon's ribbon/mark title.
+                # {TitleColor} - The pokémon's title's color.
                 # {Gender} - The pokémon's gender.
                 # {CaughtBall} - The pokémon's caught ball.
                 # {CurrentHealth} - The pokémon's current health points.
@@ -77,7 +78,7 @@ public class ChatMiniMessagePokemonConfig
                 # {Type2Color} - The pokémon's second type's color (or first again, if monotype).
                 # {TeraType} - The pokémon's tera type.
                 # {TeraTypeColor} - The pokémon's tera type's color.
-                # {CustomTypes} - The pokémon's types, using the configured templates (customMonotype and customDuotype).
+                # {CustomTypes} - The pokémon's types, using the configured templates (CustomTypesMonotype and CustomTypesDuotype).
                 # {CustomShininess} - The pokémon's shininess indicator, using the configured template (not shown if not shiny).
                 # {CustomAlphaness} - The pokémon's alphaness indicator, using the configured template (not shown if not alpha).
                 # {Form} - The pokémon's base Cobblemon form (can appear as Normal).

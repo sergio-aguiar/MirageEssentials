@@ -134,7 +134,6 @@ public class ChatMiniMessageColorsConfig
             %s = \"%s\"
             %s = \"%s\"
             %s = \"%s\"
-            %s = \"%s\"
 
             [%s]
             # Here you can configure the colors to use for the specific templates of the same name.
@@ -148,7 +147,6 @@ public class ChatMiniMessageColorsConfig
             (
                 MirageEssentials.MOD_NAME,
                 ChatMiniMessage.TOML_CUSTOM_COLOR_SECTION_STRING,
-                ChatMiniMessage.DIVISION_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_DIVISION_COLOR_STRING,
                 ChatMiniMessage.LABEL_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_LABEL_COLOR_STRING,
                 ChatMiniMessage.SHINY_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SHINY_COLOR_STRING,
                 ChatMiniMessage.ALPHA_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_ALPHA_COLOR_STRING,

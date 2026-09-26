@@ -18,8 +18,6 @@ public class ChatMiniMessage
     protected static final String TOML_GENDERS_SECTION_STRING = "Genders";
 
     // Colors Template Names
-    protected static final String DIVISION_COLOR_TEMPLATE_STRING = "DivisionColor";
-    protected static final String DIVISION_COLOR_TEMPLATE_TAG_STRING = "divisioncolor";
     protected static final String LABEL_COLOR_TEMPLATE_STRING = "LabelColor";
     protected static final String LABEL_COLOR_TEMPLATE_TAG_STRING = "labelcolor";
     protected static final String SHINY_COLOR_TEMPLATE_STRING = "ShinyColor";
@@ -66,6 +64,8 @@ public class ChatMiniMessage
     public static final String NAME_TEMPLATE_TAG_STRING = "name";
     public static final String TITLE_TEMPLATE_STRING = "Title";
     public static final String TITLE_TEMPLATE_TAG_STRING = "title";
+    public static final String TITLE_COLOR_TEMPLATE_STRING = "TitleColor";
+    public static final String TITLE_COLOR_TEMPLATE_TAG_STRING = "titlecolor";
     public static final String GENDER_TEMPLATE_STRING = "Gender";
     public static final String GENDER_TEMPLATE_TAG_STRING = "gender";
     public static final String CAUGHT_BALL_TEMPLATE_STRING = "CaughtBall";
@@ -403,7 +403,6 @@ public class ChatMiniMessage
     protected static final String FALSE_TEMPLATE_TAG_STRING = "false";
     
     // Color Defaults
-    protected static final String DEFAULT_DIVISION_COLOR_STRING = "#ada8a8";
     protected static final String DEFAULT_LABEL_COLOR_STRING = "#10F2F2";
     protected static final String DEFAULT_SHINY_COLOR_STRING = "#e7e436";
     protected static final String DEFAULT_ALPHA_COLOR_STRING = "#d14040";
@@ -433,9 +432,9 @@ public class ChatMiniMessage
     // PokeInfo Defaults
     protected static final String DEFAULT_POKEMON_INFO =
         """
-        <gradient:<type1color>:<type2color>><name> <title></gradient>
-        <customtypes> <color:<divisioncolor>>│</Color> <gender> <color:<divisioncolor>>│</color> <caughtball>
-        <color:<divisioncolor>>────────────────────────────</dark_gray>
+        <gradient:<type1color>:<type2color>><name></gradient> <color:<titlecolor>><title></color>
+        <customtypes> <color:<labelcolor>>│</Color> <gender> <color:<labelcolor>>│</color> <caughtball>
+        <color:<labelcolor>>─────────────────────</color>
         <color:<labelcolor>>Condition:</color> <customcondition>
         <color:<labelcolor>>Species:</color> <customspecies>
         <color:<labelcolor>>Held Item:</color> <white><helditem></white> <customcosmeticitem>
@@ -443,21 +442,21 @@ public class ChatMiniMessage
         <color:<labelcolor>>Nature</color><custommintness><color:<labelcolor>>:</color> <white><natureeffective></white> <customnatureeffectivestats>
         <color:<labelcolor>>Level:</color> <white><level></white> <customexperience>
         <color:<labelcolor>>Friendship:</color> <white><friendship></white>
-        <dark_gray>────────────────────────────</dark_gray>
+        <color:<labelcolor>>─────────────────────</color>
         <custommoves>
-        <dark_gray>────────────────────────────</dark_gray>
+        <color:<labelcolor>>─────────────────────</color>
         <color:<labelcolor>>IVs:</color> <customgeneralivs>
             <customhpivs> <customatkivs> <customdefivs>
             <customspaivs> <customspdivs> <customspeivs>
-        <dark_gray>────────────────────────────</dark_gray>
+        <color:<labelcolor>>─────────────────────</color>
         <color:<labelcolor>>EVs:</color> <customgeneralevs>
             <customhpevs> <customatkevs> <customdefevs>
             <customspaevs> <customspdevs> <customspeevs>
-        <dark_gray>────────────────────────────</dark_gray>
+        <color:<labelcolor>>─────────────────────</color>
         <color:<labelcolor>>Size:</color> <white><size></white> <color:<labelcolor>>(</color><white><scalemodifier100>% scale</white><color:<labelcolor>>)</color>
         <color:<labelcolor>>Egg Groups:</color> <white><egggroups></white>
         <customneutered>
-        <color:<labelcolor>>OT:</color> <white><originaltrainername></white>""";
+        <color:<labelcolor>>Original Trainer:</color> <white><originaltrainername></white>""";
 
     protected static final String DEFAULT_CUSTOM_STATUS =
         """
@@ -477,11 +476,11 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_CUSTOM_SHININESS =
         """
-        <color:<shinycolor>> ★ </color>""";
+        <color:<shinycolor>>★</color>""";
 
     protected static final String DEFAULT_CUSTOM_ALPHANESS =
         """
-        <color:<alphacolor>> α </color>""";
+        <color:<alphacolor>>α</color>""";
 
     protected static final String DEFAULT_CUSTOM_FORM =
         """
@@ -521,7 +520,7 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_MOVE_CUSTOM_PP =
         """
-        <color:<labelcolor>>(</color><white>><moveremainingpp></white><color:<labelcolor>>/</color><white><movetotalpp></white><color:<labelcolor>>)</color>""";
+        <color:<labelcolor>>(</color><white><moveremainingpp></white><color:<labelcolor>>/</color><white><movetotalpp></white><color:<labelcolor>>)</color>""";
 
     protected static final String DEFAULT_CUSTOM_MOVE =
         """
@@ -646,9 +645,9 @@ public class ChatMiniMessage
     protected static final String DEFAULT_WATER2 = "<white>Water2</white>";
     protected static final String DEFAULT_WATER3 = "<white>Water3</white>";
 
-    protected static final String DEFAULT_MALE_GENDER = "<color:<malecolor>>♂</color>";
-    protected static final String DEFAULT_FEMALE_GENDER = "<color:<femalecolor>>♀</color>";
-    protected static final String DEFAULT_GENDERLESS_GENDER = "<color:<genderlesscolor>>⚲</color>";
+    protected static final String DEFAULT_MALE_GENDER = "<color:<malecolor>>♂ Male</color>";
+    protected static final String DEFAULT_FEMALE_GENDER = "<color:<femalecolor>>♀ Female</color>";
+    protected static final String DEFAULT_GENDERLESS_GENDER = "<color:<genderlesscolor>>Genderless</color>";
 
     protected static final String DEFAULT_TRUE = "<color:<truecolor>>Yes</color>";
     protected static final String DEFAULT_FALSE = "<color:<falsecolor>>No</color>";
@@ -674,7 +673,6 @@ public class ChatMiniMessage
             GENDER_TEMPLATES = new HashMap<>();
             BOOLEAN_TEMPLATES = new HashMap<>();
 
-            CUSTOM_COLORS.put(DIVISION_COLOR_TEMPLATE_TAG_STRING, DEFAULT_DIVISION_COLOR_STRING);
             CUSTOM_COLORS.put(LABEL_COLOR_TEMPLATE_TAG_STRING, DEFAULT_LABEL_COLOR_STRING);
             CUSTOM_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SHINY_COLOR_STRING);
             CUSTOM_COLORS.put(ALPHA_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ALPHA_COLOR_STRING);

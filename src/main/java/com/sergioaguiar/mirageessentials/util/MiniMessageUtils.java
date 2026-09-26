@@ -114,7 +114,11 @@ public class MiniMessageUtils
                                                         (
                                                             resolveMove4Color
                                                             (
-                                                                template,
+                                                                resolveTitleColor
+                                                                (
+                                                                    template,
+                                                                    pokemon
+                                                                ),
                                                                 moves
                                                             ),
                                                             moves
@@ -178,9 +182,9 @@ public class MiniMessageUtils
                 .resolvers(getCustomTypesDuotypeResolvers(types, teraType, isMonotype))
                 .resolver(getCustomFormsResolver(pokemon))
                 .resolvers(getCustomFormsResolvers(pokemon))
-                .resolver(getCustomHeldItemResolver(heldItemName, heldItemCustomName))
+                .resolver(getCustomHeldItemResolver(heldItem == null || heldItem.isEmpty(), heldItemName, heldItemCustomName))
                 .resolvers(getCustomHeldItemResolvers(heldItemName, heldItemCustomName))
-                .resolver(getCustomCosmeticItemResolver(cosmeticItemName, cosmeticItemCustomName))
+                .resolver(getCustomCosmeticItemResolver(cosmeticItem == null || cosmeticItem.isEmpty(), cosmeticItemName, cosmeticItemCustomName))
                 .resolvers(getCustomCosmeticItemResolvers(cosmeticItemName, cosmeticItemCustomName))
                 .resolver(getAbilityResolver(CobblemonUtils.getPokemonAbility(pokemon)))
                 .resolver(getCustomHiddenAbilityResolver(CobblemonUtils.hasHiddenAbility(pokemon)))
@@ -538,6 +542,15 @@ public class MiniMessageUtils
         );
     }
 
+    private static TagResolver.Single getSpeciesResolver(String species)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.CUSTOM_SPECIES_TEMPLATE_TAG_STRING,
+            species
+        );
+    }
+
     private static TagResolver.Single getFormResolver(String form)
     {
         return Placeholder.unparsed
@@ -720,6 +733,7 @@ public class MiniMessageUtils
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
+        resolvers.add(getSpeciesResolver(CobblemonUtils.getPokemonSpecies(pokemon)));
         resolvers.add(getCustomFormsResolver(pokemon));
         resolvers.addAll(Arrays.asList(getCustomFormsResolvers(pokemon)));
 
@@ -744,8 +758,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getCustomHeldItemResolver(String heldItemName, String heldItemCustomName)
+    private static TagResolver.Single getCustomHeldItemResolver(boolean hasHeldItem, String heldItemName, String heldItemCustomName)
     {
+        if (hasHeldItem)
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.CUSTOM_HELD_ITEM_TEMPLATE_TAG_STRING,
+                    Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomHeldItemTemplate());
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
@@ -791,8 +814,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getCustomCosmeticItemResolver(String cosmeticItemName, String cosmeticItemCustomName)
+    private static TagResolver.Single getCustomCosmeticItemResolver(boolean hasCosmeticItem, String cosmeticItemName, String cosmeticItemCustomName)
     {
+        if (hasCosmeticItem)
+        {
+            return Placeholder.component
+            (
+                    ChatMiniMessage.CUSTOM_COSMETIC_ITEM_TEMPLATE_TAG_STRING,
+                    Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomCosmeticItemTemplate());
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
@@ -1594,12 +1626,12 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomEffectiveHpIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
-        if (hyperTrainedStats.contains(Stats.HP))
+        if (!hyperTrainedStats.contains(Stats.HP))
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_TAG_STRING,
-                    Component.empty()
+                ChatMiniMessage.CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
             );
         }
 
@@ -1679,7 +1711,7 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomEffectiveAtkIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
-        if (hyperTrainedStats.contains(Stats.ATTACK))
+        if (!hyperTrainedStats.contains(Stats.ATTACK))
         {
             return Placeholder.component
             (
@@ -1764,7 +1796,7 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomEffectiveDefIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
-        if (hyperTrainedStats.contains(Stats.DEFENCE))
+        if (!hyperTrainedStats.contains(Stats.DEFENCE))
         {
             return Placeholder.component
             (
@@ -1849,7 +1881,7 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomEffectiveSpaIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
-        if (hyperTrainedStats.contains(Stats.SPECIAL_ATTACK))
+        if (!hyperTrainedStats.contains(Stats.SPECIAL_ATTACK))
         {
             return Placeholder.component
             (
@@ -1934,7 +1966,7 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomEffectiveSpdIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
-        if (hyperTrainedStats.contains(Stats.SPECIAL_DEFENCE))
+        if (!hyperTrainedStats.contains(Stats.SPECIAL_DEFENCE))
         {
             return Placeholder.component
             (
@@ -2019,7 +2051,7 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomEffectiveSpeIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
-        if (hyperTrainedStats.contains(Stats.SPEED))
+        if (!hyperTrainedStats.contains(Stats.SPEED))
         {
             return Placeholder.component
             (
@@ -2684,6 +2716,15 @@ public class MiniMessageUtils
         return template;
     }
 
+    private static String resolveTitleColor(String template, Pokemon pokemon)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.TITLE_COLOR_TEMPLATE_TAG_STRING),
+            CobblemonUtils.getPokemonTitleColor(pokemon)
+        );
+    }
+
     private static String resolveHpColor(String template)
     {
         return template.replace
@@ -2772,7 +2813,7 @@ public class MiniMessageUtils
         return template.replace
         (
             "<%s>".formatted(ChatMiniMessage.MOVE1_COLOR_TEMPLATE_TAG_STRING),
-            String.format("#%06x", moves.size() > 0 ? moves.get(0).getType().getPrimaryColor() : "#ffffff")
+            moves.size() > 0 ? String.format("#%06x",  moves.get(0).getType().getPrimaryColor()) : "#ffffff"
         );
     }
 
@@ -2781,7 +2822,7 @@ public class MiniMessageUtils
         return template.replace
         (
             "<%s>".formatted(ChatMiniMessage.MOVE2_COLOR_TEMPLATE_TAG_STRING),
-            String.format("#%06x", moves.size() > 1 ? moves.get(1).getType().getPrimaryColor() : "#ffffff")
+            moves.size() > 1 ? String.format("#%06x",  moves.get(1).getType().getPrimaryColor()) : "#ffffff"
         );
     }
 
@@ -2790,7 +2831,7 @@ public class MiniMessageUtils
         return template.replace
         (
             "<%s>".formatted(ChatMiniMessage.MOVE3_COLOR_TEMPLATE_TAG_STRING),
-            String.format("#%06x", moves.size() > 2 ? moves.get(2).getType().getPrimaryColor() : "#ffffff")
+            moves.size() > 2 ? String.format("#%06x",  moves.get(2).getType().getPrimaryColor()) : "#ffffff"
         );
     }
 
@@ -2799,7 +2840,7 @@ public class MiniMessageUtils
         return template.replace
         (
             "<%s>".formatted(ChatMiniMessage.MOVE4_COLOR_TEMPLATE_TAG_STRING),
-            String.format("#%06x", moves.size() > 3 ? moves.get(3).getType().getPrimaryColor() : "#ffffff")
+            moves.size() > 3 ? String.format("#%06x",  moves.get(3).getType().getPrimaryColor()) : "#ffffff"
         );
     }
 
@@ -2807,7 +2848,7 @@ public class MiniMessageUtils
     {
         return template.replace
         (
-            "<%s>".formatted(ChatMiniMessage.MOVE4_COLOR_TEMPLATE_TAG_STRING),
+            "<%s>".formatted(ChatMiniMessage.MOVE_COLOR_TEMPLATE_TAG_STRING),
             String.format("#%06x", move.getType().getPrimaryColor())
         );
     }

@@ -22,6 +22,7 @@ import com.cobblemon.mod.common.pokemon.IVs;
 import com.cobblemon.mod.common.pokemon.Nature;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.pokemon.Species;
+import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspects;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
@@ -95,7 +96,7 @@ public class PlaceholderResolver
 
     public static Text getPartyPokemon(ServerPlayerEntity player, int slot, boolean isClosedSheet)
     {
-        if (slot < 1 || slot > 6) TextUtils.errorPlaceholder("Invalid Slot");
+        if (slot < 1 || slot > 6) return TextUtils.errorPlaceholder("Invalid Slot");
 
         PlayerPartyStore party = Cobblemon.INSTANCE.getStorage().getParty(player);
         Pokemon pokemon = party.get(slot - 1);
@@ -137,26 +138,18 @@ public class PlaceholderResolver
 
     public static Text buildPokemonText(Pokemon pokemon, boolean isClosedSheet) 
     {
-        return MiniMessageUtils.render
-        (
-            ChatMiniMessage.getPokemonInfoTemplate(),
-            MiniMessageUtils.getPokeInfoTagResolver(pokemon)
-        );
-
-        /**
         return TextUtils.hoverableText
         (
             pokemon.getSpecies().getName(), 
             NeoDaycareUtils.isEgg(pokemon)
                 ? buildEggTooltip(pokemon)
-                : buildPokemonTooltip(pokemon, isClosedSheet), 
+                : MiniMessageUtils.renderPokeInfo(ChatMiniMessage.getPokemonInfoTemplate(), pokemon),
             pokemon.getShiny(),
             pokemon.isLegendary(),
             pokemon.isMythical(),
             pokemon.isUltraBeast(),
             ChatAspects.isCustomPokemon(pokemon.getAspects())
         );
-        */
     }
 
     public static Text getMainHandItem(ServerPlayerEntity player)
