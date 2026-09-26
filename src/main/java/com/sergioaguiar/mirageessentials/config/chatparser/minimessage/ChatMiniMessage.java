@@ -60,6 +60,8 @@ public class ChatMiniMessage
     protected static final String GENDERLESS_COLOR_TEMPLATE_TAG_STRING = "genderlesscolor";
 
     // PokeInfo Template Names
+    public static final String POKEMON_INFO_TEMPLATE_STRING = "PokemonInfo";
+    public static final String POKEMON_INFO_TEMPLATE_TAG_STRING = "pokemoninfo";
     public static final String NAME_TEMPLATE_STRING = "Name";
     public static final String NAME_TEMPLATE_TAG_STRING = "name";
     public static final String TITLE_TEMPLATE_STRING = "Title";
@@ -339,8 +341,6 @@ public class ChatMiniMessage
     public static final String ORIGINAL_TRAINER_NAME_TEMPLATE_STRING = "OriginalTrainerName";
     public static final String ORIGINAL_TRAINER_NAME_TEMPLATE_TAG_STRING = "originaltrainername";
 
-    protected static final String POKEMON_INFO_TEMPLATE_STRING = "PokemonInfo";
-    protected static final String POKEMON_INFO_TEMPLATE_TAG_STRING = "pokemoninfo";
     protected static final String CUSTOM_FORM_TEMPLATE_STRING = "CustomForm";
     protected static final String CUSTOM_FORM_TEMPLATE_TAG_STRING = "customform";
     protected static final String CUSTOM_MOVE_TEMPLATE_STRING = "CustomMove";
@@ -461,7 +461,7 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_CUSTOM_STATUS =
         """
-        <color:<labelcolor>>(</color><status><color:<labelcolor>>)</color>""";
+        <status>""";
 
     protected static final String DEFAULT_CUSTOM_CONDITION =
         """

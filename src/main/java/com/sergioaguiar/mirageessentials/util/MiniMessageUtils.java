@@ -55,37 +55,13 @@ public class MiniMessageUtils
 
     public static Text render(String template, TagResolver placeholders)
     {
-        String newTemplate = resolveCustomColors(template);
-
         Component component = MINIMESSAGE_INSTANCE.deserialize
         (
-            newTemplate,
+            template,
             placeholders
         );
 
         return toMinecraftText(component);
-    }
-
-    public static Component parseTwice(String template, TagResolver firstResolvers)
-    {
-        Component first = MINIMESSAGE_INSTANCE.deserialize(
-            template,
-            firstResolvers
-        );
-
-        String intermediate = MINIMESSAGE_INSTANCE.serialize(first);
-
-        ModLogger.info("===== INTERMEDIATE =====");
-        ModLogger.info(intermediate);
-        ModLogger.info("========================");
-
-        Component second = MINIMESSAGE_INSTANCE.deserialize(intermediate);
-
-        ModLogger.info("===== SECOND SERIALIZED =====");
-        ModLogger.info(MINIMESSAGE_INSTANCE.serialize(second));
-        ModLogger.info("=============================");
-
-        return second;
     }
 
     public static List<Text> renderLines(String template, TagResolver placeholders)
@@ -105,10 +81,68 @@ public class MiniMessageUtils
         return FabricAudiences.nonWrappingSerializer().serialize(component);
     }
 
+    public static Text renderPokeInfo(String template, Pokemon pokemon)
+    {
+        List<ElementalType> types = CobblemonUtils.getPokemonTypes(pokemon);
+        List<Move> moves = CobblemonUtils.getPokemonMoves(pokemon);
+
+        String newTemplate = resolveCustomColors
+        (
+            resolveHpColor
+            (
+                resolveAtkColor
+                (
+                    resolveDefColor
+                    (
+                        resolveSpaColor
+                        (
+                            resolveSpdColor
+                            (
+                                resolveSpeColor
+                                (
+                                    resolveType1Color
+                                    (
+                                        resolveType2Color
+                                        (
+                                            resolveTeraTypeColor
+                                            (
+                                                resolveMove1Color
+                                                (
+                                                    resolveMove2Color
+                                                    (
+                                                        resolveMove3Color
+                                                        (
+                                                            resolveMove4Color
+                                                            (
+                                                                template,
+                                                                moves
+                                                            ),
+                                                            moves
+                                                        ),
+                                                        moves
+                                                    ),
+                                                    moves
+                                                ), 
+                                                pokemon.getTeraType()
+                                            ),
+                                            types.size() < 2 ? types.get(0) : types.get(1)
+                                        ),
+                                        types.get(0))
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
+
+        return render(newTemplate, getPokeInfoTagResolver(pokemon));
+    }
+
     public static TagResolver getPokeInfoTagResolver(Pokemon pokemon)
     {
         List<ElementalType> types = CobblemonUtils.getPokemonTypes(pokemon);
-        boolean isMonotype = types.size() == 1;
+        boolean isMonotype = types.size() < 2;
         TeraType teraType = pokemon.getTeraType();
         ItemStack heldItem = CobblemonUtils.getPokemonHeldItem(pokemon);
         String heldItemName = CobblemonUtils.getPokemonItemName(heldItem);
@@ -162,19 +196,15 @@ public class MiniMessageUtils
                 .resolvers(getCustomExperienceResolvers(currentExperience, RemainingExperience))
                 .resolver(getFriendshipResolver(CobblemonUtils.getPokemonFriendship(pokemon)))
                 .resolver(getMove1Resolver(moves))
-                .resolver(getMove1ColorResolver(moves))
                 .resolver(getMove1CustomPPResolver(moves))
                 .resolvers(getMove1CustomPPResolvers(moves))
                 .resolver(getMove2Resolver(moves))
-                .resolver(getMove2ColorResolver(moves))
                 .resolver(getMove2CustomPPResolver(moves))
                 .resolvers(getMove2CustomPPResolvers(moves))
                 .resolver(getMove3Resolver(moves))
-                .resolver(getMove3ColorResolver(moves))
                 .resolver(getMove3CustomPPResolver(moves))
                 .resolvers(getMove3CustomPPResolvers(moves))
                 .resolver(getMove4Resolver(moves))
-                .resolver(getMove4ColorResolver(moves))
                 .resolver(getMove4CustomPPResolver(moves))
                 .resolvers(getMove4CustomPPResolvers(moves))
                 .resolver(getCustomMovesResolver(moves))
@@ -306,6 +336,15 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomStatusResolver(Pokemon pokemon)
     {
+        if (pokemon.getStatus() == null)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_STATUS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomStatusTemplate());
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
@@ -372,15 +411,6 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getType1ColorResolver(ElementalType type)
-    {
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.TYPE1_COLOR_TEMPLATE_TAG_STRING,
-            String.format("#%06x", type.getPrimaryColor())
-        );
-    }
-
     private static TagResolver.Single getType2Resolver(ElementalType type)
     {
         return Placeholder.unparsed
@@ -390,32 +420,12 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getType2ColorResolver(ElementalType type)
-    {
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.TYPE2_COLOR_TEMPLATE_TAG_STRING,
-            String.format("#%06x", type.getPrimaryColor())
-        );
-    }
-
     private static TagResolver.Single getTeraTypeResolver(TeraType type)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.TERA_TYPE_TEMPLATE_TAG_STRING,
             TextUtils.toTitleCase(type.getName())
-        );
-    }
-
-    private static TagResolver.Single getTeraTypeColorResolver(TeraType type)
-    {
-        ElementalType elementalType = CobblemonUtils.getElementalTypeFromShowdownId(type.showdownId());
-
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.TERA_TYPE_COLOR_TEMPLATE_TAG_STRING,
-            String.format("#%06x", elementalType.getPrimaryColor())
         );
     }
 
@@ -432,7 +442,18 @@ public class MiniMessageUtils
 
     public static Component getCustomTypesMonotypeComponent(List<ElementalType> types, TeraType teraType , boolean isMonotype)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomTypesMonotypeTemplate());
+        String newTemplate = resolveCustomColors
+        (
+            resolveType1Color
+            (
+                resolveTeraTypeColor
+                (
+                    ChatMiniMessage.getCustomTypesMonotypeTemplate(),
+                    teraType
+                ),
+                types.get(0)
+            )
+        );
 
         return MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -445,7 +466,22 @@ public class MiniMessageUtils
 
     public static Component getCustomTypesDuotypeComponent(List<ElementalType> types, TeraType teraType , boolean isMonotype)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomTypesDuotypeTemplate());
+        String newTemplate = resolveCustomColors
+        (
+            resolveType1Color
+            (
+                resolveType2Color
+                (
+                    resolveTeraTypeColor
+                    (
+                        ChatMiniMessage.getCustomTypesDuotypeTemplate(),
+                        teraType
+                    ),
+                    types.get(1)
+                ),
+                types.get(0)
+            )
+        );
 
         return MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -461,9 +497,7 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getType1Resolver(types.get(0)));
-        resolvers.add(getType1ColorResolver(types.get(0)));
         resolvers.add(getTeraTypeResolver(teraType));
-        resolvers.add(getTeraTypeColorResolver(teraType));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -473,7 +507,6 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getType2Resolver(isMonotype ? types.get(0) : types.get(1)));
-        resolvers.add(getType2ColorResolver(isMonotype ? types.get(0) : types.get(1)));
         resolvers.addAll(Arrays.asList(getCustomTypesMonotypeResolvers(types, teraType, isMonotype)));
 
         return resolvers.toArray(new TagResolver.Single[0]);
@@ -1041,15 +1074,6 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove1ColorResolver(List<Move> moves)
-    {
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.MOVE1_COLOR_TEMPLATE_TAG_STRING,
-            moves.size() > 0 ? String.format("#%06x", moves.get(0).getType().getPrimaryColor()) : ""
-        );
-    }
-
     private static TagResolver.Single getMove1UsedPPResolver(List<Move> moves)
     {
         return Placeholder.unparsed
@@ -1122,15 +1146,6 @@ public class MiniMessageUtils
         (
             ChatMiniMessage.MOVE2_TEMPLATE_TAG_STRING,
             moves.size() > 1 ? moves.get(1).getDisplayName().toString() : ""
-        );
-    }
-
-    private static TagResolver.Single getMove2ColorResolver(List<Move> moves)
-    {
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.MOVE2_COLOR_TEMPLATE_TAG_STRING,
-            moves.size() > 1 ? String.format("#%06x", moves.get(1).getType().getPrimaryColor()) : ""
         );
     }
 
@@ -1209,15 +1224,6 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove3ColorResolver(List<Move> moves)
-    {
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.MOVE3_COLOR_TEMPLATE_TAG_STRING,
-            moves.size() > 2 ? String.format("#%06x", moves.get(2).getType().getPrimaryColor()) : ""
-        );
-    }
-
     private static TagResolver.Single getMove3UsedPPResolver(List<Move> moves)
     {
         return Placeholder.unparsed
@@ -1293,15 +1299,6 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove4ColorResolver(List<Move> moves)
-    {
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.MOVE4_COLOR_TEMPLATE_TAG_STRING,
-            moves.size() > 3 ? String.format("#%06x", moves.get(3).getType().getPrimaryColor()) : ""
-        );
-    }
-
     private static TagResolver.Single getMove4UsedPPResolver(List<Move> moves)
     {
         return Placeholder.unparsed
@@ -1374,16 +1371,16 @@ public class MiniMessageUtils
 
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomMoveTemplate());
 
-        for (Move move : moves)
+        for (int i = 0; i < moves.size(); i++)
         {
+            String moveTemplate = resolveCustomMoveColor(newTemplate, moves.get(i));
+
             Component moveComponent = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
             (
-                newTemplate,
+                moveTemplate + (i < moves.size() - 1 ? "<newline>" : ""),
                 TagResolver.builder()
-                    .resolver(getMoveResolver(move))
-                    .resolver(getMoveColorResolver(move))
-                    .resolver(getMoveCustomPPResolver(move))
-                    .resolvers(getCustomColorResolvers())
+                    .resolver(getMoveResolver(moves.get(i)))
+                    .resolver(getMoveCustomPPResolver(moves.get(i)))
                     .build()
             );
 
@@ -1399,17 +1396,10 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getMoveResolver(Move move)
     {
-        return Placeholder.unparsed(
+        return Placeholder.unparsed
+        (
             ChatMiniMessage.MOVE_TEMPLATE_TAG_STRING,
             move.getDisplayName().getString()
-        );
-    }
-
-    private static TagResolver.Single getMoveColorResolver(Move move)
-    {
-        return Placeholder.unparsed(
-            ChatMiniMessage.MOVE_COLOR_TEMPLATE_TAG_STRING,
-            String.format("#%06x", move.getType().getPrimaryColor())
         );
     }
 
@@ -1423,7 +1413,6 @@ public class MiniMessageUtils
                 .resolver(getMoveUsedPPResolver(move))
                 .resolver(getMoveRemainingPPResolver(move))
                 .resolver(getMoveTotalPPResolver(move))
-                .resolvers(getCustomColorResolvers())
                 .build()
         );
 
@@ -1603,15 +1592,6 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getHpColorResolver()
-    {
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.HP_COLOR_TEMPLATE_TAG_STRING,
-            ChatMiniMessage.getHpColor()
-        );
-    }
-
     public static TagResolver.Single getCustomEffectiveHpIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
         if (hyperTrainedStats.contains(Stats.HP))
@@ -1623,7 +1603,7 @@ public class MiniMessageUtils
             );
         }
 
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveHpIVsTemplate());
+        String newTemplate = resolveCustomColors(resolveHpColor(ChatMiniMessage.getCustomEffectiveHpIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -1645,14 +1625,13 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getEffectiveHpIVsResolver(ivs));
-        resolvers.add(getHpColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomHpIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomHpIVsTemplate());
+        String newTemplate = resolveCustomColors(resolveHpColor(ChatMiniMessage.getCustomHpIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -1698,15 +1677,6 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getAtkColorResolver()
-    {
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.ATK_COLOR_TEMPLATE_TAG_STRING,
-            ChatMiniMessage.getAtkColor()
-        );
-    }
-
     public static TagResolver.Single getCustomEffectiveAtkIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
         if (hyperTrainedStats.contains(Stats.ATTACK))
@@ -1718,7 +1688,7 @@ public class MiniMessageUtils
             );
         }
 
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveAtkIVsTemplate());
+        String newTemplate = resolveCustomColors(resolveAtkColor(ChatMiniMessage.getCustomEffectiveAtkIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -1740,14 +1710,13 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getEffectiveAtkIVsResolver(ivs));
-        resolvers.add(getAtkColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomAtkIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomAtkIVsTemplate());
+        String newTemplate = resolveCustomColors(resolveAtkColor(ChatMiniMessage.getCustomAtkIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -1793,15 +1762,6 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getDefColorResolver()
-    {
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.DEF_COLOR_TEMPLATE_TAG_STRING,
-            ChatMiniMessage.getDefColor()
-        );
-    }
-
     public static TagResolver.Single getCustomEffectiveDefIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
         if (hyperTrainedStats.contains(Stats.DEFENCE))
@@ -1813,7 +1773,7 @@ public class MiniMessageUtils
             );
         }
 
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveDefIVsTemplate());
+        String newTemplate = resolveCustomColors(resolveDefColor(ChatMiniMessage.getCustomEffectiveDefIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -1835,14 +1795,13 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getEffectiveDefIVsResolver(ivs));
-        resolvers.add(getDefColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomDefIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomDefIVsTemplate());
+        String newTemplate = resolveCustomColors(resolveDefColor(ChatMiniMessage.getCustomDefIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -1888,15 +1847,6 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getSpaColorResolver()
-    {
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.SPA_COLOR_TEMPLATE_TAG_STRING,
-            ChatMiniMessage.getSpaColor()
-        );
-    }
-
     public static TagResolver.Single getCustomEffectiveSpaIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
         if (hyperTrainedStats.contains(Stats.SPECIAL_ATTACK))
@@ -1908,7 +1858,7 @@ public class MiniMessageUtils
             );
         }
 
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveSpaIVsTemplate());
+        String newTemplate = resolveCustomColors(resolveSpaColor(ChatMiniMessage.getCustomEffectiveSpaIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -1930,14 +1880,13 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getEffectiveSpaIVsResolver(ivs));
-        resolvers.add(getSpaColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomSpaIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpaIVsTemplate());
+        String newTemplate = resolveCustomColors(resolveSpaColor(ChatMiniMessage.getCustomSpaIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -1983,15 +1932,6 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getSpdColorResolver()
-    {
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.SPD_COLOR_TEMPLATE_TAG_STRING,
-            ChatMiniMessage.getSpdColor()
-        );
-    }
-
     public static TagResolver.Single getCustomEffectiveSpdIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
         if (hyperTrainedStats.contains(Stats.SPECIAL_DEFENCE))
@@ -2003,7 +1943,7 @@ public class MiniMessageUtils
             );
         }
 
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveSpdIVsTemplate());
+        String newTemplate = resolveCustomColors(resolveSpdColor(ChatMiniMessage.getCustomEffectiveSpdIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -2025,14 +1965,13 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getEffectiveSpdIVsResolver(ivs));
-        resolvers.add(getSpdColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomSpdIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpdIVsTemplate());
+        String newTemplate = resolveCustomColors(resolveSpdColor(ChatMiniMessage.getCustomSpdIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -2078,15 +2017,6 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getSpeColorResolver()
-    {
-        return Placeholder.unparsed
-        (
-            ChatMiniMessage.SPE_COLOR_TEMPLATE_TAG_STRING,
-            ChatMiniMessage.getSpeColor()
-        );
-    }
-
     public static TagResolver.Single getCustomEffectiveSpeIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
         if (hyperTrainedStats.contains(Stats.SPEED))
@@ -2098,7 +2028,7 @@ public class MiniMessageUtils
             );
         }
 
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveSpeIVsTemplate());
+        String newTemplate = resolveCustomColors(resolveSpeColor(ChatMiniMessage.getCustomEffectiveSpeIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -2120,14 +2050,13 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getEffectiveSpeIVsResolver(ivs));
-        resolvers.add(getSpeColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomSpeIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpeIVsTemplate());
+        String newTemplate = resolveCustomColors(resolveSpeColor(ChatMiniMessage.getCustomSpeIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -2242,7 +2171,7 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomHpEVsResolver(EVs evs)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomHpEVsTemplate());
+        String newTemplate = resolveCustomColors(resolveHpColor(ChatMiniMessage.getCustomHpEVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -2264,7 +2193,6 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getHpEVResolver(evs));
-        resolvers.add(getHpColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2280,7 +2208,7 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomAtkEVsResolver(EVs evs)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomAtkEVsTemplate());
+        String newTemplate = resolveCustomColors(resolveAtkColor(ChatMiniMessage.getCustomAtkEVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -2302,7 +2230,6 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getAtkEVResolver(evs));
-        resolvers.add(getAtkColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2318,7 +2245,7 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomDefEVsResolver(EVs evs)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomDefEVsTemplate());
+        String newTemplate = resolveCustomColors(resolveDefColor(ChatMiniMessage.getCustomDefEVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -2340,7 +2267,6 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getDefEVResolver(evs));
-        resolvers.add(getDefColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2356,7 +2282,7 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomSpaEVsResolver(EVs evs)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpaEVsTemplate());
+        String newTemplate = resolveCustomColors(resolveSpaColor(ChatMiniMessage.getCustomSpaEVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -2378,7 +2304,6 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getSpaEVResolver(evs));
-        resolvers.add(getSpaColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2394,7 +2319,7 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomSpdEVsResolver(EVs evs)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpdEVsTemplate());
+        String newTemplate = resolveCustomColors(resolveSpdColor(ChatMiniMessage.getCustomSpdEVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -2416,7 +2341,6 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getSpdEVResolver(evs));
-        resolvers.add(getSpdColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2432,7 +2356,7 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomSpeEVsResolver(EVs evs)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpeEVsTemplate());
+        String newTemplate = resolveCustomColors(resolveSpeColor(ChatMiniMessage.getCustomSpeEVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -2454,7 +2378,6 @@ public class MiniMessageUtils
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getSpeEVResolver(evs));
-        resolvers.add(getSpeColorResolver());
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2538,18 +2461,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getAmorphousTemplate());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.AMORPHOUS_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2557,18 +2472,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getBugTemplate());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.BUG_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2576,18 +2483,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getDittoTemplate());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.DITTO_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2595,18 +2494,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getDragonTemplate());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.DRAGON_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2614,18 +2505,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getFairyTemplate());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.FAIRY_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2633,18 +2516,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getFieldTemplate());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.FIELD_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2652,18 +2527,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getFlyingTemplate());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.FLYING_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2671,18 +2538,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getGrassTemplate());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.GRASS_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2690,18 +2549,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getHumanLikeTemplate());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.HUMAN_LIKE_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2709,18 +2560,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getMineralTemplate());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.MINERAL_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2728,18 +2571,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getMonsterTemplate());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.MONSTER_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2747,18 +2582,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getUndiscoveredTemplate());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.UNDISCOVERED_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2766,18 +2593,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getWater1Template());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.WATER1_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2785,18 +2604,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getWater2Template());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.WATER2_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2804,18 +2615,10 @@ public class MiniMessageUtils
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getWater3Template());
 
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomColorResolvers())
-                .build()
-        );
-
-        return Placeholder.component
+        return Placeholder.parsed
         (
             ChatMiniMessage.WATER3_TEMPLATE_TAG_STRING,
-            component
+            newTemplate
         );
     }
 
@@ -2867,35 +2670,145 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomColorResolvers()
-    {
-        List<TagResolver.Single> resolvers = new ArrayList<>();
-
-        for (Entry<String, String> customColor : ChatMiniMessage.getCustomColors().entrySet())
-        {
-            resolvers.add
-            (
-                Placeholder.unparsed
-                (
-                    "%s".formatted(customColor.getKey()),
-                    customColor.getValue()
-                )
-            );
-        }
-
-        return resolvers.toArray(new TagResolver.Single[0]);
-    }
-
     private static String resolveCustomColors(String template)
     {
         for (Entry<String, String> customColor : ChatMiniMessage.getCustomColors().entrySet())
         {
-            template = template.replace(
+            template = template.replace
+            (
                 "<%s>".formatted(customColor.getKey()),
                 customColor.getValue()
             );
         }
 
         return template;
+    }
+
+    private static String resolveHpColor(String template)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.HP_COLOR_TEMPLATE_TAG_STRING),
+            ChatMiniMessage.getHpColor()
+        );
+    }
+
+    private static String resolveAtkColor(String template)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.ATK_COLOR_TEMPLATE_TAG_STRING),
+            ChatMiniMessage.getAtkColor()
+        );
+    }
+
+    private static String resolveDefColor(String template)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.DEF_COLOR_TEMPLATE_TAG_STRING),
+            ChatMiniMessage.getDefColor()
+        );
+    }
+
+    private static String resolveSpaColor(String template)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.SPA_COLOR_TEMPLATE_TAG_STRING),
+            ChatMiniMessage.getSpaColor()
+        );
+    }
+
+    private static String resolveSpdColor(String template)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.SPD_COLOR_TEMPLATE_TAG_STRING),
+            ChatMiniMessage.getSpdColor()
+        );
+    }
+
+    private static String resolveSpeColor(String template)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.SPE_COLOR_TEMPLATE_TAG_STRING),
+            ChatMiniMessage.getSpeColor()
+        );
+    }
+
+    private static String resolveType1Color(String template, ElementalType type)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.TYPE1_COLOR_TEMPLATE_TAG_STRING),
+            String.format("#%06x", type.getPrimaryColor())
+        );
+    }
+
+    private static String resolveType2Color(String template, ElementalType type)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.TYPE2_COLOR_TEMPLATE_TAG_STRING),
+            String.format("#%06x", type.getPrimaryColor())
+        );
+    }
+
+    private static String resolveTeraTypeColor(String template, TeraType type)
+    {
+        ElementalType elementalType = CobblemonUtils.getElementalTypeFromShowdownId(type.showdownId());
+
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.TERA_TYPE_COLOR_TEMPLATE_TAG_STRING),
+            String.format("#%06x", elementalType.getPrimaryColor())
+        );
+    }
+
+    private static String resolveMove1Color(String template, List<Move> moves)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.MOVE1_COLOR_TEMPLATE_TAG_STRING),
+            String.format("#%06x", moves.size() > 0 ? moves.get(0).getType().getPrimaryColor() : "#ffffff")
+        );
+    }
+
+    private static String resolveMove2Color(String template, List<Move> moves)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.MOVE2_COLOR_TEMPLATE_TAG_STRING),
+            String.format("#%06x", moves.size() > 1 ? moves.get(1).getType().getPrimaryColor() : "#ffffff")
+        );
+    }
+
+    private static String resolveMove3Color(String template, List<Move> moves)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.MOVE3_COLOR_TEMPLATE_TAG_STRING),
+            String.format("#%06x", moves.size() > 2 ? moves.get(2).getType().getPrimaryColor() : "#ffffff")
+        );
+    }
+
+    private static String resolveMove4Color(String template, List<Move> moves)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.MOVE4_COLOR_TEMPLATE_TAG_STRING),
+            String.format("#%06x", moves.size() > 3 ? moves.get(3).getType().getPrimaryColor() : "#ffffff")
+        );
+    }
+
+    private static String resolveCustomMoveColor(String template, Move move)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.MOVE4_COLOR_TEMPLATE_TAG_STRING),
+            String.format("#%06x", move.getType().getPrimaryColor())
+        );
     }
 }
