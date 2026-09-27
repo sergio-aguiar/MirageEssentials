@@ -79,12 +79,12 @@ public class ChatMiniMessagePokemonConfig
                 # {TeraType} - The pokémon's tera type.
                 # {TeraTypeColor} - The pokémon's tera type's color.
                 # {CustomTypes} - The pokémon's types, using the configured templates (CustomTypesMonotype and CustomTypesDuotype).
+                # {Species} - The pokémon's species.
                 # {CustomShininess} - The pokémon's shininess indicator, using the configured template (not shown if not shiny).
                 # {CustomAlphaness} - The pokémon's alphaness indicator, using the configured template (not shown if not alpha).
                 # {Form} - The pokémon's base Cobblemon form (can appear as Normal).
                 # {FormsExpanded} - The pokémon's form, expanded to account for some additional aspects.
                 # {FormsFullyExpanded} - The pokémon's forms, expanded, also including custom configured aspects.
-                # {CustomForms} - The pokémon's forms, each using the configured template (not shown if the only form is Normal).
                 # {CustomSpecies} - The pokémon's custom species info, using the configured template.
                 # {HeldItem} - The pokémon's held item, ignoring custom name (or None if empty).
                 # {HeldItemCustomName} - The pokémon's held item, including custom name (or None if empty).
@@ -246,7 +246,7 @@ public class ChatMiniMessagePokemonConfig
 
                 # Used to display a Pokémon's forms.
                 # Shows base form and aspect-related forms, including specified custom ones.
-                # This template will be used in {CustomForms} once per available form, in a row, with a space between each.
+                # This template will be used in {FormsExpanded} and {FormsFullyExpanded} once per available form, in a row, with a space between each.
                 # You can use the following replacement templates:
                 # {Form} - One of the pokémon's forms or form-impacting aspects.
                 %s = \"\"\"
@@ -254,12 +254,12 @@ public class ChatMiniMessagePokemonConfig
 
                 # Used to display a pokémon's species information.
                 # You can use the following replacement templates:
+                # {Species} - The pokémon's species.
                 # {CustomShininess} - The pokémon's shininess indicator, using the configured template (not shown if not shiny).
                 # {CustomAlphaness} - The pokémon's alphaness indicator, using the configured template (not shown if not alpha).
                 # {Form} - The pokémon's base Cobblemon form (can appear as Normal).
                 # {FormsExpanded} - The pokémon's form, expanded to account for some additional aspects.
                 # {FormsFullyExpanded} - The pokémon's forms, expanded, also including custom configured aspects.
-                # {CustomForms} - The pokémon's forms, each using the configured template (not shown if the only form is Normal).
                 %s = \"\"\"
                 %s\"\"\"
 

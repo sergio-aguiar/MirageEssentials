@@ -102,14 +102,14 @@ public class ChatMiniMessage
     public static final String CUSTOM_SHININESS_TEMPLATE_TAG_STRING = "customshininess";
     public static final String CUSTOM_ALPHANESS_TEMPLATE_STRING = "CustomAlphaness";
     public static final String CUSTOM_ALPHANESS_TEMPLATE_TAG_STRING = "customalphaness";
+    public static final String SPECIES_TEMPLATE_STRING = "Species";
+    public static final String SPECIES_TEMPLATE_TAG_STRING = "species";
     public static final String FORM_TEMPLATE_STRING = "Form";
     public static final String FORM_TEMPLATE_TAG_STRING = "form";
     public static final String FORMS_EXPANDED_TEMPLATE_STRING = "FormsExpanded";
     public static final String FORMS_EXPANDED_TEMPLATE_TAG_STRING = "formsexpanded";
     public static final String FORMS_FULLY_EXPANDED_TEMPLATE_STRING = "FormsFullyExpanded";
     public static final String FORMS_FULLY_EXPANDED_TEMPLATE_TAG_STRING = "formsfullyexpanded";
-    public static final String CUSTOM_FORMS_TEMPLATE_STRING = "CustomForms";
-    public static final String CUSTOM_FORMS_TEMPLATE_TAG_STRING = "customforms";
     public static final String CUSTOM_SPECIES_TEMPLATE_STRING = "CustomSpecies";
     public static final String CUSTOM_SPECIES_TEMPLATE_TAG_STRING = "customspecies";
     public static final String HELD_ITEM_TEMPLATE_STRING = "HeldItem";
@@ -436,7 +436,7 @@ public class ChatMiniMessage
         <customtypes> <color:<labelcolor>>│</Color> <gender> <color:<labelcolor>>│</color> <caughtball>
         <color:<labelcolor>>─────────────────────</color>
         <color:<labelcolor>>Condition:</color> <customcondition>
-        <color:<labelcolor>>Species:</color> <customspecies>
+        <color:<labelcolor>>Species:</color><customspecies>
         <color:<labelcolor>>Held Item:</color> <white><helditem></white> <customcosmeticitem>
         <color:<labelcolor>>Ability:</color> <white><ability></white> <customhiddenability>
         <color:<labelcolor>>Nature</color><custommintness><color:<labelcolor>>:</color> <white><natureeffective></white> <customnatureeffectivestats>
@@ -476,11 +476,11 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_CUSTOM_SHININESS =
         """
-        <color:<shinycolor>>★</color>""";
+        <color:<shinycolor>> ★</color>""";
 
     protected static final String DEFAULT_CUSTOM_ALPHANESS =
         """
-        <color:<alphacolor>>α</color>""";
+        <color:<alphacolor>> α</color>""";
 
     protected static final String DEFAULT_CUSTOM_FORM =
         """
@@ -488,7 +488,7 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_CUSTOM_SPECIES =
         """
-        <customshininess><customalphaness> <white><species></white> <customforms>""";
+        <customshininess><customalphaness> <white><species></white> <formsfullyexpanded>""";
 
     protected static final String DEFAULT_CUSTOM_HELD_ITEM =
         """

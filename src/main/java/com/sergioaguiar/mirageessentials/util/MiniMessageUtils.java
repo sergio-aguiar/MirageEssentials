@@ -180,8 +180,6 @@ public class MiniMessageUtils
                 .resolvers(getCustomSpeciesResolvers(pokemon))
                 .resolver(getCustomTypesResolver(types, teraType, isMonotype))
                 .resolvers(getCustomTypesDuotypeResolvers(types, teraType, isMonotype))
-                .resolver(getCustomFormsResolver(pokemon))
-                .resolvers(getCustomFormsResolvers(pokemon))
                 .resolver(getCustomHeldItemResolver(heldItem == null || heldItem.isEmpty(), heldItemName, heldItemCustomName))
                 .resolvers(getCustomHeldItemResolvers(heldItemName, heldItemCustomName))
                 .resolver(getCustomCosmeticItemResolver(cosmeticItem == null || cosmeticItem.isEmpty(), cosmeticItemName, cosmeticItemCustomName))
@@ -546,7 +544,7 @@ public class MiniMessageUtils
     {
         return Placeholder.unparsed
         (
-            ChatMiniMessage.CUSTOM_SPECIES_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.SPECIES_TEMPLATE_TAG_STRING,
             species
         );
     }
@@ -566,9 +564,10 @@ public class MiniMessageUtils
 
         String newTemplate = resolveCustomColors(result.toString());
 
-        return Placeholder.component(
-                ChatMiniMessage.FORMS_EXPANDED_TEMPLATE_TAG_STRING,
-                MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize(newTemplate)
+        return Placeholder.parsed
+        (
+            ChatMiniMessage.FORMS_EXPANDED_TEMPLATE_TAG_STRING,
+            newTemplate
         );
     }
 
@@ -579,9 +578,10 @@ public class MiniMessageUtils
 
         String newTemplate = resolveCustomColors(result.toString());
 
-        return Placeholder.component(
-                ChatMiniMessage.FORMS_FULLY_EXPANDED_TEMPLATE_TAG_STRING,
-                MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize(newTemplate)
+        return Placeholder.parsed
+        (
+            ChatMiniMessage.FORMS_FULLY_EXPANDED_TEMPLATE_TAG_STRING,
+            newTemplate
         );
     }
 
@@ -661,53 +661,19 @@ public class MiniMessageUtils
 
     private static String renderCustomForm(String form)
     {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomFormTemplate());
+
         return MiniMessage.miniMessage().serialize
         (
             MiniMessage.miniMessage().deserialize
             (
-                ChatMiniMessage.getCustomFormTemplate(),
+                newTemplate,
                 TagResolver
                     .builder()
                     .resolver(getFormResolver(form))
                     .build()
             )
         );
-    }
-
-    public static TagResolver.Single getCustomFormsResolver(Pokemon pokemon)
-    {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomFormTemplate());
-
-        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
-        (
-            newTemplate,
-            TagResolver.builder()
-                .resolvers(getCustomFormsResolvers(pokemon))
-                .build()
-        );
-
-        return Placeholder.component
-        (
-            ChatMiniMessage.CUSTOM_FORMS_TEMPLATE_TAG_STRING,
-            component
-        );
-    }
-
-    public static TagResolver.Single[] getCustomFormsResolvers(Pokemon pokemon)
-    {
-        String form = CobblemonUtils.getPokemonBaseForm(pokemon);
-        Set<String> aspects = pokemon.getAspects();
-        List<SpeciesFeature> features = pokemon.getFeatures();
-
-        List<TagResolver.Single> resolvers = new ArrayList<>();
-
-        resolvers.add(getCustomShininessResolver(pokemon));
-        resolvers.add(getCustomAlphanessResolver(pokemon));
-        resolvers.add(getFormResolver(form));
-        resolvers.add(getFormsExpandedResolver(form, features));
-        resolvers.add(getFormsFullyExpandedResolver(form, features, aspects));
-
-        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     public static TagResolver.Single getCustomSpeciesResolver(Pokemon pokemon)
@@ -731,11 +697,18 @@ public class MiniMessageUtils
 
     public static TagResolver.Single[] getCustomSpeciesResolvers(Pokemon pokemon)
     {
+        String form = CobblemonUtils.getPokemonBaseForm(pokemon);
+        Set<String> aspects = pokemon.getAspects();
+        List<SpeciesFeature> features = pokemon.getFeatures();
+
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getSpeciesResolver(CobblemonUtils.getPokemonSpecies(pokemon)));
-        resolvers.add(getCustomFormsResolver(pokemon));
-        resolvers.addAll(Arrays.asList(getCustomFormsResolvers(pokemon)));
+        resolvers.add(getCustomShininessResolver(pokemon));
+        resolvers.add(getCustomAlphanessResolver(pokemon));
+        resolvers.add(getFormResolver(form));
+        resolvers.add(getFormsExpandedResolver(form, features));
+        resolvers.add(getFormsFullyExpandedResolver(form, features, aspects));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
