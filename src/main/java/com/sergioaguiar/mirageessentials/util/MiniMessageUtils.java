@@ -23,7 +23,6 @@ import com.cobblemon.mod.common.pokemon.Nature;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspects;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
-import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 
 import net.kyori.adventure.platform.fabric.FabricAudiences;
@@ -71,7 +70,7 @@ public class MiniMessageUtils
         if (template == null || template.isEmpty()) return lines;
 
         String[] split = template.split("\\R", -1);
-        for (String line : split) lines.add(render(line,placeholders));
+        for (String line : split) lines.add(render(line, placeholders));
 
         return lines;
     }
@@ -86,7 +85,26 @@ public class MiniMessageUtils
         List<ElementalType> types = CobblemonUtils.getPokemonTypes(pokemon);
         List<Move> moves = CobblemonUtils.getPokemonMoves(pokemon);
 
-        String newTemplate = resolveCustomColors
+        String newTemplate = parsePokeInfoColors(template, pokemon, moves, types);
+
+        return render(newTemplate, getPokeInfoTagResolver(pokemon));
+    }
+
+    public static List<Text> renderPokeInfoLines(String template, Pokemon pokemon)
+    {
+        List<Text> lines = new ArrayList<>();
+
+        if (template == null || template.isEmpty()) return lines;
+
+        String[] split = template.split("\\R", -1);
+        for (String line : split) lines.add(renderPokeInfo(line, pokemon));
+
+        return lines;
+    }
+
+    private static String parsePokeInfoColors(String template, Pokemon pokemon, List<Move> moves, List<ElementalType> types)
+    {
+        return resolveCustomColors
         (
             resolveHpColor
             (
@@ -139,8 +157,6 @@ public class MiniMessageUtils
                 )
             )
         );
-
-        return render(newTemplate, getPokeInfoTagResolver(pokemon));
     }
 
     public static TagResolver getPokeInfoTagResolver(Pokemon pokemon)
@@ -597,7 +613,7 @@ public class MiniMessageUtils
             .filter(x -> !ChatAspects.isSpeciesFeatureIgnored(x.getName()))
             .forEach(x -> allowedSpeciesFeatures.add((StringSpeciesFeature) x));
 
-        if (!isFormNormal || ChatSettings.shouldShowFormIfNormal())
+        if (!isFormNormal)
         {
             result.append(renderCustomForm(form));
         }

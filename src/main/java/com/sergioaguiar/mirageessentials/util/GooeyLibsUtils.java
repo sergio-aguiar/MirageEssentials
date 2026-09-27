@@ -9,6 +9,7 @@ import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.item.PokemonItem;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
+import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings.PartyCheckLayout;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
@@ -66,7 +67,7 @@ public class GooeyLibsUtils
                     (
                         NeoDaycareUtils.isEgg(pokemon)
                             ? PlaceholderResolver.getEggTooltipTextList(pokemon)
-                            : PlaceholderResolver.getPokemonTooltipTextList(pokemon, closed.get())
+                            : MiniMessageUtils.renderPokeInfoLines(ChatMiniMessage.getPokemonInfoTemplate(), pokemon)
                     )
                 )
                 .onClick((action) ->
