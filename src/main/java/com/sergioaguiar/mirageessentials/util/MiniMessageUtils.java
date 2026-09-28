@@ -27,6 +27,7 @@ import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 
 import net.kyori.adventure.platform.fabric.FabricAudiences;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
@@ -98,7 +99,10 @@ public class MiniMessageUtils
 
     public static Text toMinecraftText(Component component)
     {
-        return FabricAudiences.nonWrappingSerializer().serialize(component);
+        return FabricAudiences.nonWrappingSerializer().serialize
+        (
+            component.style(component.style().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE))
+        );
     }
 
     public static Text renderPokeInfo(String template, Pokemon pokemon)
