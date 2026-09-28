@@ -87,8 +87,6 @@ public class MiniMessageUtils
 
         String serialized = MINIMESSAGE_INSTANCE.serialize(component);
 
-        ModLogger.info("Serialized at @splitComponentLines = %s".formatted(serialized));
-
         for (String line : serialized.split("<br>|<newline>|\\R", -1))
         {
             lines.add(toMinecraftText(MINIMESSAGE_INSTANCE.deserialize(line)));

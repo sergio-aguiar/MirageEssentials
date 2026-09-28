@@ -162,14 +162,14 @@ public class CobblemonUtils
     {
         Stat stat = nature.getIncreasedStat();
 
-        return stat == null ? "" : stat.toString();
+        return stat == null ? "" : TextUtils.formatStatName(stat.toString());
     }
 
     public static String getPokemonNatureDecreasedStat(Nature nature)
     {
         Stat stat = nature.getDecreasedStat();
 
-        return stat == null ? "" : stat.toString();
+        return stat == null ? "" : TextUtils.formatStatName(stat.toString());
     }
 
     public static boolean isNeutralNature(Nature nature)
