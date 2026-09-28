@@ -70,7 +70,28 @@ public class MiniMessageUtils
         if (template == null || template.isEmpty()) return lines;
 
         String[] split = template.split("\\R", -1);
-        for (String line : split) lines.add(render(line, placeholders));
+
+        for (String line : split)
+        {
+            Component component = MINIMESSAGE_INSTANCE.deserialize(line, placeholders);
+            lines.addAll(splitComponentLines(component));
+        }
+
+        return lines;
+    }
+
+    private static List<Text> splitComponentLines(Component component)
+    {
+        List<Text> lines = new ArrayList<>();
+
+        String serialized = MINIMESSAGE_INSTANCE.serialize(component);
+
+        ModLogger.info("Serialized at @splitComponentLines = %s".formatted(serialized));
+
+        for (String line : serialized.split("<br>|<newline>|\\R", -1))
+        {
+            lines.add(toMinecraftText(MINIMESSAGE_INSTANCE.deserialize(line)));
+        }
 
         return lines;
     }
@@ -82,10 +103,13 @@ public class MiniMessageUtils
 
     public static Text renderPokeInfo(String template, Pokemon pokemon)
     {
-        List<ElementalType> types = CobblemonUtils.getPokemonTypes(pokemon);
-        List<Move> moves = CobblemonUtils.getPokemonMoves(pokemon);
-
-        String newTemplate = parsePokeInfoColors(template, pokemon, moves, types);
+        String newTemplate = parsePokeInfoColors
+        (
+            template,
+            pokemon,
+            CobblemonUtils.getPokemonMoves(pokemon),
+            CobblemonUtils.getPokemonTypes(pokemon)
+        );
 
         return render(newTemplate, getPokeInfoTagResolver(pokemon));
     }
@@ -97,7 +121,23 @@ public class MiniMessageUtils
         if (template == null || template.isEmpty()) return lines;
 
         String[] split = template.split("\\R", -1);
-        for (String line : split) lines.add(renderPokeInfo(line, pokemon));
+
+        for (String line : split)
+        {
+            Component component = MINIMESSAGE_INSTANCE.deserialize
+            (
+                parsePokeInfoColors
+                (
+                    line,
+                    pokemon,
+                    CobblemonUtils.getPokemonMoves(pokemon),
+                    CobblemonUtils.getPokemonTypes(pokemon)
+                ),
+                getPokeInfoTagResolver(pokemon)
+            );
+
+            lines.addAll(splitComponentLines(component));
+        }
 
         return lines;
     }
