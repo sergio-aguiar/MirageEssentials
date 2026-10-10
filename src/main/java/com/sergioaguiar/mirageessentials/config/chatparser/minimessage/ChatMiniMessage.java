@@ -707,6 +707,7 @@ public class ChatMiniMessage
             STAT_COLORS.put(SPE_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SPE_COLOR_STRING);
 
             POKE_INFO_TEMPLATES.put(POKEMON_INFO_TEMPLATE_TAG_STRING, DEFAULT_POKEMON_INFO);
+            POKE_INFO_TEMPLATES.put(CUSTOM_NAME_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_NAME);
             POKE_INFO_TEMPLATES.put(CUSTOM_STATUS_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_STATUS);
             POKE_INFO_TEMPLATES.put(CUSTOM_CONDITION_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_CONDITION);
             POKE_INFO_TEMPLATES.put(CUSTOM_TYPES_MONOTYPE_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_TYPES_MONOTYPE);
@@ -810,6 +811,7 @@ public class ChatMiniMessage
 
     // PokeInfo Setters and Getters
     public static String getPokemonInfoTemplate() { return POKE_INFO_TEMPLATES.get(POKEMON_INFO_TEMPLATE_TAG_STRING); }
+    public static String getCustomNameTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NAME_TEMPLATE_TAG_STRING); }
     public static String getCustomStatusTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_STATUS_TEMPLATE_TAG_STRING); }
     public static String getCustomConditionTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_CONDITION_TEMPLATE_TAG_STRING); }
     public static String getCustomTypesMonotypeTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_TYPES_MONOTYPE_TEMPLATE_TAG_STRING); }
@@ -853,6 +855,7 @@ public class ChatMiniMessage
     public static String getCustomNeuteredTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NEUTERED_TEMPLATE_TAG_STRING); }
 
     protected static void setPokemonInfoTemplate(String template) { POKE_INFO_TEMPLATES.put(POKEMON_INFO_TEMPLATE_TAG_STRING, template); }
+    protected static void setCustomNameTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_NAME_TEMPLATE_TAG_STRING, template); }
     protected static void setCustomStatusTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_STATUS_TEMPLATE_TAG_STRING, template); }
     protected static void setCustomConditionTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_CONDITION_TEMPLATE_TAG_STRING, template); }
     protected static void setCustomTypesMonotypeTemplate(String template) { POKE_INFO_TEMPLATES.put(CUSTOM_TYPES_MONOTYPE_TEMPLATE_TAG_STRING, template); }

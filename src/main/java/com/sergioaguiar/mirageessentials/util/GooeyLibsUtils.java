@@ -1,11 +1,7 @@
 package com.sergioaguiar.mirageessentials.util;
 
-import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.item.PokemonItem;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
@@ -54,12 +50,16 @@ public class GooeyLibsUtils
 
         if (pokemon != null)
         {
-            String nickname = (pokemon.getNickname() == null || pokemon.getNickname().getLiteralString() == null) 
-                ? pokemon.getSpecies().getName() : pokemon.getNickname().getLiteralString();
-            List<ElementalType> types = StreamSupport.stream(pokemon.getTypes().spliterator(), false).collect(Collectors.toUnmodifiableList());
-
             pokemonButtonBuilder.display(PokemonItem.from(pokemon))
-                .with(DataComponentTypes.ITEM_NAME, PlaceholderResolver.getNicknameText(nickname, types))
+                .with
+                (
+                    DataComponentTypes.ITEM_NAME,
+                    MiniMessageUtils.render
+                    (
+                        ChatMiniMessage.getCustomNameTemplate(),
+                        MiniMessageUtils.getCustomNameTagResolver(pokemon)
+                    )
+                )
                 .with
                 (
                     DataComponentTypes.LORE,

@@ -307,6 +307,13 @@ public class MiniMessageUtils
                 .build();
     }
 
+    public static TagResolver getCustomNameTagResolver(Pokemon pokemon)
+    {
+        return TagResolver.builder()
+            .resolvers(getCustomNameResolvers(pokemon))
+            .build();
+    }
+
     private static TagResolver.Single getNameResolver(String name)
     {
         return Placeholder.unparsed
