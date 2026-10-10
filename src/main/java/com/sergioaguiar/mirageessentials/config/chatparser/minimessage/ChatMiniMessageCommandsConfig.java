@@ -58,14 +58,14 @@ public class ChatMiniMessageCommandsConfig
 
             [General]
             # Here you can configure general use templates.
-            CommandReplyPrefix = \"<gradient:{CommandPrefixGradientLeftColor}:{CommandPrefixGradientRightColor}>Mie » </gradient>\"
+            CommandReplyPrefix = \"<gradient:<commandprefixgradientleftcolor>:<commandprefixgradientrightcolor>>Mie » </gradient>\"
 
             [ChatReplies]
             # Here you can configure the chat messages displayed on various actions/command usage.
             # You can use the following replacement templates:
-            # {CommandReplyPrefix} - The command chat-reply prefix, using the configured template.
-            # {PlayerName} - The player's username.
-            # {PlayerDisplayName} - The player's custom display name.
+            # <commandreplyprefix> - The command chat-reply prefix, using the configured template.
+            # <playername> - The player's username.
+            # <playerdisplayname> - The player's custom display name.
             
             """.formatted(MirageEssentials.MOD_NAME);
         

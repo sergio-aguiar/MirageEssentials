@@ -114,7 +114,8 @@ public class ChatMiniMessageColorsConfig
             [%s]
             # Here, you can create your own colors to use elsewhere.
             # Change the color here and it will affect every place you use it at, no need to manually change them all.
-            # If you name a color ColorName, you can then use it with {ColorName}!
+            # If you name a color ColorName, you can then use it with <colorname>!
+            # The minimessage tags will always be in lower case!
             %s = \"%s\"
             %s = \"%s\"
             %s = \"%s\"
