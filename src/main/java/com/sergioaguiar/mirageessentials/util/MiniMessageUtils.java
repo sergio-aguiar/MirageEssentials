@@ -104,11 +104,11 @@ public class MiniMessageUtils
         );
     }
 
-    public static Text renderPokeInfo(String template, Pokemon pokemon, boolean isPartyCheck)
+    public static Text renderPokeInfo(Pokemon pokemon, boolean isPartyCheck)
     {
         String newTemplate = parsePokeInfoColors
         (
-            template,
+            ChatMiniMessage.getPokemonInfoTemplate(),
             pokemon,
             CobblemonUtils.getPokemonMoves(pokemon),
             CobblemonUtils.getPokemonTypes(pokemon)
@@ -117,8 +117,9 @@ public class MiniMessageUtils
         return render(newTemplate, getPokeInfoTagResolver(pokemon, isPartyCheck));
     }
 
-    public static List<Text> renderPokeInfoLines(String template, Pokemon pokemon, boolean isPartyCheck)
+    public static List<Text> renderPokeInfoLines(Pokemon pokemon, boolean isPartyCheck)
     {
+        String template = ChatMiniMessage.getPokemonInfoTemplate();
         List<Text> lines = new ArrayList<>();
 
         if (template == null || template.isEmpty()) return lines;
@@ -143,6 +144,18 @@ public class MiniMessageUtils
         }
 
         return lines;
+    }
+
+    public static Text renderCustomName(Pokemon pokemon)
+    {
+        String newTemplate = parseCustomNameColors
+        (
+            ChatMiniMessage.getCustomNameTemplate(),
+            pokemon,
+            CobblemonUtils.getPokemonTypes(pokemon)
+        );
+
+        return render(newTemplate, getCustomNameTagResolver(pokemon));
     }
 
     private static String parsePokeInfoColors(String template, Pokemon pokemon, List<Move> moves, List<ElementalType> types)
@@ -198,6 +211,26 @@ public class MiniMessageUtils
                         )
                     )
                 )
+            )
+        );
+    }
+
+    private static String parseCustomNameColors(String template, Pokemon pokemon, List<ElementalType> types)
+    {
+        return resolveCustomColors
+        (
+            resolveTitleColor
+            (
+                resolveType1Color
+                (
+                    resolveType2Color
+                    (
+                        template,
+                        types.size() < 2 ? types.get(0) : types.get(1)
+                    ),
+                    types.get(0)
+                ),
+                pokemon
             )
         );
     }
@@ -345,22 +378,7 @@ public class MiniMessageUtils
 
         List<ElementalType> types = CobblemonUtils.getPokemonTypes(pokemon);
 
-        String newTemplate = resolveCustomColors
-        (
-            resolveTitleColor
-            (
-                resolveType1Color
-                (
-                    resolveType2Color
-                    (
-                        ChatMiniMessage.getCustomStatusTemplate(),
-                        types.size() < 2 ? types.get(0) : types.get(1)
-                    ),
-                    types.get(0)
-                ),
-                pokemon
-            )
-        );
+        String newTemplate = parseCustomNameColors(ChatMiniMessage.getCustomNameTemplate(), pokemon, types);
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (

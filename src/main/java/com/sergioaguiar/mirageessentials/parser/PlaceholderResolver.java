@@ -24,7 +24,6 @@ import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.pokemon.Species;
 import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspects;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
-import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 import com.sergioaguiar.mirageessentials.util.CobblemonUtils;
@@ -143,7 +142,7 @@ public class PlaceholderResolver
             pokemon.getSpecies().getName(), 
             NeoDaycareUtils.isEgg(pokemon)
                 ? buildEggTooltip(pokemon)
-                : MiniMessageUtils.renderPokeInfo(ChatMiniMessage.getPokemonInfoTemplate(), pokemon, false),
+                : MiniMessageUtils.renderPokeInfo(pokemon, false),
             pokemon.getShiny(),
             pokemon.isLegendary(),
             pokemon.isMythical(),

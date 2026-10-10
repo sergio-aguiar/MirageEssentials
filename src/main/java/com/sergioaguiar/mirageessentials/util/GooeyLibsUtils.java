@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 import com.cobblemon.mod.common.item.PokemonItem;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
-import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings.PartyCheckLayout;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
@@ -54,11 +53,7 @@ public class GooeyLibsUtils
                 .with
                 (
                     DataComponentTypes.ITEM_NAME,
-                    MiniMessageUtils.render
-                    (
-                        ChatMiniMessage.getCustomNameTemplate(),
-                        MiniMessageUtils.getCustomNameTagResolver(pokemon)
-                    )
+                    MiniMessageUtils.renderCustomName(pokemon)
                 )
                 .with
                 (
@@ -67,7 +62,7 @@ public class GooeyLibsUtils
                     (
                         NeoDaycareUtils.isEgg(pokemon)
                             ? PlaceholderResolver.getEggTooltipTextList(pokemon)
-                            : MiniMessageUtils.renderPokeInfoLines(ChatMiniMessage.getPokemonInfoTemplate(), pokemon, true)
+                            : MiniMessageUtils.renderPokeInfoLines(pokemon, true)
                     )
                 )
                 .onClick((action) ->
