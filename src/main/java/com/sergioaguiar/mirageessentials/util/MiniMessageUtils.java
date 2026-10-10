@@ -104,7 +104,7 @@ public class MiniMessageUtils
         );
     }
 
-    public static Text renderPokeInfo(Pokemon pokemon, boolean isPartyCheck)
+    public static Text renderPokeInfo(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
     {
         String newTemplate = parsePokeInfoColors
         (
@@ -114,10 +114,10 @@ public class MiniMessageUtils
             CobblemonUtils.getPokemonTypes(pokemon)
         );
 
-        return render(newTemplate, getPokeInfoTagResolver(pokemon, isPartyCheck));
+        return render(newTemplate, getPokeInfoTagResolver(pokemon, isPartyCheck, isClosedSheet));
     }
 
-    public static List<Text> renderPokeInfoLines(Pokemon pokemon, boolean isPartyCheck)
+    public static List<Text> renderPokeInfoLines(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
     {
         String template = ChatMiniMessage.getPokemonInfoTemplate();
         List<Text> lines = new ArrayList<>();
@@ -137,7 +137,7 @@ public class MiniMessageUtils
                     CobblemonUtils.getPokemonMoves(pokemon),
                     CobblemonUtils.getPokemonTypes(pokemon)
                 ),
-                getPokeInfoTagResolver(pokemon, isPartyCheck)
+                getPokeInfoTagResolver(pokemon, isPartyCheck, isClosedSheet)
             );
 
             lines.addAll(splitComponentLines(component));
@@ -235,7 +235,7 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver getPokeInfoTagResolver(Pokemon pokemon, boolean isPartyCheck)
+    public static TagResolver getPokeInfoTagResolver(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
     {
         List<ElementalType> types = CobblemonUtils.getPokemonTypes(pokemon);
         boolean isMonotype = types.size() < 2;
@@ -276,14 +276,14 @@ public class MiniMessageUtils
                 .resolvers(getCustomHeldItemResolvers(heldItemName, heldItemCustomName))
                 .resolver(getCustomCosmeticItemResolver(cosmeticItem == null || cosmeticItem.isEmpty(), cosmeticItemName, cosmeticItemCustomName))
                 .resolvers(getCustomCosmeticItemResolvers(cosmeticItemName, cosmeticItemCustomName))
-                .resolver(getAbilityResolver(CobblemonUtils.getPokemonAbility(pokemon)))
-                .resolver(getCustomHiddenAbilityResolver(CobblemonUtils.hasHiddenAbility(pokemon)))
-                .resolver(getNatureRealResolver(CobblemonUtils.getPokemonNatureName(realNature)))
-                .resolver(getNatureEffectiveResolver(CobblemonUtils.getPokemonNatureName(effectiveNature)))
-                .resolver(getCustomNatureRealStatsResolver(realNature))
-                .resolvers(getCustomNatureRealStatsResolver(realNature))
-                .resolver(getCustomNatureEffectiveStatsResolver(effectiveNature))
-                .resolvers(getCustomNatureEffectiveStatsResolver(effectiveNature))
+                .resolver(getAbilityResolver(CobblemonUtils.getPokemonAbility(pokemon), isClosedSheet))
+                .resolver(getCustomHiddenAbilityResolver(CobblemonUtils.hasHiddenAbility(pokemon), isClosedSheet))
+                .resolver(getNatureRealResolver(CobblemonUtils.getPokemonNatureName(realNature), isClosedSheet))
+                .resolver(getNatureEffectiveResolver(CobblemonUtils.getPokemonNatureName(effectiveNature), isClosedSheet))
+                .resolver(getCustomNatureRealStatsResolver(realNature, isClosedSheet))
+                .resolvers(getCustomNatureRealStatsResolver(realNature, isClosedSheet))
+                .resolver(getCustomNatureEffectiveStatsResolver(effectiveNature, isClosedSheet))
+                .resolvers(getCustomNatureEffectiveStatsResolver(effectiveNature, isClosedSheet))
                 .resolver(getCustomMintnessResolver(CobblemonUtils.isMinted(realNature, effectiveNature)))
                 .resolver(getLevelResolver(String.valueOf(level)))
                 .resolver(getCustomExperienceResolver(level, currentExperience, RemainingExperience))
@@ -337,6 +337,7 @@ public class MiniMessageUtils
                 .resolver(getCustomNeuteredResolver(isNeutered))
                 .resolvers(getCustomNeuteredResolvers(isNeutered))
                 .resolver(getOriginalTrainerNameResolver(cosmeticItemCustomName))
+                .resolver(getHiddenResolver())
                 .build();
     }
 
@@ -964,8 +965,17 @@ public class MiniMessageUtils
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getAbilityResolver(String ability)
+    private static TagResolver.Single getAbilityResolver(String ability, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.ABILITY_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.ABILITY_TEMPLATE_TAG_STRING,
@@ -973,19 +983,32 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getCustomHiddenAbilityResolver(boolean isHA)
+    private static TagResolver.Single getCustomHiddenAbilityResolver(boolean isHA, boolean isClosedSheet)
     {
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomHiddenAbilityTemplate());
 
         return Placeholder.parsed
         (
             ChatMiniMessage.CUSTOM_HIDDEN_ABILITY_TEMPLATE_TAG_STRING,
-            isHA ? newTemplate : ""
+            isClosedSheet
+                ? "" 
+                : isHA 
+                    ? newTemplate
+                    : ""
         );
     }
 
-    private static TagResolver.Single getNatureRealResolver(String nature)
+    private static TagResolver.Single getNatureRealResolver(String nature, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.NATURE_REAL_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.NATURE_REAL_TEMPLATE_TAG_STRING,
@@ -993,8 +1016,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getNatureEffectiveResolver(String nature)
+    private static TagResolver.Single getNatureEffectiveResolver(String nature, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.NATURE_EFFECTIVE_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.NATURE_EFFECTIVE_TEMPLATE_TAG_STRING,
@@ -1002,44 +1034,53 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getNatureRealStatUpResolver(String stat)
+    private static TagResolver.Single getNatureRealStatUpResolver(String stat, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.NATURE_REAL_STAT_UP_TEMPLATE_TAG_STRING,
-            stat
+            isClosedSheet ? "" : stat
         );
     }
 
-    private static TagResolver.Single getNatureRealStatDownResolver(String stat)
+    private static TagResolver.Single getNatureRealStatDownResolver(String stat, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.NATURE_REAL_STAT_DOWN_TEMPLATE_TAG_STRING,
-            stat
+            isClosedSheet ? "" : stat
         );
     }
 
-    private static TagResolver.Single getNatureEffectiveStatUpResolver(String stat)
+    private static TagResolver.Single getNatureEffectiveStatUpResolver(String stat, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.NATURE_EFFECTIVE_STAT_UP_TEMPLATE_TAG_STRING,
-            stat
+            isClosedSheet ? "" : stat
         );
     }
 
-    private static TagResolver.Single getNatureEffectiveStatDownResolver(String stat)
+    private static TagResolver.Single getNatureEffectiveStatDownResolver(String stat, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.NATURE_EFFECTIVE_STAT_DOWN_TEMPLATE_TAG_STRING,
-            stat
+            isClosedSheet ? "" : stat
         );
     }
 
-    public static TagResolver.Single getCustomNatureRealStatsResolver(Nature realNature)
+    public static TagResolver.Single getCustomNatureRealStatsResolver(Nature realNature, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         if (CobblemonUtils.isNeutralNature(realNature))
         {
             return Placeholder.component
@@ -1055,7 +1096,8 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomNatureRealStatsResolvers(realNature))
+                .resolvers(getCustomNatureRealStatsResolvers(realNature, isClosedSheet))
+                .resolver(getHiddenResolver())
                 .build()
         );
 
@@ -1066,24 +1108,33 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomNatureRealStatsResolvers(Nature realNature)
+    public static TagResolver.Single[] getCustomNatureRealStatsResolvers(Nature realNature, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getNatureRealStatUpResolver(CobblemonUtils.getPokemonNatureIncreasedStat(realNature)));
-        resolvers.add(getNatureRealStatDownResolver(CobblemonUtils.getPokemonNatureDecreasedStat(realNature)));
+        resolvers.add(getNatureRealStatUpResolver(CobblemonUtils.getPokemonNatureIncreasedStat(realNature), isClosedSheet));
+        resolvers.add(getNatureRealStatDownResolver(CobblemonUtils.getPokemonNatureDecreasedStat(realNature), isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single getCustomNatureEffectiveStatsResolver(Nature effectiveNature)
+    public static TagResolver.Single getCustomNatureEffectiveStatsResolver(Nature effectiveNature, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         if (CobblemonUtils.isNeutralNature(effectiveNature))
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_TAG_STRING,
-                    Component.empty()
+                ChatMiniMessage.CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_TAG_STRING,
+                Component.empty()
             );
         }
 
@@ -1093,7 +1144,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomNatureEffectiveStatsResolvers(effectiveNature))
+                .resolvers(getCustomNatureEffectiveStatsResolvers(effectiveNature, isClosedSheet))
                 .build()
         );
 
@@ -1104,12 +1155,12 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomNatureEffectiveStatsResolvers(Nature effectiveNature)
+    public static TagResolver.Single[] getCustomNatureEffectiveStatsResolvers(Nature effectiveNature, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getNatureEffectiveStatUpResolver(CobblemonUtils.getPokemonNatureIncreasedStat(effectiveNature)));
-        resolvers.add(getNatureEffectiveStatDownResolver(CobblemonUtils.getPokemonNatureDecreasedStat(effectiveNature)));
+        resolvers.add(getNatureEffectiveStatUpResolver(CobblemonUtils.getPokemonNatureIncreasedStat(effectiveNature), isClosedSheet));
+        resolvers.add(getNatureEffectiveStatDownResolver(CobblemonUtils.getPokemonNatureDecreasedStat(effectiveNature), isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -2962,6 +3013,17 @@ public class MiniMessageUtils
         (
             "<%s>".formatted(ChatMiniMessage.MOVE_COLOR_TEMPLATE_TAG_STRING),
             String.format("#%06x", move.getType().getPrimaryColor())
+        );
+    }
+
+    private static TagResolver.Single getHiddenResolver()
+    {
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getHiddenTemplate());
+
+        return Placeholder.parsed
+        (
+            ChatMiniMessage.HIDDEN_TEMPLATE_TAG_STRING,
+            newTemplate
         );
     }
 }

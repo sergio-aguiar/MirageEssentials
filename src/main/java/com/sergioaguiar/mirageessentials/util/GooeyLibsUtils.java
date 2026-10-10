@@ -62,7 +62,7 @@ public class GooeyLibsUtils
                     (
                         NeoDaycareUtils.isEgg(pokemon)
                             ? PlaceholderResolver.getEggTooltipTextList(pokemon)
-                            : MiniMessageUtils.renderPokeInfoLines(pokemon, true)
+                            : MiniMessageUtils.renderPokeInfoLines(pokemon, true, closed.get())
                     )
                 )
                 .onClick((action) ->

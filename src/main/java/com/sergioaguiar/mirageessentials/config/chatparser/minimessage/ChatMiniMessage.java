@@ -403,6 +403,9 @@ public class ChatMiniMessage
     protected static final String TRUE_TEMPLATE_TAG_STRING = "true";
     protected static final String FALSE_TEMPLATE_STRING = "False";
     protected static final String FALSE_TEMPLATE_TAG_STRING = "false";
+
+    protected static final String HIDDEN_TEMPLATE_STRING = "Hidden";
+    public static final String HIDDEN_TEMPLATE_TAG_STRING = "hidden";
     
     // Color Defaults
     protected static final String DEFAULT_LABEL_COLOR_STRING = "#10F2F2";
@@ -658,6 +661,8 @@ public class ChatMiniMessage
     protected static final String DEFAULT_TRUE = "<color:<truecolor>>Yes</color>";
     protected static final String DEFAULT_FALSE = "<color:<falsecolor>>No</color>";
 
+    protected static final String DEFAULT_HIDDEN = "<white>Hidden</white>";
+
     // State Data
     private static HashMap<String, String> CUSTOM_COLORS;
     private static HashMap<String, String> STAT_COLORS;
@@ -666,6 +671,7 @@ public class ChatMiniMessage
     private static HashMap<String, String> EGG_GROUP_TEMPLATES;
     private static HashMap<String, String> GENDER_TEMPLATES;
     private static HashMap<String, String> BOOLEAN_TEMPLATES;
+    private static HashMap<String, String> MISC_TEMPLATES;
 
     public static void setDefaults()
     {
@@ -678,6 +684,7 @@ public class ChatMiniMessage
             EGG_GROUP_TEMPLATES = new HashMap<>();
             GENDER_TEMPLATES = new HashMap<>();
             BOOLEAN_TEMPLATES = new HashMap<>();
+            MISC_TEMPLATES = new HashMap<>();
 
             CUSTOM_COLORS.put(LABEL_COLOR_TEMPLATE_TAG_STRING, DEFAULT_LABEL_COLOR_STRING);
             CUSTOM_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SHINY_COLOR_STRING);
@@ -778,6 +785,8 @@ public class ChatMiniMessage
 
             BOOLEAN_TEMPLATES.put(TRUE_TEMPLATE_TAG_STRING, DEFAULT_TRUE);
             BOOLEAN_TEMPLATES.put(FALSE_TEMPLATE_TAG_STRING, DEFAULT_FALSE);
+
+            MISC_TEMPLATES.put(HIDDEN_TEMPLATE_TAG_STRING, DEFAULT_HIDDEN);
         }
         catch (IllegalStateException e) 
         {
@@ -944,12 +953,6 @@ public class ChatMiniMessage
     protected static void setWater2Template(String template) { EGG_GROUP_TEMPLATES.put(WATER2_TEMPLATE_TAG_STRING, template); }
     protected static void setWater3Template(String template) { EGG_GROUP_TEMPLATES.put(WATER3_TEMPLATE_TAG_STRING, template); }
 
-    public static String getTrueTemplate() { return BOOLEAN_TEMPLATES.get(TRUE_TEMPLATE_TAG_STRING); }
-    public static String getFalseTemplate() { return BOOLEAN_TEMPLATES.get(FALSE_TEMPLATE_TAG_STRING); }
-
-    protected static void setTrueTemplate(String template) { BOOLEAN_TEMPLATES.put(TRUE_TEMPLATE_TAG_STRING, template); }
-    protected static void setFalseTemplate(String template) { BOOLEAN_TEMPLATES.put(FALSE_TEMPLATE_TAG_STRING, template); }
-
     protected static void setMaleGenderTemplate(String template) { GENDER_TEMPLATES.put(GENDER_MALE_TEMPLATE_TAG_STRING, template); }
     protected static void setFemaleGenderTemplate(String template) { GENDER_TEMPLATES.put(GENDER_FEMALE_TEMPLATE_TAG_STRING, template); }
     protected static void setGenderlessGenderTemplate(String template) { GENDER_TEMPLATES.put(GENDER_GENDERLESS_TEMPLATE_TAG_STRING, template); }
@@ -957,4 +960,14 @@ public class ChatMiniMessage
     public static String getMaleGenderTemplate() { return GENDER_TEMPLATES.get(GENDER_MALE_TEMPLATE_TAG_STRING); }
     public static String getFemaleGenderTemplate() { return GENDER_TEMPLATES.get(GENDER_FEMALE_TEMPLATE_TAG_STRING); }
     public static String getGenderlessGenderTemplate() { return GENDER_TEMPLATES.get(GENDER_GENDERLESS_TEMPLATE_TAG_STRING); }
+
+    public static String getTrueTemplate() { return BOOLEAN_TEMPLATES.get(TRUE_TEMPLATE_TAG_STRING); }
+    public static String getFalseTemplate() { return BOOLEAN_TEMPLATES.get(FALSE_TEMPLATE_TAG_STRING); }
+
+    protected static void setTrueTemplate(String template) { BOOLEAN_TEMPLATES.put(TRUE_TEMPLATE_TAG_STRING, template); }
+    protected static void setFalseTemplate(String template) { BOOLEAN_TEMPLATES.put(FALSE_TEMPLATE_TAG_STRING, template); }
+
+    public static String getHiddenTemplate() { return MISC_TEMPLATES.get(HIDDEN_TEMPLATE_TAG_STRING); }
+
+    protected static void setHiddenTemplate(String template) { MISC_TEMPLATES.put(HIDDEN_TEMPLATE_TAG_STRING, template); }
 }
