@@ -66,6 +66,8 @@ public class ChatMiniMessage
     public static final String TITLE_TEMPLATE_TAG_STRING = "title";
     public static final String TITLE_COLOR_TEMPLATE_STRING = "TitleColor";
     public static final String TITLE_COLOR_TEMPLATE_TAG_STRING = "titlecolor";
+    public static final String CUSTOM_NAME_TEMPLATE_STRING = "CustomName";
+    public static final String CUSTOM_NAME_TEMPLATE_TAG_STRING = "customname";
     public static final String GENDER_TEMPLATE_STRING = "Gender";
     public static final String GENDER_TEMPLATE_TAG_STRING = "gender";
     public static final String CAUGHT_BALL_TEMPLATE_STRING = "CaughtBall";
@@ -432,7 +434,7 @@ public class ChatMiniMessage
     // PokeInfo Defaults
     protected static final String DEFAULT_POKEMON_INFO =
         """
-        <gradient:<type1color>:<type2color>><name></gradient> <color:<titlecolor>><title></color>
+        <customname>
         <customtypes> <color:<labelcolor>>│</Color> <gender> <color:<labelcolor>>│</color> <caughtball>
         <color:<labelcolor>>─────────────────────</color>
         <color:<labelcolor>>Condition:</color> <customcondition>
@@ -457,6 +459,10 @@ public class ChatMiniMessage
         <color:<labelcolor>>Egg Groups:</color> <white><egggroups></white>
         <customneutered>
         <color:<labelcolor>>Original Trainer:</color> <white><originaltrainername></white>""";
+
+    protected static final String DEFAULT_CUSTOM_NAME =
+        """
+        <gradient:<type1color>:<type2color>><name></gradient> <color:<titlecolor>><title></color>""";
 
     protected static final String DEFAULT_CUSTOM_STATUS =
         """

@@ -89,6 +89,7 @@ public class MiniMessageUtils
 
         for (String line : serialized.split("<br>|<newline>|\\R", -1))
         {
+            if (line.isEmpty()) continue;
             lines.add(toMinecraftText(MINIMESSAGE_INSTANCE.deserialize(line)));
         }
 
@@ -103,7 +104,7 @@ public class MiniMessageUtils
         );
     }
 
-    public static Text renderPokeInfo(String template, Pokemon pokemon)
+    public static Text renderPokeInfo(String template, Pokemon pokemon, boolean isPartyCheck)
     {
         String newTemplate = parsePokeInfoColors
         (
@@ -113,10 +114,10 @@ public class MiniMessageUtils
             CobblemonUtils.getPokemonTypes(pokemon)
         );
 
-        return render(newTemplate, getPokeInfoTagResolver(pokemon));
+        return render(newTemplate, getPokeInfoTagResolver(pokemon, isPartyCheck));
     }
 
-    public static List<Text> renderPokeInfoLines(String template, Pokemon pokemon)
+    public static List<Text> renderPokeInfoLines(String template, Pokemon pokemon, boolean isPartyCheck)
     {
         List<Text> lines = new ArrayList<>();
 
@@ -135,7 +136,7 @@ public class MiniMessageUtils
                     CobblemonUtils.getPokemonMoves(pokemon),
                     CobblemonUtils.getPokemonTypes(pokemon)
                 ),
-                getPokeInfoTagResolver(pokemon)
+                getPokeInfoTagResolver(pokemon, isPartyCheck)
             );
 
             lines.addAll(splitComponentLines(component));
@@ -201,7 +202,7 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver getPokeInfoTagResolver(Pokemon pokemon)
+    public static TagResolver getPokeInfoTagResolver(Pokemon pokemon, boolean isPartyCheck)
     {
         List<ElementalType> types = CobblemonUtils.getPokemonTypes(pokemon);
         boolean isMonotype = types.size() < 2;
@@ -228,8 +229,8 @@ public class MiniMessageUtils
         boolean isNeutered = NeoDaycareUtils.isNeutered(pokemon);
 
         return TagResolver.builder()
-                .resolver(getNameResolver(CobblemonUtils.getPokemonName(pokemon.getNickname(), CobblemonUtils.getPokemonSpecies(pokemon))))
-                .resolver(getTitleResolver(CobblemonUtils.getPokemonTitle(pokemon)))
+                .resolver(getCustomNameResolver(pokemon, isPartyCheck))
+                .resolvers(getCustomNameResolvers(pokemon))
                 .resolver(getGenderResolver(pokemon.getGender()))
                 .resolver(getCaughtBallResolver(CobblemonUtils.getPokemonCaughtBall(pokemon)))
                 .resolver(getCustomConditionResolver(pokemon))
@@ -322,6 +323,61 @@ public class MiniMessageUtils
             ChatMiniMessage.TITLE_TEMPLATE_TAG_STRING,
             title
         );
+    }
+
+    public static TagResolver.Single getCustomNameResolver(Pokemon pokemon, boolean isPartyCheck)
+    {
+        if (isPartyCheck)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_NAME_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
+        List<ElementalType> types = CobblemonUtils.getPokemonTypes(pokemon);
+
+        String newTemplate = resolveCustomColors
+        (
+            resolveTitleColor
+            (
+                resolveType1Color
+                (
+                    resolveType2Color
+                    (
+                        ChatMiniMessage.getCustomStatusTemplate(),
+                        types.size() < 2 ? types.get(0) : types.get(1)
+                    ),
+                    types.get(0)
+                ),
+                pokemon
+            )
+        );
+
+        Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+        (
+            newTemplate,
+            TagResolver.builder()
+                .resolvers(getCustomNameResolvers(pokemon))
+                .build()
+        );
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.CUSTOM_NAME_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    public static TagResolver.Single[] getCustomNameResolvers(Pokemon pokemon)
+    {
+        List<TagResolver.Single> resolvers = new ArrayList<>();
+
+        resolvers.add(getNameResolver(CobblemonUtils.getPokemonName(pokemon.getNickname(), CobblemonUtils.getPokemonSpecies(pokemon))));
+        resolvers.add(getTitleResolver(CobblemonUtils.getPokemonTitle(pokemon)));
+
+        return resolvers.toArray(new TagResolver.Single[0]);
     }
 
     private static TagResolver.Single getGenderResolver(Gender gender)

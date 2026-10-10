@@ -65,6 +65,7 @@ public class ChatMiniMessagePokemonConfig
                 # <name> - The pokémon's nickname.
                 # <title> - The pokémon's ribbon/mark title.
                 # <titlecolor> - The pokémon's title's color.
+                # <customname> - The pokémon's name, using the configured template (hidden in partychecks, used as the item name instead).
                 # <gender> - The pokémon's gender.
                 # <caughtball> - The pokémon's caught ball.
                 # <currenthealth> - The pokémon's current health points.
@@ -194,6 +195,17 @@ public class ChatMiniMessagePokemonConfig
                 # <neutered> - The pokémon's neuter state, following the configured <true> and <false> templates.
                 # <customneutered> - The pokémon's neuter state, following the configured template (not shown if not neutered).
                 # <originaltrainername> - The pokémon's original trainer's username (or UUID).
+                %s = \"\"\"
+                %s\"\"\"
+
+                # Used to display a Pokémon's name and title.
+                # If used in a partycheck command, it will not be shown in the item lore, being instead shown in the item name.
+                # You can use the following replacement templates:
+                # <name> - The pokémon's nickname.
+                # <title> - The pokémon's ribbon/mark title.
+                # <titlecolor> - The pokémon's title's color.
+                # <type1color> - The pokémon's first type's color.
+                # <type2color> - The pokémon's second type's color.
                 %s = \"\"\"
                 %s\"\"\"
 
@@ -566,6 +578,7 @@ public class ChatMiniMessagePokemonConfig
                     MirageEssentials.MOD_NAME,
                     ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING,
                     ChatMiniMessage.POKEMON_INFO_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_POKEMON_INFO,
+                    ChatMiniMessage.CUSTOM_NAME_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_NAME,
                     ChatMiniMessage.CUSTOM_STATUS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_STATUS,
                     ChatMiniMessage.CUSTOM_CONDITION_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_CONDITION,
                     ChatMiniMessage.CUSTOM_TYPES_MONOTYPE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_TYPES_MONOTYPE,

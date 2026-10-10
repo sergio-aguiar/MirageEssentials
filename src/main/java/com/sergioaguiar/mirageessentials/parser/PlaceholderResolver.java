@@ -143,7 +143,7 @@ public class PlaceholderResolver
             pokemon.getSpecies().getName(), 
             NeoDaycareUtils.isEgg(pokemon)
                 ? buildEggTooltip(pokemon)
-                : MiniMessageUtils.renderPokeInfo(ChatMiniMessage.getPokemonInfoTemplate(), pokemon),
+                : MiniMessageUtils.renderPokeInfo(ChatMiniMessage.getPokemonInfoTemplate(), pokemon, false),
             pokemon.getShiny(),
             pokemon.isLegendary(),
             pokemon.isMythical(),
