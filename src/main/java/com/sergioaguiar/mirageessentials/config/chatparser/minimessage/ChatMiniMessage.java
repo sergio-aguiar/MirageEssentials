@@ -435,7 +435,7 @@ public class ChatMiniMessage
     protected static final String DEFAULT_POKEMON_INFO =
         """
         <customname>
-        <customtypes> <color:<labelcolor>>│</Color> <gender> <color:<labelcolor>>│</color> <caughtball>
+        <customtypes> <color:<labelcolor>>│</Color> <gender> <color:<labelcolor>>│</color> <white><caughtball></white>
         <color:<labelcolor>>─────────────────────</color>
         <color:<labelcolor>>Condition:</color> <customcondition>
         <color:<labelcolor>>Species:</color><customspecies>
