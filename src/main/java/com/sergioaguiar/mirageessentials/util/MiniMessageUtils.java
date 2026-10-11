@@ -55,13 +55,34 @@ public class MiniMessageUtils
 
     public static Text render(String template, TagResolver placeholders)
     {
+        if (template == null || template.isBlank()) return Text.empty();
+
         Component component = MINIMESSAGE_INSTANCE.deserialize
         (
             template,
             placeholders
         );
 
-        return toMinecraftText(component);
+        return toMinecraftText(removeEmptyLines(component));
+    }
+
+    private static Component removeEmptyLines(Component component)
+    {
+        if (component == null) return Component.empty();
+
+        String serialized = MINIMESSAGE_INSTANCE.serialize(component);
+        StringBuilder sanitized = new StringBuilder();
+
+        for (String line : serialized.split("<br>|<newline>|\\R", -1))
+        {
+            if (line == null || line.isBlank()) continue;
+            if (sanitized.length() > 0) sanitized.append('\n');
+            sanitized.append(line);
+        }
+
+        return sanitized.length() == 0
+            ? Component.empty()
+            : MINIMESSAGE_INSTANCE.deserialize(sanitized.toString());
     }
 
     public static List<Text> renderLines(String template, TagResolver placeholders)
@@ -74,7 +95,12 @@ public class MiniMessageUtils
 
         for (String line : split)
         {
+            if (line == null || line.isBlank()) continue;
+
             Component component = MINIMESSAGE_INSTANCE.deserialize(line, placeholders);
+
+            if (!Component.IS_NOT_EMPTY.test(component)) continue;
+
             lines.addAll(splitComponentLines(component));
         }
 
@@ -89,7 +115,7 @@ public class MiniMessageUtils
 
         for (String line : serialized.split("<br>|<newline>|\\R", -1))
         {
-            if (line.isEmpty()) continue;
+            if (line == null || line.isBlank()) continue;
             lines.add(toMinecraftText(MINIMESSAGE_INSTANCE.deserialize(line)));
         }
 
@@ -264,16 +290,16 @@ public class MiniMessageUtils
         return TagResolver.builder()
                 .resolver(getCustomNameResolver(pokemon, isPartyCheck))
                 .resolvers(getCustomNameResolvers(pokemon))
-                .resolver(getGenderResolver(pokemon.getGender()))
+                .resolver(getGenderResolver(pokemon.getGender(), isClosedSheet))
                 .resolver(getCaughtBallResolver(CobblemonUtils.getPokemonCaughtBall(pokemon)))
                 .resolver(getCustomConditionResolver(pokemon))
                 .resolvers(getCustomConditionResolvers(pokemon))
                 .resolver(getCustomSpeciesResolver(pokemon))
                 .resolvers(getCustomSpeciesResolvers(pokemon))
-                .resolver(getCustomTypesResolver(types, teraType, isMonotype))
-                .resolvers(getCustomTypesDuotypeResolvers(types, teraType, isMonotype))
-                .resolver(getCustomHeldItemResolver(heldItem == null || heldItem.isEmpty(), heldItemName, heldItemCustomName))
-                .resolvers(getCustomHeldItemResolvers(heldItemName, heldItemCustomName))
+                .resolver(getCustomTypesResolver(types, teraType, isMonotype, isClosedSheet))
+                .resolvers(getCustomTypesDuotypeResolvers(types, teraType, isMonotype, isClosedSheet))
+                .resolver(getCustomHeldItemResolver(heldItem == null || heldItem.isEmpty(), heldItemName, heldItemCustomName, isClosedSheet))
+                .resolvers(getCustomHeldItemResolvers(heldItemName, heldItemCustomName, isClosedSheet))
                 .resolver(getCustomCosmeticItemResolver(cosmeticItem == null || cosmeticItem.isEmpty(), cosmeticItemName, cosmeticItemCustomName))
                 .resolvers(getCustomCosmeticItemResolvers(cosmeticItemName, cosmeticItemCustomName))
                 .resolver(getAbilityResolver(CobblemonUtils.getPokemonAbility(pokemon), isClosedSheet))
@@ -288,48 +314,48 @@ public class MiniMessageUtils
                 .resolver(getLevelResolver(String.valueOf(level)))
                 .resolver(getCustomExperienceResolver(level, currentExperience, RemainingExperience))
                 .resolvers(getCustomExperienceResolvers(currentExperience, RemainingExperience))
-                .resolver(getFriendshipResolver(CobblemonUtils.getPokemonFriendship(pokemon)))
-                .resolver(getMove1Resolver(moves))
-                .resolver(getMove1CustomPPResolver(moves))
-                .resolvers(getMove1CustomPPResolvers(moves))
-                .resolver(getMove2Resolver(moves))
-                .resolver(getMove2CustomPPResolver(moves))
-                .resolvers(getMove2CustomPPResolvers(moves))
-                .resolver(getMove3Resolver(moves))
-                .resolver(getMove3CustomPPResolver(moves))
-                .resolvers(getMove3CustomPPResolvers(moves))
-                .resolver(getMove4Resolver(moves))
-                .resolver(getMove4CustomPPResolver(moves))
-                .resolvers(getMove4CustomPPResolvers(moves))
-                .resolver(getCustomMovesResolver(moves))
-                .resolver(getCustomGeneralIVsResolver(totalRealIVs, totalEffectiveIVs))
-                .resolvers(getCustomGeneralIVsResolvers(totalRealIVs, totalEffectiveIVs))
-                .resolver(getCustomHpIVsResolver(ivs, hyperTrainedStats))
-                .resolvers(getCustomHpIVsResolvers(ivs, hyperTrainedStats))
-                .resolver(getCustomAtkIVsResolver(ivs, hyperTrainedStats))
-                .resolvers(getCustomAtkIVsResolvers(ivs, hyperTrainedStats))
-                .resolver(getCustomDefIVsResolver(ivs, hyperTrainedStats))
-                .resolvers(getCustomDefIVsResolvers(ivs, hyperTrainedStats))
-                .resolver(getCustomSpaIVsResolver(ivs, hyperTrainedStats))
-                .resolvers(getCustomSpaIVsResolvers(ivs, hyperTrainedStats))
-                .resolver(getCustomSpdIVsResolver(ivs, hyperTrainedStats))
-                .resolvers(getCustomSpdIVsResolvers(ivs, hyperTrainedStats))
-                .resolver(getCustomSpeIVsResolver(ivs, hyperTrainedStats))
-                .resolvers(getCustomSpeIVsResolvers(ivs, hyperTrainedStats))
-                .resolver(getCustomGeneralEVsResolver(totalEvs))
-                .resolvers(getCustomGeneralEVsResolvers(totalEvs))
-                .resolver(getCustomHpEVsResolver(evs))
-                .resolvers(getCustomHpEVsResolvers(evs))
-                .resolver(getCustomAtkEVsResolver(evs))
-                .resolvers(getCustomAtkEVsResolvers(evs))
-                .resolver(getCustomDefEVsResolver(evs))
-                .resolvers(getCustomDefEVsResolvers(evs))
-                .resolver(getCustomSpaEVsResolver(evs))
-                .resolvers(getCustomSpaEVsResolvers(evs))
-                .resolver(getCustomSpdEVsResolver(evs))
-                .resolvers(getCustomSpdEVsResolvers(evs))
-                .resolver(getCustomSpeEVsResolver(evs))
-                .resolvers(getCustomSpeEVsResolvers(evs))
+                .resolver(getFriendshipResolver(CobblemonUtils.getPokemonFriendship(pokemon), isClosedSheet))
+                .resolver(getMove1Resolver(moves, isClosedSheet))
+                .resolver(getMove1CustomPPResolver(moves, isClosedSheet))
+                .resolvers(getMove1CustomPPResolvers(moves, isClosedSheet))
+                .resolver(getMove2Resolver(moves, isClosedSheet))
+                .resolver(getMove2CustomPPResolver(moves, isClosedSheet))
+                .resolvers(getMove2CustomPPResolvers(moves, isClosedSheet))
+                .resolver(getMove3Resolver(moves, isClosedSheet))
+                .resolver(getMove3CustomPPResolver(moves, isClosedSheet))
+                .resolvers(getMove3CustomPPResolvers(moves, isClosedSheet))
+                .resolver(getMove4Resolver(moves, isClosedSheet))
+                .resolver(getMove4CustomPPResolver(moves, isClosedSheet))
+                .resolvers(getMove4CustomPPResolvers(moves, isClosedSheet))
+                .resolver(getCustomMovesResolver(moves, isClosedSheet))
+                .resolver(getCustomGeneralIVsResolver(totalRealIVs, totalEffectiveIVs, isClosedSheet))
+                .resolvers(getCustomGeneralIVsResolvers(totalRealIVs, totalEffectiveIVs, isClosedSheet))
+                .resolver(getCustomHpIVsResolver(ivs, hyperTrainedStats, isClosedSheet))
+                .resolvers(getCustomHpIVsResolvers(ivs, hyperTrainedStats, isClosedSheet))
+                .resolver(getCustomAtkIVsResolver(ivs, hyperTrainedStats, isClosedSheet))
+                .resolvers(getCustomAtkIVsResolvers(ivs, hyperTrainedStats, isClosedSheet))
+                .resolver(getCustomDefIVsResolver(ivs, hyperTrainedStats, isClosedSheet))
+                .resolvers(getCustomDefIVsResolvers(ivs, hyperTrainedStats, isClosedSheet))
+                .resolver(getCustomSpaIVsResolver(ivs, hyperTrainedStats, isClosedSheet))
+                .resolvers(getCustomSpaIVsResolvers(ivs, hyperTrainedStats, isClosedSheet))
+                .resolver(getCustomSpdIVsResolver(ivs, hyperTrainedStats, isClosedSheet))
+                .resolvers(getCustomSpdIVsResolvers(ivs, hyperTrainedStats, isClosedSheet))
+                .resolver(getCustomSpeIVsResolver(ivs, hyperTrainedStats, isClosedSheet))
+                .resolvers(getCustomSpeIVsResolvers(ivs, hyperTrainedStats, isClosedSheet))
+                .resolver(getCustomGeneralEVsResolver(totalEvs, isClosedSheet))
+                .resolvers(getCustomGeneralEVsResolvers(totalEvs, isClosedSheet))
+                .resolver(getCustomHpEVsResolver(evs, isClosedSheet))
+                .resolvers(getCustomHpEVsResolvers(evs, isClosedSheet))
+                .resolver(getCustomAtkEVsResolver(evs, isClosedSheet))
+                .resolvers(getCustomAtkEVsResolvers(evs, isClosedSheet))
+                .resolver(getCustomDefEVsResolver(evs, isClosedSheet))
+                .resolvers(getCustomDefEVsResolvers(evs, isClosedSheet))
+                .resolver(getCustomSpaEVsResolver(evs, isClosedSheet))
+                .resolvers(getCustomSpaEVsResolvers(evs, isClosedSheet))
+                .resolver(getCustomSpdEVsResolver(evs, isClosedSheet))
+                .resolvers(getCustomSpdEVsResolvers(evs, isClosedSheet))
+                .resolver(getCustomSpeEVsResolver(evs, isClosedSheet))
+                .resolvers(getCustomSpeEVsResolvers(evs, isClosedSheet))
                 .resolver(getSizeResolver(CobblemonUtils.getPokemonSizeName(pokemon)))
                 .resolver(getScaleModifierResolver(scale))
                 .resolver(getScaleModifier100Resolver(scale))
@@ -406,8 +432,17 @@ public class MiniMessageUtils
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getGenderResolver(Gender gender)
+    private static TagResolver.Single getGenderResolver(Gender gender, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.GENDER_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         String template = switch (gender)
         {
             case MALE -> ChatMiniMessage.getMaleGenderTemplate();
@@ -562,8 +597,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getTeraTypeResolver(TeraType type)
+    private static TagResolver.Single getTeraTypeResolver(TeraType type, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.TERA_TYPE_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.TERA_TYPE_TEMPLATE_TAG_STRING,
@@ -571,18 +615,18 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single getCustomTypesResolver(List<ElementalType> types, TeraType teraType , boolean isMonotype)
+    public static TagResolver.Single getCustomTypesResolver(List<ElementalType> types, TeraType teraType, boolean isMonotype, boolean isClosedSheet)
     {
         return Placeholder.component
         (
             ChatMiniMessage.CUSTOM_TYPES_TEMPLATE_TAG_STRING,
             isMonotype 
-                ? getCustomTypesMonotypeComponent(types, teraType, isMonotype)
-                : getCustomTypesDuotypeComponent(types, teraType, isMonotype)
+                ? getCustomTypesMonotypeComponent(types, teraType, isMonotype, isClosedSheet)
+                : getCustomTypesDuotypeComponent(types, teraType, isMonotype, isClosedSheet)
         );
     }
 
-    public static Component getCustomTypesMonotypeComponent(List<ElementalType> types, TeraType teraType , boolean isMonotype)
+    public static Component getCustomTypesMonotypeComponent(List<ElementalType> types, TeraType teraType, boolean isMonotype, boolean isClosedSheet)
     {
         String newTemplate = resolveCustomColors
         (
@@ -601,12 +645,12 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomTypesMonotypeResolvers(types, teraType, isMonotype))
+                .resolvers(getCustomTypesMonotypeResolvers(types, teraType, isMonotype, isClosedSheet))
                 .build()
         );
     }
 
-    public static Component getCustomTypesDuotypeComponent(List<ElementalType> types, TeraType teraType , boolean isMonotype)
+    public static Component getCustomTypesDuotypeComponent(List<ElementalType> types, TeraType teraType , boolean isMonotype, boolean isClosedSheet)
     {
         String newTemplate = resolveCustomColors
         (
@@ -629,27 +673,27 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomTypesDuotypeResolvers(types, teraType, isMonotype))
+                .resolvers(getCustomTypesDuotypeResolvers(types, teraType, isMonotype, isClosedSheet))
                 .build()
         );
     }
 
-    public static TagResolver.Single[] getCustomTypesMonotypeResolvers(List<ElementalType> types, TeraType teraType , boolean isMonotype)
+    public static TagResolver.Single[] getCustomTypesMonotypeResolvers(List<ElementalType> types, TeraType teraType , boolean isMonotype, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getType1Resolver(types.get(0)));
-        resolvers.add(getTeraTypeResolver(teraType));
+        resolvers.add(getTeraTypeResolver(teraType, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single[] getCustomTypesDuotypeResolvers(List<ElementalType> types, TeraType teraType , boolean isMonotype)
+    public static TagResolver.Single[] getCustomTypesDuotypeResolvers(List<ElementalType> types, TeraType teraType , boolean isMonotype, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
         resolvers.add(getType2Resolver(isMonotype ? types.get(0) : types.get(1)));
-        resolvers.addAll(Arrays.asList(getCustomTypesMonotypeResolvers(types, teraType, isMonotype)));
+        resolvers.addAll(Arrays.asList(getCustomTypesMonotypeResolvers(types, teraType, isMonotype, isClosedSheet)));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -853,8 +897,17 @@ public class MiniMessageUtils
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getHeldItemResolver(String heldItem)
+    private static TagResolver.Single getHeldItemResolver(String heldItem, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.HELD_ITEM_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.HELD_ITEM_TEMPLATE_TAG_STRING,
@@ -862,23 +915,41 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getHeldItemCustomNameResolver(String heldItem)
+    private static TagResolver.Single getHeldItemCustomNameResolver(String heldItem, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.HELD_ITEM_CUSTOM_NAME_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
-            ChatMiniMessage.HELD_ITEM_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.HELD_ITEM_CUSTOM_NAME_TEMPLATE_TAG_STRING,
             heldItem
         );
     }
 
-    private static TagResolver.Single getCustomHeldItemResolver(boolean hasHeldItem, String heldItemName, String heldItemCustomName)
+    private static TagResolver.Single getCustomHeldItemResolver(boolean hasHeldItem, String heldItemName, String heldItemCustomName, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.CUSTOM_HELD_ITEM_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         if (hasHeldItem)
         {
             return Placeholder.component
             (
-                    ChatMiniMessage.CUSTOM_HELD_ITEM_TEMPLATE_TAG_STRING,
-                    Component.empty()
+                ChatMiniMessage.CUSTOM_HELD_ITEM_TEMPLATE_TAG_STRING,
+                Component.empty()
             );
         }
 
@@ -888,7 +959,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomHeldItemResolvers(heldItemName, heldItemCustomName))
+                .resolvers(getCustomHeldItemResolvers(heldItemName, heldItemCustomName, isClosedSheet))
                 .build()
         );
 
@@ -899,12 +970,12 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomHeldItemResolvers(String heldItemName, String heldItemCustomName)
+    public static TagResolver.Single[] getCustomHeldItemResolvers(String heldItemName, String heldItemCustomName, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getHeldItemResolver(heldItemName));
-        resolvers.add(getHeldItemCustomNameResolver(heldItemCustomName));
+        resolvers.add(getHeldItemResolver(heldItemName, isClosedSheet));
+        resolvers.add(getHeldItemCustomNameResolver(heldItemCustomName, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
@@ -1251,8 +1322,17 @@ public class MiniMessageUtils
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getFriendshipResolver(String friendship)
+    private static TagResolver.Single getFriendshipResolver(String friendship, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.FRIENDSHIP_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.FRIENDSHIP_TEMPLATE_TAG_STRING,
@@ -1260,8 +1340,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove1Resolver(List<Move> moves)
+    private static TagResolver.Single getMove1Resolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.MOVE1_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE1_TEMPLATE_TAG_STRING,
@@ -1269,8 +1358,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove1UsedPPResolver(List<Move> moves)
+    private static TagResolver.Single getMove1UsedPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE1_USED_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE1_USED_PP_TEMPLATE_TAG_STRING,
@@ -1278,8 +1376,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove1RemainingPPResolver(List<Move> moves)
+    private static TagResolver.Single getMove1RemainingPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE1_REMAINING_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE1_REMAINING_PP_TEMPLATE_TAG_STRING,
@@ -1287,8 +1394,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove1TotalPPResolver(List<Move> moves)
+    private static TagResolver.Single getMove1TotalPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE1_TOTAL_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE1_TOTAL_PP_TEMPLATE_TAG_STRING,
@@ -1296,8 +1412,17 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single getMove1CustomPPResolver(List<Move> moves)
+    public static TagResolver.Single getMove1CustomPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE1_CUSTOM_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         if (moves.size() < 1)
         {
             return Placeholder.component
@@ -1313,7 +1438,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getMove1CustomPPResolvers(moves))
+                .resolvers(getMove1CustomPPResolvers(moves, isClosedSheet))
                 .build()
         );
 
@@ -1324,19 +1449,28 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getMove1CustomPPResolvers(List<Move> moves)
+    public static TagResolver.Single[] getMove1CustomPPResolvers(List<Move> moves, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getMove1UsedPPResolver(moves));
-        resolvers.add(getMove1RemainingPPResolver(moves));
-        resolvers.add(getMove1TotalPPResolver(moves));
+        resolvers.add(getMove1UsedPPResolver(moves, isClosedSheet));
+        resolvers.add(getMove1RemainingPPResolver(moves, isClosedSheet));
+        resolvers.add(getMove1TotalPPResolver(moves, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getMove2Resolver(List<Move> moves)
+    private static TagResolver.Single getMove2Resolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.MOVE2_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE2_TEMPLATE_TAG_STRING,
@@ -1344,8 +1478,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove2UsedPPResolver(List<Move> moves)
+    private static TagResolver.Single getMove2UsedPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE2_USED_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE2_USED_PP_TEMPLATE_TAG_STRING,
@@ -1353,8 +1496,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove2RemainingPPResolver(List<Move> moves)
+    private static TagResolver.Single getMove2RemainingPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE2_REMAINING_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE2_REMAINING_PP_TEMPLATE_TAG_STRING,
@@ -1362,8 +1514,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove2TotalPPResolver(List<Move> moves)
+    private static TagResolver.Single getMove2TotalPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE2_TOTAL_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE2_TOTAL_PP_TEMPLATE_TAG_STRING,
@@ -1371,8 +1532,17 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single getMove2CustomPPResolver(List<Move> moves)
+    public static TagResolver.Single getMove2CustomPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE2_CUSTOM_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         if (moves.size() < 2)
         {
             return Placeholder.component
@@ -1388,7 +1558,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getMove2CustomPPResolvers(moves))
+                .resolvers(getMove2CustomPPResolvers(moves, isClosedSheet))
                 .build()
         );
 
@@ -1399,19 +1569,28 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getMove2CustomPPResolvers(List<Move> moves)
+    public static TagResolver.Single[] getMove2CustomPPResolvers(List<Move> moves, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getMove2UsedPPResolver(moves));
-        resolvers.add(getMove2RemainingPPResolver(moves));
-        resolvers.add(getMove2TotalPPResolver(moves));
+        resolvers.add(getMove2UsedPPResolver(moves, isClosedSheet));
+        resolvers.add(getMove2RemainingPPResolver(moves, isClosedSheet));
+        resolvers.add(getMove2TotalPPResolver(moves, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getMove3Resolver(List<Move> moves)
+    private static TagResolver.Single getMove3Resolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.MOVE3_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE3_TEMPLATE_TAG_STRING,
@@ -1419,8 +1598,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove3UsedPPResolver(List<Move> moves)
+    private static TagResolver.Single getMove3UsedPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE3_USED_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE3_USED_PP_TEMPLATE_TAG_STRING,
@@ -1428,8 +1616,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove3RemainingPPResolver(List<Move> moves)
+    private static TagResolver.Single getMove3RemainingPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE3_REMAINING_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE3_REMAINING_PP_TEMPLATE_TAG_STRING,
@@ -1437,8 +1634,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove3TotalPPResolver(List<Move> moves)
+    private static TagResolver.Single getMove3TotalPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE3_TOTAL_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE3_TOTAL_PP_TEMPLATE_TAG_STRING,
@@ -1446,8 +1652,17 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single getMove3CustomPPResolver(List<Move> moves)
+    public static TagResolver.Single getMove3CustomPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE3_CUSTOM_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         if (moves.size() < 3)
         {
             return Placeholder.component
@@ -1463,7 +1678,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getMove3CustomPPResolvers(moves))
+                .resolvers(getMove3CustomPPResolvers(moves, isClosedSheet))
                 .build()
         );
 
@@ -1474,19 +1689,28 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getMove3CustomPPResolvers(List<Move> moves)
+    public static TagResolver.Single[] getMove3CustomPPResolvers(List<Move> moves, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getMove3UsedPPResolver(moves));
-        resolvers.add(getMove3RemainingPPResolver(moves));
-        resolvers.add(getMove3TotalPPResolver(moves));
+        resolvers.add(getMove3UsedPPResolver(moves, isClosedSheet));
+        resolvers.add(getMove3RemainingPPResolver(moves, isClosedSheet));
+        resolvers.add(getMove3TotalPPResolver(moves, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getMove4Resolver(List<Move> moves)
+    private static TagResolver.Single getMove4Resolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.MOVE4_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE4_TEMPLATE_TAG_STRING,
@@ -1494,8 +1718,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove4UsedPPResolver(List<Move> moves)
+    private static TagResolver.Single getMove4UsedPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE4_USED_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE4_USED_PP_TEMPLATE_TAG_STRING,
@@ -1503,8 +1736,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove4RemainingPPResolver(List<Move> moves)
+    private static TagResolver.Single getMove4RemainingPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE4_REMAINING_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE4_REMAINING_PP_TEMPLATE_TAG_STRING,
@@ -1512,8 +1754,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMove4TotalPPResolver(List<Move> moves)
+    private static TagResolver.Single getMove4TotalPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE4_TOTAL_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE4_TOTAL_PP_TEMPLATE_TAG_STRING,
@@ -1521,8 +1772,17 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single getMove4CustomPPResolver(List<Move> moves)
+    public static TagResolver.Single getMove4CustomPPResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE4_CUSTOM_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         if (moves.size() < 4)
         {
             return Placeholder.component
@@ -1538,7 +1798,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getMove4CustomPPResolvers(moves))
+                .resolvers(getMove4CustomPPResolvers(moves, isClosedSheet))
                 .build()
         );
 
@@ -1549,19 +1809,28 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getMove4CustomPPResolvers(List<Move> moves)
+    public static TagResolver.Single[] getMove4CustomPPResolvers(List<Move> moves, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getMove4UsedPPResolver(moves));
-        resolvers.add(getMove4RemainingPPResolver(moves));
-        resolvers.add(getMove4TotalPPResolver(moves));
+        resolvers.add(getMove4UsedPPResolver(moves, isClosedSheet));
+        resolvers.add(getMove4RemainingPPResolver(moves, isClosedSheet));
+        resolvers.add(getMove4TotalPPResolver(moves, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single getCustomMovesResolver(List<Move> moves)
+    public static TagResolver.Single getCustomMovesResolver(List<Move> moves, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.CUSTOM_MOVES_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         Component component = Component.empty();
 
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomMoveTemplate());
@@ -1574,8 +1843,8 @@ public class MiniMessageUtils
             (
                 moveTemplate + (i < moves.size() - 1 ? "<newline>" : ""),
                 TagResolver.builder()
-                    .resolver(getMoveResolver(moves.get(i)))
-                    .resolver(getMoveCustomPPResolver(moves.get(i)))
+                    .resolver(getMoveResolver(moves.get(i), isClosedSheet))
+                    .resolver(getMoveCustomPPResolver(moves.get(i), isClosedSheet))
                     .build()
             );
 
@@ -1589,8 +1858,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMoveResolver(Move move)
+    private static TagResolver.Single getMoveResolver(Move move, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.MOVE_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE_TEMPLATE_TAG_STRING,
@@ -1598,16 +1876,25 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMoveCustomPPResolver(Move move)
+    private static TagResolver.Single getMoveCustomPPResolver(Move move, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(ChatMiniMessage.getMoveCustomPPTemplate());
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize(
             newTemplate,
             TagResolver.builder()
-                .resolver(getMoveUsedPPResolver(move))
-                .resolver(getMoveRemainingPPResolver(move))
-                .resolver(getMoveTotalPPResolver(move))
+                .resolver(getMoveUsedPPResolver(move, isClosedSheet))
+                .resolver(getMoveRemainingPPResolver(move, isClosedSheet))
+                .resolver(getMoveTotalPPResolver(move, isClosedSheet))
                 .build()
         );
 
@@ -1617,8 +1904,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMoveUsedPPResolver(Move move)
+    private static TagResolver.Single getMoveUsedPPResolver(Move move, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE_USED_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE_USED_PP_TEMPLATE_TAG_STRING,
@@ -1626,8 +1922,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMoveRemainingPPResolver(Move move)
+    private static TagResolver.Single getMoveRemainingPPResolver(Move move, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE_REMAINING_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE_REMAINING_PP_TEMPLATE_TAG_STRING,
@@ -1635,8 +1940,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getMoveTotalPPResolver(Move move)
+    private static TagResolver.Single getMoveTotalPPResolver(Move move, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.MOVE_TOTAL_PP_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE_TOTAL_PP_TEMPLATE_TAG_STRING,
@@ -1644,8 +1958,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getRealIVTotalResolver(int ivTotal)
+    private static TagResolver.Single getRealIVTotalResolver(int ivTotal, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.REAL_IV_TOTAL_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.REAL_IV_TOTAL_TEMPLATE_TAG_STRING,
@@ -1653,8 +1976,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getEffectiveIVTotalResolver(int ivTotal)
+    private static TagResolver.Single getEffectiveIVTotalResolver(int ivTotal, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.EFFECTIVE_IV_TOTAL_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.EFFECTIVE_IV_TOTAL_TEMPLATE_TAG_STRING,
@@ -1662,33 +1994,42 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getRealIVPercentageResolver(int ivTotal)
+    private static TagResolver.Single getRealIVPercentageResolver(int ivTotal, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.REAL_IV_PERCENTAGE_TEMPLATE_TAG_STRING,
-            "%.2f".formatted((ivTotal / 186.0) * 100.0)
+            isClosedSheet ? "" : "%.2f".formatted((ivTotal / 186.0) * 100.0)
         );
     }
 
-    private static TagResolver.Single getEffectiveIVPercentageResolver(int ivTotal)
+    private static TagResolver.Single getEffectiveIVPercentageResolver(int ivTotal, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.EFFECTIVE_IV_PERCENTAGE_TEMPLATE_TAG_STRING,
-            "%.2f".formatted((ivTotal / 186.0) * 100.0)
+            isClosedSheet ? "" : "%.2f".formatted((ivTotal / 186.0) * 100.0)
         );
     }
 
-    public static TagResolver.Single getCustomRealIVPercentageResolver(int totalIvs)
+    public static TagResolver.Single getCustomRealIVPercentageResolver(int totalIvs, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomRealIVPercentageTemplate());
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomRealIVPercentageResolvers(totalIvs))
+                .resolvers(getCustomRealIVPercentageResolvers(totalIvs, isClosedSheet))
                 .build()
         );
 
@@ -1699,25 +2040,34 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomRealIVPercentageResolvers(int totalIvs)
+    public static TagResolver.Single[] getCustomRealIVPercentageResolvers(int totalIvs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getRealIVTotalResolver(totalIvs));
-        resolvers.add(getRealIVPercentageResolver(totalIvs));
+        resolvers.add(getRealIVTotalResolver(totalIvs, isClosedSheet));
+        resolvers.add(getRealIVPercentageResolver(totalIvs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single getCustomEffectiveIVPercentageResolver(int totalIvs)
+    public static TagResolver.Single getCustomEffectiveIVPercentageResolver(int totalIvs, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEffectiveIVPercentageTemplate());
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomEffectiveIVPercentageResolvers(totalIvs))
+                .resolvers(getCustomEffectiveIVPercentageResolvers(totalIvs, isClosedSheet))
                 .build()
         );
 
@@ -1728,25 +2078,34 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomEffectiveIVPercentageResolvers(int totalIvs)
+    public static TagResolver.Single[] getCustomEffectiveIVPercentageResolvers(int totalIvs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getEffectiveIVTotalResolver(totalIvs));
-        resolvers.add(getEffectiveIVPercentageResolver(totalIvs));
+        resolvers.add(getEffectiveIVTotalResolver(totalIvs, isClosedSheet));
+        resolvers.add(getEffectiveIVPercentageResolver(totalIvs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single getCustomGeneralIVsResolver(int totalRealIVs, int totalEffectiveIVs)
+    public static TagResolver.Single getCustomGeneralIVsResolver(int totalRealIVs, int totalEffectiveIVs, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.CUSTOM_GENERAL_IVS_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomGeneralIVsTemplate());
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomGeneralIVsResolvers(totalRealIVs, totalEffectiveIVs))
+                .resolvers(getCustomGeneralIVsResolvers(totalRealIVs, totalEffectiveIVs, isClosedSheet))
                 .build()
         );
 
@@ -1757,38 +2116,47 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomGeneralIVsResolvers(int totalRealIVs, int totalEffectiveIVs)
+    public static TagResolver.Single[] getCustomGeneralIVsResolvers(int totalRealIVs, int totalEffectiveIVs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getCustomRealIVPercentageResolver(totalRealIVs));
-        resolvers.addAll(Arrays.asList(getCustomRealIVPercentageResolvers(totalRealIVs)));
-        resolvers.add(getCustomEffectiveIVPercentageResolver(totalEffectiveIVs));
-        resolvers.addAll(Arrays.asList(getCustomEffectiveIVPercentageResolvers(totalEffectiveIVs)));
+        resolvers.add(getCustomRealIVPercentageResolver(totalRealIVs, isClosedSheet));
+        resolvers.addAll(Arrays.asList(getCustomRealIVPercentageResolvers(totalRealIVs, isClosedSheet)));
+        resolvers.add(getCustomEffectiveIVPercentageResolver(totalEffectiveIVs, isClosedSheet));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveIVPercentageResolvers(totalEffectiveIVs, isClosedSheet)));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getRealHpIVsResolver(IVs ivs)
+    private static TagResolver.Single getRealHpIVsResolver(IVs ivs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.REAL_HP_IVS_TEMPLATE_TAG_STRING,
-            String.valueOf(ivs.get(Stats.HP))
+            isClosedSheet ? "" : String.valueOf(ivs.get(Stats.HP))
         );
     }
 
-    private static TagResolver.Single getEffectiveHpIVsResolver(IVs ivs)
+    private static TagResolver.Single getEffectiveHpIVsResolver(IVs ivs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.EFFECTIVE_HP_IVS_TEMPLATE_TAG_STRING,
-            String.valueOf(ivs.getEffectiveBattleIV(Stats.HP))
+            isClosedSheet ? "" : String.valueOf(ivs.getEffectiveBattleIV(Stats.HP))
         );
     }
 
-    public static TagResolver.Single getCustomEffectiveHpIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single getCustomEffectiveHpIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         if (!hyperTrainedStats.contains(Stats.HP))
         {
             return Placeholder.component
@@ -1804,7 +2172,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomEffectiveHpIVsResolvers(ivs))
+                .resolvers(getCustomEffectiveHpIVsResolvers(ivs, isClosedSheet))
                 .build()
         );
 
@@ -1815,24 +2183,33 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomEffectiveHpIVsResolvers(IVs ivs)
+    public static TagResolver.Single[] getCustomEffectiveHpIVsResolvers(IVs ivs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getEffectiveHpIVsResolver(ivs));
+        resolvers.add(getEffectiveHpIVsResolver(ivs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single getCustomHpIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single getCustomHpIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_HP_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(resolveHpColor(ChatMiniMessage.getCustomHpIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomHpIVsResolvers(ivs, hyperTrainedStats))
+                .resolvers(getCustomHpIVsResolvers(ivs, hyperTrainedStats, isClosedSheet))
                 .build()
         );
 
@@ -1843,37 +2220,46 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomHpIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single[] getCustomHpIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getRealHpIVsResolver(ivs));
-        resolvers.add(getCustomEffectiveHpIVsResolver(ivs, hyperTrainedStats));
-        resolvers.addAll(Arrays.asList(getCustomEffectiveHpIVsResolvers(ivs)));
+        resolvers.add(getRealHpIVsResolver(ivs, isClosedSheet));
+        resolvers.add(getCustomEffectiveHpIVsResolver(ivs, hyperTrainedStats, isClosedSheet));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveHpIVsResolvers(ivs, isClosedSheet)));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getRealAtkIVsResolver(IVs ivs)
+    private static TagResolver.Single getRealAtkIVsResolver(IVs ivs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.REAL_ATK_IVS_TEMPLATE_TAG_STRING,
-            String.valueOf(ivs.get(Stats.ATTACK))
+            isClosedSheet ? "" : String.valueOf(ivs.get(Stats.ATTACK))
         );
     }
 
-    private static TagResolver.Single getEffectiveAtkIVsResolver(IVs ivs)
+    private static TagResolver.Single getEffectiveAtkIVsResolver(IVs ivs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.EFFECTIVE_ATK_IVS_TEMPLATE_TAG_STRING,
-            String.valueOf(ivs.getEffectiveBattleIV(Stats.ATTACK))
+            isClosedSheet ? "" : String.valueOf(ivs.getEffectiveBattleIV(Stats.ATTACK))
         );
     }
 
-    public static TagResolver.Single getCustomEffectiveAtkIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single getCustomEffectiveAtkIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         if (!hyperTrainedStats.contains(Stats.ATTACK))
         {
             return Placeholder.component
@@ -1889,7 +2275,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomEffectiveAtkIVsResolvers(ivs))
+                .resolvers(getCustomEffectiveAtkIVsResolvers(ivs, isClosedSheet))
                 .build()
         );
 
@@ -1900,24 +2286,33 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomEffectiveAtkIVsResolvers(IVs ivs)
+    public static TagResolver.Single[] getCustomEffectiveAtkIVsResolvers(IVs ivs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getEffectiveAtkIVsResolver(ivs));
+        resolvers.add(getEffectiveAtkIVsResolver(ivs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single getCustomAtkIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single getCustomAtkIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_ATK_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(resolveAtkColor(ChatMiniMessage.getCustomAtkIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomAtkIVsResolvers(ivs, hyperTrainedStats))
+                .resolvers(getCustomAtkIVsResolvers(ivs, hyperTrainedStats, isClosedSheet))
                 .build()
         );
 
@@ -1928,37 +2323,46 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomAtkIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single[] getCustomAtkIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getRealAtkIVsResolver(ivs));
-        resolvers.add(getCustomEffectiveAtkIVsResolver(ivs, hyperTrainedStats));
-        resolvers.addAll(Arrays.asList(getCustomEffectiveAtkIVsResolvers(ivs)));
+        resolvers.add(getRealAtkIVsResolver(ivs, isClosedSheet));
+        resolvers.add(getCustomEffectiveAtkIVsResolver(ivs, hyperTrainedStats, isClosedSheet));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveAtkIVsResolvers(ivs, isClosedSheet)));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getRealDefIVsResolver(IVs ivs)
+    private static TagResolver.Single getRealDefIVsResolver(IVs ivs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.REAL_DEF_IVS_TEMPLATE_TAG_STRING,
-            String.valueOf(ivs.get(Stats.DEFENCE))
+            isClosedSheet ? "" : String.valueOf(ivs.get(Stats.DEFENCE))
         );
     }
 
-    private static TagResolver.Single getEffectiveDefIVsResolver(IVs ivs)
+    private static TagResolver.Single getEffectiveDefIVsResolver(IVs ivs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.EFFECTIVE_DEF_IVS_TEMPLATE_TAG_STRING,
-            String.valueOf(ivs.getEffectiveBattleIV(Stats.DEFENCE))
+            isClosedSheet ? "" : String.valueOf(ivs.getEffectiveBattleIV(Stats.DEFENCE))
         );
     }
 
-    public static TagResolver.Single getCustomEffectiveDefIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single getCustomEffectiveDefIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         if (!hyperTrainedStats.contains(Stats.DEFENCE))
         {
             return Placeholder.component
@@ -1974,7 +2378,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomEffectiveDefIVsResolvers(ivs))
+                .resolvers(getCustomEffectiveDefIVsResolvers(ivs, isClosedSheet))
                 .build()
         );
 
@@ -1985,24 +2389,33 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomEffectiveDefIVsResolvers(IVs ivs)
+    public static TagResolver.Single[] getCustomEffectiveDefIVsResolvers(IVs ivs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getEffectiveDefIVsResolver(ivs));
+        resolvers.add(getEffectiveDefIVsResolver(ivs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single getCustomDefIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single getCustomDefIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_DEF_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(resolveDefColor(ChatMiniMessage.getCustomDefIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomDefIVsResolvers(ivs, hyperTrainedStats))
+                .resolvers(getCustomDefIVsResolvers(ivs, hyperTrainedStats, isClosedSheet))
                 .build()
         );
 
@@ -2013,37 +2426,46 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomDefIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single[] getCustomDefIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getRealDefIVsResolver(ivs));
-        resolvers.add(getCustomEffectiveDefIVsResolver(ivs, hyperTrainedStats));
-        resolvers.addAll(Arrays.asList(getCustomEffectiveDefIVsResolvers(ivs)));
+        resolvers.add(getRealDefIVsResolver(ivs, isClosedSheet));
+        resolvers.add(getCustomEffectiveDefIVsResolver(ivs, hyperTrainedStats, isClosedSheet));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveDefIVsResolvers(ivs, isClosedSheet)));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getRealSpaIVsResolver(IVs ivs)
+    private static TagResolver.Single getRealSpaIVsResolver(IVs ivs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.REAL_SPA_IVS_TEMPLATE_TAG_STRING,
-            String.valueOf(ivs.get(Stats.SPECIAL_ATTACK))
+            isClosedSheet ? "" : String.valueOf(ivs.get(Stats.SPECIAL_ATTACK))
         );
     }
 
-    private static TagResolver.Single getEffectiveSpaIVsResolver(IVs ivs)
+    private static TagResolver.Single getEffectiveSpaIVsResolver(IVs ivs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.EFFECTIVE_SPA_IVS_TEMPLATE_TAG_STRING,
-            String.valueOf(ivs.getEffectiveBattleIV(Stats.SPECIAL_ATTACK))
+            isClosedSheet ? "" : String.valueOf(ivs.getEffectiveBattleIV(Stats.SPECIAL_ATTACK))
         );
     }
 
-    public static TagResolver.Single getCustomEffectiveSpaIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single getCustomEffectiveSpaIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         if (!hyperTrainedStats.contains(Stats.SPECIAL_ATTACK))
         {
             return Placeholder.component
@@ -2059,7 +2481,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomEffectiveSpaIVsResolvers(ivs))
+                .resolvers(getCustomEffectiveSpaIVsResolvers(ivs, isClosedSheet))
                 .build()
         );
 
@@ -2070,24 +2492,33 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomEffectiveSpaIVsResolvers(IVs ivs)
+    public static TagResolver.Single[] getCustomEffectiveSpaIVsResolvers(IVs ivs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getEffectiveSpaIVsResolver(ivs));
+        resolvers.add(getEffectiveSpaIVsResolver(ivs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single getCustomSpaIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single getCustomSpaIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_SPA_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(resolveSpaColor(ChatMiniMessage.getCustomSpaIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomSpaIVsResolvers(ivs, hyperTrainedStats))
+                .resolvers(getCustomSpaIVsResolvers(ivs, hyperTrainedStats, isClosedSheet))
                 .build()
         );
 
@@ -2098,37 +2529,46 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomSpaIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single[] getCustomSpaIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getRealSpaIVsResolver(ivs));
-        resolvers.add(getCustomEffectiveSpaIVsResolver(ivs, hyperTrainedStats));
-        resolvers.addAll(Arrays.asList(getCustomEffectiveSpaIVsResolvers(ivs)));
+        resolvers.add(getRealSpaIVsResolver(ivs, isClosedSheet));
+        resolvers.add(getCustomEffectiveSpaIVsResolver(ivs, hyperTrainedStats, isClosedSheet));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveSpaIVsResolvers(ivs, isClosedSheet)));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getRealSpdIVsResolver(IVs ivs)
+    private static TagResolver.Single getRealSpdIVsResolver(IVs ivs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.REAL_SPD_IVS_TEMPLATE_TAG_STRING,
-            String.valueOf(ivs.get(Stats.SPECIAL_DEFENCE))
+            isClosedSheet ? "" : String.valueOf(ivs.get(Stats.SPECIAL_DEFENCE))
         );
     }
 
-    private static TagResolver.Single getEffectiveSpdIVsResolver(IVs ivs)
+    private static TagResolver.Single getEffectiveSpdIVsResolver(IVs ivs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.EFFECTIVE_SPD_IVS_TEMPLATE_TAG_STRING,
-            String.valueOf(ivs.getEffectiveBattleIV(Stats.SPECIAL_DEFENCE))
+            isClosedSheet ? "" : String.valueOf(ivs.getEffectiveBattleIV(Stats.SPECIAL_DEFENCE))
         );
     }
 
-    public static TagResolver.Single getCustomEffectiveSpdIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single getCustomEffectiveSpdIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         if (!hyperTrainedStats.contains(Stats.SPECIAL_DEFENCE))
         {
             return Placeholder.component
@@ -2144,7 +2584,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomEffectiveSpdIVsResolvers(ivs))
+                .resolvers(getCustomEffectiveSpdIVsResolvers(ivs, isClosedSheet))
                 .build()
         );
 
@@ -2155,24 +2595,33 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomEffectiveSpdIVsResolvers(IVs ivs)
+    public static TagResolver.Single[] getCustomEffectiveSpdIVsResolvers(IVs ivs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getEffectiveSpdIVsResolver(ivs));
+        resolvers.add(getEffectiveSpdIVsResolver(ivs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single getCustomSpdIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single getCustomSpdIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_SPD_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(resolveSpdColor(ChatMiniMessage.getCustomSpdIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomSpdIVsResolvers(ivs, hyperTrainedStats))
+                .resolvers(getCustomSpdIVsResolvers(ivs, hyperTrainedStats, isClosedSheet))
                 .build()
         );
 
@@ -2183,37 +2632,46 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomSpdIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single[] getCustomSpdIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getRealSpdIVsResolver(ivs));
-        resolvers.add(getCustomEffectiveSpdIVsResolver(ivs, hyperTrainedStats));
-        resolvers.addAll(Arrays.asList(getCustomEffectiveSpdIVsResolvers(ivs)));
+        resolvers.add(getRealSpdIVsResolver(ivs, isClosedSheet));
+        resolvers.add(getCustomEffectiveSpdIVsResolver(ivs, hyperTrainedStats, isClosedSheet));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveSpdIVsResolvers(ivs, isClosedSheet)));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getRealSpeIVsResolver(IVs ivs)
+    private static TagResolver.Single getRealSpeIVsResolver(IVs ivs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.REAL_SPE_IVS_TEMPLATE_TAG_STRING,
-            String.valueOf(ivs.get(Stats.SPEED))
+            isClosedSheet ? "" : String.valueOf(ivs.get(Stats.SPEED))
         );
     }
 
-    private static TagResolver.Single getEffectiveSpeIVsResolver(IVs ivs)
+    private static TagResolver.Single getEffectiveSpeIVsResolver(IVs ivs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.EFFECTIVE_SPE_IVS_TEMPLATE_TAG_STRING,
-            String.valueOf(ivs.getEffectiveBattleIV(Stats.SPEED))
+            isClosedSheet ? "" : String.valueOf(ivs.getEffectiveBattleIV(Stats.SPEED))
         );
     }
 
-    public static TagResolver.Single getCustomEffectiveSpeIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single getCustomEffectiveSpeIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         if (!hyperTrainedStats.contains(Stats.SPEED))
         {
             return Placeholder.component
@@ -2229,7 +2687,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomEffectiveSpeIVsResolvers(ivs))
+                .resolvers(getCustomEffectiveSpeIVsResolvers(ivs, isClosedSheet))
                 .build()
         );
 
@@ -2240,24 +2698,33 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomEffectiveSpeIVsResolvers(IVs ivs)
+    public static TagResolver.Single[] getCustomEffectiveSpeIVsResolvers(IVs ivs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getEffectiveSpeIVsResolver(ivs));
+        resolvers.add(getEffectiveSpeIVsResolver(ivs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single getCustomSpeIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single getCustomSpeIVsResolver(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_SPE_IVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(resolveSpeColor(ChatMiniMessage.getCustomSpeIVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomSpeIVsResolvers(ivs, hyperTrainedStats))
+                .resolvers(getCustomSpeIVsResolvers(ivs, hyperTrainedStats, isClosedSheet))
                 .build()
         );
 
@@ -2268,19 +2735,28 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomSpeIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats)
+    public static TagResolver.Single[] getCustomSpeIVsResolvers(IVs ivs, Set<Stats> hyperTrainedStats, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getRealSpeIVsResolver(ivs));
-        resolvers.add(getCustomEffectiveSpeIVsResolver(ivs, hyperTrainedStats));
-        resolvers.addAll(Arrays.asList(getCustomEffectiveSpeIVsResolvers(ivs)));
+        resolvers.add(getRealSpeIVsResolver(ivs, isClosedSheet));
+        resolvers.add(getCustomEffectiveSpeIVsResolver(ivs, hyperTrainedStats, isClosedSheet));
+        resolvers.addAll(Arrays.asList(getCustomEffectiveSpeIVsResolvers(ivs, isClosedSheet)));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getEVTotalResolver(int evTotal)
+    private static TagResolver.Single getEVTotalResolver(int evTotal, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.EV_TOTAL_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.EV_TOTAL_TEMPLATE_TAG_STRING,
@@ -2288,8 +2764,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getEVPercentageResolver(int evTotal)
+    private static TagResolver.Single getEVPercentageResolver(int evTotal, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.EV_PERCENTAGE_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         return Placeholder.unparsed
         (
             ChatMiniMessage.EV_PERCENTAGE_TEMPLATE_TAG_STRING,
@@ -2297,15 +2782,24 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single getCustomEVPercentageResolver(int evTotal)
+    public static TagResolver.Single getCustomEVPercentageResolver(int evTotal, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_EV_PERCENTAGE_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomEVPercentageTemplate());
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomEVPercentageResolvers(evTotal))
+                .resolvers(getCustomEVPercentageResolvers(evTotal, isClosedSheet))
                 .build()
         );
 
@@ -2316,25 +2810,34 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomEVPercentageResolvers(int evTotal)
+    public static TagResolver.Single[] getCustomEVPercentageResolvers(int evTotal, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getEVTotalResolver(evTotal));
-        resolvers.add(getEVPercentageResolver(evTotal));
+        resolvers.add(getEVTotalResolver(evTotal, isClosedSheet));
+        resolvers.add(getEVPercentageResolver(evTotal, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single getCustomGeneralEVsResolver(int evTotal)
+    public static TagResolver.Single getCustomGeneralEVsResolver(int evTotal, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.CUSTOM_GENERAL_EVS_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.getHiddenTemplate()
+            );
+        }
+
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomGeneralEVsTemplate());
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomGeneralEVsResolvers(evTotal))
+                .resolvers(getCustomGeneralEVsResolvers(evTotal, isClosedSheet))
                 .build()
         );
 
@@ -2345,34 +2848,43 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomGeneralEVsResolvers(int evTotal)
+    public static TagResolver.Single[] getCustomGeneralEVsResolvers(int evTotal, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getCustomEVPercentageResolver(evTotal));
-        resolvers.addAll(Arrays.asList(getCustomEVPercentageResolvers(evTotal)));
+        resolvers.add(getCustomEVPercentageResolver(evTotal, isClosedSheet));
+        resolvers.addAll(Arrays.asList(getCustomEVPercentageResolvers(evTotal, isClosedSheet)));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getHpEVResolver(EVs evs)
+    private static TagResolver.Single getHpEVResolver(EVs evs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.HP_EV_TEMPLATE_TAG_STRING,
-            String.valueOf(evs.get(Stats.HP))
+            isClosedSheet ? "" : String.valueOf(evs.get(Stats.HP))
         );
     }
 
-    public static TagResolver.Single getCustomHpEVsResolver(EVs evs)
+    public static TagResolver.Single getCustomHpEVsResolver(EVs evs, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_HP_EVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(resolveHpColor(ChatMiniMessage.getCustomHpEVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomHpEVsResolvers(evs))
+                .resolvers(getCustomHpEVsResolvers(evs, isClosedSheet))
                 .build()
         );
 
@@ -2383,33 +2895,42 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomHpEVsResolvers(EVs evs)
+    public static TagResolver.Single[] getCustomHpEVsResolvers(EVs evs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getHpEVResolver(evs));
+        resolvers.add(getHpEVResolver(evs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getAtkEVResolver(EVs evs)
+    private static TagResolver.Single getAtkEVResolver(EVs evs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.ATK_EV_TEMPLATE_TAG_STRING,
-            String.valueOf(evs.get(Stats.ATTACK))
+            isClosedSheet ? "" : String.valueOf(evs.get(Stats.ATTACK))
         );
     }
 
-    public static TagResolver.Single getCustomAtkEVsResolver(EVs evs)
+    public static TagResolver.Single getCustomAtkEVsResolver(EVs evs, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_ATK_EVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(resolveAtkColor(ChatMiniMessage.getCustomAtkEVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomAtkEVsResolvers(evs))
+                .resolvers(getCustomAtkEVsResolvers(evs, isClosedSheet))
                 .build()
         );
 
@@ -2420,33 +2941,42 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomAtkEVsResolvers(EVs evs)
+    public static TagResolver.Single[] getCustomAtkEVsResolvers(EVs evs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getAtkEVResolver(evs));
+        resolvers.add(getAtkEVResolver(evs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getDefEVResolver(EVs evs)
+    private static TagResolver.Single getDefEVResolver(EVs evs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.DEF_EV_TEMPLATE_TAG_STRING,
-            String.valueOf(evs.get(Stats.DEFENCE))
+            isClosedSheet ? "" : String.valueOf(evs.get(Stats.DEFENCE))
         );
     }
 
-    public static TagResolver.Single getCustomDefEVsResolver(EVs evs)
+    public static TagResolver.Single getCustomDefEVsResolver(EVs evs, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_DEF_EVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(resolveDefColor(ChatMiniMessage.getCustomDefEVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomDefEVsResolvers(evs))
+                .resolvers(getCustomDefEVsResolvers(evs, isClosedSheet))
                 .build()
         );
 
@@ -2457,33 +2987,42 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomDefEVsResolvers(EVs evs)
+    public static TagResolver.Single[] getCustomDefEVsResolvers(EVs evs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getDefEVResolver(evs));
+        resolvers.add(getDefEVResolver(evs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getSpaEVResolver(EVs evs)
+    private static TagResolver.Single getSpaEVResolver(EVs evs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.SPA_EV_TEMPLATE_TAG_STRING,
-            String.valueOf(evs.get(Stats.SPECIAL_ATTACK))
+            isClosedSheet ? "" : String.valueOf(evs.get(Stats.SPECIAL_ATTACK))
         );
     }
 
-    public static TagResolver.Single getCustomSpaEVsResolver(EVs evs)
+    public static TagResolver.Single getCustomSpaEVsResolver(EVs evs, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_SPA_EVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(resolveSpaColor(ChatMiniMessage.getCustomSpaEVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomSpaEVsResolvers(evs))
+                .resolvers(getCustomSpaEVsResolvers(evs, isClosedSheet))
                 .build()
         );
 
@@ -2494,33 +3033,42 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomSpaEVsResolvers(EVs evs)
+    public static TagResolver.Single[] getCustomSpaEVsResolvers(EVs evs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getSpaEVResolver(evs));
+        resolvers.add(getSpaEVResolver(evs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getSpdEVResolver(EVs evs)
+    private static TagResolver.Single getSpdEVResolver(EVs evs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.SPD_EV_TEMPLATE_TAG_STRING,
-            String.valueOf(evs.get(Stats.SPECIAL_DEFENCE))
+            isClosedSheet ? "" : String.valueOf(evs.get(Stats.SPECIAL_DEFENCE))
         );
     }
 
-    public static TagResolver.Single getCustomSpdEVsResolver(EVs evs)
+    public static TagResolver.Single getCustomSpdEVsResolver(EVs evs, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_SPD_EVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(resolveSpdColor(ChatMiniMessage.getCustomSpdEVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomSpdEVsResolvers(evs))
+                .resolvers(getCustomSpdEVsResolvers(evs, isClosedSheet))
                 .build()
         );
 
@@ -2531,33 +3079,42 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomSpdEVsResolvers(EVs evs)
+    public static TagResolver.Single[] getCustomSpdEVsResolvers(EVs evs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getSpdEVResolver(evs));
+        resolvers.add(getSpdEVResolver(evs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getSpeEVResolver(EVs evs)
+    private static TagResolver.Single getSpeEVResolver(EVs evs, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.SPE_EV_TEMPLATE_TAG_STRING,
-            String.valueOf(evs.get(Stats.SPEED))
+            isClosedSheet ? "" : String.valueOf(evs.get(Stats.SPEED))
         );
     }
 
-    public static TagResolver.Single getCustomSpeEVsResolver(EVs evs)
+    public static TagResolver.Single getCustomSpeEVsResolver(EVs evs, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_SPE_EVS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(resolveSpeColor(ChatMiniMessage.getCustomSpeEVsTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomSpeEVsResolvers(evs))
+                .resolvers(getCustomSpeEVsResolvers(evs, isClosedSheet))
                 .build()
         );
 
@@ -2568,11 +3125,11 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomSpeEVsResolvers(EVs evs)
+    public static TagResolver.Single[] getCustomSpeEVsResolvers(EVs evs, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getSpeEVResolver(evs));
+        resolvers.add(getSpeEVResolver(evs, isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
