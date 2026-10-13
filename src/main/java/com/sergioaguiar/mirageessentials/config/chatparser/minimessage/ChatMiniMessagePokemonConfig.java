@@ -195,6 +195,7 @@ public class ChatMiniMessagePokemonConfig
                 # <neutered> - The pokémon's neuter state, following the configured <true> and <false> templates.
                 # <customneutered> - The pokémon's neuter state, following the configured template (not shown if not neutered).
                 # <originaltrainername> - The pokémon's original trainer's username (or UUID).
+                # <hidden> - This displays the configured hidden template if closed sheet was used, nothing otherwise.
                 %s = \"\"\"
                 %s\"\"\"
 

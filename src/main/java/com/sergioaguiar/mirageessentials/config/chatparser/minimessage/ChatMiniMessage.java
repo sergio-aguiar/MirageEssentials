@@ -448,7 +448,7 @@ public class ChatMiniMessage
         <color:<labelcolor>>Level:</color> <white><level></white> <customexperience>
         <color:<labelcolor>>Friendship:</color> <white><friendship></white>
         <color:<labelcolor>>─────────────────────</color>
-        <color:<labelcolor>>Moves:</color>
+        <color:<labelcolor>>Moves:</color> <hidden>
         <custommoves>
         <color:<labelcolor>>─────────────────────</color>
         <color:<labelcolor>>IVs:</color> <customgeneralivs>

@@ -310,7 +310,7 @@ public class MiniMessageUtils
                 .resolvers(getCustomNatureRealStatsResolver(realNature, isClosedSheet))
                 .resolver(getCustomNatureEffectiveStatsResolver(effectiveNature, isClosedSheet))
                 .resolvers(getCustomNatureEffectiveStatsResolver(effectiveNature, isClosedSheet))
-                .resolver(getCustomMintnessResolver(CobblemonUtils.isMinted(realNature, effectiveNature)))
+                .resolver(getCustomMintnessResolver(CobblemonUtils.isMinted(realNature, effectiveNature), isClosedSheet))
                 .resolver(getLevelResolver(String.valueOf(level)))
                 .resolver(getCustomExperienceResolver(level, currentExperience, RemainingExperience))
                 .resolvers(getCustomExperienceResolvers(currentExperience, RemainingExperience))
@@ -363,7 +363,7 @@ public class MiniMessageUtils
                 .resolver(getCustomNeuteredResolver(isNeutered))
                 .resolvers(getCustomNeuteredResolvers(isNeutered))
                 .resolver(getOriginalTrainerNameResolver(cosmeticItemCustomName))
-                .resolver(getHiddenResolver())
+                .resolver(getHiddenResolver(isClosedSheet))
                 .build();
     }
 
@@ -439,7 +439,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.GENDER_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -604,7 +604,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.TERA_TYPE_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -904,7 +904,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.HELD_ITEM_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -922,7 +922,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.HELD_ITEM_CUSTOM_NAME_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -940,7 +940,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.CUSTOM_HELD_ITEM_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -1043,7 +1043,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.ABILITY_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -1076,7 +1076,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.NATURE_REAL_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -1094,7 +1094,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.NATURE_EFFECTIVE_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -1148,7 +1148,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -1168,7 +1168,7 @@ public class MiniMessageUtils
             newTemplate,
             TagResolver.builder()
                 .resolvers(getCustomNatureRealStatsResolvers(realNature, isClosedSheet))
-                .resolver(getHiddenResolver())
+                .resolver(getHiddenResolver(isClosedSheet))
                 .build()
         );
 
@@ -1236,8 +1236,17 @@ public class MiniMessageUtils
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    private static TagResolver.Single getCustomMintnessResolver(boolean isMinted)
+    private static TagResolver.Single getCustomMintnessResolver(boolean isMinted, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_MINTNESS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomMintnessTemplate());
 
         return Placeholder.parsed
@@ -1329,7 +1338,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.FRIENDSHIP_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -1347,7 +1356,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.MOVE1_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -1467,7 +1476,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.MOVE2_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -1587,7 +1596,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.MOVE3_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -1707,7 +1716,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.MOVE4_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -1824,10 +1833,10 @@ public class MiniMessageUtils
     {
         if (isClosedSheet)
         {
-            return Placeholder.parsed
+            return Placeholder.component
             (
                 ChatMiniMessage.CUSTOM_MOVES_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                Component.empty()
             );
         }
 
@@ -1865,7 +1874,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.MOVE_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -1965,7 +1974,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.REAL_IV_TOTAL_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -1983,7 +1992,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.EFFECTIVE_IV_TOTAL_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -2095,7 +2104,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.CUSTOM_GENERAL_IVS_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -2753,7 +2762,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.EV_TOTAL_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -2827,7 +2836,7 @@ public class MiniMessageUtils
             return Placeholder.parsed
             (
                 ChatMiniMessage.CUSTOM_GENERAL_EVS_TEMPLATE_TAG_STRING,
-                ChatMiniMessage.getHiddenTemplate()
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
             );
         }
 
@@ -3573,8 +3582,17 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getHiddenResolver()
+    private static TagResolver.Single getHiddenResolver(boolean isClosedSheet)
     {
+        if (!isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.HIDDEN_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String newTemplate = resolveCustomColors(ChatMiniMessage.getHiddenTemplate());
 
         return Placeholder.parsed
