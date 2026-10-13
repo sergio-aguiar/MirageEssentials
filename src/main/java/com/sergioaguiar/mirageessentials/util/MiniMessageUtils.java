@@ -292,8 +292,8 @@ public class MiniMessageUtils
                 .resolvers(getCustomNameResolvers(pokemon))
                 .resolver(getGenderResolver(pokemon.getGender(), isClosedSheet))
                 .resolver(getCaughtBallResolver(CobblemonUtils.getPokemonCaughtBall(pokemon)))
-                .resolver(getCustomConditionResolver(pokemon))
-                .resolvers(getCustomConditionResolvers(pokemon))
+                .resolver(getCustomConditionResolver(pokemon, isClosedSheet))
+                .resolvers(getCustomConditionResolvers(pokemon, isClosedSheet))
                 .resolver(getCustomSpeciesResolver(pokemon))
                 .resolvers(getCustomSpeciesResolvers(pokemon))
                 .resolver(getCustomTypesResolver(types, teraType, isMonotype, isClosedSheet))
@@ -468,26 +468,35 @@ public class MiniMessageUtils
         );
     }
 
-    private static TagResolver.Single getCurrentHealthResolver(String currentHealth)
+    private static TagResolver.Single getCurrentHealthResolver(String currentHealth, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.CURRENT_HEALTH_TEMPLATE_TAG_STRING,
-            currentHealth
+            isClosedSheet ? "" : currentHealth
         );
     }
 
-    private static TagResolver.Single getMaxHealthResolver(String maxHealth)
+    private static TagResolver.Single getMaxHealthResolver(String maxHealth, boolean isClosedSheet)
     {
         return Placeholder.unparsed
         (
             ChatMiniMessage.MAX_HEALTH_TEMPLATE_TAG_STRING,
-            maxHealth
+            isClosedSheet ? "" : maxHealth
         );
     }
 
-    private static TagResolver.Single getStatusResolver(String statusShowdownName, boolean isFainted)
+    private static TagResolver.Single getStatusResolver(String statusShowdownName, boolean isFainted, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.STATUS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         String template = isFainted
             ? ChatMiniMessage.getFaintTemplate() 
             : statusShowdownName.equals(BURN_SHOWDOWN_NAME)
@@ -511,8 +520,17 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single getCustomStatusResolver(Pokemon pokemon)
+    public static TagResolver.Single getCustomStatusResolver(Pokemon pokemon, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.CUSTOM_STATUS_TEMPLATE_TAG_STRING,
+                Component.empty()
+            );
+        }
+
         if (pokemon.getStatus() == null)
         {
             return Placeholder.component
@@ -528,7 +546,7 @@ public class MiniMessageUtils
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomStatusResolvers(pokemon))
+                .resolvers(getCustomStatusResolvers(pokemon, isClosedSheet))
                 .build()
         );
 
@@ -539,24 +557,33 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomStatusResolvers(Pokemon pokemon)
+    public static TagResolver.Single[] getCustomStatusResolvers(Pokemon pokemon, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getStatusResolver(CobblemonUtils.getPokemonStatus(pokemon), pokemon.isFainted()));
+        resolvers.add(getStatusResolver(CobblemonUtils.getPokemonStatus(pokemon), pokemon.isFainted(), isClosedSheet));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
 
-    public static TagResolver.Single getCustomConditionResolver(Pokemon pokemon)
+    public static TagResolver.Single getCustomConditionResolver(Pokemon pokemon, boolean isClosedSheet)
     {
+        if (isClosedSheet)
+        {
+            return Placeholder.parsed
+            (
+                ChatMiniMessage.CUSTOM_CONDITION_TEMPLATE_TAG_STRING,
+                resolveCustomColors(ChatMiniMessage.getHiddenTemplate())
+            );
+        }
+
         String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomConditionTemplate());
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
             newTemplate,
             TagResolver.builder()
-                .resolvers(getCustomConditionResolvers(pokemon))
+                .resolvers(getCustomConditionResolvers(pokemon, isClosedSheet))
                 .build()
         );
 
@@ -567,14 +594,14 @@ public class MiniMessageUtils
         );
     }
 
-    public static TagResolver.Single[] getCustomConditionResolvers(Pokemon pokemon)
+    public static TagResolver.Single[] getCustomConditionResolvers(Pokemon pokemon, boolean isClosedSheet)
     {
         List<TagResolver.Single> resolvers = new ArrayList<>();
 
-        resolvers.add(getCurrentHealthResolver(CobblemonUtils.getPokemonCurrentHealth(pokemon)));
-        resolvers.add(getMaxHealthResolver(CobblemonUtils.getPokemonCurrentHealth(pokemon)));
-        resolvers.add(getCustomStatusResolver(pokemon));
-        resolvers.addAll(Arrays.asList(getCustomStatusResolvers(pokemon)));
+        resolvers.add(getCurrentHealthResolver(CobblemonUtils.getPokemonCurrentHealth(pokemon), isClosedSheet));
+        resolvers.add(getMaxHealthResolver(CobblemonUtils.getPokemonCurrentHealth(pokemon), isClosedSheet));
+        resolvers.add(getCustomStatusResolver(pokemon, isClosedSheet));
+        resolvers.addAll(Arrays.asList(getCustomStatusResolvers(pokemon, isClosedSheet)));
 
         return resolvers.toArray(new TagResolver.Single[0]);
     }
