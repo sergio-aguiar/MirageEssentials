@@ -141,6 +141,19 @@ public class ReloadCommand
                 ModLogger.error("Error reloading GUI texture config: %s".formatted(e.getMessage()));
                 return 1;
             }
+
+            try
+            {
+                GUITexturesConfig.load();
+                context.getSource().sendFeedback(() -> buildReloadFeedbackMessage("Reloaded MiniMessage Pokemon configuration."), true);
+                ModLogger.info("MiniMessage Pokemon configuration reloaded successfully.");
+            }
+            catch (Exception e)
+            {
+                context.getSource().sendError(Text.literal("%s » Failed to reload MiniMessage Pokemon configuration: %s".formatted(MirageEssentials.MOD_NAME, e.getMessage())));
+                ModLogger.error("Error reloading MiniMessage Pokemon config: %s".formatted(e.getMessage()));
+                return 1;
+            }
         }
 
         if (Modules.shouldEnableAntiAFKModule())

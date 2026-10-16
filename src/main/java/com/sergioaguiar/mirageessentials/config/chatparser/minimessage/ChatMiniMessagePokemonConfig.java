@@ -41,9 +41,505 @@ public class ChatMiniMessagePokemonConfig
             {
                 config.load();
 
+                if (config.contains(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING))
+                {
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.POKEMON_INFO_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.POKEMON_INFO_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setPokemonInfoTemplate(template);
+                    }
 
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_NAME_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_NAME_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomNameTemplate(template);
+                    }
 
-            ModLogger.info("MiniMessage configurations successfully loaded from chat_minimessage_pokemon.toml.");
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_STATUS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_STATUS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomStatusTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_CONDITION_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_CONDITION_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomConditionTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_TYPES_MONOTYPE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_TYPES_MONOTYPE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomTypesMonotypeTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_TYPES_DUOTYPE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_TYPES_DUOTYPE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomTypesDuotypeTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SHININESS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SHININESS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomShininessTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_ALPHANESS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_ALPHANESS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomAlphanessTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_FORM_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_FORM_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomFormTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPECIES_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPECIES_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomSpeciesTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_HELD_ITEM_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_HELD_ITEM_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomHeldItemTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_COSMETIC_ITEM_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomCosmeticItemTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_HIDDEN_ABILITY_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomHiddenAbilityTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_NATURE_REAL_STATS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomNatureRealStatsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_NATURE_EFFECTIVE_STATS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomNatureCustomStatsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_MINTNESS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_MINTNESS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomMintnessTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EXPERIENCE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EXPERIENCE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomExperienceTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.MOVE_CUSTOM_PP_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setMoveCustomPPTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_MOVE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_MOVE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomMoveTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_REAL_IV_PERCENTAGE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomRealIVPercentageTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_IV_PERCENTAGE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomEffectiveIVPercentageTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_GENERAL_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_GENERAL_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomGeneralIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_HP_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomEffectiveHpIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_HP_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_HP_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomHpIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_ATK_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomEffectiveAtkIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_ATK_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_ATK_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomAtkIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_DEF_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomEffectiveDefIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_DEF_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_DEF_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomDefIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_SPA_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomEffectiveSpaIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPA_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPA_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomSpaIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_SPD_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomEffectiveSpdIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPD_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPD_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomSpdIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EFFECTIVE_SPE_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomEffectiveSpeIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPE_IVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPE_IVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomSpeIVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EV_PERCENTAGE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_EV_PERCENTAGE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomEVPercentageTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_GENERAL_EVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_GENERAL_EVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomGeneralEVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_HP_EVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_HP_EVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomHpEVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_ATK_EVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_ATK_EVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomAtkEVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_DEF_EVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_DEF_EVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomDefEVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPA_EVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPA_EVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomSpaEVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPD_EVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPD_EVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomSpdEVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPE_EVS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_SPE_EVS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomSpeEVsTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_NEUTERED_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.CUSTOM_NEUTERED_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setCustomNeuteredTemplate(template);
+                    }
+                }
+
+                if (config.contains(ChatMiniMessage.TOML_STATUSES_SECTION_STRING))
+                {
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.BURN_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.BURN_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setBurnTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.SLEEP_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.SLEEP_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setSleepTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.PARALYSIS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.PARALYSIS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setParalysisTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.POISON_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.POISON_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setPoisonTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.FREEZE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.FREEZE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setFreezeTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.FAINT_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.FAINT_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setFaintTemplate(template);
+                    }
+                }
+
+                if (config.contains(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING))
+                {
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.AMORPHOUS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.AMORPHOUS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setAmorphousTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.BUG_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.BUG_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setBugTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.DITTO_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.DITTO_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setDittoTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.DRAGON_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.DRAGON_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setDragonTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FAIRY_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FAIRY_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setFairyTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FIELD_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FIELD_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setFieldTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FLYING_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FLYING_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setFlyingTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.GRASS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.GRASS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setGrassTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.HUMAN_LIKE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.HUMAN_LIKE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setHumanLikeTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.MINERAL_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.MINERAL_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setMineralTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.MONSTER_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.MONSTER_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setMonsterTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.UNDISCOVERED_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.UNDISCOVERED_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setUndiscoveredTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER1_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER1_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setWater1Template(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER2_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER2_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setWater2Template(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER3_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER3_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setWater3Template(template);
+                    }
+                }
+
+                if (config.contains(ChatMiniMessage.TOML_GENDERS_SECTION_STRING))
+                {
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_MALE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_MALE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setMaleGenderTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_FEMALE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_FEMALE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setFemaleGenderTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_GENDERLESS_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_GENDERLESS_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setGenderlessGenderTemplate(template);
+                    }
+                }
+
+                if (config.contains(ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING))
+                {
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING, ChatMiniMessage.TRUE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING, ChatMiniMessage.TRUE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setTrueTemplate(template);
+                    }
+
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING, ChatMiniMessage.FALSE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING, ChatMiniMessage.FALSE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setFalseTemplate(template);
+                    }
+                }
+
+                ModLogger.info("MiniMessage configurations successfully loaded from chat_minimessage_pokemon.toml.");
             }
             catch (Exception e)
             {
