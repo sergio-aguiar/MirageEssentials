@@ -53,8 +53,6 @@ public class ChatMiniMessageCommandsConfig
     {
         String defaultContent = """
             # %s - Chat MiniMessage Configuration - Commands
-            # This is an alternative to chat_strings.toml.
-            # Setting useMiniMessage in chat_settings.toml must be enabled.
 
             [General]
             # Here you can configure general use templates.

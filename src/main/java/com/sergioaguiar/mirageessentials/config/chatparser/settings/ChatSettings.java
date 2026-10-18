@@ -39,34 +39,10 @@ public class ChatSettings
 
     protected static final boolean DEFAULT_USE_POKEMON_CATEGORY_HOVERABLES = true;
     protected static final boolean DEFAULT_USE_SHINY_GRADIENT_HOVERABLES = true;
-
-    protected static final boolean DEFAULT_SHOW_NICKNAME = true;
-    protected static final boolean DEFAULT_SHOW_SPECIES = true;
-    protected static final boolean DEFAULT_SHOW_LEVEL = true;
-    protected static final boolean DEFAULT_SHOW_TYPES = true;
-    protected static final boolean DEFAULT_SHOW_ABILITIES = true;
-    protected static final boolean DEFAULT_SHOW_NATURE = true;
-    protected static final boolean DEFAULT_SHOW_IVS = true;
-    protected static final boolean DEFAULT_SHOW_EVS = true;
-    protected static final boolean DEFAULT_SHOW_MOVES = true;
-    protected static final boolean DEFAULT_SHOW_GENDER = true;
-    protected static final boolean DEFAULT_SHOW_FRIENDSHIP = true;
-    protected static final boolean DEFAULT_SHOW_HELD_ITEM = true;
-    protected static final boolean DEFAULT_SHOW_BALL = true;
-    protected static final boolean DEFAULT_SHOW_SIZE = true;
-    protected static final boolean DEFAULT_SHOW_EGG_GROUPS = true;
-    protected static final boolean DEFAULT_SHOW_NEUTERED = true;
-    protected static final boolean DEFAULT_SHOW_OT = true;
     
     protected static final boolean DEFAULT_SHOW_EGG_NICKNAME = true;
     protected static final boolean DEFAULT_SHOW_EGG_HATCH_STEP_PROGRESS = true;
     protected static final boolean DEFAULT_SHOW_EGG_STAGE_MESSAGE = true;
-
-    protected static final boolean DEFAULT_SHOW_FORM_IF_NORMAL = false;
-    protected static final boolean DEFAULT_SHOW_NEUTERED_IF_FALSE = true;
-
-    protected static final boolean DEFAULT_BOLD_HYPER_TRAINING_VALUES = false;
-    protected static final boolean DEFAULT_ITALIC_HYPER_TRAINING_VALUES = false;
 
     protected static final PartyCheckLayout DEFAULT_PARTYCHECK_LAYOUT = PartyCheckLayout.DEFAULT;
     protected static final boolean DEFAULT_SHOW_PARTYCHECK_GUI_FRAME_BLOCKS = true;
@@ -78,33 +54,9 @@ public class ChatSettings
     private static boolean usePokemonCategoryHoverables;
     private static boolean useShinyGradientHoverables;
 
-    private static boolean showNickname;
-    private static boolean showSpecies;
-    private static boolean showLevel;
-    private static boolean showTypes;
-    private static boolean showAbilities;
-    private static boolean showNature;
-    private static boolean showIVs;
-    private static boolean showEVs;
-    private static boolean showMoves;
-    private static boolean showGender;
-    private static boolean showFriendship;
-    private static boolean showHeldItem;
-    private static boolean showBall;
-    private static boolean showSize;
-    private static boolean showEggGroups;
-    private static boolean showNeutered;
-    private static boolean showOT;
-
     private static boolean showEggNickname;
     private static boolean showEggHatchStepProgress;
     private static boolean showEggStageMessage;
-
-    private static boolean showFormIfNormal;
-    private static boolean showNeuteredIfFalse;
-
-    private static boolean boldHyperTrainingValues;
-    private static boolean italicHyperTrainingValues;
 
     private static PartyCheckLayout partycheckLayout;
     private static boolean showPartyCheckGUIFrameBlocks;
@@ -118,33 +70,9 @@ public class ChatSettings
         usePokemonCategoryHoverables = DEFAULT_USE_POKEMON_CATEGORY_HOVERABLES;
         useShinyGradientHoverables = DEFAULT_USE_SHINY_GRADIENT_HOVERABLES;
 
-        showNickname = DEFAULT_SHOW_NICKNAME;
-        showSpecies = DEFAULT_SHOW_SPECIES;
-        showLevel = DEFAULT_SHOW_LEVEL;
-        showTypes = DEFAULT_SHOW_TYPES;
-        showAbilities = DEFAULT_SHOW_ABILITIES;
-        showNature = DEFAULT_SHOW_NATURE;
-        showIVs = DEFAULT_SHOW_IVS;
-        showEVs = DEFAULT_SHOW_EVS;
-        showMoves = DEFAULT_SHOW_MOVES;
-        showGender = DEFAULT_SHOW_GENDER;
-        showFriendship = DEFAULT_SHOW_FRIENDSHIP;
-        showHeldItem = DEFAULT_SHOW_HELD_ITEM;
-        showBall = DEFAULT_SHOW_BALL;
-        showSize = DEFAULT_SHOW_SIZE;
-        showEggGroups = DEFAULT_SHOW_EGG_GROUPS;
-        showNeutered = DEFAULT_SHOW_NEUTERED;
-        showOT = DEFAULT_SHOW_OT;
-
         showEggNickname = DEFAULT_SHOW_EGG_NICKNAME;
         showEggHatchStepProgress = DEFAULT_SHOW_EGG_HATCH_STEP_PROGRESS;
         showEggStageMessage = DEFAULT_SHOW_EGG_STAGE_MESSAGE;
-
-        showFormIfNormal = DEFAULT_SHOW_FORM_IF_NORMAL;
-        showNeuteredIfFalse = DEFAULT_SHOW_NEUTERED_IF_FALSE;
-
-        boldHyperTrainingValues = DEFAULT_BOLD_HYPER_TRAINING_VALUES;
-        italicHyperTrainingValues = DEFAULT_ITALIC_HYPER_TRAINING_VALUES;
 
         partycheckLayout = DEFAULT_PARTYCHECK_LAYOUT;
         showPartyCheckGUIFrameBlocks = DEFAULT_SHOW_PARTYCHECK_GUI_FRAME_BLOCKS;
@@ -155,30 +83,9 @@ public class ChatSettings
     public static boolean shouldShowOriginalItemNames() { return showOriginalItemNames; }
     public static boolean shouldUsePokemonCategoryHoverables() { return usePokemonCategoryHoverables; }
     public static boolean shouldUseShinyGradientHoverables() { return useShinyGradientHoverables; }
-    public static boolean shouldShowNickname() { return showNickname; }
-    public static boolean shouldShowSpecies() { return showSpecies; }
-    public static boolean shouldShowLevel() { return showLevel; }
-    public static boolean shouldShowTypes() { return showTypes; }
-    public static boolean shouldShowAbilities() { return showAbilities; }
-    public static boolean shouldShowNature() { return showNature; }
-    public static boolean shouldShowIVs() { return showIVs; }
-    public static boolean shouldShowEVs() { return showEVs; }
-    public static boolean shouldShowMoves() { return showMoves; }
-    public static boolean shouldShowGender() { return showGender; }
-    public static boolean shouldShowFriendship() { return showFriendship; }
-    public static boolean shouldShowHeldItem() { return showHeldItem; }
-    public static boolean shouldShowBall() { return showBall; }
-    public static boolean shouldShowSize() { return showSize; }
-    public static boolean shouldShowEggGroups() { return showEggGroups; }
-    public static boolean shouldShowNeutered() { return showNeutered; }
-    public static boolean shouldShowOT() { return showOT; }
     public static boolean shouldShowEggNickname() { return showEggNickname; }
     public static boolean shouldshowEggHatchStepProgress() { return showEggHatchStepProgress; }
     public static boolean shouldShowEggStageMessage() { return showEggStageMessage; }
-    public static boolean shouldShowFormIfNormal() { return showFormIfNormal; }
-    public static boolean shouldShowNeuteredIfFalse() { return showNeuteredIfFalse; }
-    public static boolean shouldBoldHyperTrainingValues() { return boldHyperTrainingValues; }
-    public static boolean shouldItalicHyperTrainingValues() { return italicHyperTrainingValues; }
     public static PartyCheckLayout getPartyCheckLayout() { return partycheckLayout; }
     public static boolean shouldShowPartyCheckGUIFrameBlocks() { return showPartyCheckGUIFrameBlocks; }
     public static boolean shouldShowPartyCheckPlayerHeads() { return showPartyCheckPlayerHeads; }
@@ -187,30 +94,9 @@ public class ChatSettings
     protected static void setShowOriginalItemNames(boolean enabled) { showOriginalItemNames = enabled; }
     protected static void setUsePokemonCategoryHoverables(boolean enabled) { usePokemonCategoryHoverables = enabled; }
     protected static void setUseShinyGradientHoverables(boolean enabled) { useShinyGradientHoverables = enabled; }
-    protected static void setShowNickname(boolean enabled) { showNickname = enabled; }
-    protected static void setShowSpecies(boolean enabled) { showSpecies = enabled; }
-    protected static void setShowLevel(boolean enabled) { showLevel = enabled; }
-    protected static void setShowTypes(boolean enabled) { showTypes = enabled; }
-    protected static void setShowAbilities(boolean enabled) { showAbilities = enabled; }
-    protected static void setShowNature(boolean enabled) { showNature = enabled; }
-    protected static void setShowIVs(boolean enabled) { showIVs = enabled; }
-    protected static void setShowEVs(boolean enabled) { showEVs = enabled; }
-    protected static void setShowMoves(boolean enabled) { showMoves = enabled; }
-    protected static void setShowGender(boolean enabled) { showGender = enabled; }
-    protected static void setShowFriendship(boolean enabled) { showFriendship = enabled; }
-    protected static void setShowHeldItem(boolean enabled) { showHeldItem = enabled; }
-    protected static void setShowBall(boolean enabled) { showBall = enabled; }
-    protected static void setShowSize(boolean enabled) { showSize = enabled; }
-    protected static void setShowEggGroups(boolean enabled) { showEggGroups = enabled; }
-    protected static void setShowNeutered(boolean enabled) { showNeutered = enabled; }
-    protected static void setShowOT(boolean enabled) { showOT = enabled; }
     protected static void setShowEggNickname(boolean enabled) { showEggNickname = enabled; }
     protected static void setshowEggHatchStepProgress(boolean enabled) { showEggHatchStepProgress = enabled; }
     protected static void setShowEggStageMessage(boolean enabled) { showEggStageMessage = enabled; }
-    protected static void setShowFormIfNormal(boolean enabled) { showFormIfNormal = enabled; }
-    protected static void setShowNeuteredIfFalse(boolean enabled) { showNeuteredIfFalse = enabled; }
-    protected static void setBoldHyperTrainingValues(boolean enabled) { boldHyperTrainingValues = enabled; }
-    protected static void setItalicHyperTrainingValues(boolean enabled) { italicHyperTrainingValues = enabled; }
     protected static void setPartyCheckLayout(PartyCheckLayout layout) { partycheckLayout = layout; }
     protected static void setShowPartyCheckGUIFrameBlocks(boolean enabled) { showPartyCheckGUIFrameBlocks = enabled; }
     protected static void setShowPartyCheckPlayerHeads(boolean enabled) { showPartyCheckPlayerHeads = enabled; }

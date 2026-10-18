@@ -29,8 +29,6 @@ import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniM
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessagePokemonConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettingsConfig;
-import com.sergioaguiar.mirageessentials.config.chatparser.sizes.ChatSizes;
-import com.sergioaguiar.mirageessentials.config.chatparser.sizes.ChatSizesConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStringsConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.textures.GUITextures;
@@ -70,7 +68,6 @@ public class MirageEssentials implements ModInitializer
 			ChatStrings.setDefaults();
 			ChatColors.setDefaults();
 			ChatAspects.setDefaults();
-			ChatSizes.setDefaults();
 			ChatMiniMessage.setDefaults();
 			GUITextures.setDefaults();
 
@@ -93,7 +90,6 @@ public class MirageEssentials implements ModInitializer
 			ChatStringsConfig.load();
 			ChatColorsConfig.load();
 			ChatAspectsConfig.load();
-			ChatSizesConfig.load();
 			ChatMiniMessageColorsConfig.load();
 			ChatMiniMessagePokemonConfig.load();
 			ChatMiniMessageCommandsConfig.load();

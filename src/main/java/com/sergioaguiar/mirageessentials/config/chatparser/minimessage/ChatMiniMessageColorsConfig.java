@@ -108,8 +108,6 @@ public class ChatMiniMessageColorsConfig
     {
         String defaultContent = """
             # %s - Chat MiniMessage Configuration - Colors
-            # This is an alternative to chat_strings.toml.
-            # Setting useMiniMessage in chat_settings.toml must be enabled.
 
             [%s]
             # Here, you can create your own colors to use elsewhere.

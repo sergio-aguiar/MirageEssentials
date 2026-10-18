@@ -11,7 +11,6 @@ import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColorsConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessagePokemonConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettingsConfig;
-import com.sergioaguiar.mirageessentials.config.chatparser.sizes.ChatSizesConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStringsConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.textures.GUITexturesConfig;
 import com.sergioaguiar.mirageessentials.config.modules.Modules;
@@ -114,19 +113,6 @@ public class ReloadCommand
             {
                 context.getSource().sendError(Text.literal("%s » Failed to reload aspect configuration: %s".formatted(MirageEssentials.MOD_NAME, e.getMessage())));
                 ModLogger.error("Error reloading aspect config: %s".formatted(e.getMessage()));
-                return 1;
-            }
-
-            try
-            {
-                ChatSizesConfig.load();
-                context.getSource().sendFeedback(() -> buildReloadFeedbackMessage("Reloaded chat size configuration."), true);
-                ModLogger.info("Chat size configuration reloaded successfully.");
-            }
-            catch (Exception e)
-            {
-                context.getSource().sendError(Text.literal("%s » Failed to reload size configuration: %s".formatted(MirageEssentials.MOD_NAME, e.getMessage())));
-                ModLogger.error("Error reloading size config: %s".formatted(e.getMessage()));
                 return 1;
             }
 
