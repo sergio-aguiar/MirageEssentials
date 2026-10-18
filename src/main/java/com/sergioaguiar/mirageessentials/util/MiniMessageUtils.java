@@ -307,9 +307,9 @@ public class MiniMessageUtils
                 .resolver(getNatureRealResolver(CobblemonUtils.getPokemonNatureName(realNature), isClosedSheet))
                 .resolver(getNatureEffectiveResolver(CobblemonUtils.getPokemonNatureName(effectiveNature), isClosedSheet))
                 .resolver(getCustomNatureRealStatsResolver(realNature, isClosedSheet))
-                .resolvers(getCustomNatureRealStatsResolver(realNature, isClosedSheet))
+                .resolvers(getCustomNatureRealStatsResolvers(realNature, isClosedSheet))
                 .resolver(getCustomNatureEffectiveStatsResolver(effectiveNature, isClosedSheet))
-                .resolvers(getCustomNatureEffectiveStatsResolver(effectiveNature, isClosedSheet))
+                .resolvers(getCustomNatureEffectiveStatsResolvers(effectiveNature, isClosedSheet))
                 .resolver(getCustomMintnessResolver(CobblemonUtils.isMinted(realNature, effectiveNature), isClosedSheet))
                 .resolver(getLevelResolver(String.valueOf(level)))
                 .resolver(getCustomExperienceResolver(level, currentExperience, RemainingExperience))
@@ -1390,7 +1390,7 @@ public class MiniMessageUtils
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE1_TEMPLATE_TAG_STRING,
-            moves.size() > 0 ? moves.get(0).getDisplayName().toString() : ""
+            moves.size() > 0 ? moves.get(0).getDisplayName().getString() : ""
         );
     }
 
@@ -1468,7 +1468,14 @@ public class MiniMessageUtils
             );
         }
 
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getMoveCustomPPTemplate());
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getMoveCustomPPTemplate().replace
+            (
+                ChatMiniMessage.MOVE_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.MOVE1_TEMPLATE_TAG_STRING
+            )
+        );
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -1510,7 +1517,7 @@ public class MiniMessageUtils
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE2_TEMPLATE_TAG_STRING,
-            moves.size() > 1 ? moves.get(1).getDisplayName().toString() : ""
+            moves.size() > 1 ? moves.get(1).getDisplayName().getString() : ""
         );
     }
 
@@ -1588,7 +1595,14 @@ public class MiniMessageUtils
             );
         }
 
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getMoveCustomPPTemplate());
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getMoveCustomPPTemplate().replace
+            (
+                ChatMiniMessage.MOVE_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.MOVE2_TEMPLATE_TAG_STRING
+            )
+        );
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -1630,7 +1644,7 @@ public class MiniMessageUtils
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE3_TEMPLATE_TAG_STRING,
-            moves.size() > 2 ? moves.get(2).getDisplayName().toString() : ""
+            moves.size() > 2 ? moves.get(2).getDisplayName().getString() : ""
         );
     }
 
@@ -1708,7 +1722,14 @@ public class MiniMessageUtils
             );
         }
 
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getMoveCustomPPTemplate());
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getMoveCustomPPTemplate().replace
+            (
+                ChatMiniMessage.MOVE_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.MOVE3_TEMPLATE_TAG_STRING
+            )
+        );
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -1750,7 +1771,7 @@ public class MiniMessageUtils
         return Placeholder.unparsed
         (
             ChatMiniMessage.MOVE4_TEMPLATE_TAG_STRING,
-            moves.size() > 3 ? moves.get(3).getDisplayName().toString() : ""
+            moves.size() > 3 ? moves.get(3).getDisplayName().getString() : ""
         );
     }
 
@@ -1828,7 +1849,14 @@ public class MiniMessageUtils
             );
         }
 
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getMoveCustomPPTemplate());
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getMoveCustomPPTemplate().replace
+            (
+                ChatMiniMessage.MOVE_TEMPLATE_TAG_STRING,
+                ChatMiniMessage.MOVE4_TEMPLATE_TAG_STRING
+            )
+        );
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -1873,14 +1901,35 @@ public class MiniMessageUtils
 
         for (int i = 0; i < moves.size(); i++)
         {
-            String moveTemplate = resolveCustomMoveColor(newTemplate, moves.get(i));
+            String moveTemplate = (resolveCustomMoveColor(newTemplate, moves.get(i)) + (i < moves.size() - 1 ? "<newline>" : "")).replace
+            (
+                ChatMiniMessage.MOVE_TEMPLATE_TAG_STRING,
+                "%s%s".formatted(ChatMiniMessage.MOVE_TEMPLATE_TAG_STRING, String.valueOf(i + 1))
+            );
 
             Component moveComponent = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
             (
-                moveTemplate + (i < moves.size() - 1 ? "<newline>" : ""),
+                i == 0 ? resolveMove1Color(moveTemplate, moves)
+                    : i == 1
+                    ? resolveMove2Color(moveTemplate, moves)
+                        : i == 2
+                        ? resolveMove3Color(moveTemplate, moves)
+                            : resolveMove4Color(moveTemplate, moves),
                 TagResolver.builder()
                     .resolver(getMoveResolver(moves.get(i), isClosedSheet))
                     .resolver(getMoveCustomPPResolver(moves.get(i), isClosedSheet))
+                    .resolvers(getMove1Resolver(moves, isClosedSheet))
+                    .resolvers(getMove1CustomPPResolver(moves, isClosedSheet))
+                    .resolvers(getMove1CustomPPResolvers(moves, isClosedSheet))
+                    .resolvers(getMove2Resolver(moves, isClosedSheet))
+                    .resolvers(getMove2CustomPPResolver(moves, isClosedSheet))
+                    .resolvers(getMove2CustomPPResolvers(moves, isClosedSheet))
+                    .resolvers(getMove3Resolver(moves, isClosedSheet))
+                    .resolvers(getMove3CustomPPResolver(moves, isClosedSheet))
+                    .resolvers(getMove3CustomPPResolvers(moves, isClosedSheet))
+                    .resolvers(getMove4Resolver(moves, isClosedSheet))
+                    .resolvers(getMove4CustomPPResolver(moves, isClosedSheet))
+                    .resolvers(getMove4CustomPPResolvers(moves, isClosedSheet))
                     .build()
             );
 

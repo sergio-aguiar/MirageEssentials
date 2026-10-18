@@ -9,6 +9,7 @@ import com.sergioaguiar.mirageessentials.config.antiafk.strings.AntiAFKStringsCo
 import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspectsConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColorsConfig;
+import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessagePokemonConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettingsConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.sizes.ChatSizesConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStringsConfig;
@@ -144,7 +145,7 @@ public class ReloadCommand
 
             try
             {
-                GUITexturesConfig.load();
+                ChatMiniMessagePokemonConfig.load();
                 context.getSource().sendFeedback(() -> buildReloadFeedbackMessage("Reloaded MiniMessage Pokemon configuration."), true);
                 ModLogger.info("MiniMessage Pokemon configuration reloaded successfully.");
             }

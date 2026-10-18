@@ -837,9 +837,6 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # <move> - The pokémon's move.
                 # <movecolor> - The color of the pokemon's move.
-                # <moveusedpp> - The amount of used PP for the pokémon's move.
-                # <moveremainingpp> - The amount of remaining PP for the pokémon's move.
-                # <movetotalpp> - The amount of total PP for the pokémon's move.
                 # <movecustompp> - The pokémon's move's PP information, using the configured <movecustompp> template.
                 %s = \"\"\"
                 %s\"\"\"

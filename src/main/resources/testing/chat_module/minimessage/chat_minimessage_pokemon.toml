@@ -1,0 +1,559 @@
+# MirageEssentials - Chat MiniMessage Configuration - Pokémon
+# This is an alternative to chat_strings.toml.
+# Setting useMiniMessage in chat_settings.toml must be enabled.
+
+[PokeInfo]
+# Here you can configure the default Pokémon template set.
+# Used for general pokemon info chat hoverables and GUI item lores (such as the /partycheck command).
+# You can use the following replacement templates:
+# <name> - The pokémon's nickname.
+# <title> - The pokémon's ribbon/mark title.
+# <titlecolor> - The pokémon's title's color.
+# <customname> - The pokémon's name, using the configured template (hidden in partychecks, used as the item name instead).
+# <gender> - The pokémon's gender.
+# <caughtball> - The pokémon's caught ball.
+# <currenthealth> - The pokémon's current health points.
+# <maxhealth> - The pokémon's maximum health points.
+# <status> - The pokémon's current status effect or fainted status.
+# <customstatus> - The pokémon's current status condition, using the configured template (not shown is healthy).
+# <customcondition> - The pokémon's condition, using the configured template.
+# <type1> - The pokémon's first type.
+# <type1color> - The pokémon's first type's color.
+# <type2> - The pokémon's second type (or first again, if monotype).
+# <type2color> - The pokémon's second type's color (or first again, if monotype).
+# <teratype> - The pokémon's tera type.
+# <teratypecolor> - The pokémon's tera type's color.
+# <customtypes> - The pokémon's types, using the configured templates (CustomTypesMonotype and CustomTypesDuotype).
+# <species> - The pokémon's species.
+# <customshininess> - The pokémon's shininess indicator, using the configured template (not shown if not shiny).
+# <customalphaness> - The pokémon's alphaness indicator, using the configured template (not shown if not alpha).
+# <form> - The pokémon's base Cobblemon form (can appear as Normal).
+# <formsexpanded> - The pokémon's form, expanded to account for some additional aspects.
+# <formsfullyexpanded> - The pokémon's forms, expanded, also including custom configured aspects.
+# <customspecies> - The pokémon's custom species info, using the configured template.
+# <helditem> - The pokémon's held item, ignoring custom name (or None if empty).
+# <helditemcustomname> - The pokémon's held item, including custom name (or None if empty).
+# <customhelditem> - The pokémon's held item, using the configured template (not shown if empty).
+# <cosmeticitem> - The pokémon's cosmetic item, ignoring custom name (or None if empty).
+# <cosmeticitemcustomname> - The pokémon's cosmetic item, including custom name (or None if empty).
+# <customcosmeticitem> - The pokémon's cosmetic item, using the configured template (not shown if empty).
+# <ability> - The pokémon's ability.
+# <customhiddenability> - Whether the pokémon's ability is hidden ability or not, using the configured template (not shown if not hidden ability).
+# <naturereal> - The pokémon's base nature.
+# <naturerealstatup> - The pokémon's real nature's increased stat.
+# <naturerealstatdown> - The pokémon's real nature's decreased stat.
+# <natureeffective> - The pokémon's effective nature (real or minted).
+# <natureeffectivestatup> - The pokémon's effective nature's increased stat.
+# <natureeffectivestatdown> - The pokémon's effective nature's decreased stat.
+# <customnaturerealstats> - The pokémon's real nature's increased and decreased stats, using the configured template (not shown if neutral nature).
+# <customnatureeffectivestats> - The pokémon's effective nature's increased and decreased stats, using the configured template (not shown if neutral nature).
+# <custommintness> - Whether the pokémon was minted or not, using the configured template (not shown if not minted).
+# <level> - The pokémon's level.
+# <currentexperience> - The pokémon's current experience.
+# <requiredexperience> - The pokémon's next level's experience requirement.
+# <remainingexperience> - The pokémon's remaining experience for a level-up.
+# <customexperience> - The pokémon's experience information, using the configured template (not shown if max level).
+# <friendship> - The pokémon's friendship value.
+# <move1> - The pokémon's move in slot 1 (empty if no move).
+# <move1color> - The color of the pokemon's move in slot 1 (#FFFFFF if no move).
+# <move1usedpp> - The amount of used PP for the pokémon's move in slot 1 (0 if no move).
+# <move1remainingpp> - The amount of remaining PP for the pokémon's move in slot 1 (0 if no move).
+# <move1totalpp> - The amount of total PP for the pokémon's move in slot 1 (0 if no move).
+# <move1custompp> - The pokémon's move in slot 1's PP information, using the configured template (not shown if no move).
+# <move2> - The pokémon's move in slot 2 (empty if no move).
+# <move2color> - The color of the pokemon's move in slot 2 (#FFFFFF if no move).
+# <move2usedpp> - The amount of used PP for the pokémon's move in slot 2 (0 if no move).
+# <move2remainingpp> - The amount of remaining PP for the pokémon's move in slot 2 (0 if no move).
+# <move2totalpp> - The amount of total PP for the pokémon's move in slot 2 (0 if no move).
+# <move2custompp> - The pokémon's move in slot 2's PP information, using the configured template (not shown if no move).
+# <move3> - The pokémon's move in slot 3 (empty if no move).
+# <move3color> - The color of the pokemon's move in slot 3 (#FFFFFF if no move).
+# <move3usedpp> - The amount of used PP for the pokémon's move in slot 3 (0 if no move).
+# <move3remainingpp> - The amount of remaining PP for the pokémon's move in slot 3 (0 if no move).
+# <move3totalpp> - The amount of total PP for the pokémon's move in slot 3 (0 if no move).
+# <move3custompp> - The pokémon's move in slot 3's PP information, using the configured template (not shown if no move).
+# <move4> - The pokémon's move in slot 4 (empty if no move).
+# <move4color> - The color of the pokemon's move in slot 4 (#FFFFFF if no move).
+# <move4usedpp> - The amount of used PP for the pokémon's move in slot 4 (0 if no move).
+# <move4remainingpp> - The amount of remaining PP for the pokémon's move in slot 4 (0 if no move).
+# <move4totalpp> - The amount of total PP for the pokémon's move in slot 4 (0 if no move).
+# <move4custompp> - The pokémon's move in slot 4's PP information, using the configured template (not shown if no move).
+# <custommoves> - The pokémon's moves, using the configured template (one customMove template used per existing move).
+# <realivtotal> - The pokémon's total base IVs.
+# <effectiveivtotal> - The pokémon's total effective IVs (counts hypertraining).
+# <realivpercentage> - The percentage (2 decimals) that corresponds to the pokémon's total base IVs out of 186.
+# <effectiveivpercentage> - The percentage (2 decimals) that corresponds to the pokémon's total effective IVs out of 186.
+# <customrealivpercentage> - The pokémon's real IV percentage information, using the configured template.
+# <customeffectiveivpercentage> - The pokémon's effective IV percentage information, using the configured template.
+# <customgeneralivs> - The pokémon's general IV information, using the configured template.
+# <realhpivs> - The pokémon's real Hp IV value (0 to 31).
+# <effectivehpivs> - The pokémon's effective Hp IV value (0 to 31, counts hypertraining).
+# <hpcolor> - The Hp stat color.
+# <customeffectivehpivs> - The pokémon's effective Hp IV value, using the configured template (not shown if not hypertrained).
+# <customhpivs> - The pokémon's Hp IV information, using the configured template.
+# <realatkivs> - The pokémon's real Atk IV value (0 to 31).
+# <effectiveatkivs> - The pokémon's effective Atk IV value (0 to 31, counts hypertraining).
+# <atkcolor> - The Atk stat color.
+# <customeffectiveatkivs> - The pokémon's effective Atk IV value, using the configured template (not shown if not hypertrained).
+# <customatkivs> - The pokémon's Atk IV information, using the configured template.
+# <realdefivs> - The pokémon's real Def IV value (0 to 31).
+# <effectivedefivs> - The pokémon's effective Def IV value (0 to 31, counts hypertraining).
+# <defcolor> - The Def stat color.
+# <customeffectivedefivs> - The pokémon's effective Def IV value, using the configured template (not shown if not hypertrained).
+# <customdefivs> - The pokémon's Def IV information, using the configured template.
+# <realspaivs> - The pokémon's real Spa IV value (0 to 31).
+# <effectivespaivs> - The pokémon's effective Spa IV value (0 to 31, counts hypertraining).
+# <spacolor> - The Spa stat color.
+# <customeffectivespaivs> - The pokémon's effective Spa IV value, using the configured template (not shown if not hypertrained).
+# <customspaivs> - The pokémon's Spa IV information, using the configured template.
+# <realspdivs> - The pokémon's real Spd IV value (0 to 31).
+# <effectivespdivs> - The pokémon's effective Spd IV value (0 to 31, counts hypertraining).
+# <spdcolor> - The Spd stat color.
+# <customeffectivespdivs> - The pokémon's effective Spd IV value, using the configured template (not shown if not hypertrained).
+# <customspdivs> - The pokémon's Spd IV information, using the configured template.
+# <realspeivs> - The pokémon's real Spe IV value (0 to 31).
+# <effectivespeivs> - The pokémon's effective Spe IV value (0 to 31, counts hypertraining).
+# <specolor> - The Spe stat color.
+# <customeffectivespeivs> - The pokémon's effective Spe IV value, using the configured template (not shown if not hypertrained).
+# <customspeivs> - The pokémon's Spe IV information, using the configured template.
+# <evtotal> - The pokémon's total EVs.
+# <evpercentage> - The percentage (2 decimals) that corresponds to the pokémon's total EVs out of 510.
+# <customevpercentage> - The pokémon's EV percentage information, using the configured template.
+# <customgeneralevs> - The pokémon's general EV information, using the configured template.
+# <hpevs> - The pokémon's Hp EV value (0 to 255).
+# <customhpevs> - The pokémon's Hp EV information, using the configured template.
+# <atkevs> - The pokémon's Atk EV value (0 to 255).
+# <customatkevs> - The pokémon's Atk EV information, using the configured template.
+# <defevs> - The pokémon's Def EV value (0 to 255).
+# <customdefevs> - The pokémon's Def EV information, using the configured template.
+# <spaevs> - The pokémon's Spa EV value (0 to 255).
+# <customspaevs> - The pokémon's Spa EV information, using the configured template.
+# <spdevs> - The pokémon's Spd EV value (0 to 255).
+# <customspdevs> - The pokémon's Spd EV information, using the configured template.
+# <speevs> - The pokémon's Spe EV value (0 to 255).
+# <customspeevs> - The pokémon's Spe EV information, using the configured template.
+# <size> - The pokémon's size's name.
+# <scalemodifier> - The pokémon's scale modifier (2 decimals).
+# <scalemodifier100> - The pokémon's scale modifier (multiplied by 100, no decimals).
+# <egggroups> - The pokémon's egg groups, following the configured template.
+# <neutered> - The pokémon's neuter state, following the configured <true> and <false> templates.
+# <customneutered> - The pokémon's neuter state, following the configured template (not shown if not neutered).
+# <originaltrainername> - The pokémon's original trainer's username (or UUID).
+# <hidden> - This displays the configured hidden template if closed sheet was used, nothing otherwise.
+PokemonInfo = """
+[name <name>] [title <title>] [gender <gender>]
+[customname <customname>]
+[currenthealth <currenthealth>] [maxhealth <maxhealth>] [caughtball <caughtball>]
+[status <status>] [customstatus <customstatus>] [customcondition <customcondition>]
+[type1 <type1>] [type2 <type2>] [teratype <teratype>] [customtypes <customtypes>]
+[species <species>] [customshininess <customshininess>] [customalphaness <customalphaness>]
+[form <form>] [formsexpanded <formsexpanded>] [formsfullyexpanded <formsfullyexpanded>]
+[customspecies <customspecies>] [helditem <helditem>] [customhelditem <customhelditem>]
+[cosmeticitem <cosmeticitem>] [customcosmeticitem <customcosmeticitem>]
+[ability <ability>] [customhiddenability <customhiddenability>] [naturereal <naturereal>]
+[natureeffective <natureeffective>] [naturerealstatup <naturerealstatup>] [naturerealstatdown <naturerealstatdown>]
+[natureeffectivestatup <natureeffectivestatup>] [natureeffectivestatdown <natureeffectivestatdown>] 
+[customnaturerealstats <customnaturerealstats>] [customnatureeffectivestats <customnatureeffectivestats>]
+[custommintness <custommintness>] [level <level>] [currentexperience <currentexperience>]
+[requiredexperience <requiredexperience>] [remainingexperience <remainingexperience>] [friendship <friendship>]
+[move1 <move1>] [move1remainingpp <move1remainingpp>] [move1totalpp <move1totalpp>]
+[move1usedpp <move1usedpp>] [move1custompp <move1custompp>]
+[move2 <move2>] [move2remainingpp <move2remainingpp>] [move2totalpp <move2totalpp>]
+[move2usedpp <move2usedpp>] [move2custompp <move2custompp>]
+[move3 <move3>] [move3remainingpp <move3remainingpp>] [move3totalpp <move3totalpp>]
+[move3usedpp <move3usedpp>] [move3custompp <move3custompp>]
+[move4 <move4>] [move4remainingpp <move4remainingpp>] [move4totalpp <move4totalpp>]
+[move4usedpp <move4usedpp>] [move4custompp <move4custompp>]
+[custommoves <custommoves>]
+[realivtotal <realivtotal>] [realivpercentage <realivpercentage>]
+[customrealivpercentage <customrealivpercentage>] [customeffectiveivpercentage <customeffectiveivpercentage>] [customgeneralivs <customgeneralivs>]
+[realhpivs <realhpivs>] [realatkivs <realatkivs>] [realdefivs <realdefivs>]
+[realspaivs <realspaivs>] [realspdivs <realspdivs>] [realspeivs <realspeivs>]
+[customeffectivehpivs <customeffectivehpivs>] [customeffectiveatkivs <customeffectiveatkivs>]
+[customeffectivedefivs <customeffectivedefivs>] [customeffectivespaivs <customeffectivespaivs>]
+[customeffectivespdivs <customeffectivespdivs>] [customeffectivespeivs <customeffectivespeivs>]
+[effectiveivtotal <effectiveivtotal>] [effectiveivpercentage <effectiveivpercentage>]
+[effectivehpivs <effectivehpivs>] [effectiveatkivs <effectiveatkivs>] [effectivedefivs <effectivedefivs>]
+[effectivespaivs <effectivespaivs>] [effectivespdivs <effectivespdivs>] [effectivespeivs <effectivespeivs>]
+[evtotal <evtotal>] [evpercentage <evpercentage>] [customevpercentage <customevpercentage>]
+[hpevs <hpevs>] [atkevs <atkevs>] [defevs <defevs>] [spaevs <spaevs>] [spdevs <spdevs>] [speevs <speevs>]
+[customhpevs <customhpevs>] [customatkevs <customatkevs>] [customdefevs <customdefevs>]
+[customspaevs <customspaevs>] [customspdevs <customspdevs>] [customspeevs <customspeevs>]
+[size <size>] [scalemodifier <scalemodifier>] [scalemodifier100 <scalemodifier100>]
+[egggroups <egggroups>] [neutered <neutered>] [customneutered <customneutered>]
+[originaltrainername <originaltrainername>] [hidden <hidden>]
+"""
+
+# Used to display a Pokémon's name and title.
+# If used in a partycheck command, it will not be shown in the item lore, being instead shown in the item name.
+# You can use the following replacement templates:
+# <name> - The pokémon's nickname.
+# <title> - The pokémon's ribbon/mark title.
+# <titlecolor> - The pokémon's title's color.
+# <type1color> - The pokémon's first type's color.
+# <type2color> - The pokémon's second type's color.
+CustomName = """
+[name <name>] [title <title>]"""
+
+# Used to display a Pokémon's current status condition or fainted status.
+# If the pokémon is healthy (status-wise) then this template is not shown (treated as empty).
+# You can use the following replacement templates:
+# <status> - The pokémon's current status effect or fainted status.
+CustomStatus = """
+[status <status>]"""
+
+# Used to display a Pokémon's general condition information.
+# <currenthealth> - The pokémon's current health points.
+# <maxhealth> - The pokémon's maximum health points.
+# <status> - The pokémon's current status effect or fainted status.
+# <customstatus> - The pokémon's current status condition, using the configured template (not shown is healthy).
+CustomCondition = """
+[currenthealth <currenthealth>] [maxhealth <maxhealth>] [status <status>] [customstatus <customstatus>]"""
+
+# Used to display a Pokémon's types
+# This template is used by <customtypes> when the pokémon only has 1 type.
+# You can use the following replacement templates:
+# <type1> - The pokémon's first type.
+# <type1color> - The pokémon's first type's color.
+# <teratype> - The pokémon's tera type.
+# <teratypecolor> - The pokémon's tera type's color.
+CustomTypesMonotype = """
+[type1 <type1>] [teratype <teratype>]"""
+
+# Used to display a Pokémon's types.
+# This template is used by <customtypes> when the pokémon has 2 types.
+# You can use the following replacement templates:
+# <type1> - The pokémon's first type.
+# <type1color> - The pokémon's first type's color.
+# <type2> - The pokémon's second type.
+# <type2color> - The pokémon's second type's color.
+# <teratype> - The pokémon's tera type.
+# <teratypecolor> - The pokémon's tera type's color.
+CustomTypesDuotype = """
+[type1 <type1>] [type2 <type2>] [teratype <teratype>]"""
+
+# Used as the pokémon's shininess indicator.
+# If the pokémon is not shiny then this template is not shown (treated as empty).
+CustomShininess = """
+<color:<shinycolor>> ★</color>"""
+
+# Used as the pokémon's alphaness indicator.
+# If the pokémon is not an alpha then this template is not shown (treated as empty).
+CustomAlphaness = """
+<color:<alphacolor>> α</color>"""
+
+# Used to display a Pokémon's forms.
+# Shows base form and aspect-related forms, including specified custom ones.
+# This template will be used in <formsexpanded> and <formsfullyexpanded> once per available form, in a row, with a space between each.
+# You can use the following replacement templates:
+# <form> - One of the pokémon's forms or form-impacting aspects.
+CustomForm = """
+[form <form>]"""
+
+# Used to display a pokémon's species information.
+# You can use the following replacement templates:
+# <species> - The pokémon's species.
+# <customshininess> - The pokémon's shininess indicator, using the configured template (not shown if not shiny).
+# <customalphaness> - The pokémon's alphaness indicator, using the configured template (not shown if not alpha).
+# <form> - The pokémon's base Cobblemon form (can appear as Normal).
+# <formsexpanded> - The pokémon's form, expanded to account for some additional aspects.
+# <formsfullyexpanded> - The pokémon's forms, expanded, also including custom configured aspects.
+CustomSpecies = """
+[species <species>] [customshininess <customshininess>] [customalphaness <customalphaness>] [form <form>] [formsexpanded <formsexpanded>] [formsfullyexpanded <formsfullyexpanded>]"""
+
+# Used to display a Pokémon's held item.
+# If the pokémon's held item slot is empty then this template is not shown (treated as empty).
+# You can use the following replacement templates:
+# <helditem> - The pokémon's held item, ignoring custom name (or None if empty).
+# <helditemcustomname> - The pokémon's held item, including custom name (or None if empty).
+CustomHeldItem = """
+[helditem <helditem>] [helditemcustomname <helditemcustomname>]"""
+
+# Used to display a Pokémon's cosmetic item.
+# If the pokémon's cosmetic item slot is empty then this template is not shown (treated as empty).
+# You can use the following replacement templates:
+# <cosmeticitem> - The pokémon's cosmetic item, ignoring custom name (or None if empty).
+# <cosmeticitemcustomname> - The pokémon's cosmetic item, including custom name (or None if empty).
+CustomCosmeticItem = """
+[cosmeticitem <cosmeticitem>] [cosmeticitemcustomname <cosmeticitemcustomname>]"""
+
+# Used to display that a pokémon's ability is a hidden ability.
+# If the pokémon's ability is not a hidden ability then this template is not shown (treated as empty).
+CustomHiddenAbility = """
+<color:<labelcolor>>(</color><color:<hacolor>>HA</color><color:<labelcolor>>)</color>"""
+
+# Used to display the pokémon's real nature's increased and decreased stats.
+# If a pokémon's nature is neutral then this template will not be shown (treated as empty).
+# You can use the following replacement templates:
+# <naturerealstatup> - The pokémon's real nature's increased stat.
+# <naturerealstatdown> - The pokémon's real nature's decreased stat.
+CustomNatureRealStats = """
+[naturerealstatup <naturerealstatup>] [naturerealstatdown <naturerealstatdown>]"""
+
+# Used to display the pokémon's effective nature's increased and decreased stats.
+# If a pokémon's nature is neutral then this template will not be shown (treated as empty).
+# You can use the following replacement templates:
+# <natureeffectivestatup> - The pokémon's effective nature's increased stat.
+# <natureeffectivestatdown> - The pokémon's effective nature's decreased stat.
+CustomNatureEffectiveStats = """
+[natureeffectivestatup <natureeffectivestatup>] [natureeffectivestatdown <natureeffectivestatdown>]"""
+
+# Used to display whether the pokémon has been minted or not (nature was hypertrained).
+# If a pokémon's nature has been hypertrained then this template will not be shown (treated as empty).
+CustomMintness = """
+<color:<labelcolor>> (Minted)</color>"""
+
+# Used to display the pokémon's experience information.
+# If a pokémon is already max level then this template will not be shown (treated as empty).
+# You can use the following replacement templates:
+# <currentexperience> - The pokémon's current experience.
+# <requiredexperience> - The pokémon's next level's experience requirement.
+# <remainingexperience> - The pokémon's remaining experience for a level-up.
+CustomExperience = """
+[currentexperience <currentexperience>] [requiredexperience <requiredexperience>] [remainingexperience <remainingexperience>]"""
+
+# Used to display the pokémon's PP information.
+# This is meant to be used in the <custommove> template to be used for every move.
+# You can use the following replacement templates:
+# <moveusedpp> - The amount of used PP for the pokémon's move.
+# <moveremainingpp> - The amount of remaining PP for the pokémon's move.
+# <movetotalpp> - The amount of total PP for the pokémon's move.
+MoveCustomPP = """
+[moveusedpp <moveusedpp>] [moveremainingpp <moveremainingpp>] [movetotalpp <movetotalpp>]"""
+
+# Used to display the pokémon's move information.
+# This is used by each move that gets displayed in <custommoves>.
+# You can use the following replacement templates:
+# <move> - The pokémon's move.
+# <movecolor> - The color of the pokemon's move.
+# <movecustompp> - The pokémon's move's PP information, using the configured <movecustompp> template.
+CustomMove = """
+<color:<movecolor>>[move <move>] [moveusedpp <moveusedpp>] [moveremainingpp <moveremainingpp>] [movetotalpp <movetotalpp>] [movecustompp <movecustompp>]</color>"""
+
+# The percentage (2 decimals) that corresponds to the pokémon's total base IVs out of 186.
+# You can use the following replacement templates:
+# <realivtotal> - The pokémon's total base IVs.
+# <realivpercentage> - The percentage (2 decimals) that corresponds to the pokémon's total base IVs out of 186.
+CustomRealIVPercentage = """
+[realivtotal <realivtotal>] [realivpercentage <realivpercentage>]"""
+
+# The percentage (2 decimals) that corresponds to the pokémon's total effective IVs out of 186.
+# You can use the following replacement templates:
+# <effectiveivtotal> - The pokémon's total effective IVs (counts hypertraining).
+# <effectiveivpercentage> - The percentage (2 decimals) that corresponds to the pokémon's total effective IVs out of 186.
+CustomEffectiveIVPercentage = """
+[effectiveivtotal <effectiveivtotal>] [effectiveivpercentage <effectiveivpercentage>]"""
+
+# The pokémon's general IV information.
+# You can use the following replacement templates:
+# <realivtotal> - The pokémon's total base IVs.
+# <effectiveivtotal> - The pokémon's total effective IVs (counts hypertraining).
+# <realivpercentage> - The percentage (2 decimals) that corresponds to the pokémon's total base IVs out of 186.
+# <effectiveivpercentage> - The percentage (2 decimals) that corresponds to the pokémon's total effective IVs out of 186.
+# <customrealivpercentage> - The pokémon's real IV percentage information, using the configured template.
+# <customeffectiveivpercentage> - The pokémon's effective IV percentage information, using the configured template.
+CustomGeneralIVs = """
+[realivtotal <realivtotal>] [effectiveivtotal <effectiveivtotal>] [realivpercentage <realivpercentage>] [effectiveivpercentage <effectiveivpercentage>] [customrealivpercentage <customrealivpercentage>] [customeffectiveivpercentage <customeffectiveivpercentage>]"""
+
+# The pokémon's effective Hp IV value, using the configured template.
+# If the pokémon's Hp IV has not been hypertrained then this template is not shown (treated as empty).
+# You can use the following replacement templates:
+# <effectivehpivs> - The pokémon's total effective IVs (counts hypertraining).
+# <hpcolor> - The Hp stat color.
+CustomEffectiveHpIVs = """
+[effectivehpivs <effectivehpivs>]"""
+
+# The pokémon's Hp IV information.
+# You can use the following replacement templates:
+# <realhpivs> - The pokémon's real Hp IV value (0 to 31).
+# <effectivehpivs> - The pokémon's effective Hp IV value (0 to 31, counts hypertraining).
+# <hpcolor> - The Hp stat color.
+# <customeffectivehpivs> - The pokémon's effective Hp IV value, using the configured template (not shown if not hypertrained).
+CustomHpIVs = """
+[realhpivs <realhpivs>] [effectivehpivs <effectivehpivs>] [customeffectivehpivs <customeffectivehpivs>]"""
+
+# The pokémon's effective Atk IV value, using the configured template.
+# If the pokémon's Atk IV has not been hypertrained then this template is not shown (treated as empty).
+# You can use the following replacement templates:
+# <effectiveatkivs> - The pokémon's total effective IVs (counts hypertraining).
+# <atkcolor> - The Atk stat color.
+CustomEffectiveAtkIVs = """
+[effectiveatkivs <effectiveatkivs>]"""
+
+# The pokémon's Atk IV information.
+# You can use the following replacement templates:
+# <realatkivs> - The pokémon's real Atk IV value (0 to 31).
+# <effectiveatkivs> - The pokémon's effective Atk IV value (0 to 31, counts hypertraining).
+# <atkcolor> - The Atk stat color.
+# <> - The pokémon's effective Atk IV value, using the configured template (not shown if not hypertrained).
+CustomAtkIVs = """
+[realatkivs <realatkivs>] [effectiveatkivs <effectiveatkivs>] [customeffectiveatkivs <customeffectiveatkivs>]"""
+
+# The pokémon's effective Def IV value, using the configured template.
+# If the pokémon's Def IV has not been hypertrained then this template is not shown (treated as empty).
+# You can use the following replacement templates:
+# <effectivedefivs> - The pokémon's total effective IVs (counts hypertraining).
+# <defcolor> - The Def stat color.
+CustomEffectiveDefIVs = """
+[effectivedefivs <effectivedefivs>]"""
+
+# The pokémon's Def IV information.
+# You can use the following replacement templates:
+# <realdefivs> - The pokémon's real Def IV value (0 to 31).
+# <effectivedefivs> - The pokémon's effective Def IV value (0 to 31, counts hypertraining).
+# <defcolor> - The Def stat color.
+# <customeffectivedefivs> - The pokémon's effective Def IV value, using the configured template (not shown if not hypertrained).
+CustomdefIVs = """
+[realdefivs <realdefivs>] [effectivedefivs <effectivedefivs>] [customeffectivedefivs <customeffectivedefivs>]"""
+
+# The pokémon's effective Spa IV value, using the configured template.
+# If the pokémon's Spa IV has not been hypertrained then this template is not shown (treated as empty).
+# You can use the following replacement templates:
+# <effectivespaivs> - The pokémon's total effective IVs (counts hypertraining).
+# <spacolor> - The Spa stat color.
+CustomEffectiveSpaIVs = """
+[effectivespaivs <effectivespaivs>]"""
+
+# The pokémon's Spa IV information.
+# You can use the following replacement templates:
+# <realspaivs> - The pokémon's real Spa IV value (0 to 31).
+# <effectivespaivs> - The pokémon's effective Spa IV value (0 to 31, counts hypertraining).
+# <spacolor> - The Spa stat color.
+# <customeffectivespaivs> - The pokémon's effective Spa IV value, using the configured template (not shown if not hypertrained).
+CustomspaIVs = """
+[realspaivs <realspaivs>] [effectivespaivs <effectivespaivs>] [customeffectivespaivs <customeffectivespaivs>]"""
+
+# The pokémon's effective Spd IV value, using the configured template.
+# If the pokémon's Spd IV has not been hypertrained then this template is not shown (treated as empty).
+# You can use the following replacement templates:
+# <effectivespdivs> - The pokémon's total effective IVs (counts hypertraining).
+# <spdcolor> - The Spd stat color.
+CustomEffectiveSpdIVs = """
+[effectivespdivs <effectivespdivs>]"""
+
+# The pokémon's Spd IV information.
+# You can use the following replacement templates:
+# <realspdivs> - The pokémon's real Spd IV value (0 to 31).
+# <effectivespdivs> - The pokémon's effective Spd IV value (0 to 31, counts hypertraining).
+# <spdcolor> - The Spd stat color.
+# <customeffectivespdivs> - The pokémon's effective Spd IV value, using the configured template (not shown if not hypertrained).
+CustomspdIVs = """
+[realspdivs <realspdivs>] [effectivespdivs <effectivespdivs>] [customeffectivespdivs <customeffectivespdivs>]"""
+
+# The pokémon's effective Spe IV value, using the configured template.
+# If the pokémon's Spe IV has not been hypertrained then this template is not shown (treated as empty).
+# You can use the following replacement templates:
+# <effectivespeivs> - The pokémon's total effective IVs (counts hypertraining).
+# <specolor> - The Spe stat color.
+CustomEffectiveSpeIVs = """
+[effectivespeivs <effectivespeivs>]"""
+
+# The pokémon's Spe IV information.
+# You can use the following replacement templates:
+# <realspeivs> - The pokémon's real Spe IV value (0 to 31).
+# <effectivespeivs> - The pokémon's effective Spe IV value (0 to 31, counts hypertraining).
+# <specolor> - The Spe stat color.
+# <customeffectivespeivs> - The pokémon's effective Spe IV value, using the configured template (not shown if not hypertrained).
+CustomspeIVs = """
+[realspeivs <realspeivs>] [effectivespeivs <effectivespeivs>] [customeffectivespeivs <customeffectivespeivs>]"""
+
+# The percentage (2 decimals) that corresponds to the pokémon's total EVs out of 510.
+# You can use the following replacement templates:
+# <evtotal> - The pokémon's total EVs.
+# <evpercentage> - The percentage (2 decimals) that corresponds to the pokémon's total EVs out of 510.
+CustomEVPercentage = """
+[evtotal <evtotal>] [evpercentage <evpercentage>]"""
+
+# The pokémon's general EV information.
+# You can use the following replacement templates:
+# <evtotal> - The pokémon's total EVs.
+# <evpercentage> - The percentage (2 decimals) that corresponds to the pokémon's total EVs out of 510.
+# <customevpercentage> - The pokémon's EV percentage information, using the configured template.
+CustomGeneralEVs = """
+[evtotal <evtotal>] [evpercentage <evpercentage>] [customevpercentage <customevpercentage>]"""
+
+# The pokémon's Hp EV information.
+# You can use the following replacement templates:
+# <hpevs> - The pokémon's Hp EV value (0 to 255).
+# <hpcolor> - The Hp stat color.
+CustomHpEVs = """
+[hpevs <hpevs>]"""
+
+# The pokémon's Atk EV information.
+# You can use the following replacement templates:
+# <atkevs> - The pokémon's Atk EV value (0 to 255).
+# <atkcolor> - The Atk stat color.
+CustomAtkEVs = """
+[atkevs <atkevs>]"""
+
+# The pokémon's Def EV information.
+# You can use the following replacement templates:
+# <defevs> - The pokémon's Def EV value (0 to 255).
+# <defcolor> - The Def stat color.
+CustomDefEVs = """
+[defevs <defevs>]"""
+
+# The pokémon's Spa EV information.
+# You can use the following replacement templates:
+# <spaevs> - The pokémon's Spa EV value (0 to 255).
+# <spacolor> - The Spa stat color.
+CustomSpaEVs = """
+[spaevs <spaevs>]"""
+
+# The pokémon's Spd EV information.
+# You can use the following replacement templates:
+# <spdevs> - The pokémon's Spd EV value (0 to 255).
+# <spdcolor> - The Spd stat color.
+CustomSpdEVs = """
+[spdevs <spdevs>]"""
+
+# The pokémon's Spe EV information.
+# You can use the following replacement templates:
+# <speevs> - The pokémon's Spe EV value (0 to 255).
+# <specolor> - The Spe stat color.
+CustomSpeEVs = """
+[speevs <speevs>]"""
+
+# The pokémon's neuter state.
+# You can use the following replacement templates:
+# <neutered> - The pokémon's neuter state, following the configured <true> and <false> templates.
+CustomNeutered = """
+[neutered <neutered>]"""
+
+[Statuses]
+# Here you can configure how statuses get shown in the <status> template.
+Burn = "<color:<burncolor>>[BRN]</color>"
+Sleep = "<color:<sleepcolor>>[SLP]</color>"
+Paralysis = "<color:<paralysiscolor>>[PAR]</color>"
+Poison = "<color:<poisoncolor>>[PSN]</color>"
+Freeze = "<color:<freezecolor>>[FRZ]</color>"
+Faint = "<color:<faintcolor>>[FNT]</color>"
+
+[EggGroups]
+# Here you can configure how egg groups get shown in the <egggroups> template.
+Amorphous = "<white>Amorphous</white>"
+Bug = "<white>Bug</white>"
+Ditto = "<white>Ditto</white>"
+Dragon = "<white>Dragon</white>"
+Fairy = "<white>Fairy</white>"
+Field = "<white>Field</white>"
+Flying = "<white>Flying</white>"
+Grass = "<white>Grass</white>"
+Human-Like = "<white>Human-Like</white>"
+Mineral = "<white>Mineral</white>"
+Monster = "<white>Monster</white>"
+Undiscovered = "<white>Undiscovered</white>"
+Water1 = "<white>Water1</white>"
+Water2 = "<white>Water2</white>"
+Water3 = "<white>Water3</white>"
+
+[Genders]
+# Here you can configure how genders appear in the <gender> template
+Male = "<color:<malecolor>>♂ Male</color>"
+Female = "<color:<femalecolor>>♀ Female</color>"
+Genderless = "<color:<genderlesscolor>>Genderless</color>"
+
+[Booleans]
+# Here you can configure how true/false messages appear as, such in the <neutered> template.
+True = "<color:<truecolor>>Yes</color>"
+False = "<color:<falsecolor>>No</color>"
