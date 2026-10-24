@@ -27,6 +27,7 @@ import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 
 import net.kyori.adventure.platform.fabric.FabricAudiences;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
@@ -64,6 +65,19 @@ public class MiniMessageUtils
         );
 
         return toMinecraftText(removeEmptyLines(component));
+    }
+
+    public static Text render(String template, TagResolver placeholders, HoverEvent<?> hoverEvent)
+    {
+        if (template == null || template.isBlank()) return Text.empty();
+
+        Component component = MINIMESSAGE_INSTANCE.deserialize
+        (
+            template,
+            placeholders
+        );
+
+        return toMinecraftText(removeEmptyLines(component), hoverEvent);
     }
 
     private static Component removeEmptyLines(Component component)
@@ -130,6 +144,22 @@ public class MiniMessageUtils
         );
     }
 
+    public static Text toMinecraftText(Component component, HoverEvent<?> hoverEvent)
+    {
+        return FabricAudiences.nonWrappingSerializer().serialize
+        (
+            component.style(component.style()
+                .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)
+                .hoverEvent(hoverEvent)
+            )
+        );
+    }
+
+    public static Component fromMinecraftText(Text text)
+    {
+        return FabricAudiences.nonWrappingSerializer().deserialize(text);
+    }
+
     public static Text renderPokeInfo(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
     {
         String newTemplate = parsePokeInfoColors
@@ -141,6 +171,28 @@ public class MiniMessageUtils
         );
 
         return render(newTemplate, getPokeInfoTagResolver(pokemon, isPartyCheck, isClosedSheet));
+    }
+
+    public static Component getPokeInfoComponent(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
+    {
+        String newTemplate = parsePokeInfoColors
+        (
+            ChatMiniMessage.getPokemonInfoTemplate(),
+            pokemon,
+            CobblemonUtils.getPokemonMoves(pokemon),
+            CobblemonUtils.getPokemonTypes(pokemon)
+        );
+
+        if (newTemplate == null || newTemplate.isBlank()) return Component.empty();
+
+        return removeEmptyLines
+        (
+            MINIMESSAGE_INSTANCE.deserialize
+            (
+                newTemplate,
+                getPokeInfoTagResolver(pokemon, isPartyCheck, isClosedSheet)
+            )
+        );
     }
 
     public static List<Text> renderPokeInfoLines(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
@@ -184,6 +236,19 @@ public class MiniMessageUtils
         return render(newTemplate, getCustomNameTagResolver(pokemon));
     }
 
+    public static Text renderPokeHoverable(Pokemon pokemon, boolean isClosedSheet, HoverEvent<?> hoverEvent)
+    {
+        String newTemplate = parsePokeHoverableColors
+        (
+            ChatMiniMessage.getPokeHoverableTemplate(),
+            pokemon,
+            CobblemonUtils.getPokemonTypes(pokemon),
+            pokemon.getTeraType()
+        );
+
+        return render(newTemplate, getHoverableTagResolver(pokemon, isClosedSheet), hoverEvent);
+    }
+
     private static String parsePokeInfoColors(String template, Pokemon pokemon, List<Move> moves, List<ElementalType> types)
     {
         return resolveCustomColors
@@ -216,7 +281,7 @@ public class MiniMessageUtils
                                                             (
                                                                 resolveTitleColor
                                                                 (
-                                                                    template,
+                                                                    resolveShinyColor(template),
                                                                     pokemon
                                                                 ),
                                                                 moves
@@ -252,6 +317,51 @@ public class MiniMessageUtils
                     resolveType2Color
                     (
                         template,
+                        types.size() < 2 ? types.get(0) : types.get(1)
+                    ),
+                    types.get(0)
+                ),
+                pokemon
+            )
+        );
+    }
+
+    private static String parsePokeHoverableColors(String template, Pokemon pokemon, List<ElementalType> types, TeraType teraType)
+    {
+        return resolveCustomColors
+        (
+            resolveTitleColor
+            (
+                resolveType1Color
+                (
+                    resolveType2Color
+                    (
+                        resolveTeraTypeColor
+                        (
+                            resolveShinyColor
+                            (
+                                resolveCustomCategoryColor
+                                (
+                                    resolveCustomShinyColor1
+                                    (
+                                        resolveCustomShinyColor2
+                                        (
+                                            resolveCustomShinyColorCategory
+                                            (
+                                                template,
+                                                pokemon
+                                            ),
+                                            pokemon,
+                                            types
+                                        ),
+                                        pokemon,
+                                        types
+                                    ),
+                                    pokemon
+                                )
+                            ),
+                            teraType
+                        ),
                         types.size() < 2 ? types.get(0) : types.get(1)
                     ),
                     types.get(0)
@@ -371,6 +481,16 @@ public class MiniMessageUtils
     {
         return TagResolver.builder()
             .resolvers(getCustomNameResolvers(pokemon))
+            .build();
+    }
+
+    public static TagResolver getHoverableTagResolver(Pokemon pokemon, boolean isClosedSheet)
+    {
+        return TagResolver.builder()
+            .resolver(getCustomNameResolver(pokemon, isClosedSheet))
+            .resolvers(getCustomNameResolvers(pokemon))
+            .resolver(getCustomSpeciesResolver(pokemon))
+            .resolvers(getCustomSpeciesResolvers(pokemon))
             .build();
     }
 
@@ -727,7 +847,7 @@ public class MiniMessageUtils
 
     private static TagResolver.Single getCustomShininessResolver(Pokemon pokemon)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomShininessTemplate());
+        String newTemplate = resolveCustomColors(resolveShinyColor(ChatMiniMessage.getCustomShininessTemplate()));
 
         return Placeholder.parsed
         (
@@ -889,7 +1009,7 @@ public class MiniMessageUtils
 
     public static TagResolver.Single getCustomSpeciesResolver(Pokemon pokemon)
     {
-        String newTemplate = resolveCustomColors(ChatMiniMessage.getCustomSpeciesTemplate());
+        String newTemplate = resolveCustomColors(resolveShinyColor(ChatMiniMessage.getCustomSpeciesTemplate()));
 
         Component component = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
         (
@@ -3584,6 +3704,51 @@ public class MiniMessageUtils
         );
     }
 
+    private static String resolveCustomCategoryColor(String template, Pokemon pokemon)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.CUSTOM_CATEGORY_COLOR_TEMPLATE_TAG_STRING),
+            getCategoryColor(pokemon, false)
+        );
+    }
+
+    private static String resolveCustomShinyColor1(String template, Pokemon pokemon, List<ElementalType> types)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.CUSTOM_SHINY_COLOR_1_TEMPLATE_TAG_STRING),
+            pokemon.getShiny() ? ChatMiniMessage.getShinyColor() : String.format("#%06x", types.get(0).getPrimaryColor())
+        );
+    }
+
+    private static String resolveCustomShinyColor2(String template, Pokemon pokemon, List<ElementalType> types)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.CUSTOM_SHINY_COLOR_2_TEMPLATE_TAG_STRING),
+            pokemon.getShiny() ? ChatMiniMessage.getShinyColor() : String.format("#%06x", types.get(types.size() > 1 ? 1 : 0).getPrimaryColor())
+        );
+    }
+
+    private static String resolveCustomShinyColorCategory(String template, Pokemon pokemon)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.CUSTOM_SHINY_COLOR_CATEGORY_TEMPLATE_TAG_STRING),
+            getCategoryColor(pokemon, true)
+        );
+    }
+
+    private static String resolveShinyColor(String template)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.SHINY_COLOR_TEMPLATE_TAG_STRING),
+            ChatMiniMessage.getShinyColor()
+        );
+    }
+
     private static String resolveType1Color(String template, ElementalType type)
     {
         return template.replace
@@ -3676,5 +3841,15 @@ public class MiniMessageUtils
             ChatMiniMessage.HIDDEN_TEMPLATE_TAG_STRING,
             newTemplate
         );
+    }
+
+    public static String getCategoryColor(Pokemon pokemon, boolean returnShiny)
+    {
+        if (returnShiny && pokemon.getShiny()) return ChatMiniMessage.getShinyColor();
+        if (ChatAspects.isCustomPokemon(pokemon.getAspects())) return ChatMiniMessage.getCustomAspectCategoryColor();
+        if (pokemon.isLegendary()) return ChatMiniMessage.getLegendaryCategoryColor();
+        if (pokemon.isMythical()) return ChatMiniMessage.getMythicalCategoryColor();
+        if (pokemon.isUltraBeast()) return ChatMiniMessage.getUltraBeastCategoryColor();
+        return ChatMiniMessage.getRegularCategoryColor();
     }
 }

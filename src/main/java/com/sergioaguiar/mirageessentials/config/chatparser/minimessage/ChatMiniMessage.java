@@ -7,10 +7,13 @@ import com.sergioaguiar.mirageessentials.util.ModLogger;
 public class ChatMiniMessage
 {
     // Colors Sections
-    protected static final String TOML_CUSTOM_COLOR_SECTION_STRING = "Colors";
+    protected static final String TOML_CUSTOM_COLOR_SECTION_STRING = "CustomColors";
     protected static final String TOML_STAT_COLOR_SECTION_STRING = "StatColors";
+    protected static final String TOML_CATEGORY_COLOR_SECTION_STRING = "CategoryColors";
+    protected static final String TOML_MISC_COLOR_SECTION_STRING = "MiscColors";
 
-    // PokeInfo Sections
+    // Pokemon Sections
+    protected static final String TOML_HOVERABLE_SECTION_STRING = "Hoverable";
     protected static final String TOML_POKE_INFO_SECTION_STRING = "PokeInfo";
     protected static final String TOML_STATUSES_SECTION_STRING = "Statuses";
     protected static final String TOML_EGG_GROUPS_SECTION_STRING = "EggGroups";
@@ -20,8 +23,6 @@ public class ChatMiniMessage
     // Colors Template Names
     protected static final String LABEL_COLOR_TEMPLATE_STRING = "LabelColor";
     protected static final String LABEL_COLOR_TEMPLATE_TAG_STRING = "labelcolor";
-    protected static final String SHINY_COLOR_TEMPLATE_STRING = "ShinyColor";
-    protected static final String SHINY_COLOR_TEMPLATE_TAG_STRING = "shinycolor";
     protected static final String ALPHA_COLOR_TEMPLATE_STRING = "AlphaColor";
     protected static final String ALPHA_COLOR_TEMPLATE_TAG_STRING = "alphacolor";
     protected static final String HA_COLOR_TEMPLATE_STRING = "HaColor";
@@ -57,7 +58,31 @@ public class ChatMiniMessage
     protected static final String GENDERLESS_COLOR_TEMPLATE_STRING = "GenderlessColor";
     protected static final String GENDERLESS_COLOR_TEMPLATE_TAG_STRING = "genderlesscolor";
 
-    // PokeInfo Template Names
+    public static final String REGULAR_CATEGORY_COLOR_TEMPLATE_STRING = "RegularColor";
+    public static final String REGULAR_CATEGORY_COLOR_TEMPLATE_TAG_STRING = "regularcolor";
+    public static final String LEGENDARY_CATEGORY_COLOR_TEMPLATE_STRING = "LegendaryColor";
+    public static final String LEGENDARY_CATEGORY_COLOR_TEMPLATE_TAG_STRING = "legendarycolor";
+    public static final String MYTHICAL_CATEGORY_COLOR_TEMPLATE_STRING = "MythicalColor";
+    public static final String MYTHICAL_CATEGORY_COLOR_TEMPLATE_TAG_STRING = "mythicalcolor";
+    public static final String ULTRA_BEAST_CATEGORY_COLOR_TEMPLATE_STRING = "UltraBeastColor";
+    public static final String ULTRA_BEAST_CATEGORY_COLOR_TEMPLATE_TAG_STRING = "ultrabeastcolor";
+    public static final String CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_STRING = "CustomAspectColor";
+    public static final String CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_TAG_STRING = "customaspectcolor";
+
+    public static final String SHINY_COLOR_TEMPLATE_STRING = "ShinyColor";
+    public static final String SHINY_COLOR_TEMPLATE_TAG_STRING = "shinycolor";
+
+    // Pokemon Template Names
+    public static final String POKE_HOVERABLE_TEMPLATE_STRING = "PokeHoverable";
+    public static final String POKE_HOVERABLE_TEMPLATE_TAG_STRING = "pokehoverable";
+    public static final String CUSTOM_CATEGORY_COLOR_TEMPLATE_STRING = "CustomCategoryColor";
+    public static final String CUSTOM_CATEGORY_COLOR_TEMPLATE_TAG_STRING = "customcategorycolor";
+    public static final String CUSTOM_SHINY_COLOR_1_TEMPLATE_STRING = "CustomShinyColor1";
+    public static final String CUSTOM_SHINY_COLOR_1_TEMPLATE_TAG_STRING = "customshinycolor1";
+    public static final String CUSTOM_SHINY_COLOR_2_TEMPLATE_STRING = "CustomShinyColor2";
+    public static final String CUSTOM_SHINY_COLOR_2_TEMPLATE_TAG_STRING = "customshinycolor2";
+    public static final String CUSTOM_SHINY_COLOR_CATEGORY_TEMPLATE_STRING = "CustomShinyColorCategory";
+    public static final String CUSTOM_SHINY_COLOR_CATEGORY_TEMPLATE_TAG_STRING = "customshinycolorcategory";
     public static final String POKEMON_INFO_TEMPLATE_STRING = "PokemonInfo";
     public static final String POKEMON_INFO_TEMPLATE_TAG_STRING = "pokemoninfo";
     public static final String NAME_TEMPLATE_STRING = "Name";
@@ -409,7 +434,6 @@ public class ChatMiniMessage
     
     // Color Defaults
     protected static final String DEFAULT_LABEL_COLOR_STRING = "#10F2F2";
-    protected static final String DEFAULT_SHINY_COLOR_STRING = "#e7e436";
     protected static final String DEFAULT_ALPHA_COLOR_STRING = "#d14040";
     protected static final String DEFAULT_HA_COLOR_STRING = "#31d6e2";
     protected static final String DEFAULT_NATURE_STAT_UP_COLOR_STRING = "#60d651";
@@ -427,6 +451,7 @@ public class ChatMiniMessage
     protected static final String DEFAULT_MALE_COLOR_STRING = "#0984f7";
     protected static final String DEFAULT_FEMALE_COLOR_STRING = "#e16ef0";
     protected static final String DEFAULT_GENDERLESS_COLOR_STRING = "#bdbdbd";
+
     protected static final String DEFAULT_HP_COLOR_STRING = "#4f9c45";
     protected static final String DEFAULT_ATK_COLOR_STRING = "#b33f3f";
     protected static final String DEFAULT_DEF_COLOR_STRING = "#d1842c";
@@ -434,7 +459,19 @@ public class ChatMiniMessage
     protected static final String DEFAULT_SPD_COLOR_STRING = "#ddda36";
     protected static final String DEFAULT_SPE_COLOR_STRING = "#3bd8dd";
 
-    // PokeInfo Defaults
+    protected static final String DEFAULT_REGULAR_CATEGORY_COLOR_STRING = "#cacaca";
+    protected static final String DEFAULT_LEGENDARY_CATEGORY_COLOR_STRING = "#f72e2e";
+    protected static final String DEFAULT_MYTHICAL_CATEGORY_COLOR_STRING = "#db2bd2";
+    protected static final String DEFAULT_ULTRA_BEAST_CATEGORY_COLOR_STRING = "#2ea31f";
+    protected static final String DEFAULT_CUSTOM_ASPECT_CATEGORY_COLOR_STRING = "#2eb4e9";
+
+    protected static final String DEFAULT_SHINY_COLOR_STRING = "#e7e436";
+
+    // Pokemon Defaults
+    protected static final String DEFAULT_POKE_HOVERABLE =
+        """
+        <gradient:<customshinycolorcategory>:<customcategorycolor>>[<name><title>]</gradient>""";
+
     protected static final String DEFAULT_POKEMON_INFO =
         """
         <customname>
@@ -466,7 +503,7 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_CUSTOM_NAME =
         """
-        <gradient:<type1color>:<type2color>><name></gradient> <color:<titlecolor>><title></color>""";
+        <gradient:<type1color>:<type2color>><name></gradient><color:<titlecolor>><title></color>""";
 
     protected static final String DEFAULT_CUSTOM_STATUS =
         """
@@ -667,6 +704,10 @@ public class ChatMiniMessage
     // State Data
     private static HashMap<String, String> CUSTOM_COLORS;
     private static HashMap<String, String> STAT_COLORS;
+    private static HashMap<String, String> CATEGORY_COLORS;
+    private static HashMap<String, String> MISC_COLORS;
+
+    private static HashMap<String, String> HOVERABLE_TEMPLATES;
     private static HashMap<String, String> POKE_INFO_TEMPLATES;
     private static HashMap<String, String> STATUS_TEMPLATES;
     private static HashMap<String, String> EGG_GROUP_TEMPLATES;
@@ -679,7 +720,11 @@ public class ChatMiniMessage
         try 
         {
             CUSTOM_COLORS = new HashMap<>();
+            CATEGORY_COLORS = new  HashMap<>();
             STAT_COLORS = new HashMap<>();
+            MISC_COLORS = new HashMap<>();
+
+            HOVERABLE_TEMPLATES = new HashMap<>();
             POKE_INFO_TEMPLATES = new HashMap<>();
             STATUS_TEMPLATES = new HashMap<>();
             EGG_GROUP_TEMPLATES = new HashMap<>();
@@ -688,7 +733,6 @@ public class ChatMiniMessage
             MISC_TEMPLATES = new HashMap<>();
 
             CUSTOM_COLORS.put(LABEL_COLOR_TEMPLATE_TAG_STRING, DEFAULT_LABEL_COLOR_STRING);
-            CUSTOM_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SHINY_COLOR_STRING);
             CUSTOM_COLORS.put(ALPHA_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ALPHA_COLOR_STRING);
             CUSTOM_COLORS.put(HA_COLOR_TEMPLATE_TAG_STRING, DEFAULT_HA_COLOR_STRING);
             CUSTOM_COLORS.put(NATURE_STAT_UP_COLOR_TEMPLATE_TAG_STRING, DEFAULT_NATURE_STAT_UP_COLOR_STRING);
@@ -713,6 +757,16 @@ public class ChatMiniMessage
             STAT_COLORS.put(SPA_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SPA_COLOR_STRING);
             STAT_COLORS.put(SPD_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SPD_COLOR_STRING);
             STAT_COLORS.put(SPE_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SPE_COLOR_STRING);
+
+            CATEGORY_COLORS.put(REGULAR_CATEGORY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_REGULAR_CATEGORY_COLOR_STRING);
+            CATEGORY_COLORS.put(LEGENDARY_CATEGORY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_LEGENDARY_CATEGORY_COLOR_STRING);
+            CATEGORY_COLORS.put(MYTHICAL_CATEGORY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_MYTHICAL_CATEGORY_COLOR_STRING);
+            CATEGORY_COLORS.put(ULTRA_BEAST_CATEGORY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ULTRA_BEAST_CATEGORY_COLOR_STRING);
+            CATEGORY_COLORS.put(CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_ASPECT_CATEGORY_COLOR_STRING);
+
+            MISC_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SHINY_COLOR_STRING);
+
+            HOVERABLE_TEMPLATES.put(POKE_HOVERABLE_TEMPLATE_TAG_STRING, DEFAULT_POKE_HOVERABLE);
 
             POKE_INFO_TEMPLATES.put(POKEMON_INFO_TEMPLATE_TAG_STRING, DEFAULT_POKEMON_INFO);
             POKE_INFO_TEMPLATES.put(CUSTOM_NAME_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_NAME);
@@ -819,7 +873,27 @@ public class ChatMiniMessage
     protected static void setSpdColor(String color) { STAT_COLORS.put(SPD_COLOR_TEMPLATE_TAG_STRING, color); }
     protected static void setSpeColor(String color) { STAT_COLORS.put(SPE_COLOR_TEMPLATE_TAG_STRING, color); }
 
+    public static String getRegularCategoryColor() { return CATEGORY_COLORS.get(REGULAR_CATEGORY_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getLegendaryCategoryColor() { return CATEGORY_COLORS.get(LEGENDARY_CATEGORY_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getMythicalCategoryColor() { return CATEGORY_COLORS.get(MYTHICAL_CATEGORY_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getUltraBeastCategoryColor() { return CATEGORY_COLORS.get(ULTRA_BEAST_CATEGORY_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getCustomAspectCategoryColor() { return CATEGORY_COLORS.get(CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_TAG_STRING); }
+
+    protected static void setRegularCategoryColor(String color) { CATEGORY_COLORS.put(REGULAR_CATEGORY_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setLegendaryCategoryColor(String color) { CATEGORY_COLORS.put(LEGENDARY_CATEGORY_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setMythicalCategoryColor(String color) { CATEGORY_COLORS.put(MYTHICAL_CATEGORY_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setUltraBeastCategoryColor(String color) { CATEGORY_COLORS.put(ULTRA_BEAST_CATEGORY_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setCustomAspectCategoryColor(String color) { CATEGORY_COLORS.put(CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_TAG_STRING, color); }
+
+    public static String getShinyColor() { return MISC_COLORS.get(SHINY_COLOR_TEMPLATE_TAG_STRING); }
+
+    protected static void setShinyColor(String color) { MISC_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, color); }
+
     // PokeInfo Setters and Getters
+    public static String getPokeHoverableTemplate() { return HOVERABLE_TEMPLATES.get(POKE_HOVERABLE_TEMPLATE_TAG_STRING); }
+
+    protected static void setPokeHoverableTemplate(String template) { POKE_INFO_TEMPLATES.put(POKEMON_INFO_TEMPLATE_TAG_STRING, template); }
+
     public static String getPokemonInfoTemplate() { return POKE_INFO_TEMPLATES.get(POKEMON_INFO_TEMPLATE_TAG_STRING); }
     public static String getCustomNameTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NAME_TEMPLATE_TAG_STRING); }
     public static String getCustomStatusTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_STATUS_TEMPLATE_TAG_STRING); }

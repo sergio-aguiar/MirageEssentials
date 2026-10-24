@@ -47,7 +47,7 @@ public class CobblemonUtils
 
         String title = Text.translatable(pokemon.getActiveMark().getTitle()).getString();
 
-        return title.startsWith("%1$s") ? title.substring(4).trim() : title;
+        return " %s".formatted(title.startsWith("%1$s") ? title.substring(4).trim() : title);
     }
 
     public static String getPokemonTitleColor(Pokemon pokemon)

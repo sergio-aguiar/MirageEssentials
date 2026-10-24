@@ -41,6 +41,16 @@ public class ChatMiniMessagePokemonConfig
             {
                 config.load();
 
+                if (config.contains(ChatMiniMessage.TOML_HOVERABLE_SECTION_STRING))
+                {
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_HOVERABLE_SECTION_STRING, ChatMiniMessage.POKE_HOVERABLE_TEMPLATE_STRING)))
+                    {
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_HOVERABLE_SECTION_STRING, ChatMiniMessage.POKE_HOVERABLE_TEMPLATE_STRING));
+                        if (template != null && !template.isEmpty())
+                            ChatMiniMessage.setPokeHoverableTemplate(template);
+                    }
+                }
+
                 if (config.contains(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING))
                 {
                     if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING, ChatMiniMessage.POKEMON_INFO_TEMPLATE_STRING)))
@@ -553,6 +563,31 @@ public class ChatMiniMessagePokemonConfig
                 # %s - Chat MiniMessage Configuration - Pokémon
 
                 [%s]
+                Here you can configure the appearance of in-chat pokémon parsers.
+                # You can use the following replacement templates:
+                # <name> - The pokémon's nickname.
+                # <title> - The pokémon's ribbon/mark title.
+                # <titlecolor> - The pokémon's title's color.
+                # <customname> - The pokémon's name, using the configured template (hidden in partychecks, used as the item name instead).
+                # <type1color> - The pokémon's first type's color.
+                # <type2color> - The pokémon's second type's color (or first again, if monotype).
+                # <teratypecolor> - The pokémon's tera type's color.
+                # <species> - The pokémon's species.
+                # <customshininess> - The pokémon's shininess indicator, using the configured template (not shown if not shiny).
+                # <shinycolor> - The configured shiny color.
+                # <customalphaness> - The pokémon's alphaness indicator, using the configured template (not shown if not alpha).
+                # <form> - The pokémon's base Cobblemon form (can appear as Normal).
+                # <formsexpanded> - The pokémon's form, expanded to account for some additional aspects.
+                # <formsfullyexpanded> - The pokémon's forms, expanded, also including custom configured aspects.
+                # <customspecies> - The pokémon's custom species info, using the configured template.
+                # <customcategorycolor> - The configured pokémon category color (depending on if legendary, mythical, ultra beast or none).
+                # <customshinycolor1> - The configured shiny color if the pokémon is shiny, otherwise the same as <type1color>.
+                # <customshinycolor2> - The configured shiny color if the pokémon is shiny, otherwise the same as <type2color>.
+                # <customshinycolorcategory> - The configured shiny color if the pokémon is shiny, otherwise the same as <customcategorycolor>.
+                %s = \"\"\"
+                %s\"\"\"
+
+                [%s]
                 # Here you can configure the default Pokémon template set.
                 # Used for general pokemon info chat hoverables and GUI item lores (such as the /partycheck command).
                 # You can use the following replacement templates:
@@ -576,6 +611,7 @@ public class ChatMiniMessagePokemonConfig
                 # <customtypes> - The pokémon's types, using the configured templates (CustomTypesMonotype and CustomTypesDuotype).
                 # <species> - The pokémon's species.
                 # <customshininess> - The pokémon's shininess indicator, using the configured template (not shown if not shiny).
+                # <shinycolor> - The configured shiny color.
                 # <customalphaness> - The pokémon's alphaness indicator, using the configured template (not shown if not alpha).
                 # <form> - The pokémon's base Cobblemon form (can appear as Normal).
                 # <formsexpanded> - The pokémon's form, expanded to account for some additional aspects.
@@ -763,6 +799,7 @@ public class ChatMiniMessagePokemonConfig
                 # You can use the following replacement templates:
                 # <species> - The pokémon's species.
                 # <customshininess> - The pokémon's shininess indicator, using the configured template (not shown if not shiny).
+                # <shinycolor> - The configured shiny color.
                 # <customalphaness> - The pokémon's alphaness indicator, using the configured template (not shown if not alpha).
                 # <form> - The pokémon's base Cobblemon form (can appear as Normal).
                 # <formsexpanded> - The pokémon's form, expanded to account for some additional aspects.
@@ -1068,6 +1105,8 @@ public class ChatMiniMessagePokemonConfig
                 %s = "%s"
                 """.formatted(
                     MirageEssentials.MOD_NAME,
+                    ChatMiniMessage.TOML_HOVERABLE_SECTION_STRING,
+                    ChatMiniMessage.POKE_HOVERABLE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_POKE_HOVERABLE,
                     ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING,
                     ChatMiniMessage.POKEMON_INFO_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_POKEMON_INFO,
                     ChatMiniMessage.CUSTOM_NAME_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_NAME,

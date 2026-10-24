@@ -9,13 +9,14 @@ import com.cobblemon.mod.common.api.storage.pc.PCBox;
 import com.cobblemon.mod.common.api.storage.pc.PCStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.pokemon.Species;
-import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspects;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.util.MiniMessageUtils;
 import com.sergioaguiar.mirageessentials.util.NeoDaycareUtils;
 import com.sergioaguiar.mirageessentials.util.TextUtils;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -119,20 +120,13 @@ public class PlaceholderResolver
         return buildPokemonText(pokemon, isClosedSheet);
     }
 
-    public static Text buildPokemonText(Pokemon pokemon, boolean isClosedSheet) 
+    public static Text buildPokemonText(Pokemon pokemon, boolean isClosedSheet)
     {
-        return TextUtils.hoverableText
-        (
-            pokemon.getSpecies().getName(), 
-            NeoDaycareUtils.isEgg(pokemon)
-                ? buildEggTooltip(pokemon)
-                : MiniMessageUtils.renderPokeInfo(pokemon, false, isClosedSheet),
-            pokemon.getShiny(),
-            pokemon.isLegendary(),
-            pokemon.isMythical(),
-            pokemon.isUltraBeast(),
-            ChatAspects.isCustomPokemon(pokemon.getAspects())
-        );
+        Component tooltip = NeoDaycareUtils.isEgg(pokemon)
+            ? MiniMessageUtils.getPokeInfoComponent(pokemon, false, isClosedSheet) // TODO: EDIT TO EGG ONE LATER
+            : MiniMessageUtils.getPokeInfoComponent(pokemon, false, isClosedSheet);
+
+        return MiniMessageUtils.renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(tooltip));
     }
 
     public static Text getMainHandItem(ServerPlayerEntity player)
