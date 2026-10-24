@@ -54,18 +54,6 @@ public class ChatSettingsConfig
                 ChatSettings.setShowOriginalItemNames(enabled);
             }
 
-            if (config.contains("Hoverable.UsePokemonCategoryHoverables"))
-            {
-                boolean enabled = config.getOrElse("Hoverable.UsePokemonCategoryHoverables", ChatSettings.DEFAULT_USE_POKEMON_CATEGORY_HOVERABLES);
-                ChatSettings.setUsePokemonCategoryHoverables(enabled);
-            }
-
-            if (config.contains("Hoverable.UseShinyGradientHoverables"))
-            {
-                boolean enabled = config.getOrElse("Hoverable.UseShinyGradientHoverables", ChatSettings.DEFAULT_USE_SHINY_GRADIENT_HOVERABLES);
-                ChatSettings.setUseShinyGradientHoverables(enabled);
-            }
-
             if (config.contains("EggTooltip.ShowEggNickname"))
             {
                 boolean enabled = config.getOrElse("EggTooltip.ShowEggNickname", ChatSettings.DEFAULT_SHOW_EGG_NICKNAME);
@@ -121,12 +109,6 @@ public class ChatSettingsConfig
             ParseNonPlayerMessages = false
             # Whether items should show the original item name, rather than changed ones (using an anvil, for example) (true/false)
             ShowOriginalItemNames = false
-            
-            [Hoverable]
-            # Whether different Pokémon's categories (legendary, mythical, etc.) should show different colored hoverables (true/false)
-            UsePokemonCategoryHoverables = true
-            # Whether shiny Pokémon should have their hoverable color be a gradient with the base color, or use shiny bracket colors (true/false)
-            UseShinyGradientHoverables = true
             
             [EggTooltip]
             # Whether to show an egg's nickname in hover text (true/false)

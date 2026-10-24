@@ -36,9 +36,6 @@ public class ChatSettings
 
     protected static final boolean DEFAULT_PARSE_NON_PLAYER_MESSAGES = false;
     protected static final boolean DEFAULT_SHOW_ORIGINAL_ITEM_NAMES = false;
-
-    protected static final boolean DEFAULT_USE_POKEMON_CATEGORY_HOVERABLES = true;
-    protected static final boolean DEFAULT_USE_SHINY_GRADIENT_HOVERABLES = true;
     
     protected static final boolean DEFAULT_SHOW_EGG_NICKNAME = true;
     protected static final boolean DEFAULT_SHOW_EGG_HATCH_STEP_PROGRESS = true;
@@ -50,9 +47,6 @@ public class ChatSettings
 
     private static boolean parseNonPlayerMessages;
     private static boolean showOriginalItemNames;
-
-    private static boolean usePokemonCategoryHoverables;
-    private static boolean useShinyGradientHoverables;
 
     private static boolean showEggNickname;
     private static boolean showEggHatchStepProgress;
@@ -66,9 +60,6 @@ public class ChatSettings
     {
         parseNonPlayerMessages = DEFAULT_PARSE_NON_PLAYER_MESSAGES;
         showOriginalItemNames = DEFAULT_SHOW_ORIGINAL_ITEM_NAMES;
-        
-        usePokemonCategoryHoverables = DEFAULT_USE_POKEMON_CATEGORY_HOVERABLES;
-        useShinyGradientHoverables = DEFAULT_USE_SHINY_GRADIENT_HOVERABLES;
 
         showEggNickname = DEFAULT_SHOW_EGG_NICKNAME;
         showEggHatchStepProgress = DEFAULT_SHOW_EGG_HATCH_STEP_PROGRESS;
@@ -81,8 +72,6 @@ public class ChatSettings
 
     public static boolean shouldParseNonPlayerMessages() { return parseNonPlayerMessages; }
     public static boolean shouldShowOriginalItemNames() { return showOriginalItemNames; }
-    public static boolean shouldUsePokemonCategoryHoverables() { return usePokemonCategoryHoverables; }
-    public static boolean shouldUseShinyGradientHoverables() { return useShinyGradientHoverables; }
     public static boolean shouldShowEggNickname() { return showEggNickname; }
     public static boolean shouldshowEggHatchStepProgress() { return showEggHatchStepProgress; }
     public static boolean shouldShowEggStageMessage() { return showEggStageMessage; }
@@ -92,8 +81,6 @@ public class ChatSettings
 
     protected static void setParseNonPlayerMessages(boolean enabled) { parseNonPlayerMessages = enabled; }
     protected static void setShowOriginalItemNames(boolean enabled) { showOriginalItemNames = enabled; }
-    protected static void setUsePokemonCategoryHoverables(boolean enabled) { usePokemonCategoryHoverables = enabled; }
-    protected static void setUseShinyGradientHoverables(boolean enabled) { useShinyGradientHoverables = enabled; }
     protected static void setShowEggNickname(boolean enabled) { showEggNickname = enabled; }
     protected static void setshowEggHatchStepProgress(boolean enabled) { showEggHatchStepProgress = enabled; }
     protected static void setShowEggStageMessage(boolean enabled) { showEggStageMessage = enabled; }

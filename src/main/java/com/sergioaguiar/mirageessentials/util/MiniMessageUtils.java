@@ -978,7 +978,7 @@ public class MiniMessageUtils
             aspects
                 .stream()
                 .filter(x -> ChatAspects.shouldDisplayAspect(x))
-                .forEach(x -> customAspects.add(x));
+                .forEach(x -> customAspects.add(ChatAspects.getAspectFriendlyName(x)));
         }
 
         for (String aspect : customAspects)
