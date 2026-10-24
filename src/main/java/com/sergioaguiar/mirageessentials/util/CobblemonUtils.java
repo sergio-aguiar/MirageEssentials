@@ -319,13 +319,17 @@ public class CobblemonUtils
         }
     }
 
-    public static String getPokemonOTName(Pokemon pokemon)
+    public static String getPokemonOT(Pokemon pokemon)
     {
-        return pokemon.getOriginalTrainer();
+        String ot = pokemon.getOriginalTrainer();
+
+        return ot == null ? "Unknown Player" : ot;
     }
 
     public static String getPokemonOTDisplayName(Pokemon pokemon)
     {
-        return pokemon.getOriginalTrainerName();
+        String ot = pokemon.getOriginalTrainerName();
+
+        return ot == null ? "Unknown Player" : ot;
     }
 }

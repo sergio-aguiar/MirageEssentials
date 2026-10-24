@@ -472,7 +472,7 @@ public class MiniMessageUtils
                 .resolver(getEggGroupsResolver(pokemon.getSpecies().getEggGroups()))
                 .resolver(getCustomNeuteredResolver(isNeutered))
                 .resolvers(getCustomNeuteredResolvers(isNeutered))
-                .resolver(getOriginalTrainerNameResolver(cosmeticItemCustomName))
+                .resolver(getOriginalTrainerNameResolver(CobblemonUtils.getPokemonOTDisplayName(pokemon)))
                 .resolver(getHiddenResolver(isClosedSheet))
                 .build();
     }

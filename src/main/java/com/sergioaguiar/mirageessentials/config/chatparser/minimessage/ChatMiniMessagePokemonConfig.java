@@ -563,7 +563,7 @@ public class ChatMiniMessagePokemonConfig
                 # %s - Chat MiniMessage Configuration - Pokémon
 
                 [%s]
-                Here you can configure the appearance of in-chat pokémon parsers.
+                # Here you can configure the appearance of in-chat pokémon parsers.
                 # You can use the following replacement templates:
                 # <name> - The pokémon's nickname.
                 # <title> - The pokémon's ribbon/mark title.
