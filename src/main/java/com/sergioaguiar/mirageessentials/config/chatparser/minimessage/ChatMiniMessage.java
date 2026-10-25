@@ -13,12 +13,15 @@ public class ChatMiniMessage
     protected static final String TOML_MISC_COLOR_SECTION_STRING = "MiscColors";
 
     // Pokemon Sections
-    protected static final String TOML_HOVERABLE_SECTION_STRING = "Hoverable";
+    protected static final String TOML_POKE_HOVERABLE_SECTION_STRING = "Hoverable";
     protected static final String TOML_POKE_INFO_SECTION_STRING = "PokeInfo";
     protected static final String TOML_STATUSES_SECTION_STRING = "Statuses";
     protected static final String TOML_EGG_GROUPS_SECTION_STRING = "EggGroups";
     protected static final String TOML_BOOLEANS_SECTION_STRING = "Booleans";
     protected static final String TOML_GENDERS_SECTION_STRING = "Genders";
+
+    // Item Sections
+    protected static final String TOML_ITEM_HOVERABLE_SECTION_STRING = "Hoverable";
 
     // Colors Template Names
     protected static final String LABEL_COLOR_TEMPLATE_STRING = "LabelColor";
@@ -431,6 +434,16 @@ public class ChatMiniMessage
 
     protected static final String HIDDEN_TEMPLATE_STRING = "Hidden";
     public static final String HIDDEN_TEMPLATE_TAG_STRING = "hidden";
+
+    // Pokemon Template Names
+    protected static final String ITEM_HOVERABLE_TEMPLATE_STRING = "ItemHoverable";
+    protected static final String ITEM_HOVERABLE_TEMPLATE_TAG_STRING = "itemhoverable";
+    protected static final String ITEM_BASE_NAME_TEMPLATE_STRING = "ItemBaseName";
+    protected static final String ITEM_BASE_NAME_TEMPLATE_TAG_STRING = "itembasename";
+    protected static final String ITEM_ANVIL_NAME_TEMPLATE_STRING = "ItemAnvilName";
+    protected static final String ITEM_ANVIL_NAME_TEMPLATE_TAG_STRING = "itemanvilname";
+    protected static final String ITEM_CUSTOM_NAME_TEMPLATE_STRING = "ItemCustomName";
+    protected static final String ITEM_CUSTOM_NAME_TEMPLATE_TAG_STRING = "itemcustomname";
     
     // Color Defaults
     protected static final String DEFAULT_LABEL_COLOR_STRING = "#10F2F2";
@@ -468,9 +481,7 @@ public class ChatMiniMessage
     protected static final String DEFAULT_SHINY_COLOR_STRING = "#e7e436";
 
     // Pokemon Defaults
-    protected static final String DEFAULT_POKE_HOVERABLE =
-        """
-        <gradient:<customshinycolorcategory>:<customcategorycolor>>[<name><title>]</gradient>""";
+    protected static final String DEFAULT_ITEM_HOVERABLE = "<color:<itemcolor>>[<itemcustomname>]</color>";
 
     protected static final String DEFAULT_POKEMON_INFO =
         """
@@ -701,19 +712,24 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_HIDDEN = "<white>Hidden</white>";
 
+    // Item Defaults
+    protected static final String DEFAULT_POKE_HOVERABLE = "<gradient:<customshinycolorcategory>:<customcategorycolor>>[<name><title>]</gradient>";
+
     // State Data
     private static HashMap<String, String> CUSTOM_COLORS;
     private static HashMap<String, String> STAT_COLORS;
     private static HashMap<String, String> CATEGORY_COLORS;
     private static HashMap<String, String> MISC_COLORS;
 
-    private static HashMap<String, String> HOVERABLE_TEMPLATES;
+    private static HashMap<String, String> POKE_HOVERABLE_TEMPLATES;
     private static HashMap<String, String> POKE_INFO_TEMPLATES;
     private static HashMap<String, String> STATUS_TEMPLATES;
     private static HashMap<String, String> EGG_GROUP_TEMPLATES;
     private static HashMap<String, String> GENDER_TEMPLATES;
     private static HashMap<String, String> BOOLEAN_TEMPLATES;
     private static HashMap<String, String> MISC_TEMPLATES;
+
+    private static HashMap<String, String> ITEM_HOVERABLE_TEMPLATES;
 
     public static void setDefaults()
     {
@@ -724,13 +740,15 @@ public class ChatMiniMessage
             STAT_COLORS = new HashMap<>();
             MISC_COLORS = new HashMap<>();
 
-            HOVERABLE_TEMPLATES = new HashMap<>();
+            POKE_HOVERABLE_TEMPLATES = new HashMap<>();
             POKE_INFO_TEMPLATES = new HashMap<>();
             STATUS_TEMPLATES = new HashMap<>();
             EGG_GROUP_TEMPLATES = new HashMap<>();
             GENDER_TEMPLATES = new HashMap<>();
             BOOLEAN_TEMPLATES = new HashMap<>();
             MISC_TEMPLATES = new HashMap<>();
+
+            ITEM_HOVERABLE_TEMPLATES = new HashMap<>();
 
             CUSTOM_COLORS.put(LABEL_COLOR_TEMPLATE_TAG_STRING, DEFAULT_LABEL_COLOR_STRING);
             CUSTOM_COLORS.put(ALPHA_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ALPHA_COLOR_STRING);
@@ -766,7 +784,7 @@ public class ChatMiniMessage
 
             MISC_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SHINY_COLOR_STRING);
 
-            HOVERABLE_TEMPLATES.put(POKE_HOVERABLE_TEMPLATE_TAG_STRING, DEFAULT_POKE_HOVERABLE);
+            POKE_HOVERABLE_TEMPLATES.put(POKE_HOVERABLE_TEMPLATE_TAG_STRING, DEFAULT_POKE_HOVERABLE);
 
             POKE_INFO_TEMPLATES.put(POKEMON_INFO_TEMPLATE_TAG_STRING, DEFAULT_POKEMON_INFO);
             POKE_INFO_TEMPLATES.put(CUSTOM_NAME_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_NAME);
@@ -842,6 +860,8 @@ public class ChatMiniMessage
             BOOLEAN_TEMPLATES.put(FALSE_TEMPLATE_TAG_STRING, DEFAULT_FALSE);
 
             MISC_TEMPLATES.put(HIDDEN_TEMPLATE_TAG_STRING, DEFAULT_HIDDEN);
+
+            ITEM_HOVERABLE_TEMPLATES.put(ITEM_HOVERABLE_TEMPLATE_TAG_STRING, DEFAULT_ITEM_HOVERABLE);
         }
         catch (IllegalStateException e) 
         {
@@ -890,7 +910,7 @@ public class ChatMiniMessage
     protected static void setShinyColor(String color) { MISC_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, color); }
 
     // PokeInfo Setters and Getters
-    public static String getPokeHoverableTemplate() { return HOVERABLE_TEMPLATES.get(POKE_HOVERABLE_TEMPLATE_TAG_STRING); }
+    public static String getPokeHoverableTemplate() { return POKE_HOVERABLE_TEMPLATES.get(POKE_HOVERABLE_TEMPLATE_TAG_STRING); }
 
     protected static void setPokeHoverableTemplate(String template) { POKE_INFO_TEMPLATES.put(POKEMON_INFO_TEMPLATE_TAG_STRING, template); }
 
@@ -1045,4 +1065,8 @@ public class ChatMiniMessage
     public static String getHiddenTemplate() { return MISC_TEMPLATES.get(HIDDEN_TEMPLATE_TAG_STRING); }
 
     protected static void setHiddenTemplate(String template) { MISC_TEMPLATES.put(HIDDEN_TEMPLATE_TAG_STRING, template); }
+
+    public static String getItemHoverableTemplate() { return ITEM_HOVERABLE_TEMPLATES.get(ITEM_HOVERABLE_TEMPLATE_TAG_STRING); }
+
+    protected static void setItemHoverableTemplate(String template) { ITEM_HOVERABLE_TEMPLATES.put(ITEM_HOVERABLE_TEMPLATE_TAG_STRING, template); }
 }

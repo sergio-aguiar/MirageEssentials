@@ -41,11 +41,11 @@ public class ChatMiniMessagePokemonConfig
             {
                 config.load();
 
-                if (config.contains(ChatMiniMessage.TOML_HOVERABLE_SECTION_STRING))
+                if (config.contains(ChatMiniMessage.TOML_POKE_HOVERABLE_SECTION_STRING))
                 {
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_HOVERABLE_SECTION_STRING, ChatMiniMessage.POKE_HOVERABLE_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_HOVERABLE_SECTION_STRING, ChatMiniMessage.POKE_HOVERABLE_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_HOVERABLE_SECTION_STRING, ChatMiniMessage.POKE_HOVERABLE_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_HOVERABLE_SECTION_STRING, ChatMiniMessage.POKE_HOVERABLE_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setPokeHoverableTemplate(template);
                     }
@@ -563,7 +563,7 @@ public class ChatMiniMessagePokemonConfig
                 # %s - Chat MiniMessage Configuration - Pokémon
 
                 [%s]
-                # Here you can configure the appearance of in-chat pokémon parsers.
+                # Here you can configure the appearance of in-chat pokémon hoverables.
                 # You can use the following replacement templates:
                 # <name> - The pokémon's nickname.
                 # <title> - The pokémon's ribbon/mark title.
@@ -584,8 +584,7 @@ public class ChatMiniMessagePokemonConfig
                 # <customshinycolor1> - The configured shiny color if the pokémon is shiny, otherwise the same as <type1color>.
                 # <customshinycolor2> - The configured shiny color if the pokémon is shiny, otherwise the same as <type2color>.
                 # <customshinycolorcategory> - The configured shiny color if the pokémon is shiny, otherwise the same as <customcategorycolor>.
-                %s = \"\"\"
-                %s\"\"\"
+                %s = \"%s\"
 
                 [%s]
                 # Here you can configure the default Pokémon template set.
@@ -1103,9 +1102,10 @@ public class ChatMiniMessagePokemonConfig
                 # Here you can configure how true/false messages appear as, such in the <neutered> template.
                 %s = "%s"
                 %s = "%s"
-                """.formatted(
+                """.formatted
+                (
                     MirageEssentials.MOD_NAME,
-                    ChatMiniMessage.TOML_HOVERABLE_SECTION_STRING,
+                    ChatMiniMessage.TOML_POKE_HOVERABLE_SECTION_STRING,
                     ChatMiniMessage.POKE_HOVERABLE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_POKE_HOVERABLE,
                     ChatMiniMessage.TOML_POKE_INFO_SECTION_STRING,
                     ChatMiniMessage.POKEMON_INFO_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_POKEMON_INFO,
