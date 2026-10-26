@@ -19,10 +19,8 @@ import com.cobblemon.mod.common.pokemon.Nature;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.pokemon.abilities.HiddenAbilityType;
 import com.cobblemon.mod.common.pokemon.status.PersistentStatusContainer;
-import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -105,24 +103,14 @@ public class CobblemonUtils
     {
         if (item == null || item.isEmpty()) return ChatStrings.getEmptyHeldItemString();
 
-        Text itemName = item.get(DataComponentTypes.ITEM_NAME);
-
-        return itemName != null && itemName.getString().length() > 0
-            ? itemName.getString()
-            : item.getName().getString();
+        return MinecraftUtils.getItemBaseNameString(item);
     }
 
     public static String getPokemonItemCustomName(ItemStack item)
     {
         if (item == null || item.isEmpty()) return ChatStrings.getEmptyHeldItemString();
 
-        Text itemName = item.get(DataComponentTypes.ITEM_NAME);
-
-        return itemName != null && itemName.getString().length() > 0
-            ? itemName.getString()
-            : ChatSettings.shouldShowOriginalItemNames()
-                ? item.getItem().getName().getString()
-                : item.getName().getString();
+        return MinecraftUtils.getItemRealNameString(item);
     }
 
     public static String getPokemonAbility(Pokemon pokemon)

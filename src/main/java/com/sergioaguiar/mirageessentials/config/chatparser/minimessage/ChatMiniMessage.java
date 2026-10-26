@@ -86,6 +86,10 @@ public class ChatMiniMessage
     public static final String SHINY_COLOR_TEMPLATE_TAG_STRING = "shinycolor";
     public static final String SHINY_BRACKET_COLOR_TEMPLATE_STRING = "ShinyBracketColor";
     public static final String SHINY_BRACKET_COLOR_TEMPLATE_TAG_STRING = "shinybracketcolor";
+    public static final String ITEM_COLOR_TEMPLATE_STRING = "ItemColor";
+    public static final String ITEM_COLOR_TEMPLATE_TAG_STRING = "itemcolor";
+    public static final String ITEM_BRACKET_COLOR_TEMPLATE_STRING = "ItemBracketColor";
+    public static final String ITEM_BRACKET_COLOR_TEMPLATE_TAG_STRING = "itembracketcolor";
 
     // Pokemon Template Names
     public static final String POKE_HOVERABLE_TEMPLATE_STRING = "PokeHoverable";
@@ -456,14 +460,16 @@ public class ChatMiniMessage
     public static final String HIDDEN_TEMPLATE_TAG_STRING = "hidden";
 
     // Pokemon Template Names
-    protected static final String ITEM_HOVERABLE_TEMPLATE_STRING = "ItemHoverable";
-    protected static final String ITEM_HOVERABLE_TEMPLATE_TAG_STRING = "itemhoverable";
-    protected static final String ITEM_BASE_NAME_TEMPLATE_STRING = "ItemBaseName";
-    protected static final String ITEM_BASE_NAME_TEMPLATE_TAG_STRING = "itembasename";
-    protected static final String ITEM_ANVIL_NAME_TEMPLATE_STRING = "ItemAnvilName";
-    protected static final String ITEM_ANVIL_NAME_TEMPLATE_TAG_STRING = "itemanvilname";
-    protected static final String ITEM_CUSTOM_NAME_TEMPLATE_STRING = "ItemCustomName";
-    protected static final String ITEM_CUSTOM_NAME_TEMPLATE_TAG_STRING = "itemcustomname";
+    public static final String ITEM_HOVERABLE_TEMPLATE_STRING = "ItemHoverable";
+    public static final String ITEM_HOVERABLE_TEMPLATE_TAG_STRING = "itemhoverable";
+    public static final String ITEM_BASE_NAME_TEMPLATE_STRING = "ItemBaseName";
+    public static final String ITEM_BASE_NAME_TEMPLATE_TAG_STRING = "itembasename";
+    public static final String ITEM_ANVIL_NAME_TEMPLATE_STRING = "ItemAnvilName";
+    public static final String ITEM_ANVIL_NAME_TEMPLATE_TAG_STRING = "itemanvilname";
+    public static final String ITEM_CUSTOM_NAME_TEMPLATE_STRING = "ItemCustomName";
+    public static final String ITEM_CUSTOM_NAME_TEMPLATE_TAG_STRING = "itemcustomname";
+    public static final String ITEM_REAL_NAME_TEMPLATE_STRING = "ItemRealName";
+    public static final String ITEM_REAL_NAME_TEMPLATE_TAG_STRING = "itemrealname";
     
     // Color Defaults
     protected static final String DEFAULT_LABEL_COLOR_STRING = "#10F2F2";
@@ -497,17 +503,19 @@ public class ChatMiniMessage
     protected static final String DEFAULT_MYTHICAL_CATEGORY_COLOR_STRING = "#db2bd2";
     protected static final String DEFAULT_ULTRA_BEAST_CATEGORY_COLOR_STRING = "#2ea31f";
     protected static final String DEFAULT_CUSTOM_ASPECT_CATEGORY_COLOR_STRING = "#2eb4e9";
-    protected static final String DEFAULT_REGULAR_CATEGORY_BRACKET_COLOR_STRING = "#cacaca";
-    protected static final String DEFAULT_LEGENDARY_CATEGORY_BRACKET_COLOR_STRING = "#f72e2e";
-    protected static final String DEFAULT_MYTHICAL_CATEGORY_BRACKET_COLOR_STRING = "#db2bd2";
-    protected static final String DEFAULT_ULTRA_BEAST_CATEGORY_BRACKET_COLOR_STRING = "#2ea31f";
-    protected static final String DEFAULT_CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_STRING = "#2eb4e9";
+    protected static final String DEFAULT_REGULAR_CATEGORY_BRACKET_COLOR_STRING = "#b9b0b0";
+    protected static final String DEFAULT_LEGENDARY_CATEGORY_BRACKET_COLOR_STRING = "#d61b1b";
+    protected static final String DEFAULT_MYTHICAL_CATEGORY_BRACKET_COLOR_STRING = "#c91dc0";
+    protected static final String DEFAULT_ULTRA_BEAST_CATEGORY_BRACKET_COLOR_STRING = "#238f15";
+    protected static final String DEFAULT_CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_STRING = "#20a1d4";
 
     protected static final String DEFAULT_SHINY_COLOR_STRING = "#e7e436";
-    protected static final String DEFAULT_SHINY_BRACKET_COLOR_STRING = "#e7e436";
+    protected static final String DEFAULT_SHINY_BRACKET_COLOR_STRING = "#f3f175";
+    protected static final String DEFAULT_ITEM_COLOR_STRING = "#33daf0";
+    protected static final String DEFAULT_ITEM_BRACKET_COLOR_STRING = "#2eb4e9";
 
     // Pokemon Defaults
-    protected static final String DEFAULT_ITEM_HOVERABLE = "<color:<itemcolor>>[<itemcustomname>]</color>";
+    protected static final String DEFAULT_POKE_HOVERABLE = "<color:<customshinybracketcolorcategory>>[</color><gradient:<customshinycolorcategory>:<customcategorycolor>><name><title></gradient><color:<customcategorybracketcolor>>]</color>";
 
     protected static final String DEFAULT_POKEMON_INFO =
         """
@@ -516,7 +524,7 @@ public class ChatMiniMessage
         <color:<labelcolor>>─────────────────────</color>
         <color:<labelcolor>>Condition:</color> <customcondition>
         <color:<labelcolor>>Species:</color><customspecies>
-        <color:<labelcolor>>Held Item:</color> <white><helditem></white> <customcosmeticitem>
+        <color:<labelcolor>>Held Item:</color> <white><helditemcustomname></white> <customcosmeticitem>
         <color:<labelcolor>>Ability:</color> <white><ability></white> <customhiddenability>
         <color:<labelcolor>>Nature</color><custommintness><color:<labelcolor>>:</color> <white><natureeffective></white> <customnatureeffectivestats>
         <color:<labelcolor>>Level:</color> <white><level></white> <customexperience>
@@ -739,7 +747,7 @@ public class ChatMiniMessage
     protected static final String DEFAULT_HIDDEN = "<white>Hidden</white>";
 
     // Item Defaults
-    protected static final String DEFAULT_POKE_HOVERABLE = "<gradient:<customshinycolorcategory>:<customcategorycolor>>[<name><title>]</gradient>";
+    protected static final String DEFAULT_ITEM_HOVERABLE = "<color:<itemcolor>>[<itemrealname>]</color>";
 
     // State Data
     private static HashMap<String, String> CUSTOM_COLORS;
@@ -816,6 +824,8 @@ public class ChatMiniMessage
 
             MISC_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SHINY_COLOR_STRING);
             MISC_COLORS.put(SHINY_BRACKET_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SHINY_BRACKET_COLOR_STRING);
+            MISC_COLORS.put(ITEM_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ITEM_COLOR_STRING);
+            MISC_COLORS.put(ITEM_BRACKET_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ITEM_BRACKET_COLOR_STRING);
 
             POKE_HOVERABLE_TEMPLATES.put(POKE_HOVERABLE_TEMPLATE_TAG_STRING, DEFAULT_POKE_HOVERABLE);
 
@@ -950,9 +960,13 @@ public class ChatMiniMessage
 
     public static String getShinyColor() { return MISC_COLORS.get(SHINY_COLOR_TEMPLATE_TAG_STRING); }
     public static String getShinyBracketColor() { return MISC_COLORS.get(SHINY_BRACKET_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getItemColor() { return MISC_COLORS.get(ITEM_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getItemBracketColor() { return MISC_COLORS.get(ITEM_BRACKET_COLOR_TEMPLATE_TAG_STRING); }
 
     protected static void setShinyColor(String color) { MISC_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, color); }
     protected static void setShinyBracketColor(String color) { MISC_COLORS.put(SHINY_BRACKET_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setItemColor(String color) { MISC_COLORS.put(ITEM_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setItemBracketColor(String color) { MISC_COLORS.put(ITEM_BRACKET_COLOR_TEMPLATE_TAG_STRING, color); }
 
     // PokeInfo Setters and Getters
     public static String getPokeHoverableTemplate() { return POKE_HOVERABLE_TEMPLATES.get(POKE_HOVERABLE_TEMPLATE_TAG_STRING); }

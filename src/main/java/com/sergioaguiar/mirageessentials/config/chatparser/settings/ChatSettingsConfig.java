@@ -48,12 +48,6 @@ public class ChatSettingsConfig
                 ChatSettings.setParseNonPlayerMessages(enabled);
             }
 
-            if (config.contains("General.ShowOriginalItemNames"))
-            {
-                boolean enabled = config.getOrElse("General.ShowOriginalItemNames", ChatSettings.DEFAULT_SHOW_ORIGINAL_ITEM_NAMES);
-                ChatSettings.setShowOriginalItemNames(enabled);
-            }
-
             if (config.contains("EggTooltip.ShowEggNickname"))
             {
                 boolean enabled = config.getOrElse("EggTooltip.ShowEggNickname", ChatSettings.DEFAULT_SHOW_EGG_NICKNAME);
@@ -107,8 +101,6 @@ public class ChatSettingsConfig
             [General]
             # Whether to parse non-player (e.g. server) messages or not (true/false)
             ParseNonPlayerMessages = false
-            # Whether items should show the original item name, rather than changed ones (using an anvil, for example) (true/false)
-            ShowOriginalItemNames = false
             
             [EggTooltip]
             # Whether to show an egg's nickname in hover text (true/false)

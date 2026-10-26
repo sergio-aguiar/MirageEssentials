@@ -25,9 +25,11 @@ import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspects;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.platform.fabric.FabricAudiences;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.event.HoverEvent.ShowItem;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
@@ -155,11 +157,6 @@ public class MiniMessageUtils
         );
     }
 
-    public static Component fromMinecraftText(Text text)
-    {
-        return FabricAudiences.nonWrappingSerializer().deserialize(text);
-    }
-
     public static Text renderPokeInfo(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
     {
         String newTemplate = parsePokeInfoColors
@@ -246,7 +243,18 @@ public class MiniMessageUtils
             pokemon.getTeraType()
         );
 
-        return render(newTemplate, getHoverableTagResolver(pokemon, isClosedSheet), hoverEvent);
+        return render(newTemplate, getPokeHoverableTagResolver(pokemon, isClosedSheet), hoverEvent);
+    }
+
+    public static Text renderItemHoverable(ItemStack item, HoverEvent<?> hoverEvent)
+    {
+        String newTemplate = parseItemHoverableColors
+        (
+            ChatMiniMessage.getItemHoverableTemplate(),
+            item
+        );
+
+        return render(newTemplate, getItemHoverableTagResolver(item), hoverEvent);
     }
 
     private static String parsePokeInfoColors(String template, Pokemon pokemon, List<Move> moves, List<ElementalType> types)
@@ -389,6 +397,19 @@ public class MiniMessageUtils
         );
     }
 
+    private static String parseItemHoverableColors(String template, ItemStack item)
+    {
+        return resolveItemColor
+        (
+            resolveItemBracketColor
+            (
+                template,
+                item
+            ),
+            item
+        );
+    }
+
     public static TagResolver getPokeInfoTagResolver(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
     {
         List<ElementalType> types = CobblemonUtils.getPokemonTypes(pokemon);
@@ -502,13 +523,23 @@ public class MiniMessageUtils
             .build();
     }
 
-    public static TagResolver getHoverableTagResolver(Pokemon pokemon, boolean isClosedSheet)
+    public static TagResolver getPokeHoverableTagResolver(Pokemon pokemon, boolean isClosedSheet)
     {
         return TagResolver.builder()
             .resolver(getCustomNameResolver(pokemon, isClosedSheet))
             .resolvers(getCustomNameResolvers(pokemon))
             .resolver(getCustomSpeciesResolver(pokemon))
             .resolvers(getCustomSpeciesResolvers(pokemon))
+            .build();
+    }
+
+    public static TagResolver getItemHoverableTagResolver(ItemStack item)
+    {
+        return TagResolver.builder()
+            .resolver(getItemBaseNameResolver(item))
+            .resolver(getItemAnvilNameResolver(item))
+            .resolver(getItemCustomNameResolver(item))
+            .resolver(getItemRealNameResolver(item))
             .build();
     }
 
@@ -3645,6 +3676,57 @@ public class MiniMessageUtils
         );
     }
 
+    private static TagResolver.Single getItemBaseNameResolver(ItemStack item)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.ITEM_BASE_NAME_TEMPLATE_TAG_STRING,
+            MinecraftUtils.getItemBaseNameString(item)
+        );
+    }
+
+    private static TagResolver.Single getItemAnvilNameResolver(ItemStack item)
+    {
+        Text anvilName = MinecraftUtils.getItemAnvilName(item);
+
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.ITEM_ANVIL_NAME_TEMPLATE_TAG_STRING,
+            anvilName != null && !anvilName.getString().isEmpty()
+                ? anvilName.getString()
+                : MinecraftUtils.getItemBaseNameString(item)
+        );
+    }
+
+    private static TagResolver.Single getItemCustomNameResolver(ItemStack item)
+    {
+        Text nbtName = MinecraftUtils.getItemNBTName(item);
+
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.ITEM_CUSTOM_NAME_TEMPLATE_TAG_STRING,
+            nbtName != null && !nbtName.getString().isEmpty()
+                ? nbtName.getString()
+                : MinecraftUtils.getItemBaseNameString(item)
+        );
+    }
+
+    private static TagResolver.Single getItemRealNameResolver(ItemStack item)
+    {
+        Text anvilName = MinecraftUtils.getItemAnvilName(item);
+        Text nbtName = MinecraftUtils.getItemNBTName(item);
+
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.ITEM_REAL_NAME_TEMPLATE_TAG_STRING,
+            anvilName != null && !anvilName.getString().isEmpty()
+                ? anvilName.getString()
+                : nbtName != null && !nbtName.getString().isEmpty()
+                    ? nbtName.getString()
+                    : MinecraftUtils.getItemBaseNameString(item)
+        );
+    }
+
     private static String resolveCustomColors(String template)
     {
         for (Entry<String, String> customColor : ChatMiniMessage.getCustomColors().entrySet())
@@ -3886,6 +3968,24 @@ public class MiniMessageUtils
         );
     }
 
+    private static String resolveItemColor(String template, ItemStack item)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.ITEM_COLOR_TEMPLATE_TAG_STRING),
+            MinecraftUtils.getItemColor(item)
+        );
+    }
+
+    private static String resolveItemBracketColor(String template, ItemStack item)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.ITEM_BRACKET_COLOR_TEMPLATE_TAG_STRING),
+            MinecraftUtils.getItemBracketColor(item)
+        );
+    }
+
     private static TagResolver.Single getHiddenResolver(boolean isClosedSheet)
     {
         if (!isClosedSheet)
@@ -3924,5 +4024,14 @@ public class MiniMessageUtils
         if (pokemon.isMythical()) return ChatMiniMessage.getMythicalCategoryBracketColor();
         if (pokemon.isUltraBeast()) return ChatMiniMessage.getUltraBeastCategoryBracketColor();
         return ChatMiniMessage.getRegularCategoryBracketColor();
+    }
+
+    public static ShowItem toShowItem(ItemStack stack)
+    {
+        return ShowItem.showItem
+        (
+            Key.key(net.minecraft.registry.Registries.ITEM.getId(stack.getItem()).toString()),
+            stack.getCount()
+        );
     }
 }

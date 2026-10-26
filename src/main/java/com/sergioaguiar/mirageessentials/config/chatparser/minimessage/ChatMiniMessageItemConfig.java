@@ -59,10 +59,10 @@ public class ChatMiniMessageItemConfig
             # You can use the following replacement templates:
             # <itembasename> - The item's base minecraft name (will not show anvil or NBT changes).
             # <itemanvilname> - The item's custom name (shows the anvil name, or base item if not changed).
-            # <itemcustomname> - The item's custom name (shows the anvil name, or the NBT-changed name if changed, otherwise the base one).
+            # <itemcustomname> - The item's custom name (shows the NBT-changed name, or base item if not changed).
+            # <itemrealname> - The item's name (shows the anvil name, or the NBT-changed name if changed, otherwise the base one).
             # <itemcolor> - The item's color if NBT-changed, showing the default-configured item color otherwise.
             %s = \"%s\"
-            
             """.formatted
             (
                 MirageEssentials.MOD_NAME,

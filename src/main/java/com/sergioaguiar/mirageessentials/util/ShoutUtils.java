@@ -442,7 +442,7 @@ public class ShoutUtils
             ChatColors.getCommandValueColor()
         );
 
-        shoutBuilder.append(TextUtils.getItemText(stack));
+        shoutBuilder.append(MinecraftUtils.getItemHoverableText(stack));
         
         player.getServer().getPlayerManager().broadcast(shoutBuilder.getText(), false);
     }

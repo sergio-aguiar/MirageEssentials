@@ -11,6 +11,7 @@ import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.pokemon.Species;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
+import com.sergioaguiar.mirageessentials.util.MinecraftUtils;
 import com.sergioaguiar.mirageessentials.util.MiniMessageUtils;
 import com.sergioaguiar.mirageessentials.util.NeoDaycareUtils;
 import com.sergioaguiar.mirageessentials.util.TextUtils;
@@ -143,7 +144,7 @@ public class PlaceholderResolver
             return TextUtils.errorPlaceholder("Empty Slot");
         }
 
-        return TextUtils.getItemText(stack);
+        return MinecraftUtils.getItemHoverableText(stack);
     }
 
     public static Text getHelpText()
@@ -175,7 +176,7 @@ public class PlaceholderResolver
             return TextUtils.errorPlaceholder("Empty Slot");
         }
 
-        return TextUtils.getItemText(stack);
+        return MinecraftUtils.getItemHoverableText(stack);
     }
 
     public static Text buildEggTooltip(Pokemon pokemon)

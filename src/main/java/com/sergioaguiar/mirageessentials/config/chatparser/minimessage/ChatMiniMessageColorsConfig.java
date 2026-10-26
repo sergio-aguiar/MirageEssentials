@@ -187,6 +187,20 @@ public class ChatMiniMessageColorsConfig
                     if (color != null && !color.isEmpty())
                         ChatMiniMessage.setShinyBracketColor(color);
                 }
+
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_MISC_COLOR_SECTION_STRING, ChatMiniMessage.ITEM_COLOR_TEMPLATE_STRING)))
+                {
+                    String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_MISC_COLOR_SECTION_STRING, ChatMiniMessage.ITEM_COLOR_TEMPLATE_STRING));
+                    if (color != null && !color.isEmpty())
+                        ChatMiniMessage.setItemColor(color);
+                }
+
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_MISC_COLOR_SECTION_STRING, ChatMiniMessage.ITEM_BRACKET_COLOR_TEMPLATE_STRING)))
+                {
+                    String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_MISC_COLOR_SECTION_STRING, ChatMiniMessage.ITEM_BRACKET_COLOR_TEMPLATE_STRING));
+                    if (color != null && !color.isEmpty())
+                        ChatMiniMessage.setItemBracketColor(color);
+                }
             }
 
             ModLogger.info("MiniMessage configurations successfully loaded from chat_minimessage_colors.toml.");
@@ -252,6 +266,8 @@ public class ChatMiniMessageColorsConfig
             # Here you can configure the colors to use for the specific templates of the same name.
             %s = \"%s\"
             %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
             """.formatted
             (
                 MirageEssentials.MOD_NAME,
@@ -294,7 +310,9 @@ public class ChatMiniMessageColorsConfig
                 ChatMiniMessage.CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_STRING,
                 ChatMiniMessage.TOML_MISC_COLOR_SECTION_STRING,
                 ChatMiniMessage.SHINY_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SHINY_COLOR_STRING,
-                ChatMiniMessage.SHINY_BRACKET_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SHINY_BRACKET_COLOR_STRING
+                ChatMiniMessage.SHINY_BRACKET_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SHINY_BRACKET_COLOR_STRING,
+                ChatMiniMessage.ITEM_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_ITEM_COLOR_STRING,
+                ChatMiniMessage.ITEM_BRACKET_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_ITEM_BRACKET_COLOR_STRING
             );
         
         Files.writeString(file.toPath(), defaultContent);

@@ -71,25 +71,11 @@ public class ChatColorsConfig
                     ChatColors.setHoverableBracketErrorColor(TextColor.parse(color).getOrThrow());
             }
 
-            if (config.contains("Hoverable.BracketItemColor"))
-            {
-                String color = config.get("Hoverable.BracketItemColor");
-                if (color != null && !color.isEmpty())
-                    ChatColors.setHoverableItemBracketColor(TextColor.parse(color).getOrThrow());
-            }
-
             if (config.contains("Hoverable.TextErrorColor"))
             {
                 String color = config.get("Hoverable.TextErrorColor");
                 if (color != null && !color.isEmpty())
                     ChatColors.setHoverableTextErrorColor(TextColor.parse(color).getOrThrow());
-            }
-
-            if (config.contains("Hoverable.TextItemColor"))
-            {
-                String color = config.get("Hoverable.TextItemColor");
-                if (color != null && !color.isEmpty())
-                    ChatColors.setHoverableItemTextColor(TextColor.parse(color).getOrThrow());
             }
 
             if (config.contains("Tooltip.LabelColor"))
@@ -176,9 +162,7 @@ public class ChatColorsConfig
 
             [Hoverable]
             BracketErrorColor = "#c00303"
-            BracketItemColor = "#2eb4e9"
             TextErrorColor = "#e21e1e"
-            TextItemColor = "#33daf0"
 
             [Tooltip]
             LabelColor = "#3463e6"
