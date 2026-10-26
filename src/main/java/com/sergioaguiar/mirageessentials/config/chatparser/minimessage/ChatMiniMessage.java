@@ -71,21 +71,41 @@ public class ChatMiniMessage
     public static final String ULTRA_BEAST_CATEGORY_COLOR_TEMPLATE_TAG_STRING = "ultrabeastcolor";
     public static final String CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_STRING = "CustomAspectColor";
     public static final String CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_TAG_STRING = "customaspectcolor";
+    public static final String REGULAR_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING = "RegularBracketColor";
+    public static final String REGULAR_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING = "regularbracketcolor";
+    public static final String LEGENDARY_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING = "LegendaryBracketColor";
+    public static final String LEGENDARY_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING = "legendarybracketcolor";
+    public static final String MYTHICAL_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING = "MythicalBracketColor";
+    public static final String MYTHICAL_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING = "mythicalbracketcolor";
+    public static final String ULTRA_BEAST_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING = "UltraBeastBracketColor";
+    public static final String ULTRA_BEAST_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING = "ultrabeastbracketcolor";
+    public static final String CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING = "CustomAspectBracketColor";
+    public static final String CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING = "customaspectbracketcolor";
 
     public static final String SHINY_COLOR_TEMPLATE_STRING = "ShinyColor";
     public static final String SHINY_COLOR_TEMPLATE_TAG_STRING = "shinycolor";
+    public static final String SHINY_BRACKET_COLOR_TEMPLATE_STRING = "ShinyBracketColor";
+    public static final String SHINY_BRACKET_COLOR_TEMPLATE_TAG_STRING = "shinybracketcolor";
 
     // Pokemon Template Names
     public static final String POKE_HOVERABLE_TEMPLATE_STRING = "PokeHoverable";
     public static final String POKE_HOVERABLE_TEMPLATE_TAG_STRING = "pokehoverable";
     public static final String CUSTOM_CATEGORY_COLOR_TEMPLATE_STRING = "CustomCategoryColor";
     public static final String CUSTOM_CATEGORY_COLOR_TEMPLATE_TAG_STRING = "customcategorycolor";
+    public static final String CUSTOM_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING = "CustomCategoryBracketColor";
+    public static final String CUSTOM_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING = "customcategorybracketcolor";
     public static final String CUSTOM_SHINY_COLOR_1_TEMPLATE_STRING = "CustomShinyColor1";
     public static final String CUSTOM_SHINY_COLOR_1_TEMPLATE_TAG_STRING = "customshinycolor1";
+    public static final String CUSTOM_SHINY_BRACKET_COLOR_1_TEMPLATE_STRING = "CustomShinyBracketColor1";
+    public static final String CUSTOM_SHINY_BRACKET_COLOR_1_TEMPLATE_TAG_STRING = "customshinybracketcolor1";
     public static final String CUSTOM_SHINY_COLOR_2_TEMPLATE_STRING = "CustomShinyColor2";
     public static final String CUSTOM_SHINY_COLOR_2_TEMPLATE_TAG_STRING = "customshinycolor2";
+    public static final String CUSTOM_SHINY_BRACKET_COLOR_2_TEMPLATE_STRING = "CustomShinyBracketColor2";
+    public static final String CUSTOM_SHINY_BRACKET_COLOR_2_TEMPLATE_TAG_STRING = "customshinybracketcolor2";
     public static final String CUSTOM_SHINY_COLOR_CATEGORY_TEMPLATE_STRING = "CustomShinyColorCategory";
     public static final String CUSTOM_SHINY_COLOR_CATEGORY_TEMPLATE_TAG_STRING = "customshinycolorcategory";
+    public static final String CUSTOM_SHINY_BRACKET_COLOR_CATEGORY_TEMPLATE_STRING = "CustomShinyBracketColorCategory";
+    public static final String CUSTOM_SHINY_BRACKET_COLOR_CATEGORY_TEMPLATE_TAG_STRING = "customshinybracketcolorcategory";
     public static final String POKEMON_INFO_TEMPLATE_STRING = "PokemonInfo";
     public static final String POKEMON_INFO_TEMPLATE_TAG_STRING = "pokemoninfo";
     public static final String NAME_TEMPLATE_STRING = "Name";
@@ -477,8 +497,14 @@ public class ChatMiniMessage
     protected static final String DEFAULT_MYTHICAL_CATEGORY_COLOR_STRING = "#db2bd2";
     protected static final String DEFAULT_ULTRA_BEAST_CATEGORY_COLOR_STRING = "#2ea31f";
     protected static final String DEFAULT_CUSTOM_ASPECT_CATEGORY_COLOR_STRING = "#2eb4e9";
+    protected static final String DEFAULT_REGULAR_CATEGORY_BRACKET_COLOR_STRING = "#cacaca";
+    protected static final String DEFAULT_LEGENDARY_CATEGORY_BRACKET_COLOR_STRING = "#f72e2e";
+    protected static final String DEFAULT_MYTHICAL_CATEGORY_BRACKET_COLOR_STRING = "#db2bd2";
+    protected static final String DEFAULT_ULTRA_BEAST_CATEGORY_BRACKET_COLOR_STRING = "#2ea31f";
+    protected static final String DEFAULT_CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_STRING = "#2eb4e9";
 
     protected static final String DEFAULT_SHINY_COLOR_STRING = "#e7e436";
+    protected static final String DEFAULT_SHINY_BRACKET_COLOR_STRING = "#e7e436";
 
     // Pokemon Defaults
     protected static final String DEFAULT_ITEM_HOVERABLE = "<color:<itemcolor>>[<itemcustomname>]</color>";
@@ -782,7 +808,14 @@ public class ChatMiniMessage
             CATEGORY_COLORS.put(ULTRA_BEAST_CATEGORY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ULTRA_BEAST_CATEGORY_COLOR_STRING);
             CATEGORY_COLORS.put(CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_ASPECT_CATEGORY_COLOR_STRING);
 
+            CATEGORY_COLORS.put(REGULAR_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING, DEFAULT_REGULAR_CATEGORY_BRACKET_COLOR_STRING);
+            CATEGORY_COLORS.put(LEGENDARY_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING, DEFAULT_LEGENDARY_CATEGORY_BRACKET_COLOR_STRING);
+            CATEGORY_COLORS.put(MYTHICAL_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING, DEFAULT_MYTHICAL_CATEGORY_BRACKET_COLOR_STRING);
+            CATEGORY_COLORS.put(ULTRA_BEAST_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ULTRA_BEAST_CATEGORY_BRACKET_COLOR_STRING);
+            CATEGORY_COLORS.put(CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING, DEFAULT_CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_STRING);
+
             MISC_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SHINY_COLOR_STRING);
+            MISC_COLORS.put(SHINY_BRACKET_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SHINY_BRACKET_COLOR_STRING);
 
             POKE_HOVERABLE_TEMPLATES.put(POKE_HOVERABLE_TEMPLATE_TAG_STRING, DEFAULT_POKE_HOVERABLE);
 
@@ -898,16 +931,28 @@ public class ChatMiniMessage
     public static String getMythicalCategoryColor() { return CATEGORY_COLORS.get(MYTHICAL_CATEGORY_COLOR_TEMPLATE_TAG_STRING); }
     public static String getUltraBeastCategoryColor() { return CATEGORY_COLORS.get(ULTRA_BEAST_CATEGORY_COLOR_TEMPLATE_TAG_STRING); }
     public static String getCustomAspectCategoryColor() { return CATEGORY_COLORS.get(CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getRegularCategoryBracketColor() { return CATEGORY_COLORS.get(REGULAR_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getLegendaryCategoryBracketColor() { return CATEGORY_COLORS.get(LEGENDARY_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getMythicalCategoryBracketColor() { return CATEGORY_COLORS.get(MYTHICAL_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getUltraBeastCategoryBracketColor() { return CATEGORY_COLORS.get(ULTRA_BEAST_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getCustomAspectCategoryBracketColor() { return CATEGORY_COLORS.get(CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING); }
 
     protected static void setRegularCategoryColor(String color) { CATEGORY_COLORS.put(REGULAR_CATEGORY_COLOR_TEMPLATE_TAG_STRING, color); }
     protected static void setLegendaryCategoryColor(String color) { CATEGORY_COLORS.put(LEGENDARY_CATEGORY_COLOR_TEMPLATE_TAG_STRING, color); }
     protected static void setMythicalCategoryColor(String color) { CATEGORY_COLORS.put(MYTHICAL_CATEGORY_COLOR_TEMPLATE_TAG_STRING, color); }
     protected static void setUltraBeastCategoryColor(String color) { CATEGORY_COLORS.put(ULTRA_BEAST_CATEGORY_COLOR_TEMPLATE_TAG_STRING, color); }
     protected static void setCustomAspectCategoryColor(String color) { CATEGORY_COLORS.put(CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setRegularCategoryBracketColor(String color) { CATEGORY_COLORS.put(REGULAR_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setLegendaryCategoryBracketColor(String color) { CATEGORY_COLORS.put(LEGENDARY_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setMythicalCategoryBracketColor(String color) { CATEGORY_COLORS.put(MYTHICAL_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setUltraBeastCategoryBracketColor(String color) { CATEGORY_COLORS.put(ULTRA_BEAST_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setCustomAspectCategoryBracketColor(String color) { CATEGORY_COLORS.put(CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING, color); }
 
     public static String getShinyColor() { return MISC_COLORS.get(SHINY_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getShinyBracketColor() { return MISC_COLORS.get(SHINY_BRACKET_COLOR_TEMPLATE_TAG_STRING); }
 
     protected static void setShinyColor(String color) { MISC_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setShinyBracketColor(String color) { MISC_COLORS.put(SHINY_BRACKET_COLOR_TEMPLATE_TAG_STRING, color); }
 
     // PokeInfo Setters and Getters
     public static String getPokeHoverableTemplate() { return POKE_HOVERABLE_TEMPLATES.get(POKE_HOVERABLE_TEMPLATE_TAG_STRING); }

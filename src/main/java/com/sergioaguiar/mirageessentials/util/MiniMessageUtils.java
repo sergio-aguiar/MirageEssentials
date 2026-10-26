@@ -348,7 +348,25 @@ public class MiniMessageUtils
                                         (
                                             resolveCustomShinyColorCategory
                                             (
-                                                template,
+                                                resolveCustomCategoryBracketColor
+                                                (
+                                                    resolveCustomShinyBracketColor1
+                                                    (
+                                                        resolveCustomShinyBracketColor2
+                                                        (
+                                                            resolveCustomShinyBracketColorCategory
+                                                            (
+                                                                resolveShinyBracketColor(template),
+                                                                pokemon
+                                                            ),
+                                                            pokemon,
+                                                            types
+                                                        ),
+                                                        pokemon,
+                                                        types
+                                                    ),
+                                                    pokemon
+                                                ),
                                                 pokemon
                                             ),
                                             pokemon,
@@ -3713,12 +3731,30 @@ public class MiniMessageUtils
         );
     }
 
+    private static String resolveCustomCategoryBracketColor(String template, Pokemon pokemon)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.CUSTOM_CATEGORY_BRACKET_COLOR_TEMPLATE_TAG_STRING),
+            getCategoryBracketColor(pokemon, false)
+        );
+    }
+
     private static String resolveCustomShinyColor1(String template, Pokemon pokemon, List<ElementalType> types)
     {
         return template.replace
         (
             "<%s>".formatted(ChatMiniMessage.CUSTOM_SHINY_COLOR_1_TEMPLATE_TAG_STRING),
             pokemon.getShiny() ? ChatMiniMessage.getShinyColor() : String.format("#%06x", types.get(0).getPrimaryColor())
+        );
+    }
+
+    private static String resolveCustomShinyBracketColor1(String template, Pokemon pokemon, List<ElementalType> types)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.CUSTOM_SHINY_BRACKET_COLOR_1_TEMPLATE_TAG_STRING),
+            pokemon.getShiny() ? ChatMiniMessage.getShinyBracketColor() : String.format("#%06x", types.get(0).getPrimaryColor())
         );
     }
 
@@ -3731,6 +3767,15 @@ public class MiniMessageUtils
         );
     }
 
+    private static String resolveCustomShinyBracketColor2(String template, Pokemon pokemon, List<ElementalType> types)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.CUSTOM_SHINY_BRACKET_COLOR_2_TEMPLATE_TAG_STRING),
+            pokemon.getShiny() ? ChatMiniMessage.getShinyBracketColor() : String.format("#%06x", types.get(types.size() > 1 ? 1 : 0).getPrimaryColor())
+        );
+    }
+
     private static String resolveCustomShinyColorCategory(String template, Pokemon pokemon)
     {
         return template.replace
@@ -3740,12 +3785,30 @@ public class MiniMessageUtils
         );
     }
 
+    private static String resolveCustomShinyBracketColorCategory(String template, Pokemon pokemon)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.CUSTOM_SHINY_BRACKET_COLOR_CATEGORY_TEMPLATE_TAG_STRING),
+            getCategoryBracketColor(pokemon, true)
+        );
+    }
+
     private static String resolveShinyColor(String template)
     {
         return template.replace
         (
             "<%s>".formatted(ChatMiniMessage.SHINY_COLOR_TEMPLATE_TAG_STRING),
             ChatMiniMessage.getShinyColor()
+        );
+    }
+
+    private static String resolveShinyBracketColor(String template)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.SHINY_BRACKET_COLOR_TEMPLATE_TAG_STRING),
+            ChatMiniMessage.getShinyBracketColor()
         );
     }
 
@@ -3851,5 +3914,15 @@ public class MiniMessageUtils
         if (pokemon.isMythical()) return ChatMiniMessage.getMythicalCategoryColor();
         if (pokemon.isUltraBeast()) return ChatMiniMessage.getUltraBeastCategoryColor();
         return ChatMiniMessage.getRegularCategoryColor();
+    }
+
+    public static String getCategoryBracketColor(Pokemon pokemon, boolean returnShiny)
+    {
+        if (returnShiny && pokemon.getShiny()) return ChatMiniMessage.getShinyBracketColor();
+        if (ChatAspects.isCustomPokemon(pokemon.getAspects())) return ChatMiniMessage.getCustomAspectCategoryBracketColor();
+        if (pokemon.isLegendary()) return ChatMiniMessage.getLegendaryCategoryBracketColor();
+        if (pokemon.isMythical()) return ChatMiniMessage.getMythicalCategoryBracketColor();
+        if (pokemon.isUltraBeast()) return ChatMiniMessage.getUltraBeastCategoryBracketColor();
+        return ChatMiniMessage.getRegularCategoryBracketColor();
     }
 }

@@ -108,11 +108,25 @@ public class ChatMiniMessageColorsConfig
                         ChatMiniMessage.setRegularCategoryColor(color);
                 }
 
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.REGULAR_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING)))
+                {
+                    String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.REGULAR_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING));
+                    if (color != null && !color.isEmpty())
+                        ChatMiniMessage.setRegularCategoryBracketColor(color);
+                }
+
                 if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.LEGENDARY_CATEGORY_COLOR_TEMPLATE_STRING)))
                 {
                     String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.LEGENDARY_CATEGORY_COLOR_TEMPLATE_STRING));
                     if (color != null && !color.isEmpty())
                         ChatMiniMessage.setLegendaryCategoryColor(color);
+                }
+
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.LEGENDARY_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING)))
+                {
+                    String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.LEGENDARY_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING));
+                    if (color != null && !color.isEmpty())
+                        ChatMiniMessage.setLegendaryCategoryBracketColor(color);
                 }
 
                 if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.MYTHICAL_CATEGORY_COLOR_TEMPLATE_STRING)))
@@ -122,6 +136,13 @@ public class ChatMiniMessageColorsConfig
                         ChatMiniMessage.setMythicalCategoryColor(color);
                 }
 
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.MYTHICAL_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING)))
+                {
+                    String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.MYTHICAL_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING));
+                    if (color != null && !color.isEmpty())
+                        ChatMiniMessage.setMythicalCategoryBracketColor(color);
+                }
+
                 if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.ULTRA_BEAST_CATEGORY_COLOR_TEMPLATE_STRING)))
                 {
                     String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.ULTRA_BEAST_CATEGORY_COLOR_TEMPLATE_STRING));
@@ -129,11 +150,25 @@ public class ChatMiniMessageColorsConfig
                         ChatMiniMessage.setUltraBeastCategoryColor(color);
                 }
 
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.ULTRA_BEAST_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING)))
+                {
+                    String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.ULTRA_BEAST_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING));
+                    if (color != null && !color.isEmpty())
+                        ChatMiniMessage.setUltraBeastCategoryBracketColor(color);
+                }
+
                 if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_STRING)))
                 {
                     String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_STRING));
                     if (color != null && !color.isEmpty())
                         ChatMiniMessage.setCustomAspectCategoryColor(color);
+                }
+
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING)))
+                {
+                    String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING, ChatMiniMessage.CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING));
+                    if (color != null && !color.isEmpty())
+                        ChatMiniMessage.setCustomAspectCategoryBracketColor(color);
                 }
             }
 
@@ -144,6 +179,13 @@ public class ChatMiniMessageColorsConfig
                     String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_MISC_COLOR_SECTION_STRING, ChatMiniMessage.SHINY_COLOR_TEMPLATE_STRING));
                     if (color != null && !color.isEmpty())
                         ChatMiniMessage.setShinyColor(color);
+                }
+
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_MISC_COLOR_SECTION_STRING, ChatMiniMessage.SHINY_BRACKET_COLOR_TEMPLATE_STRING)))
+                {
+                    String color = config.get("%s.%s".formatted(ChatMiniMessage.TOML_MISC_COLOR_SECTION_STRING, ChatMiniMessage.SHINY_BRACKET_COLOR_TEMPLATE_STRING));
+                    if (color != null && !color.isEmpty())
+                        ChatMiniMessage.setShinyBracketColor(color);
                 }
             }
 
@@ -200,9 +242,15 @@ public class ChatMiniMessageColorsConfig
             %s = \"%s\"
             %s = \"%s\"
             %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
 
             [%s]
             # Here you can configure the colors to use for the specific templates of the same name.
+            %s = \"%s\"
             %s = \"%s\"
             """.formatted
             (
@@ -235,12 +283,18 @@ public class ChatMiniMessageColorsConfig
                 ChatMiniMessage.SPE_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SPE_COLOR_STRING,
                 ChatMiniMessage.TOML_CATEGORY_COLOR_SECTION_STRING,
                 ChatMiniMessage.REGULAR_CATEGORY_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_REGULAR_CATEGORY_COLOR_STRING,
+                ChatMiniMessage.REGULAR_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_REGULAR_CATEGORY_BRACKET_COLOR_STRING,
                 ChatMiniMessage.LEGENDARY_CATEGORY_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_LEGENDARY_CATEGORY_COLOR_STRING,
+                ChatMiniMessage.LEGENDARY_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_LEGENDARY_CATEGORY_BRACKET_COLOR_STRING,
                 ChatMiniMessage.MYTHICAL_CATEGORY_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MYTHICAL_CATEGORY_COLOR_STRING,
+                ChatMiniMessage.MYTHICAL_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MYTHICAL_CATEGORY_BRACKET_COLOR_STRING,
                 ChatMiniMessage.ULTRA_BEAST_CATEGORY_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_ULTRA_BEAST_CATEGORY_COLOR_STRING,
+                ChatMiniMessage.ULTRA_BEAST_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_ULTRA_BEAST_CATEGORY_BRACKET_COLOR_STRING,
                 ChatMiniMessage.CUSTOM_ASPECT_CATEGORY_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_ASPECT_CATEGORY_COLOR_STRING,
+                ChatMiniMessage.CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_ASPECT_CATEGORY_BRACKET_COLOR_STRING,
                 ChatMiniMessage.TOML_MISC_COLOR_SECTION_STRING,
-                ChatMiniMessage.SHINY_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SHINY_COLOR_STRING
+                ChatMiniMessage.SHINY_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SHINY_COLOR_STRING,
+                ChatMiniMessage.SHINY_BRACKET_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SHINY_BRACKET_COLOR_STRING
             );
         
         Files.writeString(file.toPath(), defaultContent);

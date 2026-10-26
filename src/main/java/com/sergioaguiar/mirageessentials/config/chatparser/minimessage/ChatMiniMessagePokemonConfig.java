@@ -581,9 +581,13 @@ public class ChatMiniMessagePokemonConfig
                 # <formsfullyexpanded> - The pokémon's forms, expanded, also including custom configured aspects.
                 # <customspecies> - The pokémon's custom species info, using the configured template.
                 # <customcategorycolor> - The configured pokémon category color (depending on if legendary, mythical, ultra beast or none).
+                # <customcategorybracketcolor> - The configured pokémon category bracket color (depending on if legendary, mythical, ultra beast or none).
                 # <customshinycolor1> - The configured shiny color if the pokémon is shiny, otherwise the same as <type1color>.
+                # <customshinybracketcolor1> - The configured shiny bracket color if the pokémon is shiny, otherwise the same as <type1color>.
                 # <customshinycolor2> - The configured shiny color if the pokémon is shiny, otherwise the same as <type2color>.
+                # <customshinybracketcolor2> - The configured shiny bracket color if the pokémon is shiny, otherwise the same as <type2color>.
                 # <customshinycolorcategory> - The configured shiny color if the pokémon is shiny, otherwise the same as <customcategorycolor>.
+                # <customshinycolorbracketcategory> - The configured shiny bracket color if the pokémon is shiny, otherwise the same as <customcategorybracketcolor>.
                 %s = \"%s\"
 
                 [%s]
