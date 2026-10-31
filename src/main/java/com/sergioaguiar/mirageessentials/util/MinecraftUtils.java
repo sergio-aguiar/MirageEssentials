@@ -6,12 +6,26 @@ import net.kyori.adventure.text.event.HoverEvent;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 public class MinecraftUtils
 {
     public static Text getItemNBTName(ItemStack item)
     {
         return item.get(DataComponentTypes.ITEM_NAME);
+    }
+
+    public static String getItemNBTNameColor(ItemStack item)
+    {
+        Text name = item.getName();
+
+        Formatting color = name.getStyle() != null && name.getStyle().getColor() != null
+            ? Formatting.byName(name.getStyle().getColor().getName())
+            : null;
+
+        return color != null && color.getColorValue() != null
+            ? String.format("#%06x", color.getColorValue())
+            : ChatMiniMessage.getItemColor();
     }
 
     public static Text getItemAnvilName(ItemStack item)
@@ -61,7 +75,7 @@ public class MinecraftUtils
         if (item == null || item.isEmpty()) return ChatMiniMessage.getItemColor();
 
         return isNBTEditedItem(item)
-            ? String.format("#%06x", item.getItemBarColor())
+            ? getItemNBTNameColor(item)
             : ChatMiniMessage.getItemColor();
     }
 
@@ -70,7 +84,7 @@ public class MinecraftUtils
         if (item == null || item.isEmpty()) return ChatMiniMessage.getItemBracketColor();
 
         return isNBTEditedItem(item)
-            ? String.format("#%06x", item.getItemBarColor())
+            ? getItemNBTNameColor(item)
             : ChatMiniMessage.getItemBracketColor();
     }
 

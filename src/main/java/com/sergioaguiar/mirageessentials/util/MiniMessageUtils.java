@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -21,6 +22,7 @@ import com.cobblemon.mod.common.pokemon.Gender;
 import com.cobblemon.mod.common.pokemon.IVs;
 import com.cobblemon.mod.common.pokemon.Nature;
 import com.cobblemon.mod.common.pokemon.Pokemon;
+import com.google.gson.JsonParser;
 import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspects;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
@@ -34,7 +36,11 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+import net.kyori.adventure.text.serializer.gson.GsonDataComponentValue;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 
 public class MiniMessageUtils
@@ -4028,10 +4034,33 @@ public class MiniMessageUtils
 
     public static ShowItem toShowItem(ItemStack stack)
     {
-        return ShowItem.showItem
+        ShowItem showItem = ShowItem.showItem
         (
-            Key.key(net.minecraft.registry.Registries.ITEM.getId(stack.getItem()).toString()),
+            Key.key(Registries.ITEM.getId(stack.getItem()).toString()),
             stack.getCount()
         );
+
+        // CUSTOM_NAME is the name supplied by an item's NBT. ITEM_NAME is
+        // the base name component and does not include an NBT custom name.
+        Text itemName = stack.get(DataComponentTypes.CUSTOM_NAME);
+
+        if (itemName != null)
+        {
+            var adventureName = FabricAudiences.nonWrappingSerializer().deserialize(itemName);
+
+            showItem = showItem.dataComponents
+            (
+                Map.of
+                (
+                    Key.key("minecraft:custom_name"),
+                    GsonDataComponentValue.gsonDataComponentValue
+                    (
+                        JsonParser.parseString(GsonComponentSerializer.gson().serialize(adventureName))
+                    )
+                )
+            );
+        }
+
+        return showItem;
     }
 }
