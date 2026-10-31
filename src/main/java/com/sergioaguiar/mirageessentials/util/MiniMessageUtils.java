@@ -22,7 +22,7 @@ import com.cobblemon.mod.common.pokemon.Gender;
 import com.cobblemon.mod.common.pokemon.IVs;
 import com.cobblemon.mod.common.pokemon.Nature;
 import com.cobblemon.mod.common.pokemon.Pokemon;
-import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspects;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
@@ -4040,9 +4040,8 @@ public class MiniMessageUtils
             stack.getCount()
         );
 
-        // CUSTOM_NAME is the name supplied by an item's NBT. ITEM_NAME is
-        // the base name component and does not include an NBT custom name.
-        Text itemName = stack.get(DataComponentTypes.CUSTOM_NAME);
+        // This project stores its NBT-edited item name in ITEM_NAME.
+        Text itemName = stack.get(DataComponentTypes.ITEM_NAME);
 
         if (itemName != null)
         {
@@ -4052,10 +4051,10 @@ public class MiniMessageUtils
             (
                 Map.of
                 (
-                    Key.key("minecraft:custom_name"),
+                    Key.key("minecraft:item_name"),
                     GsonDataComponentValue.gsonDataComponentValue
                     (
-                        JsonParser.parseString(GsonComponentSerializer.gson().serialize(adventureName))
+                        new JsonPrimitive(GsonComponentSerializer.gson().serialize(adventureName))
                     )
                 )
             );
