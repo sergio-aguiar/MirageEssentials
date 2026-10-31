@@ -30,6 +30,7 @@ import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.platform.fabric.FabricAudiences;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.DataComponentValue;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.event.HoverEvent.ShowItem;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -4040,24 +4041,30 @@ public class MiniMessageUtils
             stack.getCount()
         );
 
-        // This project stores its NBT-edited item name in ITEM_NAME.
-        Text itemName = stack.get(DataComponentTypes.ITEM_NAME);
+        Text customName = stack.get(DataComponentTypes.CUSTOM_NAME);
+        
+        Text itemName = customName != null && !customName.getString().isEmpty()
+            ? customName
+            : stack.get(DataComponentTypes.ITEM_NAME);
 
         if (itemName != null)
         {
-            var adventureName = FabricAudiences.nonWrappingSerializer().deserialize(itemName);
+            Component adventureName = FabricAudiences.nonWrappingSerializer().deserialize(itemName);
+            
+            String componentName = customName != null && !customName.getString().isEmpty()
+                ? "minecraft:custom_name"
+                : "minecraft:item_name";
 
-            showItem = showItem.dataComponents
+            Map<Key, DataComponentValue> nameComponent = Map.of
             (
-                Map.of
+                Key.key(componentName),
+                GsonDataComponentValue.gsonDataComponentValue
                 (
-                    Key.key("minecraft:item_name"),
-                    GsonDataComponentValue.gsonDataComponentValue
-                    (
-                        new JsonPrimitive(GsonComponentSerializer.gson().serialize(adventureName))
-                    )
+                    new JsonPrimitive(GsonComponentSerializer.gson().serialize(adventureName))
                 )
             );
+
+            showItem = showItem.dataComponents(nameComponent);
         }
 
         return showItem;
