@@ -11,8 +11,6 @@ public class ChatColors
     private static final DataResult<TextColor> DEFAULT_COMMAND_VALUE_COLOR = TextColor.parse("#d1d8eb");
     private static final DataResult<TextColor> DEFAULT_COMMAND_PLAYER_COLOR = TextColor.parse("#cfe95e");
 
-    private static final DataResult<TextColor> DEFAULT_HOVERABLE_ERROR_BRACKET_COLOR = TextColor.parse("#c00303");
-
     private static final DataResult<TextColor> DEFAULT_TOOLTIP_LABEL_COLOR = TextColor.parse("#3463e6");
     private static final DataResult<TextColor> DEFAULT_TOOLTIP_VALUE_COLOR = TextColor.parse("#d1d8eb");
 
@@ -28,9 +26,6 @@ public class ChatColors
     private static TextColor commandPrefixColor;
     private static TextColor commandValueColor;
     private static TextColor commandPlayerColor;
-
-    private static TextColor hoverableBracketErrorColor;
-    private static TextColor hoverableTextErrorColor;
 
     private static TextColor tooltipLabelColor;
     private static TextColor tooltipValueColor;
@@ -51,8 +46,6 @@ public class ChatColors
             commandPrefixColor = DEFAULT_COMMAND_PREFIX_COLOR.getOrThrow();
             commandValueColor = DEFAULT_COMMAND_VALUE_COLOR.getOrThrow();
             commandPlayerColor = DEFAULT_COMMAND_PLAYER_COLOR.getOrThrow();
-
-            hoverableBracketErrorColor = DEFAULT_HOVERABLE_ERROR_BRACKET_COLOR.getOrThrow();
 
             tooltipLabelColor = DEFAULT_TOOLTIP_LABEL_COLOR.getOrThrow();
             tooltipValueColor = DEFAULT_TOOLTIP_VALUE_COLOR.getOrThrow();
@@ -75,8 +68,6 @@ public class ChatColors
     public static TextColor getCommandPrefixColor() { return commandPrefixColor; }
     public static TextColor getCommandValueColor() { return commandValueColor; }
     public static TextColor getCommandPlayerColor() { return commandPlayerColor; }
-    public static TextColor getHoverableBracketErrorColor() { return hoverableBracketErrorColor; }
-    public static TextColor getHoverableTextErrorColor() { return hoverableTextErrorColor; }
     public static TextColor getTooltipLabelColor() { return tooltipLabelColor; }
     public static TextColor getTooltipValueColor() { return tooltipValueColor; }
     public static TextColor getTooltipEggNicknameColor() { return tooltipEggNicknameColor; }
@@ -90,8 +81,6 @@ public class ChatColors
     protected static void setCommandPrefixColor(TextColor color) { commandPrefixColor = color; }
     protected static void setCommandValueColor(TextColor color) { commandValueColor = color; }
     protected static void setCommandPlayerColor(TextColor color) { commandPlayerColor = color; }
-    protected static void setHoverableBracketErrorColor(TextColor color) { hoverableBracketErrorColor = color; }
-    protected static void setHoverableTextErrorColor(TextColor color) { hoverableTextErrorColor = color; }
     protected static void setTooltipLabelColor(TextColor color) { tooltipLabelColor = color; }
     protected static void setTooltipValueColor(TextColor color) { tooltipValueColor = color; }
     protected static void setTooltipEggNicknameColor(TextColor color) { tooltipEggNicknameColor = color; }

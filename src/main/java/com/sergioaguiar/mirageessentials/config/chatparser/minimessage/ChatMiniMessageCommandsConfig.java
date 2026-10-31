@@ -41,7 +41,58 @@ public class ChatMiniMessageCommandsConfig
         {
             config.load();
 
-        ModLogger.info("MiniMessage configurations successfully loaded from chat_minimessage_commands.toml.");
+            if (config.contains(ChatMiniMessage.TOML_COMMAND_GENERAL_SECTION_STRING))
+            {
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_COMMAND_GENERAL_SECTION_STRING, ChatMiniMessage.COMMAND_REPLY_PREFIX_TEMPLATE_STRING)))
+                {
+                    String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_COMMAND_GENERAL_SECTION_STRING, ChatMiniMessage.COMMAND_REPLY_PREFIX_TEMPLATE_STRING));
+                    if (template != null && !template.isEmpty())
+                        ChatMiniMessage.setCommandReplyPrefixTemplate(template);
+                }
+            }
+
+            if (config.contains(ChatMiniMessage.TOML_COMMAND_ERROR_SECTION_STRING))
+            {
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_COMMAND_ERROR_SECTION_STRING, ChatMiniMessage.INVALID_BOX_TEMPLATE_STRING)))
+                {
+                    String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_COMMAND_ERROR_SECTION_STRING, ChatMiniMessage.INVALID_BOX_TEMPLATE_STRING));
+                    if (template != null && !template.isEmpty())
+                        ChatMiniMessage.setInvalidBoxTemplate(template);
+                }
+
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_COMMAND_ERROR_SECTION_STRING, ChatMiniMessage.INVALID_SLOT_TEMPLATE_STRING)))
+                {
+                    String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_COMMAND_ERROR_SECTION_STRING, ChatMiniMessage.INVALID_SLOT_TEMPLATE_STRING));
+                    if (template != null && !template.isEmpty())
+                        ChatMiniMessage.setInvalidSlotTemplate(template);
+                }
+
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_COMMAND_ERROR_SECTION_STRING, ChatMiniMessage.INVALID_PLAYER_TEMPLATE_STRING)))
+                {
+                    String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_COMMAND_ERROR_SECTION_STRING, ChatMiniMessage.INVALID_PLAYER_TEMPLATE_STRING));
+                    if (template != null && !template.isEmpty())
+                        ChatMiniMessage.setInvalidPlayerTemplate(template);
+                }
+
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_COMMAND_ERROR_SECTION_STRING, ChatMiniMessage.EMPTY_SLOT_TEMPLATE_STRING)))
+                {
+                    String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_COMMAND_ERROR_SECTION_STRING, ChatMiniMessage.EMPTY_SLOT_TEMPLATE_STRING));
+                    if (template != null && !template.isEmpty())
+                        ChatMiniMessage.setEmptySlotTemplate(template);
+                }
+            }
+
+            if (config.contains(ChatMiniMessage.TOML_COMMAND_CHAT_REPLIES_SECTION_STRING))
+            {
+                if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_COMMAND_CHAT_REPLIES_SECTION_STRING, ChatMiniMessage.ERROR_HOVERABLE_TEMPLATE_STRING)))
+                {
+                    String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_COMMAND_CHAT_REPLIES_SECTION_STRING, ChatMiniMessage.ERROR_HOVERABLE_TEMPLATE_STRING));
+                    if (template != null && !template.isEmpty())
+                        ChatMiniMessage.setErrorHoverableTemplate(template);
+                }
+            }
+
+            ModLogger.info("MiniMessage configurations successfully loaded from chat_minimessage_commands.toml.");
         }
         catch (Exception e)
         {
@@ -58,14 +109,37 @@ public class ChatMiniMessageCommandsConfig
             # Here you can configure general use templates.
             CommandReplyPrefix = \"<gradient:<commandprefixgradientleftcolor>:<commandprefixgradientrightcolor>>Mie » </gradient>\"
 
+            [Error]
+            InvalidBox = \"Invalid Box\"
+            InvalidSlot = \"Invalid Slot\"
+            InvalidPlayer = \"Invalid Player\"
+            EmptySlot = \"Empty Slot\"
+
             [ChatReplies]
             # Here you can configure the chat messages displayed on various actions/command usage.
+
+            # Used for in-chat error hoverables.
+            # <errormessage> - The error message to show, using templates configured in [Error]
+            ErrorHoverable = \"<color:<errorbracketcolor>>[</color><color:<errorcolor>><errormessage></color><color:<errorbracketcolor>>]</color>\"
+
             # You can use the following replacement templates:
             # <commandreplyprefix> - The command chat-reply prefix, using the configured template.
             # <playername> - The player's username.
             # <playerdisplayname> - The player's custom display name.
             
-            """.formatted(MirageEssentials.MOD_NAME);
+            """.formatted
+            (
+                MirageEssentials.MOD_NAME,
+                ChatMiniMessage.TOML_COMMAND_GENERAL_SECTION_STRING,
+                ChatMiniMessage.COMMAND_REPLY_PREFIX_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_COMMAND_REPLY_PREFIX,
+                ChatMiniMessage.TOML_COMMAND_ERROR_SECTION_STRING,
+                ChatMiniMessage.INVALID_BOX_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_INVALID_BOX,
+                ChatMiniMessage.INVALID_SLOT_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_INVALID_SLOT,
+                ChatMiniMessage.INVALID_PLAYER_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_INVALID_PLAYER,
+                ChatMiniMessage.EMPTY_SLOT_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_EMPTY_SLOT,
+                ChatMiniMessage.TOML_COMMAND_CHAT_REPLIES_SECTION_STRING,
+                ChatMiniMessage.ERROR_HOVERABLE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_ERROR_HOVERABLE
+            );
         
         Files.writeString(file.toPath(), defaultContent);
     }

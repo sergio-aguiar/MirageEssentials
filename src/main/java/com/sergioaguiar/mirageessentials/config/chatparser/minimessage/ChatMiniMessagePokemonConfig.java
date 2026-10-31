@@ -355,195 +355,195 @@ public class ChatMiniMessagePokemonConfig
                     }
                 }
 
-                if (config.contains(ChatMiniMessage.TOML_STATUSES_SECTION_STRING))
+                if (config.contains(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING))
                 {
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.BURN_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING, ChatMiniMessage.BURN_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.BURN_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING, ChatMiniMessage.BURN_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setBurnTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.SLEEP_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING, ChatMiniMessage.SLEEP_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.SLEEP_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING, ChatMiniMessage.SLEEP_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setSleepTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.PARALYSIS_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING, ChatMiniMessage.PARALYSIS_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.PARALYSIS_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING, ChatMiniMessage.PARALYSIS_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setParalysisTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.POISON_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING, ChatMiniMessage.POISON_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.POISON_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING, ChatMiniMessage.POISON_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setPoisonTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.FREEZE_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING, ChatMiniMessage.FREEZE_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.FREEZE_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING, ChatMiniMessage.FREEZE_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setFreezeTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.FAINT_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING, ChatMiniMessage.FAINT_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_STATUSES_SECTION_STRING, ChatMiniMessage.FAINT_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING, ChatMiniMessage.FAINT_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setFaintTemplate(template);
                     }
                 }
 
-                if (config.contains(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING))
+                if (config.contains(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING))
                 {
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.AMORPHOUS_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.AMORPHOUS_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.AMORPHOUS_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.AMORPHOUS_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setAmorphousTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.BUG_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.BUG_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.BUG_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.BUG_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setBugTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.DITTO_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.DITTO_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.DITTO_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.DITTO_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setDittoTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.DRAGON_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.DRAGON_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.DRAGON_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.DRAGON_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setDragonTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FAIRY_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FAIRY_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FAIRY_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FAIRY_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setFairyTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FIELD_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FIELD_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FIELD_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FIELD_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setFieldTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FLYING_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FLYING_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FLYING_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.FLYING_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setFlyingTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.GRASS_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.GRASS_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.GRASS_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.GRASS_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setGrassTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.HUMAN_LIKE_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.HUMAN_LIKE_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.HUMAN_LIKE_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.HUMAN_LIKE_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setHumanLikeTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.MINERAL_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.MINERAL_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.MINERAL_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.MINERAL_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setMineralTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.MONSTER_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.MONSTER_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.MONSTER_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.MONSTER_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setMonsterTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.UNDISCOVERED_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.UNDISCOVERED_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.UNDISCOVERED_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.UNDISCOVERED_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setUndiscoveredTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER1_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER1_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER1_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER1_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setWater1Template(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER2_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER2_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER2_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER2_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setWater2Template(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER3_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER3_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER3_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING, ChatMiniMessage.WATER3_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setWater3Template(template);
                     }
                 }
 
-                if (config.contains(ChatMiniMessage.TOML_GENDERS_SECTION_STRING))
+                if (config.contains(ChatMiniMessage.TOML_POKE_GENDERS_SECTION_STRING))
                 {
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_MALE_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_MALE_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_MALE_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_MALE_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setMaleGenderTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_FEMALE_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_FEMALE_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_FEMALE_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_FEMALE_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setFemaleGenderTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_GENDERLESS_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_GENDERLESS_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_GENDERLESS_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_GENDERS_SECTION_STRING, ChatMiniMessage.GENDER_GENDERLESS_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setGenderlessGenderTemplate(template);
                     }
                 }
 
-                if (config.contains(ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING))
+                if (config.contains(ChatMiniMessage.TOML_POKE_BOOLEANS_SECTION_STRING))
                 {
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING, ChatMiniMessage.TRUE_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_BOOLEANS_SECTION_STRING, ChatMiniMessage.TRUE_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING, ChatMiniMessage.TRUE_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_BOOLEANS_SECTION_STRING, ChatMiniMessage.TRUE_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setTrueTemplate(template);
                     }
 
-                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING, ChatMiniMessage.FALSE_TEMPLATE_STRING)))
+                    if (config.contains("%s.%s".formatted(ChatMiniMessage.TOML_POKE_BOOLEANS_SECTION_STRING, ChatMiniMessage.FALSE_TEMPLATE_STRING)))
                     {
-                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING, ChatMiniMessage.FALSE_TEMPLATE_STRING));
+                        String template = config.get("%s.%s".formatted(ChatMiniMessage.TOML_POKE_BOOLEANS_SECTION_STRING, ChatMiniMessage.FALSE_TEMPLATE_STRING));
                         if (template != null && !template.isEmpty())
                             ChatMiniMessage.setFalseTemplate(template);
                     }
@@ -1155,14 +1155,14 @@ public class ChatMiniMessagePokemonConfig
                     ChatMiniMessage.CUSTOM_SPD_EVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_SPD_EVS,
                     ChatMiniMessage.CUSTOM_SPE_EVS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_SPE_EVS,
                     ChatMiniMessage.CUSTOM_NEUTERED_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_CUSTOM_NEUTERED,
-                    ChatMiniMessage.TOML_STATUSES_SECTION_STRING,
+                    ChatMiniMessage.TOML_POKE_STATUSES_SECTION_STRING,
                     ChatMiniMessage.BURN_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_BURN,
                     ChatMiniMessage.SLEEP_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_SLEEP,
                     ChatMiniMessage.PARALYSIS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_PARALYSIS,
                     ChatMiniMessage.POISON_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_POISON,
                     ChatMiniMessage.FREEZE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FREEZE,
                     ChatMiniMessage.FAINT_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FAINT,
-                    ChatMiniMessage.TOML_EGG_GROUPS_SECTION_STRING,
+                    ChatMiniMessage.TOML_POKE_EGG_GROUPS_SECTION_STRING,
                     ChatMiniMessage.AMORPHOUS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_AMORPHOUS,
                     ChatMiniMessage.BUG_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_BUG,
                     ChatMiniMessage.DITTO_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_DITTO,
@@ -1178,11 +1178,11 @@ public class ChatMiniMessagePokemonConfig
                     ChatMiniMessage.WATER1_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_WATER1,
                     ChatMiniMessage.WATER2_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_WATER2,
                     ChatMiniMessage.WATER3_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_WATER3,
-                    ChatMiniMessage.TOML_GENDERS_SECTION_STRING,
+                    ChatMiniMessage.TOML_POKE_GENDERS_SECTION_STRING,
                     ChatMiniMessage.GENDER_MALE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MALE_GENDER,
                     ChatMiniMessage.GENDER_FEMALE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FEMALE_GENDER,
                     ChatMiniMessage.GENDER_GENDERLESS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_GENDERLESS_GENDER,
-                    ChatMiniMessage.TOML_BOOLEANS_SECTION_STRING,
+                    ChatMiniMessage.TOML_POKE_BOOLEANS_SECTION_STRING,
                     ChatMiniMessage.TRUE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_TRUE,
                     ChatMiniMessage.FALSE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FALSE
                 );

@@ -345,31 +345,6 @@ public class TextUtils
         return textBuilder.getText();
     }
 
-    public static MutableText errorPlaceholder(String errorMessage)
-    {
-        CustomTextBuilder textBuilder = new CustomTextBuilder();
-
-        textBuilder.append
-        (
-            "[",
-            ChatColors.getHoverableBracketErrorColor()
-        );
-
-        textBuilder.append
-        (
-            errorMessage,
-            ChatColors.getHoverableTextErrorColor()
-        );
-
-        textBuilder.append
-        (
-            "]",
-            ChatColors.getHoverableBracketErrorColor()
-        );
-
-        return textBuilder.getText();
-    }
-
     public static MutableText playerAFKMessage(String playerName)
     {
         CustomTextBuilder textBuilder = new CustomTextBuilder();

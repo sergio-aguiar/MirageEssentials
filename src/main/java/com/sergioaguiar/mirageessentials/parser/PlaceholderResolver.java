@@ -10,6 +10,7 @@ import com.cobblemon.mod.common.api.storage.pc.PCStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.pokemon.Species;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
+import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.util.MinecraftUtils;
 import com.sergioaguiar.mirageessentials.util.MiniMessageUtils;
@@ -81,12 +82,12 @@ public class PlaceholderResolver
 
     public static Text getPartyPokemon(ServerPlayerEntity player, int slot, boolean isClosedSheet)
     {
-        if (slot < 1 || slot > 6) return TextUtils.errorPlaceholder("Invalid Slot");
+        if (slot < 1 || slot > 6) return MiniMessageUtils.renderErrorHoverable(ChatMiniMessage.ErrorType.INVALID_SLOT);
 
         PlayerPartyStore party = Cobblemon.INSTANCE.getStorage().getParty(player);
         Pokemon pokemon = party.get(slot - 1);
 
-        if (pokemon == null) return TextUtils.errorPlaceholder("Empty Slot");
+        if (pokemon == null) return MiniMessageUtils.renderErrorHoverable(ChatMiniMessage.ErrorType.EMPTY_SLOT);
 
         return buildPokemonText(pokemon, isClosedSheet);
     }
@@ -110,13 +111,13 @@ public class PlaceholderResolver
     {
         PCStore pc = Cobblemon.INSTANCE.getStorage().getPC(player);
 
-        if (box < 1 || box > pc.getBoxes().size()) return TextUtils.errorPlaceholder("Invalid Box");
-        if (slot < 1 || slot > 30) return TextUtils.errorPlaceholder("Invalid Slot");
+        if (box < 1 || box > pc.getBoxes().size()) return MiniMessageUtils.renderErrorHoverable(ChatMiniMessage.ErrorType.INVALID_BOX);
+        if (slot < 1 || slot > 30) return MiniMessageUtils.renderErrorHoverable(ChatMiniMessage.ErrorType.INVALID_SLOT);
 
         PCBox boxStorage = pc.getBoxes().get(box - 1);
         Pokemon pokemon = boxStorage.get(slot - 1);
 
-        if (pokemon == null) return TextUtils.errorPlaceholder("Empty Slot");
+        if (pokemon == null) return MiniMessageUtils.renderErrorHoverable(ChatMiniMessage.ErrorType.EMPTY_SLOT);
         
         return buildPokemonText(pokemon, isClosedSheet);
     }
@@ -134,14 +135,14 @@ public class PlaceholderResolver
     {
         if (player == null)
         {
-            return TextUtils.errorPlaceholder("Invalid Player");
+            return MiniMessageUtils.renderErrorHoverable(ChatMiniMessage.ErrorType.INVALID_PLAYER);
         }
 
         ItemStack stack = player.getMainHandStack();
 
         if (stack == null || stack.isEmpty())
         {
-            return TextUtils.errorPlaceholder("Empty Slot");
+            return MiniMessageUtils.renderErrorHoverable(ChatMiniMessage.ErrorType.EMPTY_SLOT);
         }
 
         return MinecraftUtils.getItemHoverableText(stack);
@@ -161,19 +162,19 @@ public class PlaceholderResolver
     {
         if (player == null)
         {
-            return TextUtils.errorPlaceholder("Invalid Player");
+            return MiniMessageUtils.renderErrorHoverable(ChatMiniMessage.ErrorType.INVALID_PLAYER);
         }
 
         if (index < 1 || index > 9)
         {
-            return TextUtils.errorPlaceholder("Invalid Slot");
+            return MiniMessageUtils.renderErrorHoverable(ChatMiniMessage.ErrorType.INVALID_SLOT);
         }
 
         ItemStack stack = player.getInventory().getStack(index - 1);
 
         if (stack == null || stack.isEmpty())
         {
-            return TextUtils.errorPlaceholder("Empty Slot");
+            return MiniMessageUtils.renderErrorHoverable(ChatMiniMessage.ErrorType.EMPTY_SLOT);
         }
 
         return MinecraftUtils.getItemHoverableText(stack);

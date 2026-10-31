@@ -1,27 +1,53 @@
 package com.sergioaguiar.mirageessentials.config.chatparser.minimessage;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 import com.sergioaguiar.mirageessentials.util.ModLogger;
 
 public class ChatMiniMessage
 {
+    public enum ErrorType
+    {
+        INVALID_BOX(ChatMiniMessage::getInvalidBoxTemplate),
+        INVALID_SLOT(ChatMiniMessage::getInvalidSlotTemplate),
+        INVALID_PLAYER(ChatMiniMessage::getInvalidPlayerTemplate),
+        EMPTY_SLOT(ChatMiniMessage::getEmptySlotTemplate);
+
+        Supplier<String> errorMessageSupplier;
+
+        ErrorType(Supplier<String> errorMessageSupplier)
+        {
+            this.errorMessageSupplier = errorMessageSupplier;
+        }
+
+        public String getErrorMessage()
+        {
+            return errorMessageSupplier.get();
+        }
+    }
+
     // Colors Sections
-    protected static final String TOML_CUSTOM_COLOR_SECTION_STRING = "CustomColors";
-    protected static final String TOML_STAT_COLOR_SECTION_STRING = "StatColors";
-    protected static final String TOML_CATEGORY_COLOR_SECTION_STRING = "CategoryColors";
-    protected static final String TOML_MISC_COLOR_SECTION_STRING = "MiscColors";
+    protected static final String TOML_COLOR_CUSTOM_COLOR_SECTION_STRING = "CustomColors";
+    protected static final String TOML_COLOR_STAT_COLOR_SECTION_STRING = "StatColors";
+    protected static final String TOML_COLOR_CATEGORY_COLOR_SECTION_STRING = "CategoryColors";
+    protected static final String TOML_COLOR_MISC_COLOR_SECTION_STRING = "MiscColors";
 
     // Pokemon Sections
     protected static final String TOML_POKE_HOVERABLE_SECTION_STRING = "Hoverable";
     protected static final String TOML_POKE_INFO_SECTION_STRING = "PokeInfo";
-    protected static final String TOML_STATUSES_SECTION_STRING = "Statuses";
-    protected static final String TOML_EGG_GROUPS_SECTION_STRING = "EggGroups";
-    protected static final String TOML_BOOLEANS_SECTION_STRING = "Booleans";
-    protected static final String TOML_GENDERS_SECTION_STRING = "Genders";
+    protected static final String TOML_POKE_STATUSES_SECTION_STRING = "Statuses";
+    protected static final String TOML_POKE_EGG_GROUPS_SECTION_STRING = "EggGroups";
+    protected static final String TOML_POKE_BOOLEANS_SECTION_STRING = "Booleans";
+    protected static final String TOML_POKE_GENDERS_SECTION_STRING = "Genders";
 
     // Item Sections
     protected static final String TOML_ITEM_HOVERABLE_SECTION_STRING = "Hoverable";
+
+    // Command Sections
+    protected static final String TOML_COMMAND_GENERAL_SECTION_STRING = "General";
+    protected static final String TOML_COMMAND_ERROR_SECTION_STRING = "Error";
+    protected static final String TOML_COMMAND_CHAT_REPLIES_SECTION_STRING = "ChatReplies";
 
     // Colors Template Names
     protected static final String LABEL_COLOR_TEMPLATE_STRING = "LabelColor";
@@ -90,6 +116,10 @@ public class ChatMiniMessage
     public static final String ITEM_COLOR_TEMPLATE_TAG_STRING = "itemcolor";
     public static final String ITEM_BRACKET_COLOR_TEMPLATE_STRING = "ItemBracketColor";
     public static final String ITEM_BRACKET_COLOR_TEMPLATE_TAG_STRING = "itembracketcolor";
+    public static final String ERROR_COLOR_TEMPLATE_STRING = "ErrorColor";
+    public static final String ERROR_COLOR_TEMPLATE_TAG_STRING = "errorcolor";
+    public static final String ERROR_BRACKET_COLOR_TEMPLATE_STRING = "ErrorBracketColor";
+    public static final String ERROR_BRACKET_COLOR_TEMPLATE_TAG_STRING = "errorbracketcolor";
 
     // Pokemon Template Names
     public static final String POKE_HOVERABLE_TEMPLATE_STRING = "PokeHoverable";
@@ -459,7 +489,7 @@ public class ChatMiniMessage
     protected static final String HIDDEN_TEMPLATE_STRING = "Hidden";
     public static final String HIDDEN_TEMPLATE_TAG_STRING = "hidden";
 
-    // Pokemon Template Names
+    // Item Template Names
     public static final String ITEM_HOVERABLE_TEMPLATE_STRING = "ItemHoverable";
     public static final String ITEM_HOVERABLE_TEMPLATE_TAG_STRING = "itemhoverable";
     public static final String ITEM_BASE_NAME_TEMPLATE_STRING = "ItemBaseName";
@@ -470,6 +500,24 @@ public class ChatMiniMessage
     public static final String ITEM_CUSTOM_NAME_TEMPLATE_TAG_STRING = "itemcustomname";
     public static final String ITEM_REAL_NAME_TEMPLATE_STRING = "ItemRealName";
     public static final String ITEM_REAL_NAME_TEMPLATE_TAG_STRING = "itemrealname";
+
+    // Command Template Names
+    public static final String COMMAND_REPLY_PREFIX_TEMPLATE_STRING = "CommandReplyPrefix";
+    public static final String COMMAND_REPLY_PREFIX_TEMPLATE_TAG_STRING = "commandreplyprefix";
+
+    public static final String INVALID_BOX_TEMPLATE_STRING = "InvalidBox";
+    public static final String INVALID_BOX_TEMPLATE_TAG_STRING = "invalidbox";
+    public static final String INVALID_SLOT_TEMPLATE_STRING = "InvalidBSlot";
+    public static final String INVALID_SLOT_TEMPLATE_TAG_STRING = "invalidslot";
+    public static final String INVALID_PLAYER_TEMPLATE_STRING = "InvalidPlayer";
+    public static final String INVALID_PLAYER_TEMPLATE_TAG_STRING = "invalidplayer";
+    public static final String EMPTY_SLOT_TEMPLATE_STRING = "EmplySlot";
+    public static final String EMPTY_SLOT_TEMPLATE_TAG_STRING = "emptyslot";
+
+    public static final String ERROR_HOVERABLE_TEMPLATE_STRING = "ErrorHoverable";
+    public static final String ERROR_HOVERABLE_TEMPLATE_TAG_STRING = "errorhoverable";
+    public static final String ERROR_MESSAGE_TEMPLATE_STRING = "ErrorMessage";
+    public static final String ERROR_MESSAGE_TEMPLATE_TAG_STRING = "errormessage";
     
     // Color Defaults
     protected static final String DEFAULT_LABEL_COLOR_STRING = "#10F2F2";
@@ -513,6 +561,8 @@ public class ChatMiniMessage
     protected static final String DEFAULT_SHINY_BRACKET_COLOR_STRING = "#f3f175";
     protected static final String DEFAULT_ITEM_COLOR_STRING = "#33daf0";
     protected static final String DEFAULT_ITEM_BRACKET_COLOR_STRING = "#2eb4e9";
+    protected static final String DEFAULT_ERROR_COLOR_STRING = "#e21e1e";
+    protected static final String DEFAULT_ERROR_BRACKET_COLOR_STRING = "#c00303";
 
     // Pokemon Defaults
     protected static final String DEFAULT_POKE_HOVERABLE = "<color:<customshinybracketcolorcategory>>[</color><gradient:<customshinycolorcategory>:<customcategorycolor>><name><title></gradient><color:<customcategorybracketcolor>>]</color>";
@@ -749,6 +799,16 @@ public class ChatMiniMessage
     // Item Defaults
     protected static final String DEFAULT_ITEM_HOVERABLE = "<color:<itemcolor>>[<itemrealname>]</color>";
 
+    // Command Defaults
+    protected static final String DEFAULT_COMMAND_REPLY_PREFIX = "<gradient:<commandprefixgradientleftcolor>:<commandprefixgradientrightcolor>>Mie » </gradient>";
+
+    protected static final String DEFAULT_INVALID_BOX = "Invalid Box";
+    protected static final String DEFAULT_INVALID_SLOT = "Invalid Slot";
+    protected static final String DEFAULT_INVALID_PLAYER = "Invalid Player";
+    protected static final String DEFAULT_EMPTY_SLOT = "Empty Slot";
+
+    protected static final String DEFAULT_ERROR_HOVERABLE = "<color:<errorbracketcolor>>[</color><color:<errorcolor>><errormessage></color><color:<errorbracketcolor>>]</color>";
+
     // State Data
     private static HashMap<String, String> CUSTOM_COLORS;
     private static HashMap<String, String> STAT_COLORS;
@@ -764,6 +824,10 @@ public class ChatMiniMessage
     private static HashMap<String, String> MISC_TEMPLATES;
 
     private static HashMap<String, String> ITEM_HOVERABLE_TEMPLATES;
+
+    private static HashMap<String, String> COMMAND_GENERAL_TEMPLATES;
+    private static HashMap<String, String> COMMAND_ERROR_TEMPLATES;
+    private static HashMap<String, String> COMMAND_CHAT_REPLIES_TEMPLATES;
 
     public static void setDefaults()
     {
@@ -783,6 +847,9 @@ public class ChatMiniMessage
             MISC_TEMPLATES = new HashMap<>();
 
             ITEM_HOVERABLE_TEMPLATES = new HashMap<>();
+            COMMAND_GENERAL_TEMPLATES = new HashMap<>();
+            COMMAND_ERROR_TEMPLATES = new HashMap<>();
+            COMMAND_CHAT_REPLIES_TEMPLATES = new HashMap<>();
 
             CUSTOM_COLORS.put(LABEL_COLOR_TEMPLATE_TAG_STRING, DEFAULT_LABEL_COLOR_STRING);
             CUSTOM_COLORS.put(ALPHA_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ALPHA_COLOR_STRING);
@@ -826,6 +893,8 @@ public class ChatMiniMessage
             MISC_COLORS.put(SHINY_BRACKET_COLOR_TEMPLATE_TAG_STRING, DEFAULT_SHINY_BRACKET_COLOR_STRING);
             MISC_COLORS.put(ITEM_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ITEM_COLOR_STRING);
             MISC_COLORS.put(ITEM_BRACKET_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ITEM_BRACKET_COLOR_STRING);
+            MISC_COLORS.put(ERROR_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ERROR_COLOR_STRING);
+            MISC_COLORS.put(ERROR_BRACKET_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ERROR_BRACKET_COLOR_STRING);
 
             POKE_HOVERABLE_TEMPLATES.put(POKE_HOVERABLE_TEMPLATE_TAG_STRING, DEFAULT_POKE_HOVERABLE);
 
@@ -905,6 +974,15 @@ public class ChatMiniMessage
             MISC_TEMPLATES.put(HIDDEN_TEMPLATE_TAG_STRING, DEFAULT_HIDDEN);
 
             ITEM_HOVERABLE_TEMPLATES.put(ITEM_HOVERABLE_TEMPLATE_TAG_STRING, DEFAULT_ITEM_HOVERABLE);
+
+            COMMAND_GENERAL_TEMPLATES.put(COMMAND_REPLY_PREFIX_TEMPLATE_TAG_STRING, DEFAULT_COMMAND_REPLY_PREFIX);
+            
+            COMMAND_ERROR_TEMPLATES.put(INVALID_BOX_TEMPLATE_TAG_STRING, DEFAULT_INVALID_BOX);
+            COMMAND_ERROR_TEMPLATES.put(INVALID_SLOT_TEMPLATE_TAG_STRING, DEFAULT_INVALID_SLOT);
+            COMMAND_ERROR_TEMPLATES.put(INVALID_PLAYER_TEMPLATE_TAG_STRING, DEFAULT_INVALID_PLAYER);
+            COMMAND_ERROR_TEMPLATES.put(EMPTY_SLOT_TEMPLATE_TAG_STRING, DEFAULT_EMPTY_SLOT);
+
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(ERROR_HOVERABLE_TEMPLATE_TAG_STRING, DEFAULT_ERROR_HOVERABLE);
         }
         catch (IllegalStateException e) 
         {
@@ -962,11 +1040,15 @@ public class ChatMiniMessage
     public static String getShinyBracketColor() { return MISC_COLORS.get(SHINY_BRACKET_COLOR_TEMPLATE_TAG_STRING); }
     public static String getItemColor() { return MISC_COLORS.get(ITEM_COLOR_TEMPLATE_TAG_STRING); }
     public static String getItemBracketColor() { return MISC_COLORS.get(ITEM_BRACKET_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getErrorColor() { return MISC_COLORS.get(ERROR_COLOR_TEMPLATE_TAG_STRING); }
+    public static String getErrorBracketColor() { return MISC_COLORS.get(ERROR_BRACKET_COLOR_TEMPLATE_TAG_STRING); }
 
     protected static void setShinyColor(String color) { MISC_COLORS.put(SHINY_COLOR_TEMPLATE_TAG_STRING, color); }
     protected static void setShinyBracketColor(String color) { MISC_COLORS.put(SHINY_BRACKET_COLOR_TEMPLATE_TAG_STRING, color); }
     protected static void setItemColor(String color) { MISC_COLORS.put(ITEM_COLOR_TEMPLATE_TAG_STRING, color); }
     protected static void setItemBracketColor(String color) { MISC_COLORS.put(ITEM_BRACKET_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setErrorColor(String color) { MISC_COLORS.put(ERROR_COLOR_TEMPLATE_TAG_STRING, color); }
+    protected static void setErrorBracketColor(String color) { MISC_COLORS.put(ERROR_BRACKET_COLOR_TEMPLATE_TAG_STRING, color); }
 
     // PokeInfo Setters and Getters
     public static String getPokeHoverableTemplate() { return POKE_HOVERABLE_TEMPLATES.get(POKE_HOVERABLE_TEMPLATE_TAG_STRING); }
@@ -1124,6 +1206,24 @@ public class ChatMiniMessage
     public static String getHiddenTemplate() { return MISC_TEMPLATES.get(HIDDEN_TEMPLATE_TAG_STRING); }
 
     protected static void setHiddenTemplate(String template) { MISC_TEMPLATES.put(HIDDEN_TEMPLATE_TAG_STRING, template); }
+
+    public static String getCommandReplyPrefixTemplate() { return COMMAND_GENERAL_TEMPLATES.get(COMMAND_REPLY_PREFIX_TEMPLATE_TAG_STRING); }
+    
+    protected static void setCommandReplyPrefixTemplate(String template) { COMMAND_GENERAL_TEMPLATES.put(COMMAND_REPLY_PREFIX_TEMPLATE_TAG_STRING, template); }
+    
+    public static String getInvalidBoxTemplate() { return COMMAND_ERROR_TEMPLATES.get(INVALID_BOX_TEMPLATE_TAG_STRING); }
+    public static String getInvalidSlotTemplate() { return COMMAND_ERROR_TEMPLATES.get(INVALID_SLOT_TEMPLATE_TAG_STRING); }
+    public static String getInvalidPlayerTemplate() { return COMMAND_ERROR_TEMPLATES.get(INVALID_PLAYER_TEMPLATE_TAG_STRING); }
+    public static String getEmptySlotTemplate() { return COMMAND_ERROR_TEMPLATES.get(EMPTY_SLOT_TEMPLATE_TAG_STRING); }
+
+    protected static void setInvalidBoxTemplate(String template) { COMMAND_ERROR_TEMPLATES.put(INVALID_BOX_TEMPLATE_TAG_STRING, template); }
+    protected static void setInvalidSlotTemplate(String template) { COMMAND_ERROR_TEMPLATES.put(INVALID_SLOT_TEMPLATE_TAG_STRING, template); }
+    protected static void setInvalidPlayerTemplate(String template) { COMMAND_ERROR_TEMPLATES.put(INVALID_PLAYER_TEMPLATE_TAG_STRING, template); }
+    protected static void setEmptySlotTemplate(String template) { COMMAND_ERROR_TEMPLATES.put(EMPTY_SLOT_TEMPLATE_TAG_STRING, template); }
+
+    public static String getErrorHoverableTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(ERROR_HOVERABLE_TEMPLATE_TAG_STRING); }
+
+    protected static void setErrorHoverableTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(ERROR_HOVERABLE_TEMPLATE_TAG_STRING, template); }
 
     public static String getItemHoverableTemplate() { return ITEM_HOVERABLE_TEMPLATES.get(ITEM_HOVERABLE_TEMPLATE_TAG_STRING); }
 

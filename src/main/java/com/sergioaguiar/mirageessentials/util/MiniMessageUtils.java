@@ -25,6 +25,7 @@ import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.google.gson.JsonPrimitive;
 import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspects;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
+import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage.ErrorType;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 
@@ -265,6 +266,16 @@ public class MiniMessageUtils
         return render(newTemplate, getItemHoverableTagResolver(item), hoverEvent);
     }
 
+    public static Text renderErrorHoverable(ErrorType errorType)
+    {
+        String newTemplate = parseErrorHoverableColors
+        (
+            ChatMiniMessage.getErrorHoverableTemplate()
+        );
+
+        return render(newTemplate, getErrorHoverableTagResolver(errorType));
+    }
+
     private static String parsePokeInfoColors(String template, Pokemon pokemon, List<Move> moves, List<ElementalType> types)
     {
         return resolveCustomColors
@@ -418,6 +429,17 @@ public class MiniMessageUtils
         );
     }
 
+    private static String parseErrorHoverableColors(String template)
+    {
+        return resolveCustomColors
+        (
+            resolveErrorColor
+            (
+                resolveErrorBracketColor(template)
+            )
+        );
+    }
+
     public static TagResolver getPokeInfoTagResolver(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
     {
         List<ElementalType> types = CobblemonUtils.getPokemonTypes(pokemon);
@@ -548,6 +570,13 @@ public class MiniMessageUtils
             .resolver(getItemAnvilNameResolver(item))
             .resolver(getItemCustomNameResolver(item))
             .resolver(getItemRealNameResolver(item))
+            .build();
+    }
+
+    public static TagResolver getErrorHoverableTagResolver(ErrorType errorType)
+    {
+        return TagResolver.builder()
+            .resolver(getErrorMessageResolver(errorType))
             .build();
     }
 
@@ -3735,6 +3764,15 @@ public class MiniMessageUtils
         );
     }
 
+    private static TagResolver.Single getErrorMessageResolver(ErrorType errorType)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.ERROR_MESSAGE_TEMPLATE_TAG_STRING,
+            errorType.getErrorMessage()
+        );
+    }
+
     private static String resolveCustomColors(String template)
     {
         for (Entry<String, String> customColor : ChatMiniMessage.getCustomColors().entrySet())
@@ -3991,6 +4029,24 @@ public class MiniMessageUtils
         (
             "<%s>".formatted(ChatMiniMessage.ITEM_BRACKET_COLOR_TEMPLATE_TAG_STRING),
             MinecraftUtils.getItemBracketColor(item)
+        );
+    }
+
+    private static String resolveErrorColor(String template)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.ERROR_COLOR_TEMPLATE_TAG_STRING),
+            ChatMiniMessage.getErrorColor()
+        );
+    }
+
+    private static String resolveErrorBracketColor(String template)
+    {
+        return template.replace
+        (
+            "<%s>".formatted(ChatMiniMessage.ERROR_BRACKET_COLOR_TEMPLATE_TAG_STRING),
+            ChatMiniMessage.getErrorBracketColor()
         );
     }
 
