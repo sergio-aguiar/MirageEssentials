@@ -35,6 +35,7 @@ public class ChatSettings
     }
 
     protected static final boolean DEFAULT_PARSE_NON_PLAYER_MESSAGES = false;
+    protected static final boolean DEFAULT_SHOW_ORIGINAL_ITEM_NAMES = false;
     
     protected static final boolean DEFAULT_SHOW_EGG_NICKNAME = true;
     protected static final boolean DEFAULT_SHOW_EGG_HATCH_STEP_PROGRESS = true;
@@ -45,6 +46,7 @@ public class ChatSettings
     protected static final boolean DEFAULT_SHOW_PARTYCHECK_PLAYER_HEADS = true;
 
     private static boolean parseNonPlayerMessages;
+    private static boolean showOriginalItemNames;
 
     private static boolean showEggNickname;
     private static boolean showEggHatchStepProgress;
@@ -57,6 +59,7 @@ public class ChatSettings
     public static void setDefaults()
     {
         parseNonPlayerMessages = DEFAULT_PARSE_NON_PLAYER_MESSAGES;
+        showOriginalItemNames = DEFAULT_SHOW_ORIGINAL_ITEM_NAMES;
 
         showEggNickname = DEFAULT_SHOW_EGG_NICKNAME;
         showEggHatchStepProgress = DEFAULT_SHOW_EGG_HATCH_STEP_PROGRESS;
@@ -68,6 +71,7 @@ public class ChatSettings
     }
 
     public static boolean shouldParseNonPlayerMessages() { return parseNonPlayerMessages; }
+    public static boolean shouldShowOriginalItemNames() { return showOriginalItemNames; }
     public static boolean shouldShowEggNickname() { return showEggNickname; }
     public static boolean shouldshowEggHatchStepProgress() { return showEggHatchStepProgress; }
     public static boolean shouldShowEggStageMessage() { return showEggStageMessage; }
@@ -76,6 +80,7 @@ public class ChatSettings
     public static boolean shouldShowPartyCheckPlayerHeads() { return showPartyCheckPlayerHeads; }
 
     protected static void setParseNonPlayerMessages(boolean enabled) { parseNonPlayerMessages = enabled; }
+    protected static void setShowOriginalItemNames(boolean enabled) { showOriginalItemNames = enabled; }
     protected static void setShowEggNickname(boolean enabled) { showEggNickname = enabled; }
     protected static void setshowEggHatchStepProgress(boolean enabled) { showEggHatchStepProgress = enabled; }
     protected static void setShowEggStageMessage(boolean enabled) { showEggStageMessage = enabled; }

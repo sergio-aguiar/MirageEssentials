@@ -25,6 +25,7 @@ import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.google.gson.JsonPrimitive;
 import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspects;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
+import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 
 import net.kyori.adventure.key.Key;
@@ -4042,8 +4043,11 @@ public class MiniMessageUtils
         );
 
         Text customName = stack.get(DataComponentTypes.CUSTOM_NAME);
-        
-        Text itemName = customName != null && !customName.getString().isEmpty()
+        boolean showCustomName = !ChatSettings.shouldShowOriginalItemNames()
+            && customName != null
+            && !customName.getString().isEmpty();
+
+        Text itemName = showCustomName
             ? customName
             : stack.get(DataComponentTypes.ITEM_NAME);
 
@@ -4052,7 +4056,7 @@ public class MiniMessageUtils
             Component adventureName = FabricAudiences.nonWrappingSerializer().deserialize(itemName)
                 .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
             
-            String componentName = customName != null && !customName.getString().isEmpty()
+            String componentName = showCustomName
                 ? "minecraft:custom_name"
                 : "minecraft:item_name";
 
