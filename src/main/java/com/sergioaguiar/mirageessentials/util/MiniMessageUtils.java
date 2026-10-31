@@ -4049,7 +4049,8 @@ public class MiniMessageUtils
 
         if (itemName != null)
         {
-            Component adventureName = FabricAudiences.nonWrappingSerializer().deserialize(itemName);
+            Component adventureName = FabricAudiences.nonWrappingSerializer().deserialize(itemName)
+                .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
             
             String componentName = customName != null && !customName.getString().isEmpty()
                 ? "minecraft:custom_name"
