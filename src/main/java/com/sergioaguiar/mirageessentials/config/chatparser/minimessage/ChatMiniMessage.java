@@ -27,6 +27,28 @@ public class ChatMiniMessage
         }
     }
 
+    public enum CommandName
+    {
+        DEBUGSHOUT(ChatMiniMessage::getDebugShoutCommandName),
+        PCSHOUT(ChatMiniMessage::getPCShoutCommandName),
+        PARTYSHOUT(ChatMiniMessage::getPartyShoutCommandName),
+        PARTYSHOUTALL(ChatMiniMessage::getPartyShoutAllCommandName),
+        PARTYCHECK(ChatMiniMessage::getPartyCheckCommandName),
+        ITEMSHOUT(ChatMiniMessage::getItemShoutCommandName);
+
+        Supplier<String> commandNameSupplier;
+
+        CommandName(Supplier<String> commandNameSupplier)
+        {
+            this.commandNameSupplier = commandNameSupplier;
+        }
+
+        public String getCommandName()
+        {
+            return commandNameSupplier.get();
+        }
+    }
+
     // Colors Sections
     protected static final String TOML_COLOR_CUSTOM_COLOR_SECTION_STRING = "CustomColors";
     protected static final String TOML_COLOR_STAT_COLOR_SECTION_STRING = "StatColors";
@@ -48,6 +70,7 @@ public class ChatMiniMessage
     protected static final String TOML_COMMAND_GENERAL_SECTION_STRING = "General";
     protected static final String TOML_COMMAND_ERROR_SECTION_STRING = "Error";
     protected static final String TOML_COMMAND_CHAT_REPLIES_SECTION_STRING = "ChatReplies";
+    protected static final String TOML_COMMAND_NAMES_SECTION_STRING = "CommandNames";
 
     // Colors Template Names
     protected static final String LABEL_COLOR_TEMPLATE_STRING = "LabelColor";
@@ -86,6 +109,10 @@ public class ChatMiniMessage
     protected static final String FEMALE_COLOR_TEMPLATE_TAG_STRING = "femalecolor";
     protected static final String GENDERLESS_COLOR_TEMPLATE_STRING = "GenderlessColor";
     protected static final String GENDERLESS_COLOR_TEMPLATE_TAG_STRING = "genderlesscolor";
+    protected static final String COMMAND_LABEL_COLOR_TEMPLATE_STRING = "CommandLabelColor";
+    protected static final String COMMAND_LABEL_COLOR_TEMPLATE_TAG_STRING = "commandlabelcolor";
+    protected static final String COMMAND_VALUE_COLOR_TEMPLATE_STRING = "CommandValueColor";
+    protected static final String COMMAND_VALUE_COLOR_TEMPLATE_TAG_STRING = "commandvaluecolor";
 
     public static final String REGULAR_CATEGORY_COLOR_TEMPLATE_STRING = "RegularColor";
     public static final String REGULAR_CATEGORY_COLOR_TEMPLATE_TAG_STRING = "regularcolor";
@@ -518,7 +545,51 @@ public class ChatMiniMessage
     public static final String ERROR_HOVERABLE_TEMPLATE_TAG_STRING = "errorhoverable";
     public static final String ERROR_MESSAGE_TEMPLATE_STRING = "ErrorMessage";
     public static final String ERROR_MESSAGE_TEMPLATE_TAG_STRING = "errormessage";
-    
+
+    public static final String COMMAND_NAME_TEMPLATE_STRING = "CommandName";
+    public static final String COMMAND_NAME_TEMPLATE_TAG_STRING = "commandname";
+    public static final String DEBUG_SHOUT_EMPTY_SLOT_TEMPLATE_STRING = "DebugShoutEmptySlot";
+    public static final String DEBUG_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING = "debugshoutemptyslot";
+    public static final String DEBUG_SHOUT_SUCCESS_TEMPLATE_STRING = "DebugShoutSuccess";
+    public static final String DEBUG_SHOUT_SUCCESS_TEMPLATE_TAG_STRING = "debugshoutsuccess";
+    public static final String ASPECT_TEMPLATE_STRING = "Aspect";
+    public static final String ASPECT_TEMPLATE_TAG_STRING = "aspect";
+    public static final String SPECIES_FEATURE_TEMPLATE_STRING = "SpeciesFeature";
+    public static final String SPECIES_FEATURE_TEMPLATE_TAG_STRING = "speciesfeature";
+    public static final String PERSISTENT_DATA_TEMPLATE_STRING = "PersistentData";
+    public static final String PERSISTENT_DATA_TEMPLATE_TAG_STRING = "persistentdata";
+    public static final String PC_SHOUT_INVALID_BOX_TEMPLATE_STRING = "PcShoutInvalidBox";
+    public static final String PC_SHOUT_INVALID_BOX_TEMPLATE_TAG_STRING = "pcshoutinvalidbox";
+    public static final String PC_SHOUT_EMPTY_SLOT_TEMPLATE_STRING = "PcShoutEmptySlot";
+    public static final String PC_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING = "pcshoutemptyslot";
+    public static final String PC_SHOUT_SUCCESS_TEMPLATE_STRING = "PcShoutSuccess";
+    public static final String PC_SHOUT_SUCCESS_TEMPLATE_TAG_STRING = "pcshoutsuccess";
+    public static final String PARTY_SHOUT_EMPTY_SLOT_TEMPLATE_STRING = "PartyShoutEmptySlot";
+    public static final String PARTY_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING = "partyshoutemptyslot";
+    public static final String PARTY_SHOUT_SUCCESS_TEMPLATE_STRING = "PartyShoutSuccess";
+    public static final String PARTY_SHOUT_SUCCESS_TEMPLATE_TAG_STRING = "partyshoutsuccess";
+    public static final String PARTY_SHOUT_ALL_EMPTY_PARTY_TEMPLATE_STRING = "PartyShoutAllEmptyParty";
+    public static final String PARTY_SHOUT_ALL_EMPTY_PARTY_TEMPLATE_TAG_STRING = "partyshoutallemptyparty";
+    public static final String PARTY_SHOUT_ALL_SUCCESS_TEMPLATE_STRING = "PartyShoutAllSuccess";
+    public static final String PARTY_SHOUT_ALL_SUCCESS_TEMPLATE_TAG_STRING = "partyshoutallsuccess";
+    public static final String ITEM_SHOUT_EMPTY_SLOT_TEMPLATE_STRING = "ItemShoutEmptySlot";
+    public static final String ITEM_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING = "itemshoutemptyslot";
+    public static final String ITEM_SHOUT_SUCCESS_TEMPLATE_STRING = "ItemShoutSuccess";
+    public static final String ITEM_SHOUT_SUCCESS_TEMPLATE_TAG_STRING = "itemshoutsuccess";
+
+    public static final String DEBUG_SHOUT_TEMPLATE_STRING = "DebugShout";
+    public static final String DEBUG_SHOUT_TEMPLATE_TAG_STRING = "debugshout";
+    public static final String PC_SHOUT_TEMPLATE_STRING = "PCShout";
+    public static final String PC_SHOUT_TEMPLATE_TAG_STRING = "pcshout";
+    public static final String PARTY_SHOUT_TEMPLATE_STRING = "PartyShout";
+    public static final String PARTY_SHOUT_TEMPLATE_TAG_STRING = "partyshout";
+    public static final String PARTY_SHOUT_ALL_TEMPLATE_STRING = "PartyShoutAll";
+    public static final String PARTY_SHOUT_ALL_TEMPLATE_TAG_STRING = "partyshoutall";
+    public static final String PARTY_CHECK_TEMPLATE_STRING = "PartyCheck";
+    public static final String PARTY_CHECK_TEMPLATE_TAG_STRING = "partycheck";
+    public static final String ITEM_SHOUT_TEMPLATE_STRING = "ItemShout";
+    public static final String ITEM_SHOUT_TEMPLATE_TAG_STRING = "itemshout";
+
     // Color Defaults
     protected static final String DEFAULT_LABEL_COLOR_STRING = "#10F2F2";
     protected static final String DEFAULT_ALPHA_COLOR_STRING = "#d14040";
@@ -538,6 +609,8 @@ public class ChatMiniMessage
     protected static final String DEFAULT_MALE_COLOR_STRING = "#0984f7";
     protected static final String DEFAULT_FEMALE_COLOR_STRING = "#e16ef0";
     protected static final String DEFAULT_GENDERLESS_COLOR_STRING = "#bdbdbd";
+    protected static final String DEFAULT_COMMAND_LABEL_COLOR_STRING = "#2facdd";
+    protected static final String DEFAULT_COMMAND_VALUE_COLOR_STRING = "#d1d8eb";
 
     protected static final String DEFAULT_HP_COLOR_STRING = "#4f9c45";
     protected static final String DEFAULT_ATK_COLOR_STRING = "#b33f3f";
@@ -800,7 +873,7 @@ public class ChatMiniMessage
     protected static final String DEFAULT_ITEM_HOVERABLE = "<color:<itemcolor>>[<itemrealname>]</color>";
 
     // Command Defaults
-    protected static final String DEFAULT_COMMAND_REPLY_PREFIX = "<gradient:<commandprefixgradientleftcolor>:<commandprefixgradientrightcolor>>Mie » </gradient>";
+    protected static final String DEFAULT_COMMAND_REPLY_PREFIX = "<gradient:<commandprefixgradientleftcolor>:<commandprefixgradientrightcolor>>Mie »</gradient>";
 
     protected static final String DEFAULT_INVALID_BOX = "Invalid Box";
     protected static final String DEFAULT_INVALID_SLOT = "Invalid Slot";
@@ -808,6 +881,48 @@ public class ChatMiniMessage
     protected static final String DEFAULT_EMPTY_SLOT = "Empty Slot";
 
     protected static final String DEFAULT_ERROR_HOVERABLE = "<color:<errorbracketcolor>>[</color><color:<errorcolor>><errormessage></color><color:<errorbracketcolor>>]</color>";
+
+    protected static final String DEFAULT_DEBUG_SHOUT_EMPTY_SLOT = "<commandreplyprefix> <color:<commandvaluecolor>>You can not shout an empty party slot!</color>";
+    
+    protected static final String DEFAULT_DEBUG_SHOUT_SUCCESS = """
+        <commandreplyprefix> <color:<commandvaluecolor>>Only you can see this message!</color>
+
+        <color:<commandlabelcolor>>Aspect List (<aspecttotal> total):</color>
+        <aspects>
+
+        <color:<commandlabelcolor>>Forced Aspect List (<forcedaspecttotal> total):</color>
+        <forcedaspects>
+
+        <color:<commandlabelcolor>>Species Features List (<speciesfeaturetotal> total):</color>
+        <speciesfeatures>
+
+        <color:<commandlabelcolor>>Persistent Data List (<persistentdatatotal> total):</color>
+        <persistentdata>""";
+    
+    protected static final String DEFAULT_ASPECT = "<color:<commandlabelcolor>>-</color> <color:<commandvaluecolor>><aspectname></color>";
+    protected static final String DEFAULT_SPECIES_FEATURE = "<color:<commandlabelcolor>>- <speciesfeaturename>:</color> <color:<commandvaluecolor>><speciesfeaturevalue></color>";
+    protected static final String DEFAULT_PERSISTENT_DATA = "<color:<commandlabelcolor>>- <persistentdataname>:</color> <color:<commandvaluecolor>><persistentdatavalue></color>";
+    protected static final String DEFAULT_PC_SHOUT_INVALID_BOX = "<commandreplyprefix> <color:<commandvaluecolor>>You only have <boxcount> boxes!</color>";
+    protected static final String DEFAULT_PC_SHOUT_EMPTY_SLOT = "<commandreplyprefix> <color:<commandvaluecolor>>You can not shout an empty box slot!</color>";
+    protected static final String DEFAULT_PC_SHOUT_SUCCESS = "<commandreplyprefix> <playerdisplaynamestyled> <color:<commandvaluecolor>>has shouted:</color> <hoverable>";
+    protected static final String DEFAULT_PARTY_SHOUT_EMPTY_SLOT = "<commandreplyprefix> <color:<commandvaluecolor>>You can not shout an empty party slot!</color>";
+    protected static final String DEFAULT_PARTY_SHOUT_SUCCESS = "<commandreplyprefix> <playerdisplaynamestyled> <color:<commandvaluecolor>>has shouted:</color> <hoverable>";
+    protected static final String DEFAULT_PARTY_SHOUT_ALL_EMPTY_PARTY = "<commandreplyprefix> <color:<commandvaluecolor>>You can not shout an empty party!</color>";
+
+    protected static final String DEFAULT_PARTY_SHOUT_ALL_SUCCESS = """
+        <commandreplyprefix> <playerdisplaynamestyled> <color:<commandvaluecolor>>has shouted:</color>
+        <hoverable1> <hoverable2> <hoverable3>
+        <hoverable4> <hoverable5> <hoverable6>""";
+    
+    protected static final String DEFAULT_ITEM_SHOUT_EMPTY_SLOT = "<commandreplyprefix> <color:<commandvaluecolor>>You can not shout an empty item slot!</color>";
+    protected static final String DEFAULT_ITEM_SHOUT_SUCCESS = "<commandreplyprefix> <playerdisplaynamestyled> <color:<commandvaluecolor>>has shouted:</color> <hoverable>";
+
+    protected static final String DEFAULT_DEBUG_SHOUT_COMMAND_NAME = "DebugShout";
+    protected static final String DEFAULT_PC_SHOUT_COMMAND_NAME = "PCShout";
+    protected static final String DEFAULT_PARTY_SHOUT_COMMAND_NAME = "PartyShout";
+    protected static final String DEFAULT_PARTY_SHOUT_ALL_COMMAND_NAME = "PartyShoutAll";
+    protected static final String DEFAULT_PARTY_CHECK_COMMAND_NAME = "PartyCheck";
+    protected static final String DEFAULT_ITEM_SHOUT_COMMAND_NAME = "ItemShout";
 
     // State Data
     private static HashMap<String, String> CUSTOM_COLORS;
@@ -828,10 +943,11 @@ public class ChatMiniMessage
     private static HashMap<String, String> COMMAND_GENERAL_TEMPLATES;
     private static HashMap<String, String> COMMAND_ERROR_TEMPLATES;
     private static HashMap<String, String> COMMAND_CHAT_REPLIES_TEMPLATES;
+    private static HashMap<String, String> COMMAND_NAMES_TEMPLATES;
 
     public static void setDefaults()
     {
-        try 
+        try
         {
             CUSTOM_COLORS = new HashMap<>();
             CATEGORY_COLORS = new  HashMap<>();
@@ -850,6 +966,7 @@ public class ChatMiniMessage
             COMMAND_GENERAL_TEMPLATES = new HashMap<>();
             COMMAND_ERROR_TEMPLATES = new HashMap<>();
             COMMAND_CHAT_REPLIES_TEMPLATES = new HashMap<>();
+            COMMAND_NAMES_TEMPLATES = new HashMap<>();
 
             CUSTOM_COLORS.put(LABEL_COLOR_TEMPLATE_TAG_STRING, DEFAULT_LABEL_COLOR_STRING);
             CUSTOM_COLORS.put(ALPHA_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ALPHA_COLOR_STRING);
@@ -869,6 +986,8 @@ public class ChatMiniMessage
             CUSTOM_COLORS.put(MALE_COLOR_TEMPLATE_TAG_STRING, DEFAULT_MALE_COLOR_STRING);
             CUSTOM_COLORS.put(FEMALE_COLOR_TEMPLATE_TAG_STRING, DEFAULT_FEMALE_COLOR_STRING);
             CUSTOM_COLORS.put(GENDERLESS_COLOR_TEMPLATE_TAG_STRING, DEFAULT_GENDERLESS_COLOR_STRING);
+            CUSTOM_COLORS.put(COMMAND_LABEL_COLOR_TEMPLATE_TAG_STRING, DEFAULT_COMMAND_LABEL_COLOR_STRING);
+            CUSTOM_COLORS.put(COMMAND_VALUE_COLOR_TEMPLATE_TAG_STRING, DEFAULT_COMMAND_VALUE_COLOR_STRING);
 
             STAT_COLORS.put(HP_COLOR_TEMPLATE_TAG_STRING, DEFAULT_HP_COLOR_STRING);
             STAT_COLORS.put(ATK_COLOR_TEMPLATE_TAG_STRING, DEFAULT_ATK_COLOR_STRING);
@@ -976,15 +1095,36 @@ public class ChatMiniMessage
             ITEM_HOVERABLE_TEMPLATES.put(ITEM_HOVERABLE_TEMPLATE_TAG_STRING, DEFAULT_ITEM_HOVERABLE);
 
             COMMAND_GENERAL_TEMPLATES.put(COMMAND_REPLY_PREFIX_TEMPLATE_TAG_STRING, DEFAULT_COMMAND_REPLY_PREFIX);
-            
+
             COMMAND_ERROR_TEMPLATES.put(INVALID_BOX_TEMPLATE_TAG_STRING, DEFAULT_INVALID_BOX);
             COMMAND_ERROR_TEMPLATES.put(INVALID_SLOT_TEMPLATE_TAG_STRING, DEFAULT_INVALID_SLOT);
             COMMAND_ERROR_TEMPLATES.put(INVALID_PLAYER_TEMPLATE_TAG_STRING, DEFAULT_INVALID_PLAYER);
             COMMAND_ERROR_TEMPLATES.put(EMPTY_SLOT_TEMPLATE_TAG_STRING, DEFAULT_EMPTY_SLOT);
 
             COMMAND_CHAT_REPLIES_TEMPLATES.put(ERROR_HOVERABLE_TEMPLATE_TAG_STRING, DEFAULT_ERROR_HOVERABLE);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(DEBUG_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING, DEFAULT_DEBUG_SHOUT_EMPTY_SLOT);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(DEBUG_SHOUT_SUCCESS_TEMPLATE_TAG_STRING, DEFAULT_DEBUG_SHOUT_SUCCESS);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(ASPECT_TEMPLATE_TAG_STRING, DEFAULT_ASPECT);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(SPECIES_FEATURE_TEMPLATE_TAG_STRING, DEFAULT_SPECIES_FEATURE);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(PERSISTENT_DATA_TEMPLATE_TAG_STRING, DEFAULT_PERSISTENT_DATA);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(PC_SHOUT_INVALID_BOX_TEMPLATE_TAG_STRING, DEFAULT_PC_SHOUT_INVALID_BOX);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(PC_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING, DEFAULT_PC_SHOUT_EMPTY_SLOT);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(PC_SHOUT_SUCCESS_TEMPLATE_TAG_STRING, DEFAULT_PC_SHOUT_SUCCESS);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(PARTY_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING, DEFAULT_PARTY_SHOUT_EMPTY_SLOT);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(PARTY_SHOUT_SUCCESS_TEMPLATE_TAG_STRING, DEFAULT_PARTY_SHOUT_SUCCESS);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(PARTY_SHOUT_ALL_EMPTY_PARTY_TEMPLATE_TAG_STRING, DEFAULT_PARTY_SHOUT_ALL_EMPTY_PARTY);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(PARTY_SHOUT_ALL_SUCCESS_TEMPLATE_TAG_STRING, DEFAULT_PARTY_SHOUT_ALL_SUCCESS);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(ITEM_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING, DEFAULT_ITEM_SHOUT_EMPTY_SLOT);
+            COMMAND_CHAT_REPLIES_TEMPLATES.put(ITEM_SHOUT_SUCCESS_TEMPLATE_TAG_STRING, DEFAULT_ITEM_SHOUT_SUCCESS);
+
+            COMMAND_NAMES_TEMPLATES.put(DEBUG_SHOUT_TEMPLATE_TAG_STRING, DEFAULT_DEBUG_SHOUT_COMMAND_NAME);
+            COMMAND_NAMES_TEMPLATES.put(PC_SHOUT_TEMPLATE_TAG_STRING, DEFAULT_PC_SHOUT_COMMAND_NAME);
+            COMMAND_NAMES_TEMPLATES.put(PARTY_SHOUT_TEMPLATE_TAG_STRING, DEFAULT_PARTY_SHOUT_COMMAND_NAME);
+            COMMAND_NAMES_TEMPLATES.put(PARTY_SHOUT_ALL_TEMPLATE_TAG_STRING, DEFAULT_PARTY_SHOUT_ALL_COMMAND_NAME);
+            COMMAND_NAMES_TEMPLATES.put(PARTY_CHECK_TEMPLATE_TAG_STRING, DEFAULT_PARTY_CHECK_COMMAND_NAME);
+            COMMAND_NAMES_TEMPLATES.put(ITEM_SHOUT_TEMPLATE_TAG_STRING, DEFAULT_ITEM_SHOUT_COMMAND_NAME);
         }
-        catch (IllegalStateException e) 
+        catch (IllegalStateException e)
         {
             ModLogger.error("Failed to load default chat MiniMessage colors: %s".formatted(e.getMessage()), e);
         }
@@ -995,7 +1135,7 @@ public class ChatMiniMessage
     public static HashMap<String, String> getCustomColors() { return CUSTOM_COLORS; }
 
     protected static void setCustomColor(String colorName, String color)
-    { 
+    {
         CUSTOM_COLORS.put(colorName, color);
     }
 
@@ -1208,9 +1348,9 @@ public class ChatMiniMessage
     protected static void setHiddenTemplate(String template) { MISC_TEMPLATES.put(HIDDEN_TEMPLATE_TAG_STRING, template); }
 
     public static String getCommandReplyPrefixTemplate() { return COMMAND_GENERAL_TEMPLATES.get(COMMAND_REPLY_PREFIX_TEMPLATE_TAG_STRING); }
-    
+
     protected static void setCommandReplyPrefixTemplate(String template) { COMMAND_GENERAL_TEMPLATES.put(COMMAND_REPLY_PREFIX_TEMPLATE_TAG_STRING, template); }
-    
+
     public static String getInvalidBoxTemplate() { return COMMAND_ERROR_TEMPLATES.get(INVALID_BOX_TEMPLATE_TAG_STRING); }
     public static String getInvalidSlotTemplate() { return COMMAND_ERROR_TEMPLATES.get(INVALID_SLOT_TEMPLATE_TAG_STRING); }
     public static String getInvalidPlayerTemplate() { return COMMAND_ERROR_TEMPLATES.get(INVALID_PLAYER_TEMPLATE_TAG_STRING); }
@@ -1228,4 +1368,48 @@ public class ChatMiniMessage
     public static String getItemHoverableTemplate() { return ITEM_HOVERABLE_TEMPLATES.get(ITEM_HOVERABLE_TEMPLATE_TAG_STRING); }
 
     protected static void setItemHoverableTemplate(String template) { ITEM_HOVERABLE_TEMPLATES.put(ITEM_HOVERABLE_TEMPLATE_TAG_STRING, template); }
+
+    public static String getDebugShoutEmptySlotTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(DEBUG_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING); }
+    public static String getDebugShoutSuccessTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(DEBUG_SHOUT_SUCCESS_TEMPLATE_TAG_STRING); }
+    public static String getAspectTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(ASPECT_TEMPLATE_TAG_STRING); }
+    public static String getSpeciesFeatureTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(SPECIES_FEATURE_TEMPLATE_TAG_STRING); }
+    public static String getPersistentDataTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(PERSISTENT_DATA_TEMPLATE_TAG_STRING); }
+    public static String getPcShoutInvalidBoxTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(PC_SHOUT_INVALID_BOX_TEMPLATE_TAG_STRING); }
+    public static String getPcShoutEmptySlotTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(PC_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING); }
+    public static String getPcShoutSuccessTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(PC_SHOUT_SUCCESS_TEMPLATE_TAG_STRING); }
+    public static String getPartyShoutEmptySlotTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(PARTY_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING); }
+    public static String getPartyShoutSuccessTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(PARTY_SHOUT_SUCCESS_TEMPLATE_TAG_STRING); }
+    public static String getPartyShoutAllEmptyPartyTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(PARTY_SHOUT_ALL_EMPTY_PARTY_TEMPLATE_TAG_STRING); }
+    public static String getPartyShoutAllSuccessTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(PARTY_SHOUT_ALL_SUCCESS_TEMPLATE_TAG_STRING); }
+    public static String getItemShoutEmptySlotTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(ITEM_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING); }
+    public static String getItemShoutSuccessTemplate() { return COMMAND_CHAT_REPLIES_TEMPLATES.get(ITEM_SHOUT_SUCCESS_TEMPLATE_TAG_STRING); }
+
+    protected static void setDebugShoutEmptySlotTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(DEBUG_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING, template); }
+    protected static void setDebugShoutSuccessTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(DEBUG_SHOUT_SUCCESS_TEMPLATE_TAG_STRING, template); }
+    protected static void setAspectTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(ASPECT_TEMPLATE_TAG_STRING, template); }
+    protected static void setSpeciesFeatureTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(SPECIES_FEATURE_TEMPLATE_TAG_STRING, template); }
+    protected static void setPersistentDataTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(PERSISTENT_DATA_TEMPLATE_TAG_STRING, template); }
+    protected static void setPcShoutInvalidBoxTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(PC_SHOUT_INVALID_BOX_TEMPLATE_TAG_STRING, template); }
+    protected static void setPcShoutEmptySlotTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(PC_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING, template); }
+    protected static void setPcShoutSuccessTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(PC_SHOUT_SUCCESS_TEMPLATE_TAG_STRING, template); }
+    protected static void setPartyShoutEmptySlotTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(PARTY_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING, template); }
+    protected static void setPartyShoutSuccessTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(PARTY_SHOUT_SUCCESS_TEMPLATE_TAG_STRING, template); }
+    protected static void setPartyShoutAllEmptyPartyTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(PARTY_SHOUT_ALL_EMPTY_PARTY_TEMPLATE_TAG_STRING, template); }
+    protected static void setPartyShoutAllSuccessTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(PARTY_SHOUT_ALL_SUCCESS_TEMPLATE_TAG_STRING, template); }
+    protected static void setItemShoutEmptySlotTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(ITEM_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING, template); }
+    protected static void setItemShoutSuccessTemplate(String template) { COMMAND_CHAT_REPLIES_TEMPLATES.put(ITEM_SHOUT_SUCCESS_TEMPLATE_TAG_STRING, template); }
+
+    public static String getDebugShoutCommandName() { return COMMAND_NAMES_TEMPLATES.get(DEBUG_SHOUT_TEMPLATE_TAG_STRING); }
+    public static String getPCShoutCommandName() { return COMMAND_NAMES_TEMPLATES.get(PC_SHOUT_TEMPLATE_TAG_STRING); }
+    public static String getPartyShoutCommandName() { return COMMAND_NAMES_TEMPLATES.get(PARTY_SHOUT_TEMPLATE_TAG_STRING); }
+    public static String getPartyShoutAllCommandName() { return COMMAND_NAMES_TEMPLATES.get(PARTY_SHOUT_ALL_TEMPLATE_TAG_STRING); }
+    public static String getPartyCheckCommandName() { return COMMAND_NAMES_TEMPLATES.get(PARTY_CHECK_TEMPLATE_TAG_STRING); }
+    public static String getItemShoutCommandName() { return COMMAND_NAMES_TEMPLATES.get(ITEM_SHOUT_TEMPLATE_TAG_STRING); }
+
+    protected static void setDebugShoutCommandName(String name) { COMMAND_NAMES_TEMPLATES.put(DEBUG_SHOUT_TEMPLATE_TAG_STRING, name); }
+    protected static void setPCShoutCommandName(String name) { COMMAND_NAMES_TEMPLATES.put(PC_SHOUT_TEMPLATE_TAG_STRING, name); }
+    protected static void setPartyShoutCommandName(String name) { COMMAND_NAMES_TEMPLATES.put(PARTY_SHOUT_TEMPLATE_TAG_STRING, name); }
+    protected static void setPartyShoutAllCommandName(String name) { COMMAND_NAMES_TEMPLATES.put(PARTY_SHOUT_ALL_TEMPLATE_TAG_STRING, name); }
+    protected static void setPartyCheckCommandName(String name) { COMMAND_NAMES_TEMPLATES.put(PARTY_CHECK_TEMPLATE_TAG_STRING, name); }
+    protected static void setItemShoutCommandName(String name) { COMMAND_NAMES_TEMPLATES.put(ITEM_SHOUT_TEMPLATE_TAG_STRING, name); }
 }

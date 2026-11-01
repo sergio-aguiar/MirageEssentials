@@ -25,6 +25,7 @@ import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.google.gson.JsonPrimitive;
 import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspects;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
+import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage.CommandName;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage.ErrorType;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
@@ -43,6 +44,7 @@ import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.kyori.adventure.text.serializer.gson.GsonDataComponentValue;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 
@@ -274,6 +276,26 @@ public class MiniMessageUtils
         );
 
         return render(newTemplate, getErrorHoverableTagResolver(errorType));
+    }
+
+    public static Text renderDebugShoutEmptySlotText()
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getDebugShoutEmptySlotTemplate()
+        );
+
+        return render(newTemplate, getDebugShoutEmptySlotTextTagResolver());
+    }
+
+    public static Text renderDebugShoutSuccessText()
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getDebugShoutSuccessTemplate()
+        );
+
+        return render(newTemplate, getDebugShoutSuccessTextTagResolver());
     }
 
     private static String parsePokeInfoColors(String template, Pokemon pokemon, List<Move> moves, List<ElementalType> types)
@@ -577,6 +599,35 @@ public class MiniMessageUtils
     {
         return TagResolver.builder()
             .resolver(getErrorMessageResolver(errorType))
+            .build();
+    }
+
+    public static TagResolver getDebugShoutEmptySlotTextTagResolver()
+    {
+        return TagResolver.builder()
+            .resolver(getCommandReplyPrefixResolver())
+            .resolver(getCommandNameResolver(CommandName.DEBUGSHOUT))
+            .build();
+    }
+
+    public static TagResolver getDebugShoutSuccessTextTagResolver(Pokemon pokemon)
+    {
+        Set<String> aspects = pokemon.getAspects();
+        Set<String> forcedAspects = pokemon.getForcedAspects();
+        List<SpeciesFeature> speciesFeatures = pokemon.getFeatures();
+        NbtCompound persistentData = pokemon.getPersistentData();
+        Set<String> persistentDataKeys = pokemon.getPersistentData().getKeys();
+
+        return TagResolver.builder()
+            .resolver(getCommandReplyPrefixResolver())
+            .resolver(getCommandNameResolver(CommandName.DEBUGSHOUT))
+            .resolver(getAspectTotalResolver())
+            .resolver(getAspectsResolver())
+            .resolver(getForcedAspectTotalResolver())
+            .resolver(getForcedAspectsResolver())
+            .resolver(getSpeciesfeatureTotalResolver())
+            .resolver(getSpeciesFeaturesResolver())
+            
             .build();
     }
 
@@ -3770,6 +3821,24 @@ public class MiniMessageUtils
         (
             ChatMiniMessage.ERROR_MESSAGE_TEMPLATE_TAG_STRING,
             errorType.getErrorMessage()
+        );
+    }
+
+    private static TagResolver.Single getCommandReplyPrefixResolver()
+    {
+        return Placeholder.parsed
+        (
+            ChatMiniMessage.COMMAND_REPLY_PREFIX_TEMPLATE_TAG_STRING,
+            ChatMiniMessage.getCommandReplyPrefixTemplate()
+        );
+    }
+
+    private static TagResolver.Single getCommandNameResolver(CommandName commandName)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.COMMAND_NAME_TEMPLATE_TAG_STRING,
+            commandName.getCommandName()
         );
     }
 

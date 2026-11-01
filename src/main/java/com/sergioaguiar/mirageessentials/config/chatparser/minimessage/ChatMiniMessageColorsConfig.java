@@ -253,6 +253,8 @@ public class ChatMiniMessageColorsConfig
             %s = \"%s\"
             %s = \"%s\"
             %s = \"%s\"
+            %s = \"%s\"
+            %s = \"%s\"
 
             [%s]
             # Here you can configure the colors to use for the specific templates of the same name.
@@ -306,6 +308,8 @@ public class ChatMiniMessageColorsConfig
                 ChatMiniMessage.MALE_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_MALE_COLOR_STRING,
                 ChatMiniMessage.FEMALE_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FEMALE_COLOR_STRING,
                 ChatMiniMessage.GENDERLESS_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_GENDERLESS_COLOR_STRING,
+                ChatMiniMessage.COMMAND_LABEL_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_COMMAND_LABEL_COLOR_STRING,
+                ChatMiniMessage.COMMAND_VALUE_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_COMMAND_VALUE_COLOR_STRING,
                 ChatMiniMessage.TOML_COLOR_STAT_COLOR_SECTION_STRING,
                 ChatMiniMessage.HP_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_HP_COLOR_STRING,
                 ChatMiniMessage.ATK_COLOR_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_ATK_COLOR_STRING,

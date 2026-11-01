@@ -9,6 +9,9 @@ import com.sergioaguiar.mirageessentials.config.antiafk.strings.AntiAFKStringsCo
 import com.sergioaguiar.mirageessentials.config.chatparser.aspects.ChatAspectsConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
 import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColorsConfig;
+import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessageColorsConfig;
+import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessageCommandsConfig;
+import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessageItemConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessagePokemonConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettingsConfig;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStringsConfig;
@@ -126,6 +129,45 @@ public class ReloadCommand
             {
                 context.getSource().sendError(Text.literal("%s » Failed to reload GUI texture configuration: %s".formatted(MirageEssentials.MOD_NAME, e.getMessage())));
                 ModLogger.error("Error reloading GUI texture config: %s".formatted(e.getMessage()));
+                return 1;
+            }
+
+            try
+            {
+                ChatMiniMessageColorsConfig.load();
+                context.getSource().sendFeedback(() -> buildReloadFeedbackMessage("Reloaded MiniMessage Color configuration."), true);
+                ModLogger.info("MiniMessage Color configuration reloaded successfully.");
+            }
+            catch (Exception e)
+            {
+                context.getSource().sendError(Text.literal("%s » Failed to reload MiniMessage Color configuration: %s".formatted(MirageEssentials.MOD_NAME, e.getMessage())));
+                ModLogger.error("Error reloading MiniMessage Color config: %s".formatted(e.getMessage()));
+                return 1;
+            }
+
+            try
+            {
+                ChatMiniMessageCommandsConfig.load();
+                context.getSource().sendFeedback(() -> buildReloadFeedbackMessage("Reloaded MiniMessage Command configuration."), true);
+                ModLogger.info("MiniMessage Command configuration reloaded successfully.");
+            }
+            catch (Exception e)
+            {
+                context.getSource().sendError(Text.literal("%s » Failed to reload MiniMessage Command configuration: %s".formatted(MirageEssentials.MOD_NAME, e.getMessage())));
+                ModLogger.error("Error reloading MiniMessage Command config: %s".formatted(e.getMessage()));
+                return 1;
+            }
+
+            try
+            {
+                ChatMiniMessageItemConfig.load();
+                context.getSource().sendFeedback(() -> buildReloadFeedbackMessage("Reloaded MiniMessage Item configuration."), true);
+                ModLogger.info("MiniMessage Item configuration reloaded successfully.");
+            }
+            catch (Exception e)
+            {
+                context.getSource().sendError(Text.literal("%s » Failed to reload MiniMessage Item configuration: %s".formatted(MirageEssentials.MOD_NAME, e.getMessage())));
+                ModLogger.error("Error reloading MiniMessage Item config: %s".formatted(e.getMessage()));
                 return 1;
             }
 
