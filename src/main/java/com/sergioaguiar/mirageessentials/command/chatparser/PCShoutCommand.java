@@ -7,11 +7,10 @@ import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
 import com.sergioaguiar.mirageessentials.util.LuckPermsUtils;
+import com.sergioaguiar.mirageessentials.util.MiniMessageUtils;
 import com.sergioaguiar.mirageessentials.util.ModLogger;
 import com.sergioaguiar.mirageessentials.util.ShoutUtils;
-import com.sergioaguiar.mirageessentials.util.TextUtils;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.server.command.CommandManager;
@@ -73,22 +72,7 @@ public class PCShoutCommand
         int maxBoxes = Cobblemon.INSTANCE.getStorage().getPC(player).getBoxes().size();
         if (box > maxBoxes)
         {
-            TextUtils.CustomTextBuilder textBuilder = new TextUtils.CustomTextBuilder();
-
-            textBuilder.append
-            (
-                "PCShout » ",
-                ChatColors.getCommandPrefixColor()
-            );
-
-            textBuilder.append
-            (
-                "You only have %s boxes!".formatted(maxBoxes),
-                ChatColors.getCommandValueColor()
-            );
-
-            player.sendMessage(textBuilder.getText(), false);
-
+            player.sendMessage(MiniMessageUtils.renderPcShoutInvalidBoxText(), false);
             return 1;
         }
 

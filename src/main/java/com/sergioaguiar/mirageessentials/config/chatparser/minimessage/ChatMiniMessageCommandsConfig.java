@@ -282,7 +282,7 @@ public class ChatMiniMessageCommandsConfig
             # <speciesfeaturetotal> - The number of species features the pokémon has.
             # <speciesfeatures> - The pokémon's species feature list, each line using the configured <speciesfeature> template.
             # <persistentdatatotal> - The number of persistent data entries the pokémon has.
-            # <persistentdata> - The pokémon's persistent data list, each line using the configured <persistentdata> template.
+            # <persistentdatas> - The pokémon's persistent data list, each line using the configured <persistentdata> template.
             %s = \"\"\"
             %s\"\"\"
 
@@ -297,7 +297,7 @@ public class ChatMiniMessageCommandsConfig
             # <speciesfeaturevalue> - The species feature's value.
             %s = \"%s\"
 
-            # Used by <speciesfeatures> to list pokémon species features (each line uses this template once).
+            # Used by <persistentdatas> to list pokémon species features (each line uses this template once).
             # You can use the following replacement templates:
             # <persistentdataname> - The persistent data's name.
             # <persistentdatavalue> - The persistent data's value.

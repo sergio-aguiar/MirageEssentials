@@ -46,6 +46,7 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
 public class MiniMessageUtils
@@ -288,14 +289,44 @@ public class MiniMessageUtils
         return render(newTemplate, getDebugShoutEmptySlotTextTagResolver());
     }
 
-    public static Text renderDebugShoutSuccessText()
+    public static Text renderDebugShoutSuccessText(Pokemon pokemon)
     {
         String newTemplate = resolveCustomColors
         (
             ChatMiniMessage.getDebugShoutSuccessTemplate()
         );
 
-        return render(newTemplate, getDebugShoutSuccessTextTagResolver());
+        return render(newTemplate, getDebugShoutSuccessTextTagResolver(pokemon));
+    }
+
+    public static Text renderPcShoutInvalidBoxText()
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getPcShoutInvalidBoxTemplate()
+        );
+
+        return render(newTemplate, getPcShoutInvalidBoxTextTagResolver());
+    }
+
+    public static Text renderPcShoutEmptySlotText()
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getPcShoutEmptySlotTemplate()
+        );
+
+        return render(newTemplate, getPcShoutEmptySlotTextTagResolver());
+    }
+
+    public static Text renderPcShoutSuccessText(ServerPlayerEntity player, Pokemon pokemon, boolean isClosedSheet)
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getPcShoutSuccessTemplate()
+        );
+
+        return render(newTemplate, getPcShoutSuccessTextTagResolver(player, pokemon, isClosedSheet));
     }
 
     private static String parsePokeInfoColors(String template, Pokemon pokemon, List<Move> moves, List<ElementalType> types)
@@ -621,13 +652,42 @@ public class MiniMessageUtils
         return TagResolver.builder()
             .resolver(getCommandReplyPrefixResolver())
             .resolver(getCommandNameResolver(CommandName.DEBUGSHOUT))
-            .resolver(getAspectTotalResolver())
-            .resolver(getAspectsResolver())
-            .resolver(getForcedAspectTotalResolver())
-            .resolver(getForcedAspectsResolver())
-            .resolver(getSpeciesfeatureTotalResolver())
-            .resolver(getSpeciesFeaturesResolver())
-            
+            .resolver(getAspectTotalResolver(aspects))
+            .resolver(getAspectsResolver(aspects))
+            .resolver(getForcedAspectTotalResolver(forcedAspects))
+            .resolver(getForcedAspectsResolver(forcedAspects))
+            .resolver(getSpeciesfeatureTotalResolver(speciesFeatures))
+            .resolver(getSpeciesFeaturesResolver(speciesFeatures))
+            .resolver(getPersistentDataTotalResolver(persistentDataKeys))
+            .resolver(getPersistentDatasResolver(persistentData, persistentDataKeys))
+            .build();
+    }
+
+    public static TagResolver getPcShoutInvalidBoxTextTagResolver()
+    {
+        return TagResolver.builder()
+            .resolver(getCommandReplyPrefixResolver())
+            .resolver(getCommandNameResolver(CommandName.PCSHOUT))
+            .build();
+    }
+
+    public static TagResolver getPcShoutEmptySlotTextTagResolver()
+    {
+        return TagResolver.builder()
+            .resolver(getCommandReplyPrefixResolver())
+            .resolver(getCommandNameResolver(CommandName.PCSHOUT))
+            .build();
+    }
+
+    public static TagResolver getPcShoutSuccessTextTagResolver(ServerPlayerEntity player, Pokemon pokemon, boolean isClosedSheet)
+    {
+        return TagResolver.builder()
+            .resolver(getCommandReplyPrefixResolver())
+            .resolver(getCommandNameResolver(CommandName.PCSHOUT))
+            .resolver(getPlayerNameResolver(player))
+            .resolver(getPlayerDisplayNameResolver(player))
+            .resolver(getPlayerDisplayNameStyledResolver(player))
+            .resolver(getHoverableResolver(pokemon, isClosedSheet))
             .build();
     }
 
@@ -3839,6 +3899,240 @@ public class MiniMessageUtils
         (
             ChatMiniMessage.COMMAND_NAME_TEMPLATE_TAG_STRING,
             commandName.getCommandName()
+        );
+    }
+
+    private static TagResolver.Single getAspectTotalResolver(Set<String> aspects)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.ASPECT_TOTAL_TEMPLATE_TAG_STRING,
+            String.valueOf(aspects.size())
+        );
+    }
+
+    public static TagResolver.Single getAspectsResolver(Set<String> aspects)
+    {
+        Component component = Component.empty();
+
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getAspectTemplate());
+        List<String> aspectList = aspects.stream().toList();
+
+        for (int i = 0; i < aspectList.size(); i++)
+        {
+            String aspectTemplate = newTemplate + (i < aspectList.size() - 1 ? "<newline>" : "");
+
+            Component aspectComponent = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+            (
+                resolveCustomColors(aspectTemplate),
+                TagResolver.builder()
+                    .resolver(getAspectNameResolver(aspectList.get(i)))
+                    .build()
+            );
+
+            component = component.append(aspectComponent);
+        }
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.ASPECTS_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getForcedAspectTotalResolver(Set<String> aspects)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.FORCED_ASPECT_TOTAL_TEMPLATE_TAG_STRING,
+            String.valueOf(aspects.size())
+        );
+    }
+
+    public static TagResolver.Single getForcedAspectsResolver(Set<String> aspects)
+    {
+        Component component = Component.empty();
+
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getAspectTemplate());
+        List<String> aspectList = aspects.stream().toList();
+
+        for (int i = 0; i < aspectList.size(); i++)
+        {
+            String aspectTemplate = newTemplate + (i < aspectList.size() - 1 ? "<newline>" : "");
+
+            Component aspectComponent = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+            (
+                resolveCustomColors(aspectTemplate),
+                TagResolver.builder()
+                    .resolver(getAspectNameResolver(aspectList.get(i)))
+                    .build()
+            );
+
+            component = component.append(aspectComponent);
+        }
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.FORCED_ASPECTS_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getAspectNameResolver(String aspect)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.ASPECT_NAME_TEMPLATE_TAG_STRING,
+            aspect
+        );
+    }
+
+    private static TagResolver.Single getSpeciesfeatureTotalResolver(List<SpeciesFeature> speciesFeatures)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.SPECIES_FEATURE_TOTAL_TEMPLATE_TAG_STRING,
+            String.valueOf(speciesFeatures.size())
+        );
+    }
+
+    public static TagResolver.Single getSpeciesFeaturesResolver(List<SpeciesFeature> speciesFeatures)
+    {
+        Component component = Component.empty();
+
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getSpeciesFeatureTemplate());
+
+        for (int i = 0; i < speciesFeatures.size(); i++)
+        {
+            String featureTemplate = newTemplate + (i < speciesFeatures.size() - 1 ? "<newline>" : "");
+
+            Component featureComponent = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+            (
+                resolveCustomColors(featureTemplate),
+                TagResolver.builder()
+                    .resolver(getSpeciesFeatureNameResolver(speciesFeatures.get(i)))
+                    .resolver(getSpeciesFeatureValueResolver(speciesFeatures.get(i)))
+                    .build()
+            );
+
+            component = component.append(featureComponent);
+        }
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.SPECIES_FEATURES_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getSpeciesFeatureNameResolver(SpeciesFeature speciesFeature)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.SPECIES_FEATURE_NAME_TEMPLATE_TAG_STRING,
+            speciesFeature.getName()
+        );
+    }
+
+    private static TagResolver.Single getSpeciesFeatureValueResolver(SpeciesFeature speciesFeature)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.SPECIES_FEATURE_VALUE_TEMPLATE_TAG_STRING,
+            speciesFeature.toString()
+        );
+    }
+
+    private static TagResolver.Single getPersistentDataTotalResolver(Set<String> persistentDataKeys)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.PERSISTENT_DATA_TOTAL_TEMPLATE_TAG_STRING,
+            String.valueOf(persistentDataKeys.size())
+        );
+    }
+
+    public static TagResolver.Single getPersistentDatasResolver(NbtCompound persistentData, Set<String> persistentDataKeys)
+    {
+        Component component = Component.empty();
+
+        String newTemplate = resolveCustomColors(ChatMiniMessage.getPersistentDataTemplate());
+        List<String> persistentDataKeyList = persistentDataKeys.stream().toList();
+
+        for (int i = 0; i < persistentDataKeyList.size(); i++)
+        {
+            String dataTemplate = newTemplate + (i < persistentDataKeyList.size() - 1 ? "<newline>" : "");
+
+            Component dataComponent = MiniMessageUtils.MINIMESSAGE_INSTANCE.deserialize
+            (
+                resolveCustomColors(dataTemplate),
+                TagResolver.builder()
+                    .resolver(getPersistentDataNameResolver(persistentDataKeyList.get(i)))
+                    .resolver(getPersistentDataValueResolver(persistentData, persistentDataKeyList.get(i)))
+                    .build()
+            );
+
+            component = component.append(dataComponent);
+        }
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.PERSISTENT_DATAS_TEMPLATE_TAG_STRING,
+            component
+        );
+    }
+
+    private static TagResolver.Single getPersistentDataNameResolver(String persistentDataKey)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.PERSISTENT_DATA_NAME_TEMPLATE_TAG_STRING,
+            persistentDataKey
+        );
+    }
+
+    private static TagResolver.Single getPersistentDataValueResolver(NbtCompound persistentData, String persistentDataKey)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.PERSISTENT_DATA_VALUE_TEMPLATE_TAG_STRING,
+            persistentData.get(persistentDataKey).asString()
+        );
+    }
+
+    private static TagResolver.Single getPlayerNameResolver(ServerPlayerEntity player)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.PLAYER_NAME_TEMPLATE_TAG_STRING,
+            player.getGameProfile().getName()
+        );
+    }
+
+    private static TagResolver.Single getPlayerDisplayNameResolver(ServerPlayerEntity player)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.PLAYER_DISPLAY_NAME_TEMPLATE_TAG_STRING,
+            player.getDisplayName().getString()
+        );
+    }
+
+    private static TagResolver.Single getPlayerDisplayNameStyledResolver(ServerPlayerEntity player)
+    {
+        return Placeholder.component
+        (
+            ChatMiniMessage.PLAYER_DISPLAY_NAME_STYLED_TEMPLATE_TAG_STRING,
+            FabricAudiences.nonWrappingSerializer().deserialize(player.getDisplayName())
+        );
+    }
+
+    private static TagResolver.Single getHoverableResolver(Pokemon pokemon, boolean isClosedSheet)
+    {
+        return Placeholder.component
+        (
+            ChatMiniMessage.HOVERABLE_TEMPLATE_TAG_STRING,
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
         );
     }
 
