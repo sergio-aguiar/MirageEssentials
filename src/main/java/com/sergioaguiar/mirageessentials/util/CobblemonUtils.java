@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.abilities.PotentialAbility;
 import com.cobblemon.mod.common.api.moves.Move;
 import com.cobblemon.mod.common.api.pokemon.egg.EggGroup;
@@ -22,6 +23,7 @@ import com.cobblemon.mod.common.pokemon.status.PersistentStatusContainer;
 import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 
@@ -319,5 +321,10 @@ public class CobblemonUtils
         String ot = pokemon.getOriginalTrainerName();
 
         return ot == null ? "Unknown Player" : ot;
+    }
+
+    public static int getBoxCount(ServerPlayerEntity player)
+    {
+        return Cobblemon.INSTANCE.getStorage().getPC(player).getBoxes().size();
     }
 }

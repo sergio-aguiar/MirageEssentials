@@ -248,17 +248,17 @@ public class ChatMiniMessageCommandsConfig
         String defaultContent = """
             # %s - Chat MiniMessage Configuration - Commands
 
-            [General]
+            [%s]
             # Here you can configure general use templates.
             %s = \"%s\"
 
-            [Error]
+            [%s]
             %s = \"%s\"
             %s = \"%s\"
             %s = \"%s\"
             %s = \"%s\"
 
-            [ChatReplies]
+            [%s]
             # Here you can configure the chat messages displayed on various actions/command usage.
 
             # Used for in-chat error hoverables.

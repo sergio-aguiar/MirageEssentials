@@ -586,6 +586,8 @@ public class ChatMiniMessage
     public static final String PERSISTENT_DATA_TEMPLATE_TAG_STRING = "persistentdata";
     public static final String PC_SHOUT_INVALID_BOX_TEMPLATE_STRING = "PcShoutInvalidBox";
     public static final String PC_SHOUT_INVALID_BOX_TEMPLATE_TAG_STRING = "pcshoutinvalidbox";
+    public static final String BOX_COUNT_TEMPLATE_STRING = "BoxCount";
+    public static final String BOX_COUNT_TEMPLATE_TAG_STRING = "boxcount";
     public static final String PC_SHOUT_EMPTY_SLOT_TEMPLATE_STRING = "PcShoutEmptySlot";
     public static final String PC_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING = "pcshoutemptyslot";
     public static final String PC_SHOUT_SUCCESS_TEMPLATE_STRING = "PcShoutSuccess";
@@ -598,6 +600,18 @@ public class ChatMiniMessage
     public static final String PLAYER_DISPLAY_NAME_STYLED_TEMPLATE_TAG_STRING = "playerdisplaynamestyled";
     public static final String HOVERABLE_TEMPLATE_STRING = "Hoverable";
     public static final String HOVERABLE_TEMPLATE_TAG_STRING = "hoverable";
+    public static final String HOVERABLE1_TEMPLATE_STRING = "Hoverable1";
+    public static final String HOVERABLE1_TEMPLATE_TAG_STRING = "hoverable1";
+    public static final String HOVERABLE2_TEMPLATE_STRING = "Hoverable2";
+    public static final String HOVERABLE2_TEMPLATE_TAG_STRING = "hoverable2";
+    public static final String HOVERABLE3_TEMPLATE_STRING = "Hoverable3";
+    public static final String HOVERABLE3_TEMPLATE_TAG_STRING = "hoverable3";
+    public static final String HOVERABLE4_TEMPLATE_STRING = "Hoverable4";
+    public static final String HOVERABLE4_TEMPLATE_TAG_STRING = "hoverable4";
+    public static final String HOVERABLE5_TEMPLATE_STRING = "Hoverable5";
+    public static final String HOVERABLE5_TEMPLATE_TAG_STRING = "hoverable5";
+    public static final String HOVERABLE6_TEMPLATE_STRING = "Hoverable6";
+    public static final String HOVERABLE6_TEMPLATE_TAG_STRING = "hoverable6";
     public static final String PARTY_SHOUT_EMPTY_SLOT_TEMPLATE_STRING = "PartyShoutEmptySlot";
     public static final String PARTY_SHOUT_EMPTY_SLOT_TEMPLATE_TAG_STRING = "partyshoutemptyslot";
     public static final String PARTY_SHOUT_SUCCESS_TEMPLATE_STRING = "PartyShoutSuccess";
@@ -678,7 +692,7 @@ public class ChatMiniMessage
         """
         <customname>
         <customtypes> <color:<labelcolor>>│</Color> <gender> <color:<labelcolor>>│</color> <white><caughtball></white>
-        <color:<labelcolor>>─────────────────────</color>
+        <color:<labelcolor>>────────────────────────</color>
         <color:<labelcolor>>Condition:</color> <customcondition>
         <color:<labelcolor>>Species:</color><customspecies>
         <color:<labelcolor>>Held Item:</color> <white><helditemcustomname></white> <customcosmeticitem>
@@ -686,18 +700,18 @@ public class ChatMiniMessage
         <color:<labelcolor>>Nature</color><custommintness><color:<labelcolor>>:</color> <white><natureeffective></white> <customnatureeffectivestats>
         <color:<labelcolor>>Level:</color> <white><level></white> <customexperience>
         <color:<labelcolor>>Friendship:</color> <white><friendship></white>
-        <color:<labelcolor>>─────────────────────</color>
+        <color:<labelcolor>>────────────────────────</color>
         <color:<labelcolor>>Moves:</color> <hidden>
         <custommoves>
-        <color:<labelcolor>>─────────────────────</color>
+        <color:<labelcolor>>────────────────────────</color>
         <color:<labelcolor>>IVs:</color> <customgeneralivs>
             <customhpivs> <customatkivs> <customdefivs>
             <customspaivs> <customspdivs> <customspeivs>
-        <color:<labelcolor>>─────────────────────</color>
+        <color:<labelcolor>>────────────────────────</color>
         <color:<labelcolor>>EVs:</color> <customgeneralevs>
             <customhpevs> <customatkevs> <customdefevs>
             <customspaevs> <customspdevs> <customspeevs>
-        <color:<labelcolor>>─────────────────────</color>
+        <color:<labelcolor>>────────────────────────</color>
         <color:<labelcolor>>Size:</color> <white><size></white> <color:<labelcolor>>(</color><white><scalemodifier100>% scale</white><color:<labelcolor>>)</color>
         <color:<labelcolor>>Egg Groups:</color> <white><egggroups></white>
         <customneutered>

@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.api.pokemon.feature.SpeciesFeature;
 import com.cobblemon.mod.common.api.pokemon.feature.StringSpeciesFeature;
 import com.cobblemon.mod.common.api.pokemon.stats.Stats;
 import com.cobblemon.mod.common.api.pokemon.status.Statuses;
+import com.cobblemon.mod.common.api.storage.party.PlayerPartyStore;
 import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.api.types.tera.TeraType;
 import com.cobblemon.mod.common.pokemon.EVs;
@@ -97,6 +98,7 @@ public class MiniMessageUtils
     private static Component removeEmptyLines(Component component)
     {
         if (component == null) return Component.empty();
+        if (hasHoverEvent(component)) return component;
 
         String serialized = MINIMESSAGE_INSTANCE.serialize(component);
         StringBuilder sanitized = new StringBuilder();
@@ -111,6 +113,18 @@ public class MiniMessageUtils
         return sanitized.length() == 0
             ? Component.empty()
             : MINIMESSAGE_INSTANCE.deserialize(sanitized.toString());
+    }
+
+    private static boolean hasHoverEvent(Component component)
+    {
+        if (component.style().hoverEvent() != null) return true;
+
+        for (Component child : component.children())
+        {
+            if (hasHoverEvent(child)) return true;
+        }
+
+        return false;
     }
 
     public static List<Text> renderLines(String template, TagResolver placeholders)
@@ -299,14 +313,14 @@ public class MiniMessageUtils
         return render(newTemplate, getDebugShoutSuccessTextTagResolver(pokemon));
     }
 
-    public static Text renderPcShoutInvalidBoxText()
+    public static Text renderPcShoutInvalidBoxText(int maxBoxes)
     {
         String newTemplate = resolveCustomColors
         (
             ChatMiniMessage.getPcShoutInvalidBoxTemplate()
         );
 
-        return render(newTemplate, getPcShoutInvalidBoxTextTagResolver());
+        return render(newTemplate, getPcShoutInvalidBoxTextTagResolver(maxBoxes));
     }
 
     public static Text renderPcShoutEmptySlotText()
@@ -327,6 +341,66 @@ public class MiniMessageUtils
         );
 
         return render(newTemplate, getPcShoutSuccessTextTagResolver(player, pokemon, isClosedSheet));
+    }
+
+    public static Text renderPartyShoutEmptySlotText()
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getPartyShoutEmptySlotTemplate()
+        );
+
+        return render(newTemplate, getPartyShoutEmptySlotTextTagResolver());
+    }
+
+    public static Text renderPartyShoutSuccessText(ServerPlayerEntity player, Pokemon pokemon, boolean isClosedSheet)
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getPartyShoutSuccessTemplate()
+        );
+
+        return render(newTemplate, getPartyShoutSuccessTextTagResolver(player, pokemon, isClosedSheet));
+    }
+
+    public static Text renderPartyShoutAllEmptyPartyText()
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getPartyShoutAllEmptyPartyTemplate()
+        );
+
+        return render(newTemplate, getPartyShoutAllEmptyPartyTextTagResolver());
+    }
+
+    public static Text renderPartyShoutAllSuccessText(ServerPlayerEntity player, PlayerPartyStore party, boolean isClosedSheet)
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getPartyShoutAllSuccessTemplate()
+        );
+
+        return render(newTemplate, getPartyShoutAllSuccessTextTagResolver(player, party, isClosedSheet));
+    }
+
+    public static Text renderItemShoutEmptySlotText()
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getItemShoutEmptySlotTemplate()
+        );
+
+        return render(newTemplate, getItemShoutEmptySlotTextTagResolver());
+    }
+
+    public static Text renderItemShoutSuccessText(ServerPlayerEntity player, ItemStack item)
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getItemShoutSuccessTemplate()
+        );
+
+        return render(newTemplate, getItemShoutSuccessTextTagResolver(player, item));
     }
 
     private static String parsePokeInfoColors(String template, Pokemon pokemon, List<Move> moves, List<ElementalType> types)
@@ -663,11 +737,12 @@ public class MiniMessageUtils
             .build();
     }
 
-    public static TagResolver getPcShoutInvalidBoxTextTagResolver()
+    public static TagResolver getPcShoutInvalidBoxTextTagResolver(int maxBoxes)
     {
         return TagResolver.builder()
             .resolver(getCommandReplyPrefixResolver())
             .resolver(getCommandNameResolver(CommandName.PCSHOUT))
+            .resolver(getBoxCountResolver(maxBoxes))
             .build();
     }
 
@@ -688,6 +763,71 @@ public class MiniMessageUtils
             .resolver(getPlayerDisplayNameResolver(player))
             .resolver(getPlayerDisplayNameStyledResolver(player))
             .resolver(getHoverableResolver(pokemon, isClosedSheet))
+            .build();
+    }
+
+    public static TagResolver getPartyShoutEmptySlotTextTagResolver()
+    {
+        return TagResolver.builder()
+            .resolver(getCommandReplyPrefixResolver())
+            .resolver(getCommandNameResolver(CommandName.PARTYSHOUT))
+            .build();
+    }
+
+    public static TagResolver getPartyShoutSuccessTextTagResolver(ServerPlayerEntity player, Pokemon pokemon, boolean isClosedSheet)
+    {
+        return TagResolver.builder()
+            .resolver(getCommandReplyPrefixResolver())
+            .resolver(getCommandNameResolver(CommandName.PARTYSHOUT))
+            .resolver(getPlayerNameResolver(player))
+            .resolver(getPlayerDisplayNameResolver(player))
+            .resolver(getPlayerDisplayNameStyledResolver(player))
+            .resolver(getHoverableResolver(pokemon, isClosedSheet))
+            .build();
+    }
+
+    public static TagResolver getPartyShoutAllEmptyPartyTextTagResolver()
+    {
+        return TagResolver.builder()
+            .resolver(getCommandReplyPrefixResolver())
+            .resolver(getCommandNameResolver(CommandName.PARTYSHOUTALL))
+            .build();
+    }
+
+    public static TagResolver getPartyShoutAllSuccessTextTagResolver(ServerPlayerEntity player, PlayerPartyStore party, boolean isClosedSheet)
+    {
+        return TagResolver.builder()
+            .resolver(getCommandReplyPrefixResolver())
+            .resolver(getCommandNameResolver(CommandName.PARTYSHOUTALL))
+            .resolver(getPlayerNameResolver(player))
+            .resolver(getPlayerDisplayNameResolver(player))
+            .resolver(getPlayerDisplayNameStyledResolver(player))
+            .resolver(getHoverable1Resolver(party, isClosedSheet))
+            .resolver(getHoverable2Resolver(party, isClosedSheet))
+            .resolver(getHoverable3Resolver(party, isClosedSheet))
+            .resolver(getHoverable4Resolver(party, isClosedSheet))
+            .resolver(getHoverable5Resolver(party, isClosedSheet))
+            .resolver(getHoverable6Resolver(party, isClosedSheet))
+            .build();
+    }
+
+    public static TagResolver getItemShoutEmptySlotTextTagResolver()
+    {
+        return TagResolver.builder()
+            .resolver(getCommandReplyPrefixResolver())
+            .resolver(getCommandNameResolver(CommandName.ITEMSHOUT))
+            .build();
+    }
+
+    public static TagResolver getItemShoutSuccessTextTagResolver(ServerPlayerEntity player, ItemStack item)
+    {
+        return TagResolver.builder()
+            .resolver(getCommandReplyPrefixResolver())
+            .resolver(getCommandNameResolver(CommandName.ITEMSHOUT))
+            .resolver(getPlayerNameResolver(player))
+            .resolver(getPlayerDisplayNameResolver(player))
+            .resolver(getPlayerDisplayNameStyledResolver(player))
+            .resolver(getHoverableResolver(item))
             .build();
     }
 
@@ -3889,7 +4029,7 @@ public class MiniMessageUtils
         return Placeholder.parsed
         (
             ChatMiniMessage.COMMAND_REPLY_PREFIX_TEMPLATE_TAG_STRING,
-            ChatMiniMessage.getCommandReplyPrefixTemplate()
+            resolveCustomColors(ChatMiniMessage.getCommandReplyPrefixTemplate())
         );
     }
 
@@ -4100,6 +4240,15 @@ public class MiniMessageUtils
         );
     }
 
+    private static TagResolver.Single getBoxCountResolver(int maxBoxes)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.BOX_COUNT_TEMPLATE_TAG_STRING,
+            String.valueOf(maxBoxes)
+        );
+    }
+
     private static TagResolver.Single getPlayerNameResolver(ServerPlayerEntity player)
     {
         return Placeholder.unparsed
@@ -4132,6 +4281,135 @@ public class MiniMessageUtils
         return Placeholder.component
         (
             ChatMiniMessage.HOVERABLE_TEMPLATE_TAG_STRING,
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+        );
+    }
+
+    private static TagResolver.Single getHoverableResolver(ItemStack item)
+    {
+        return Placeholder.component
+        (
+            ChatMiniMessage.HOVERABLE_TEMPLATE_TAG_STRING,
+            MinecraftUtils.getItemHoverableText(item)
+        );
+    }
+
+    private static TagResolver.Single getHoverable1Resolver(PlayerPartyStore party, boolean isClosedSheet)
+    {
+        Pokemon pokemon = party.get(0);
+
+        if (pokemon == null)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.HOVERABLE1_TEMPLATE_TAG_STRING,
+                renderErrorHoverable(ErrorType.EMPTY_SLOT)
+            );
+        }
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.HOVERABLE1_TEMPLATE_TAG_STRING,
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+        );
+    }
+
+    private static TagResolver.Single getHoverable2Resolver(PlayerPartyStore party, boolean isClosedSheet)
+    {
+        Pokemon pokemon = party.get(1);
+
+        if (pokemon == null)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.HOVERABLE2_TEMPLATE_TAG_STRING,
+                renderErrorHoverable(ErrorType.EMPTY_SLOT)
+            );
+        }
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.HOVERABLE2_TEMPLATE_TAG_STRING,
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+        );
+    }
+
+    private static TagResolver.Single getHoverable3Resolver(PlayerPartyStore party, boolean isClosedSheet)
+    {
+        Pokemon pokemon = party.get(2);
+
+        if (pokemon == null)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.HOVERABLE3_TEMPLATE_TAG_STRING,
+                renderErrorHoverable(ErrorType.EMPTY_SLOT)
+            );
+        }
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.HOVERABLE3_TEMPLATE_TAG_STRING,
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+        );
+    }
+
+    private static TagResolver.Single getHoverable4Resolver(PlayerPartyStore party, boolean isClosedSheet)
+    {
+        Pokemon pokemon = party.get(3);
+
+        if (pokemon == null)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.HOVERABLE4_TEMPLATE_TAG_STRING,
+                renderErrorHoverable(ErrorType.EMPTY_SLOT)
+            );
+        }
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.HOVERABLE4_TEMPLATE_TAG_STRING,
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+        );
+    }
+
+    private static TagResolver.Single getHoverable5Resolver(PlayerPartyStore party, boolean isClosedSheet)
+    {
+        Pokemon pokemon = party.get(4);
+
+        if (pokemon == null)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.HOVERABLE5_TEMPLATE_TAG_STRING,
+                renderErrorHoverable(ErrorType.EMPTY_SLOT)
+            );
+        }
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.HOVERABLE5_TEMPLATE_TAG_STRING,
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+        );
+    }
+
+    private static TagResolver.Single getHoverable6Resolver(PlayerPartyStore party, boolean isClosedSheet)
+    {
+        Pokemon pokemon = party.get(5);
+
+        if (pokemon == null)
+        {
+            return Placeholder.component
+            (
+                ChatMiniMessage.HOVERABLE6_TEMPLATE_TAG_STRING,
+                renderErrorHoverable(ErrorType.EMPTY_SLOT)
+            );
+        }
+
+        return Placeholder.component
+        (
+            ChatMiniMessage.HOVERABLE6_TEMPLATE_TAG_STRING,
             renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
         );
     }

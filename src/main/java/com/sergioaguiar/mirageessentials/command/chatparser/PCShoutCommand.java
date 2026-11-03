@@ -7,6 +7,7 @@ import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.sergioaguiar.mirageessentials.util.CobblemonUtils;
 import com.sergioaguiar.mirageessentials.util.LuckPermsUtils;
 import com.sergioaguiar.mirageessentials.util.MiniMessageUtils;
 import com.sergioaguiar.mirageessentials.util.ModLogger;
@@ -69,10 +70,10 @@ public class PCShoutCommand
         int box = IntegerArgumentType.getInteger(context, "box");
         int slot = IntegerArgumentType.getInteger(context, "slot");
 
-        int maxBoxes = Cobblemon.INSTANCE.getStorage().getPC(player).getBoxes().size();
+        int maxBoxes = CobblemonUtils.getBoxCount(player);
         if (box > maxBoxes)
         {
-            player.sendMessage(MiniMessageUtils.renderPcShoutInvalidBoxText(), false);
+            player.sendMessage(MiniMessageUtils.renderPcShoutInvalidBoxText(maxBoxes), false);
             return 1;
         }
 

@@ -2,8 +2,8 @@ package com.sergioaguiar.mirageessentials.util;
 
 import java.util.ArrayList;
 
+import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.pokemon.Pokemon;
-import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
 import com.sergioaguiar.mirageessentials.parser.PlaceholderResolver;
 
 import net.minecraft.item.ItemStack;
@@ -41,55 +41,14 @@ public class ShoutUtils
     {
         if (pokemon == null)
         {
-            TextUtils.CustomTextBuilder messageBuilder = new TextUtils.CustomTextBuilder();
-
-            messageBuilder.append
-            (
-                "PartyShout » ",
-                ChatColors.getCommandPrefixColor()
-            );
-
-            messageBuilder.append
-            (
-                "You can not shout an empty slot!",
-                ChatColors.getCommandValueColor()
-            );
-
-            player.sendMessage(messageBuilder.getText(), false);
-
+            player.sendMessage(MiniMessageUtils.renderPartyShoutEmptySlotText(), false);
             return;
         }
 
-        TextUtils.CustomTextBuilder shoutBuilder = new TextUtils.CustomTextBuilder();
+        Text shoutText = MiniMessageUtils.renderPcShoutSuccessText(player, pokemon, closed);
 
-        shoutBuilder.append
-        (
-            "PartyShout » ",
-            ChatColors.getCommandPrefixColor()
-        );
-
-        shoutBuilder.append
-        (
-            "Player ",
-            ChatColors.getCommandValueColor()
-        );
-
-        shoutBuilder.append
-        (
-            player.getDisplayName().getString(),
-            ChatColors.getCommandPlayerColor()
-        );
-
-        shoutBuilder.append
-        (
-            " shouted: ",
-            ChatColors.getCommandValueColor()
-        );
-
-        shoutBuilder.append(PlaceholderResolver.buildPokemonText(pokemon, closed));
-
-        if (self) player.sendMessage(shoutBuilder.getText(), false);
-        else player.getServer().getPlayerManager().broadcast(shoutBuilder.getText(), false);
+        if (self) player.sendMessage(shoutText, false);
+        else player.getServer().getPlayerManager().broadcast(shoutText, false);
     }
 
     public static void doPartyShoutAll(ServerPlayerEntity player, boolean closed, boolean self)
@@ -98,80 +57,14 @@ public class ShoutUtils
 
         if (pokemonInfos.isEmpty())
         {
-            TextUtils.CustomTextBuilder messageBuilder = new TextUtils.CustomTextBuilder();
-
-            messageBuilder.append
-            (
-                "PartyShoutAll » ",
-                ChatColors.getCommandPrefixColor()
-            );
-
-            messageBuilder.append
-            (
-                "You can not shout an empty party!",
-                ChatColors.getCommandValueColor()
-            );
-
-            player.sendMessage(messageBuilder.getText(), false);
+            player.sendMessage(MiniMessageUtils.renderPartyShoutAllEmptyPartyText(), false);
             return;
         }
         
-        TextUtils.CustomTextBuilder shoutBuilder = new TextUtils.CustomTextBuilder();
+        Text shoutText = MiniMessageUtils.renderPartyShoutAllSuccessText(player, Cobblemon.INSTANCE.getStorage().getParty(player), closed);
 
-        shoutBuilder.append
-        (
-            "PartyShoutAll » ",
-            ChatColors.getCommandPrefixColor()
-        );
-
-        shoutBuilder.append
-        (
-            "Player ",
-            ChatColors.getCommandValueColor()
-        );
-
-        shoutBuilder.append
-        (
-            player.getDisplayName().getString(),
-            ChatColors.getCommandPlayerColor()
-        );
-
-        shoutBuilder.append
-        (
-            " shouted: ",
-            ChatColors.getCommandValueColor()
-        );
-
-        shoutBuilder.append
-        (
-            "\n",
-            ChatColors.getCommandValueColor()
-        );
-
-        int infoAmount = pokemonInfos.size();
-        for (int i = 0; i < infoAmount; i++)
-        {
-            shoutBuilder.append(pokemonInfos.get(i));
-            if (i == 2)
-            {
-                shoutBuilder.append
-                (
-                    "\n",
-                    ChatColors.getCommandValueColor()
-                );
-            }
-            else if (i != infoAmount - 1)
-            {
-                shoutBuilder.append
-                (
-                    " ",
-                    ChatColors.getCommandValueColor()
-                );
-            }
-        }
-
-        if (self) player.sendMessage(shoutBuilder.getText(), false);
-        else player.getServer().getPlayerManager().broadcast(shoutBuilder.getText(), false);
+        if (self) player.sendMessage(shoutText, false);
+        else player.getServer().getPlayerManager().broadcast(shoutText, false);
     }
 
     public static void doItemShout(ServerPlayerEntity player, int itemIndex)
@@ -184,52 +77,10 @@ public class ShoutUtils
     {
         if (stack == null || stack.isEmpty())
         {
-            TextUtils.CustomTextBuilder messageBuilder = new TextUtils.CustomTextBuilder();
-
-            messageBuilder.append
-            (
-                "ItemShout » ",
-                ChatColors.getCommandPrefixColor()
-            );
-
-            messageBuilder.append
-            (
-                "You can not shout an empty item slot!",
-                ChatColors.getCommandValueColor()
-            );
-
-            player.sendMessage(messageBuilder.getText(), false);
+            player.sendMessage(MiniMessageUtils.renderItemShoutEmptySlotText(), false);
             return;
         }
-
-        TextUtils.CustomTextBuilder shoutBuilder = new TextUtils.CustomTextBuilder();
-
-        shoutBuilder.append
-        (
-            "ItemShout » ",
-            ChatColors.getCommandPrefixColor()
-        );
-
-        shoutBuilder.append
-        (
-            "Player ",
-            ChatColors.getCommandValueColor()
-        );
-
-        shoutBuilder.append
-        (
-            player.getDisplayName().getString(),
-            ChatColors.getCommandPlayerColor()
-        );
-
-        shoutBuilder.append
-        (
-            " shouted: ",
-            ChatColors.getCommandValueColor()
-        );
-
-        shoutBuilder.append(MinecraftUtils.getItemHoverableText(stack));
         
-        player.getServer().getPlayerManager().broadcast(shoutBuilder.getText(), false);
+        player.getServer().getPlayerManager().broadcast(MiniMessageUtils.renderItemShoutSuccessText(player, stack), false);
     }
 }
