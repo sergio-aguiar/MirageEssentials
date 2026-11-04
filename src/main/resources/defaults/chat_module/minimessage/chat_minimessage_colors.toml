@@ -1,0 +1,58 @@
+# MirageEssentials - Chat MiniMessage Configuration - Colors
+
+[CustomColors]
+# Here, you can create your own colors to use elsewhere.
+# Change the color here and it will affect every place you use it at, no need to manually change them all.
+# If you name a color ColorName, you can then use it with <colorname>!
+# The minimessage tags will always be in lower case!
+LabelColor = "#10F2F2"
+AlphaColor = "#d14040"
+HaColor = "#31d6e2"
+NatureStatUpColor = "#60d651"
+NatureStatDownColor = "#d14040"
+TrueColor = "#40d440"
+FalseColor = "#d12828"
+BurnColor = "#ff3333"
+SleepColor = "#66ffff"
+ParalysisColor = "#ffff00"
+PoisonColor = "#990099"
+FreezeColor = "#66ddff"
+FaintColor = "#808080"
+CommandPrefixGradientLeftColor = "#1ce9e0"
+CommandPrefixGradientRightColor = "#fa70f6"
+MaleColor = "#0984f7"
+FemaleColor = "#e16ef0"
+GenderlessColor = "#bdbdbd"
+CommandLabelColor = "#2facdd"
+CommandValueColor = "#d1d8eb"
+
+[StatColors]
+# Here you can configure the colors to use for the specific templates of the same name.
+HpColor = "#4f9c45"
+AtkColor = "#b33f3f"
+DefColor = "#d1842c"
+SpaColor = "#d140ca"
+SpdColor = "#ddda36"
+SpeColor = "#3bd8dd"
+
+[CategoryColors]
+# Here you can configure the colors to use for pokémon of the same category.
+RegularColor = "#cacaca"
+RegularBracketColor = "#b9b0b0"
+LegendaryColor = "#f72e2e"
+LegendaryBracketColor = "#d61b1b"
+MythicalColor = "#db2bd2"
+MythicalBracketColor = "#c91dc0"
+UltraBeastColor = "#2ea31f"
+UltraBeastBracketColor = "#238f15"
+CustomAspectColor = "#2eb4e9"
+CustomAspectBracketColor = "#20a1d4"
+
+[MiscColors]
+# Here you can configure the colors to use for the specific templates of the same name.
+ShinyColor = "#e7e436"
+ShinyBracketColor = "#f3f175"
+ItemColor = "#33daf0"
+ItemBracketColor = "#2eb4e9"
+ErrorColor = "#e21e1e"
+ErrorBracketColor = "#c00303"

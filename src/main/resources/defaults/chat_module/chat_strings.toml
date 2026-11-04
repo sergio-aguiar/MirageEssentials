@@ -1,49 +1,8 @@
 # MirageEssentials - Chat Strings Configuration
 
-[General]
-True = "Yes"
-False = "No"
-
 [Hoverable]
 # Another suggestion "☆ "
 ShinyIcon = "★ "
-
-[Label]
-# Another suggestion, "Species (Form): "
-Species = "Species: "
-# Another suggestion, "Level (EXP/EXP Needed): "
-Level = "Level: "
-Type = "Type: "
-Types = "Types: "
-Ability = "Ability: "
-Nature = "Nature: "
-NatureMinted = "Nature (Mint): "
-IVs = "IVs: "
-IVsHyperTrained = "IVs (Hyper Trained): "
-EVs = "EVs: "
-Moves = "Moves: "
-Gender = "Gender: "
-# Another suggestion, "Happiness: "
-Friendship = "Friendship: "
-HeldItem = "Held Item: "
-CaughtBall = "Caught Ball: "
-Size = "Size: "
-EggGroups = "Egg Groups: "
-Neutered = "Neutered: "
-# Other suggestions, "OT: " and "Original Trainer (OT): "
-OriginalTrainer = "Original Trainer: "
-HatchProgress = "Hatch Progress: "
-StepProgress = "Step Progress: "
-
-[EggStageMessages]
-EggStage0Top = "This Egg doesn't seem close to hatching."
-EggStage0Bottom = "It will probably take a long time."
-EggStage1Top = "What will hatch from this?"
-EggStage1Bottom = "It doesn't seem close to hatching."
-EggStage2Top = "It appears to move occasionally."
-EggStage2Bottom = "It may be close to hatching."
-EggStage3Top = "Sounds can be heard coming from inside!"
-EggStage3Bottom = "It will hatch soon!"
 
 [Stat]
 Health = "HP"
@@ -54,22 +13,7 @@ SpecialDefense = "SpD"
 Speed = "Spe"
 
 [Value]
-# Another suggestion, "Hidden Ability"
-HiddenAbility = "HA"
-TypeSeparator = "/"
-# Other suggestions, "↑" and "⇧"
-StatIncrease = "+"
-# Other suggestions, "↓" and "⇩"
-StatDecrease = "-"
-# Another suggestion, " - "
-MoveSeparator = ", "
-MaleIcon = "♂"
-FemaleIcon = "♀"
-GenderlessIcon = "⚲"
 EmptyHeldItem = "None"
-EggGroupsSeparator = ", "
-ClosedSheet = "Hidden"
-UnknownPlayer = "Unknown Player"
 
 [GUI]
 PartyCheckTitle = "Party Check"

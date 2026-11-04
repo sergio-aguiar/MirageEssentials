@@ -1,0 +1,11 @@
+# MirageEssentials - Chat MiniMessage Configuration - Items
+
+[Hoverable]
+# Here you can configure the appearance of in-chat pokémon hoverables.
+# You can use the following replacement templates:
+# <itembasename> - The item's base minecraft name (will not show anvil or NBT changes).
+# <itemanvilname> - The item's custom name (shows the anvil name, or base item if not changed).
+# <itemcustomname> - The item's custom name (shows the NBT-changed name, or base item if not changed).
+# <itemrealname> - The item's name (shows the anvil name, or the NBT-changed name if changed, otherwise the base one).
+# <itemcolor> - The item's color if NBT-changed, showing the default-configured item color otherwise.
+ItemHoverable = "<color:<itemcolor>>[<itemrealname>]</color>"

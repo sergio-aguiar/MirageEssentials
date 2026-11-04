@@ -1,0 +1,155 @@
+# MirageEssentials - Chat MiniMessage Configuration - Commands
+
+[General]
+# Here you can configure general use templates.
+CommandReplyPrefix = "<gradient:<commandprefixgradientleftcolor>:<commandprefixgradientrightcolor>>Mie »</gradient>"
+
+[Error]
+InvalidBox = "Invalid Box"
+InvalidBSlot = "Invalid Slot"
+InvalidPlayer = "Invalid Player"
+EmplySlot = "Empty Slot"
+
+[ChatReplies]
+# Here you can configure the chat messages displayed on various actions/command usage.
+
+# Used for in-chat error hoverables.
+# <errormessage> - The error message to show, using templates configured in [Error]
+ErrorHoverable = "<color:<errorbracketcolor>>[</color><color:<errorcolor>><errormessage></color><color:<errorbracketcolor>>]</color>"
+
+# Used by the /debugshout command, when a player selects an empty pokémon slot to shout.
+# You can use the following replacement templates:
+# <commandreplyprefix> - The command chat-reply prefix, using the configured template.
+# <commandname> - The command's name, using the configured template.
+DebugShoutEmptySlot = "<commandreplyprefix> <color:<commandvaluecolor>>You can not shout an empty party slot!</color>"
+
+# Used by the /debugshout command, to display a pokémon's debug information (command success).
+# You can use the following replacement templates:
+# <commandreplyprefix> - The command chat-reply prefix, using the configured template.
+# <commandname> - The command's name, using the configured template.
+# <aspecttotal> - The number of aspects the pokémon has.
+# <aspects> - The pokémon's aspect list, each line using the configured <aspect> template.
+# <forcedaspecttotal> - The number of forced aspects the pokémon has.
+# <forcedaspects> - The pokémon's forced aspect list, each line using the configured <aspect> template.
+# <speciesfeaturetotal> - The number of species features the pokémon has.
+# <speciesfeatures> - The pokémon's species feature list, each line using the configured <speciesfeature> template.
+# <persistentdatatotal> - The number of persistent data entries the pokémon has.
+# <persistentdatas> - The pokémon's persistent data list, each line using the configured <persistentdata> template.
+DebugShoutSuccess = """
+<commandreplyprefix> <color:<commandvaluecolor>>Only you can see this message!</color>
+
+<color:<commandlabelcolor>>Aspect List (<aspecttotal> total):</color>
+<aspects>
+
+<color:<commandlabelcolor>>Forced Aspect List (<forcedaspecttotal> total):</color>
+<forcedaspects>
+
+<color:<commandlabelcolor>>Species Features List (<speciesfeaturetotal> total):</color>
+<speciesfeatures>
+
+<color:<commandlabelcolor>>Persistent Data List (<persistentdatatotal> total):</color>
+<persistentdata>"""
+
+# Used by <aspects> and <forcedaspects> to list pokémon aspects (each line uses this template once).
+# You can use the following replacement templates:
+# <aspectname> - The aspect's name.
+Aspect = "<color:<commandlabelcolor>>-</color> <color:<commandvaluecolor>><aspectname></color>"
+
+# Used by <speciesfeatures> to list pokémon species features (each line uses this template once).
+# You can use the following replacement templates:
+# <speciesfeaturename> - The species feature's name.
+# <speciesfeaturevalue> - The species feature's value.
+SpeciesFeature = "<color:<commandlabelcolor>>- <speciesfeaturename>:</color> <color:<commandvaluecolor>><speciesfeaturevalue></color>"
+
+# Used by <persistentdatas> to list pokémon species features (each line uses this template once).
+# You can use the following replacement templates:
+# <persistentdataname> - The persistent data's name.
+# <persistentdatavalue> - The persistent data's value.
+PersistentData = "<color:<commandlabelcolor>>- <persistentdataname>:</color> <color:<commandvaluecolor>><persistentdatavalue></color>"
+
+# Used by the /pcshout command, when a player selects a box number above the maximum.
+# You can use the following replacement templates:
+# <commandreplyprefix> - The command chat-reply prefix, using the configured template.
+# <commandname> - The command's name, using the configured template.
+# <boxcount> - The total number of pc boxes.
+PcShoutInvalidBox = "<commandreplyprefix> <color:<commandvaluecolor>>You only have <boxcount> boxes!</color>"
+
+# Used by the /pcshout command, when a player selects an empty pc slot.
+# You can use the following replacement templates:
+# <commandreplyprefix> - The command chat-reply prefix, using the configured template.
+# <commandname> - The command's name, using the configured template.
+PcShoutEmptySlot = "<commandreplyprefix> <color:<commandvaluecolor>>You can not shout an empty box slot!</color>"
+
+# Used by the /pcshout command, when a player successfully shouts a pokémon.
+# You can use the following replacement templates:
+# <commandreplyprefix> - The command chat-reply prefix, using the configured template.
+# <commandname> - The command's name, using the configured template.
+# <playername> - The player's username.
+# <playerdisplayname> - The player's custom display name.
+# <playerdisplaynamestyled> - The player's custom display name, including styles.
+# <hoverable> - The hoverable with the shouted pokémon information.
+PcShoutSuccess = "<commandreplyprefix> <playerdisplaynamestyled> <color:<commandvaluecolor>>has shouted:</color> <hoverable>"
+
+# Used by the /partyshout command, when a player selects an empty party slot.
+# You can use the following replacement templates:
+# <commandreplyprefix> - The command chat-reply prefix, using the configured template.
+# <commandname> - The command's name, using the configured template.
+PartyShoutEmptySlot = "<commandreplyprefix> <color:<commandvaluecolor>>You can not shout an empty party slot!</color>"
+
+# Used by the /partyshout command, when a player successfully shouts a pokémon.
+# You can use the following replacement templates:
+# <commandreplyprefix> - The command chat-reply prefix, using the configured template.
+# <commandname> - The command's name, using the configured template.
+# <playername> - The player's username.
+# <playerdisplayname> - The player's custom display name.
+# <playerdisplaynamestyled> - The player's custom display name, including styles.
+# <hoverable> - The hoverable with the shouted pokémon information.
+PartyShoutSuccess = "<commandreplyprefix> <playerdisplaynamestyled> <color:<commandvaluecolor>>has shouted:</color> <hoverable>"
+
+# Used by the /partyshoutall command, when a player has an empty party.
+# You can use the following replacement templates:
+# <commandreplyprefix> - The command chat-reply prefix, using the configured template.
+# <commandname> - The command's name, using the configured template.
+PartyShoutAllEmptyParty = "<commandreplyprefix> <color:<commandvaluecolor>>You can not shout an empty party!</color>"
+
+# Used by the /partyshoutall command, when a player successfully shouts their party pokémon.
+# You can use the following replacement templates:
+# <commandreplyprefix> - The command chat-reply prefix, using the configured template.
+# <commandname> - The command's name, using the configured template.
+# <playername> - The player's username.
+# <playerdisplayname> - The player's custom display name.
+# <playerdisplaynamestyled> - The player's custom display name, including styles.
+# <hoverable1> - The hoverable with party slot 1's shouted pokémon information.
+# <hoverable2> - The hoverable with party slot 2's shouted pokémon information.
+# <hoverable3> - The hoverable with party slot 3's shouted pokémon information.
+# <hoverable4> - The hoverable with party slot 4's shouted pokémon information.
+# <hoverable5> - The hoverable with party slot 5's shouted pokémon information.
+# <hoverable6> - The hoverable with party slot 6's shouted pokémon information.
+PartyShoutAllSuccess = """
+<commandreplyprefix> <playerdisplaynamestyled> <color:<commandvaluecolor>>has shouted:</color>
+<hoverable1> <hoverable2> <hoverable3>
+<hoverable4> <hoverable5> <hoverable6>"""
+
+# Used by the /itemshout command, when a player selects an empty item slot.
+# You can use the following replacement templates:
+# <commandreplyprefix> - The command chat-reply prefix, using the configured template.
+# <commandname> - The command's name, using the configured template.
+ItemShoutEmptySlot = "<commandreplyprefix> <color:<commandvaluecolor>>You can not shout an empty item slot!</color>"
+
+# Used by the /itemshout command, when a player successfully shouts an item.
+# You can use the following replacement templates:
+# <commandreplyprefix> - The command chat-reply prefix, using the configured template.
+# <commandname> - The command's name, using the configured template.
+# <playername> - The player's username.
+# <playerdisplayname> - The player's custom display name.
+# <playerdisplaynamestyled> - The player's custom display name, including styles.
+# <hoverable> - The hoverable with the shouted item information.
+ItemShoutSuccess = "<commandreplyprefix> <playerdisplaynamestyled> <color:<commandvaluecolor>>has shouted:</color> <hoverable>"
+
+[CommandNames]
+DebugShout = "DebugShout"
+PCShout = "PCShout"
+PartyShout = "PartyShout"
+PartyShoutAll = "PartyShoutAll"
+PartyCheck = "PartyCheck"
+ItemShout = "ItemShout"
