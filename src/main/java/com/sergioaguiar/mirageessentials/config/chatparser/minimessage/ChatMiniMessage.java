@@ -1300,7 +1300,7 @@ public class ChatMiniMessage
     // PokeInfo Setters and Getters
     public static String getPokeHoverableTemplate() { return POKE_HOVERABLE_TEMPLATES.get(POKE_HOVERABLE_TEMPLATE_TAG_STRING); }
 
-    protected static void setPokeHoverableTemplate(String template) { POKE_INFO_TEMPLATES.put(POKEMON_INFO_TEMPLATE_TAG_STRING, template); }
+    protected static void setPokeHoverableTemplate(String template) { POKE_HOVERABLE_TEMPLATES.put(POKE_HOVERABLE_TEMPLATE_TAG_STRING, template); }
 
     public static String getPokemonInfoTemplate() { return POKE_INFO_TEMPLATES.get(POKEMON_INFO_TEMPLATE_TAG_STRING); }
     public static String getCustomNameTemplate() { return POKE_INFO_TEMPLATES.get(CUSTOM_NAME_TEMPLATE_TAG_STRING); }
