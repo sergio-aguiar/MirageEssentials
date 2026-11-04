@@ -1106,6 +1106,39 @@ public class ChatMiniMessagePokemonConfig
                 # Here you can configure how true/false messages appear as, such in the <neutered> template.
                 %s = "%s"
                 %s = "%s"
+
+                [%s]
+                # Here you can configure the default Pokémon template set.
+                # Used for general pokemon info chat hoverables and GUI item lores (such as the /partycheck command).
+                # You can use the following replacement templates:
+                # <name> - The egg's nickname.
+                # <title> - The egg's ribbon/mark title.
+                # <titlecolor> - The egg's title's color.
+                # <customname> - The egg's name, using the configured template (hidden in partychecks, used as the item name instead).
+                # <caughtball> - The egg's caught ball.
+                # <stepstaken> - The egg's total steps taken towards hatching.
+                # <stepstotal> - The egg's total steps required to hatch.
+                # <stepsremaining> - The egg's total remaining steps to hatch.
+                # <hatchpercentage> - The egg's hatch percentage (integer).
+                # <progressmessage> - The progress message for the current hatching stage.
+                %s = \"\"\"
+                %s\"\"\"
+
+                # Used by <progressmessage> while an egg's <hatchpercentage> is between 0%% and 40%%.
+                %s = \"\"\"
+                %s\"\"\"
+
+                # Used by <progressmessage> while an egg's <hatchpercentage> is between 0%% and 40%%.
+                %s = \"\"\"
+                %s\"\"\"
+
+                # Used by <progressmessage> while an egg's <hatchpercentage> is between 0%% and 40%%.
+                %s = \"\"\"
+                %s\"\"\"
+
+                # Used by <progressmessage> while an egg's <hatchpercentage> is between 0%% and 40%%.
+                %s = \"\"\"
+                %s\"\"\"
                 """.formatted
                 (
                     MirageEssentials.MOD_NAME,
@@ -1184,7 +1217,13 @@ public class ChatMiniMessagePokemonConfig
                     ChatMiniMessage.GENDER_GENDERLESS_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_GENDERLESS_GENDER,
                     ChatMiniMessage.TOML_POKE_BOOLEANS_SECTION_STRING,
                     ChatMiniMessage.TRUE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_TRUE,
-                    ChatMiniMessage.FALSE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FALSE
+                    ChatMiniMessage.FALSE_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_FALSE,
+                    ChatMiniMessage.TOML_EGG_INFO_SECTION_STRING,
+                    ChatMiniMessage.EGG_INFO_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_EGG_INFO,
+                    ChatMiniMessage.EGG_0_TO_40_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_EGG_0_TO_40,
+                    ChatMiniMessage.EGG_41_TO_70_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_EGG_41_TO_70,
+                    ChatMiniMessage.EGG_71_TO_90_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_EGG_71_TO_90,
+                    ChatMiniMessage.EGG_91_TO_100_TEMPLATE_STRING, ChatMiniMessage.DEFAULT_EGG_91_TO_100
                 );
             
             Files.writeString(file.toPath(), defaultContent);

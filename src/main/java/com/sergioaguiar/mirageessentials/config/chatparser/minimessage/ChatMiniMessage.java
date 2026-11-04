@@ -62,6 +62,7 @@ public class ChatMiniMessage
     protected static final String TOML_POKE_EGG_GROUPS_SECTION_STRING = "EggGroups";
     protected static final String TOML_POKE_BOOLEANS_SECTION_STRING = "Booleans";
     protected static final String TOML_POKE_GENDERS_SECTION_STRING = "Genders";
+    protected static final String TOML_EGG_INFO_SECTION_STRING = "EggInfo";
 
     // Item Sections
     protected static final String TOML_ITEM_HOVERABLE_SECTION_STRING = "Hoverable";
@@ -516,6 +517,28 @@ public class ChatMiniMessage
     protected static final String HIDDEN_TEMPLATE_STRING = "Hidden";
     public static final String HIDDEN_TEMPLATE_TAG_STRING = "hidden";
 
+    public static final String EGG_INFO_TEMPLATE_STRING = "EggInfo";
+    public static final String EGG_INFO_TEMPLATE_TAG_STRING = "egginfo";
+    public static final String STEPS_TAKEN_TEMPLATE_STRING = "StepsTaken";
+    public static final String STEPS_TAKEN_TEMPLATE_TAG_STRING = "stepstaken";
+    public static final String STEPS_TOTAL_TEMPLATE_STRING = "StepsTotal";
+    public static final String STEPS_TOTAL_TEMPLATE_TAG_STRING = "stepstotal";
+    public static final String STEPS_REMAINING_TEMPLATE_STRING = "StepsRemaining";
+    public static final String STEPS_REMAINING_TEMPLATE_TAG_STRING = "stepsremaining";
+    public static final String HATCH_PERCENTAGE_TEMPLATE_STRING = "HatchPercentage";
+    public static final String HATCH_PERCENTAGE_TEMPLATE_TAG_STRING = "hatchpercentage";
+    public static final String PROGRESS_MESSAGE_TEMPLATE_STRING = "ProgressMessage";
+    public static final String PROGRESS_MESSAGE_TEMPLATE_TAG_STRING = "progressmessage";
+    
+    public static final String EGG_0_TO_40_TEMPLATE_STRING = "Egg0To40";
+    public static final String EGG_0_TO_40_TEMPLATE_TAG_STRING = "egg0to40";
+    public static final String EGG_41_TO_70_TEMPLATE_STRING = "Egg41To70";
+    public static final String EGG_41_TO_70_TEMPLATE_TAG_STRING = "egg41to70";
+    public static final String EGG_71_TO_90_TEMPLATE_STRING = "Egg71To90";
+    public static final String EGG_71_TO_90_TEMPLATE_TAG_STRING = "egg71to90";
+    public static final String EGG_91_TO_100_TEMPLATE_STRING = "Egg91To100";
+    public static final String EGG_91_TO_100_TEMPLATE_TAG_STRING = "egg91to100";
+
     // Item Template Names
     public static final String ITEM_HOVERABLE_TEMPLATE_STRING = "ItemHoverable";
     public static final String ITEM_HOVERABLE_TEMPLATE_TAG_STRING = "itemhoverable";
@@ -917,6 +940,34 @@ public class ChatMiniMessage
 
     protected static final String DEFAULT_HIDDEN = "<white>Hidden</white>";
 
+    protected static final String DEFAULT_EGG_INFO =
+        """
+        <customname>
+        <color:<labelcolor>>Steps taken:</color> <white><stepstaken></white><color:<labelcolor>>/</color><white><stepstotal></white> <color:<labelcolor>>(</color><white><hatchpercentage>%</white><color:<labelcolor>>)</color>
+        <color:<labelcolor>>Going to hatch into a <caughtball>!</color>
+        <color:<labelcolor>>────────────────────────</color>
+        <progressmessage>""";
+
+    protected static final String DEFAULT_EGG_0_TO_40 =
+        """
+        <white>This Egg doesn't seem close to hatching.</white>
+        <white>It will probably take a long time.</white>""";
+
+    protected static final String DEFAULT_EGG_41_TO_70 =
+        """
+        <white>What will hatch from this?</white>
+        <white>It doesn't seem close to hatching.</white>""";
+
+    protected static final String DEFAULT_EGG_71_TO_90 =
+        """
+        <white>It appears to move occasionally.</white>
+        <white>It may be close to hatching.</white>""";
+
+    protected static final String DEFAULT_EGG_91_TO_100 =
+        """
+        <white>Sounds can be heard coming from inside!</white>
+        <white>It will hatch soon!</white>""";
+
     // Item Defaults
     protected static final String DEFAULT_ITEM_HOVERABLE = "<color:<itemcolor>>[<itemrealname>]</color>";
 
@@ -985,6 +1036,7 @@ public class ChatMiniMessage
     private static HashMap<String, String> GENDER_TEMPLATES;
     private static HashMap<String, String> BOOLEAN_TEMPLATES;
     private static HashMap<String, String> MISC_TEMPLATES;
+    private static HashMap<String, String> EGG_INFO_TEMPLATES;
 
     private static HashMap<String, String> ITEM_HOVERABLE_TEMPLATES;
 
@@ -1009,6 +1061,7 @@ public class ChatMiniMessage
             GENDER_TEMPLATES = new HashMap<>();
             BOOLEAN_TEMPLATES = new HashMap<>();
             MISC_TEMPLATES = new HashMap<>();
+            EGG_INFO_TEMPLATES = new HashMap<>();
 
             ITEM_HOVERABLE_TEMPLATES = new HashMap<>();
             COMMAND_GENERAL_TEMPLATES = new HashMap<>();
@@ -1139,6 +1192,12 @@ public class ChatMiniMessage
             BOOLEAN_TEMPLATES.put(FALSE_TEMPLATE_TAG_STRING, DEFAULT_FALSE);
 
             MISC_TEMPLATES.put(HIDDEN_TEMPLATE_TAG_STRING, DEFAULT_HIDDEN);
+
+            EGG_INFO_TEMPLATES.put(EGG_INFO_TEMPLATE_TAG_STRING, DEFAULT_EGG_INFO);
+            EGG_INFO_TEMPLATES.put(EGG_0_TO_40_TEMPLATE_TAG_STRING, DEFAULT_EGG_0_TO_40);
+            EGG_INFO_TEMPLATES.put(EGG_41_TO_70_TEMPLATE_TAG_STRING, DEFAULT_EGG_41_TO_70);
+            EGG_INFO_TEMPLATES.put(EGG_71_TO_90_TEMPLATE_TAG_STRING, DEFAULT_EGG_71_TO_90);
+            EGG_INFO_TEMPLATES.put(EGG_91_TO_100_TEMPLATE_TAG_STRING, DEFAULT_EGG_91_TO_100);
 
             ITEM_HOVERABLE_TEMPLATES.put(ITEM_HOVERABLE_TEMPLATE_TAG_STRING, DEFAULT_ITEM_HOVERABLE);
 
@@ -1394,6 +1453,18 @@ public class ChatMiniMessage
     public static String getHiddenTemplate() { return MISC_TEMPLATES.get(HIDDEN_TEMPLATE_TAG_STRING); }
 
     protected static void setHiddenTemplate(String template) { MISC_TEMPLATES.put(HIDDEN_TEMPLATE_TAG_STRING, template); }
+
+    public static String getEggInfoTemplate() { return EGG_INFO_TEMPLATES.get(EGG_INFO_TEMPLATE_TAG_STRING); }
+    public static String getEgg0To40Template() { return EGG_INFO_TEMPLATES.get(EGG_0_TO_40_TEMPLATE_TAG_STRING); }
+    public static String getEgg41To70Template() { return EGG_INFO_TEMPLATES.get(EGG_41_TO_70_TEMPLATE_TAG_STRING); }
+    public static String getEgg71To90Template() { return EGG_INFO_TEMPLATES.get(EGG_71_TO_90_TEMPLATE_TAG_STRING); }
+    public static String getEgg91To100Template() { return EGG_INFO_TEMPLATES.get(EGG_91_TO_100_TEMPLATE_TAG_STRING); }
+
+    protected static void setEggInfoTemplate(String template) { EGG_INFO_TEMPLATES.put(EGG_INFO_TEMPLATE_TAG_STRING, template); }
+    protected static void setEgg0To40Template(String template) { EGG_INFO_TEMPLATES.put(EGG_0_TO_40_TEMPLATE_TAG_STRING, template); }
+    protected static void setEgg41To70Template(String template) { EGG_INFO_TEMPLATES.put(EGG_41_TO_70_TEMPLATE_TAG_STRING, template); }
+    protected static void setEgg71To90Template(String template) { EGG_INFO_TEMPLATES.put(EGG_71_TO_90_TEMPLATE_TAG_STRING, template); }
+    protected static void setEgg91To100Template(String template) { EGG_INFO_TEMPLATES.put(EGG_91_TO_100_TEMPLATE_TAG_STRING, template); }
 
     public static String getCommandReplyPrefixTemplate() { return COMMAND_GENERAL_TEMPLATES.get(COMMAND_REPLY_PREFIX_TEMPLATE_TAG_STRING); }
 

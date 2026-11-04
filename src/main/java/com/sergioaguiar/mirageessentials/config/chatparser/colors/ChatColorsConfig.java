@@ -78,20 +78,6 @@ public class ChatColorsConfig
                     ChatColors.setTooltipValueColor(TextColor.parse(color).getOrThrow());
             }
 
-            if (config.contains("Tooltip.EggNicknameColor"))
-            {
-                String color = config.get("Tooltip.EggNicknameColor");
-                if (color != null && !color.isEmpty())
-                    ChatColors.setTooltipEggNicknameColor(TextColor.parse(color).getOrThrow());
-            }
-
-            if (config.contains("Tooltip.EggHatchStageMessageColor"))
-            {
-                String color = config.get("Tooltip.EggHatchStageMessageColor");
-                if (color != null && !color.isEmpty())
-                    ChatColors.setTooltipEggHatchStageMessageColor(TextColor.parse(color).getOrThrow());
-            }
-
             if (config.contains("GUI.PartyCheckButtonTitleColor"))
             {
                 String color = config.get("GUI.PartyCheckButtonTitleColor");

@@ -1,23 +1,17 @@
 package com.sergioaguiar.mirageessentials.parser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.storage.party.PlayerPartyStore;
 import com.cobblemon.mod.common.api.storage.pc.PCBox;
 import com.cobblemon.mod.common.api.storage.pc.PCStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
-import com.cobblemon.mod.common.pokemon.Species;
-import com.sergioaguiar.mirageessentials.config.chatparser.colors.ChatColors;
 import com.sergioaguiar.mirageessentials.config.chatparser.minimessage.ChatMiniMessage;
-import com.sergioaguiar.mirageessentials.config.chatparser.settings.ChatSettings;
 import com.sergioaguiar.mirageessentials.util.MinecraftUtils;
 import com.sergioaguiar.mirageessentials.util.MiniMessageUtils;
-import com.sergioaguiar.mirageessentials.util.NeoDaycareUtils;
 import com.sergioaguiar.mirageessentials.util.TextUtils;
 
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -124,11 +118,12 @@ public class PlaceholderResolver
 
     public static Text buildPokemonText(Pokemon pokemon, boolean isClosedSheet)
     {
-        Component tooltip = NeoDaycareUtils.isEgg(pokemon)
-            ? MiniMessageUtils.getPokeInfoComponent(pokemon, false, isClosedSheet) // TODO: EDIT TO EGG ONE LATER
-            : MiniMessageUtils.getPokeInfoComponent(pokemon, false, isClosedSheet);
-
-        return MiniMessageUtils.renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(tooltip));
+        return MiniMessageUtils.renderPokeHoverable
+        (
+            pokemon,
+            isClosedSheet,
+            HoverEvent.showText(MiniMessageUtils.getEggOrPokeInfoComponent(pokemon, false, isClosedSheet))
+        );
     }
 
     public static Text getMainHandItem(ServerPlayerEntity player)
@@ -178,80 +173,5 @@ public class PlaceholderResolver
         }
 
         return MinecraftUtils.getItemHoverableText(stack);
-    }
-
-    public static Text buildEggTooltip(Pokemon pokemon)
-    {
-        Species species = pokemon.getSpecies();
-        String nickname = (pokemon.getNickname() == null || pokemon.getNickname().getLiteralString() == null) 
-            ? species.getName() : pokemon.getNickname().getLiteralString();
-
-        TextUtils.CustomTextBuilder tooltipBuilder = new TextUtils.CustomTextBuilder();
-        boolean first = true;
-
-        if (ChatSettings.shouldShowEggNickname())
-        {
-            if (first) first = false;
-            else tooltipBuilder.append(Text.literal("\n"));
-
-            tooltipBuilder.append
-            (
-                nickname,
-                ChatColors.getTooltipEggNicknameColor()
-            );
-        }
-
-        if (ChatSettings.shouldshowEggHatchStepProgress())
-        {
-            if (first) first = false;
-            else tooltipBuilder.append(Text.literal("\n"));
-
-            tooltipBuilder.append(getStepsText(pokemon));
-        }
-
-        if (ChatSettings.shouldShowEggStageMessage())
-        {
-            if (first) first = false;
-            else tooltipBuilder.append(Text.literal("\n"));
-
-            tooltipBuilder.append(Text.literal("\n"));
-            tooltipBuilder.append(getHatchStageText(pokemon));
-        }
-
-        return tooltipBuilder.getText();
-    }
-
-    public static List<Text> getEggTooltipTextList(Pokemon pokemon)
-    {
-        List<Text> tooltipText = new ArrayList<>();
-
-        if (ChatSettings.shouldshowEggHatchStepProgress())
-        {
-            tooltipText.add(getStepsText(pokemon));
-        }
-
-        if (ChatSettings.shouldShowEggStageMessage())
-        {
-            List<Text> eggStageLines = TextUtils.coloredEggStageLineList(pokemon);
-
-            if (tooltipText.isEmpty())
-            {
-                eggStageLines.remove(0);
-            }
-            
-            tooltipText.addAll(eggStageLines);
-        }
-
-        return tooltipText;
-    }
-
-    private static Text getStepsText(Pokemon pokemon)
-    {
-        return TextUtils.coloredStepsLine(pokemon);
-    }
-
-    private static Text getHatchStageText(Pokemon pokemon)
-    {
-        return TextUtils.coloredEggStageLine(pokemon);
     }
 }

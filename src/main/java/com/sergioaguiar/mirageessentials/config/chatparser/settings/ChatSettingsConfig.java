@@ -54,24 +54,6 @@ public class ChatSettingsConfig
                 ChatSettings.setShowOriginalItemNames(enabled);
             }
 
-            if (config.contains("EggTooltip.ShowEggNickname"))
-            {
-                boolean enabled = config.getOrElse("EggTooltip.ShowEggNickname", ChatSettings.DEFAULT_SHOW_EGG_NICKNAME);
-                ChatSettings.setShowEggNickname(enabled);
-            }
-
-            if (config.contains("EggTooltip.ShowEggHatchStepProgress"))
-            {
-                boolean enabled = config.getOrElse("EggTooltip.ShowEggHatchStepProgress", ChatSettings.DEFAULT_SHOW_EGG_HATCH_STEP_PROGRESS);
-                ChatSettings.setshowEggHatchStepProgress(enabled);
-            }
-
-            if (config.contains("EggTooltip.ShowEggHatchStageMessages"))
-            {
-                boolean enabled = config.getOrElse("EggTooltip.ShowEggHatchStageMessages", ChatSettings.DEFAULT_SHOW_EGG_STAGE_MESSAGE);
-                ChatSettings.setShowEggStageMessage(enabled);
-            }
-
             if (config.contains("GUI.PartyCheckLayout"))
             {
                 String string = config.get("GUI.PartyCheckLayout");
@@ -109,14 +91,6 @@ public class ChatSettingsConfig
             ParseNonPlayerMessages = false
             # Whether item lores should show the original item name (including NBT-changed), rather than changed ones (using an anvil) (true/false)
             ShowOriginalItemNames = false
-            
-            [EggTooltip]
-            # Whether to show an egg's nickname in hover text (true/false)
-            ShowEggNickname = true
-            # Whether to show an egg's hatch progress in hover text (true/false)
-            ShowEggHatchStepProgress = true
-            # Whether to show an egg's hatch stage progress messages in hover text (true/false)
-            ShowEggHatchStageMessages = true
 
             [GUI]
             # The name of the layour to use in the GUI for PartyCheck ("default" or "mirage")

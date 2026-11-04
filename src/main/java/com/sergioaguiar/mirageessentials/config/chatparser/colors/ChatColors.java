@@ -14,9 +14,6 @@ public class ChatColors
     private static final DataResult<TextColor> DEFAULT_TOOLTIP_LABEL_COLOR = TextColor.parse("#3463e6");
     private static final DataResult<TextColor> DEFAULT_TOOLTIP_VALUE_COLOR = TextColor.parse("#d1d8eb");
 
-    private static final DataResult<TextColor> DEFAULT_TOOLTIP_EGG_NICKNAME_COLOR = TextColor.parse("#0a9120");
-    private static final DataResult<TextColor> DEFAULT_TOOLTIP_EGG_HATCH_STAGE_MESSAGE_COLOR = TextColor.parse("#14dd14");
-
     private static final DataResult<TextColor> DEFAULT_PARTYCHECK_BUTTON_TITLE_COLOR = TextColor.parse("#1f22b8");
     private static final DataResult<TextColor> DEFAULT_PARTYCHECK_OPTION_NAME_COLOR = TextColor.parse("#3463e6");
     private static final DataResult<TextColor> DEFAULT_PARTYCHECK_OPTION_SPLITTER_COLOR = TextColor.parse("#3463e6");
@@ -29,9 +26,6 @@ public class ChatColors
 
     private static TextColor tooltipLabelColor;
     private static TextColor tooltipValueColor;
-
-    private static TextColor tooltipEggNicknameColor;
-    private static TextColor tooltipEggHatchStageMessageColor;
 
     private static TextColor partyCheckButtonTitleColor;
     private static TextColor partyCheckOptionNameColor;
@@ -50,9 +44,6 @@ public class ChatColors
             tooltipLabelColor = DEFAULT_TOOLTIP_LABEL_COLOR.getOrThrow();
             tooltipValueColor = DEFAULT_TOOLTIP_VALUE_COLOR.getOrThrow();
 
-            tooltipEggNicknameColor = DEFAULT_TOOLTIP_EGG_NICKNAME_COLOR.getOrThrow();
-            tooltipEggHatchStageMessageColor = DEFAULT_TOOLTIP_EGG_HATCH_STAGE_MESSAGE_COLOR.getOrThrow();
-
             partyCheckButtonTitleColor = DEFAULT_PARTYCHECK_BUTTON_TITLE_COLOR.getOrThrow();
             partyCheckOptionNameColor = DEFAULT_PARTYCHECK_OPTION_NAME_COLOR.getOrThrow();
             partyCheckOptionSplitterColor = DEFAULT_PARTYCHECK_OPTION_SPLITTER_COLOR.getOrThrow();
@@ -70,8 +61,6 @@ public class ChatColors
     public static TextColor getCommandPlayerColor() { return commandPlayerColor; }
     public static TextColor getTooltipLabelColor() { return tooltipLabelColor; }
     public static TextColor getTooltipValueColor() { return tooltipValueColor; }
-    public static TextColor getTooltipEggNicknameColor() { return tooltipEggNicknameColor; }
-    public static TextColor getTooltipEggHatchStageMessageColor() { return tooltipEggHatchStageMessageColor; }
     public static TextColor getPartyCheckButtonTitleColor() { return partyCheckButtonTitleColor; }
     public static TextColor getPartyCheckOptionNameColor() { return partyCheckOptionNameColor; }
     public static TextColor getPartyCheckOptionSplitterColor() { return partyCheckOptionSplitterColor; }
@@ -83,8 +72,6 @@ public class ChatColors
     protected static void setCommandPlayerColor(TextColor color) { commandPlayerColor = color; }
     protected static void setTooltipLabelColor(TextColor color) { tooltipLabelColor = color; }
     protected static void setTooltipValueColor(TextColor color) { tooltipValueColor = color; }
-    protected static void setTooltipEggNicknameColor(TextColor color) { tooltipEggNicknameColor = color; }
-    protected static void setTooltipEggHatchStageMessageColor(TextColor color) { tooltipEggHatchStageMessageColor = color; }
     protected static void setPartyCheckButtonTitleColor(TextColor color) { partyCheckButtonTitleColor = color; }
     protected static void setPartyCheckOptionNameColor(TextColor color) { partyCheckOptionNameColor = color; }
     protected static void setPartyCheckOptionSplitterColor(TextColor color) { partyCheckOptionSplitterColor = color; }

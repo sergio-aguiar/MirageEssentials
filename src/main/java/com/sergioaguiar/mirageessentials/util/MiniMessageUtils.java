@@ -143,13 +143,13 @@ public class MiniMessageUtils
 
             if (!Component.IS_NOT_EMPTY.test(component)) continue;
 
-            lines.addAll(splitComponentLines(component));
+            lines.addAll(splitComponentLines(component, false));
         }
 
         return lines;
     }
 
-    private static List<Text> splitComponentLines(Component component)
+    private static List<Text> splitComponentLines(Component component, boolean ignoreEmptyLines)
     {
         List<Text> lines = new ArrayList<>();
 
@@ -157,7 +157,7 @@ public class MiniMessageUtils
 
         for (String line : serialized.split("<br>|<newline>|\\R", -1))
         {
-            if (line == null || line.isBlank()) continue;
+            if (line == null || (ignoreEmptyLines && line.isBlank())) continue;
             lines.add(toMinecraftText(MINIMESSAGE_INSTANCE.deserialize(line)));
         }
 
@@ -196,6 +196,13 @@ public class MiniMessageUtils
         return render(newTemplate, getPokeInfoTagResolver(pokemon, isPartyCheck, isClosedSheet));
     }
 
+    public static Component getEggOrPokeInfoComponent(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
+    {
+        return NeoDaycareUtils.isEgg(pokemon)
+            ? MiniMessageUtils.getEggInfoComponent(pokemon, false)
+            : MiniMessageUtils.getPokeInfoComponent(pokemon, false, isClosedSheet);
+    }
+
     public static Component getPokeInfoComponent(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
     {
         String newTemplate = parsePokeInfoColors
@@ -216,6 +223,13 @@ public class MiniMessageUtils
                 getPokeInfoTagResolver(pokemon, isPartyCheck, isClosedSheet)
             )
         );
+    }
+
+    public static List<Text> renderEggOrPokeInfoLines(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
+    {
+        return NeoDaycareUtils.isEgg(pokemon)
+            ? MiniMessageUtils.renderEggInfoLines(pokemon, true)
+            : MiniMessageUtils.renderPokeInfoLines(pokemon, true, isClosedSheet);
     }
 
     public static List<Text> renderPokeInfoLines(Pokemon pokemon, boolean isPartyCheck, boolean isClosedSheet)
@@ -241,7 +255,62 @@ public class MiniMessageUtils
                 getPokeInfoTagResolver(pokemon, isPartyCheck, isClosedSheet)
             );
 
-            lines.addAll(splitComponentLines(component));
+            lines.addAll(splitComponentLines(component, true));
+        }
+
+        return lines;
+    }
+
+    public static Text renderEggInfo(Pokemon pokemon, boolean isPartyCheck)
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getEggInfoTemplate()
+        );
+
+        return render(newTemplate, getEggInfoTagResolver(pokemon, isPartyCheck));
+    }
+
+    public static Component getEggInfoComponent(Pokemon pokemon, boolean isPartyCheck)
+    {
+        String newTemplate = resolveCustomColors
+        (
+            ChatMiniMessage.getEggInfoTemplate()
+        );
+
+        if (newTemplate == null || newTemplate.isBlank()) return Component.empty();
+
+        return removeEmptyLines
+        (
+            MINIMESSAGE_INSTANCE.deserialize
+            (
+                newTemplate,
+                getEggInfoTagResolver(pokemon, isPartyCheck)
+            )
+        );
+    }
+
+    public static List<Text> renderEggInfoLines(Pokemon pokemon, boolean isPartyCheck)
+    {
+        String template = ChatMiniMessage.getEggInfoTemplate();
+        List<Text> lines = new ArrayList<>();
+
+        if (template == null || template.isEmpty()) return lines;
+
+        String[] split = template.split("\\R", -1);
+
+        for (String line : split)
+        {
+            Component component = MINIMESSAGE_INSTANCE.deserialize
+            (
+                resolveCustomColors
+                (
+                    line
+                ),
+                getEggInfoTagResolver(pokemon, isPartyCheck)
+            );
+
+            lines.addAll(splitComponentLines(component, true));
         }
 
         return lines;
@@ -828,6 +897,24 @@ public class MiniMessageUtils
             .resolver(getPlayerDisplayNameResolver(player))
             .resolver(getPlayerDisplayNameStyledResolver(player))
             .resolver(getHoverableResolver(item))
+            .build();
+    }
+
+    public static TagResolver getEggInfoTagResolver(Pokemon pokemon, boolean isPartyCheck)
+    {
+        Integer hatchPercentage = NeoDaycareUtils.getHatchPercentage(pokemon.getFeatures());
+        Integer remainingSteps = NeoDaycareUtils.getRemainingSteps(pokemon);
+        Integer totalSteps = NeoDaycareUtils.getTotalSteps(pokemon);
+
+        return TagResolver.builder()
+            .resolver(getCustomNameResolver(pokemon, isPartyCheck))
+            .resolvers(getCustomNameResolvers(pokemon))
+            .resolver(getCaughtBallResolver(CobblemonUtils.getPokemonCaughtBall(pokemon)))
+            .resolver(getStepsTakenResolver(totalSteps != null && remainingSteps != null ? totalSteps - remainingSteps : 0))
+            .resolver(getStepsTotalResolver(totalSteps != null ? totalSteps : 0))
+            .resolver(getStepsRemainingResolver(remainingSteps != null ? remainingSteps : 0))
+            .resolver(getHatchPercentageResolver(hatchPercentage != null ? hatchPercentage : 0))
+            .resolver(getProgressMessageResolver(hatchPercentage != null ? hatchPercentage : 0))
             .build();
     }
 
@@ -4281,7 +4368,7 @@ public class MiniMessageUtils
         return Placeholder.component
         (
             ChatMiniMessage.HOVERABLE_TEMPLATE_TAG_STRING,
-            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getEggOrPokeInfoComponent(pokemon, false, isClosedSheet)))
         );
     }
 
@@ -4310,7 +4397,7 @@ public class MiniMessageUtils
         return Placeholder.component
         (
             ChatMiniMessage.HOVERABLE1_TEMPLATE_TAG_STRING,
-            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getEggOrPokeInfoComponent(pokemon, false, isClosedSheet)))
         );
     }
 
@@ -4330,7 +4417,7 @@ public class MiniMessageUtils
         return Placeholder.component
         (
             ChatMiniMessage.HOVERABLE2_TEMPLATE_TAG_STRING,
-            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getEggOrPokeInfoComponent(pokemon, false, isClosedSheet)))
         );
     }
 
@@ -4350,7 +4437,7 @@ public class MiniMessageUtils
         return Placeholder.component
         (
             ChatMiniMessage.HOVERABLE3_TEMPLATE_TAG_STRING,
-            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getEggOrPokeInfoComponent(pokemon, false, isClosedSheet)))
         );
     }
 
@@ -4370,7 +4457,7 @@ public class MiniMessageUtils
         return Placeholder.component
         (
             ChatMiniMessage.HOVERABLE4_TEMPLATE_TAG_STRING,
-            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getEggOrPokeInfoComponent(pokemon, false, isClosedSheet)))
         );
     }
 
@@ -4390,7 +4477,7 @@ public class MiniMessageUtils
         return Placeholder.component
         (
             ChatMiniMessage.HOVERABLE5_TEMPLATE_TAG_STRING,
-            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getEggOrPokeInfoComponent(pokemon, false, isClosedSheet)))
         );
     }
 
@@ -4410,7 +4497,60 @@ public class MiniMessageUtils
         return Placeholder.component
         (
             ChatMiniMessage.HOVERABLE6_TEMPLATE_TAG_STRING,
-            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getPokeInfoComponent(pokemon, false, isClosedSheet)))
+            renderPokeHoverable(pokemon, isClosedSheet, HoverEvent.showText(getEggOrPokeInfoComponent(pokemon, false, isClosedSheet)))
+        );
+    }
+
+    private static TagResolver.Single getStepsTakenResolver(int steps)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.STEPS_TAKEN_TEMPLATE_TAG_STRING,
+            String.valueOf(steps)
+        );
+    }
+
+    private static TagResolver.Single getStepsTotalResolver(int steps)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.STEPS_TOTAL_TEMPLATE_TAG_STRING,
+            String.valueOf(steps)
+        );
+    }
+
+    private static TagResolver.Single getStepsRemainingResolver(int steps)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.STEPS_REMAINING_TEMPLATE_TAG_STRING,
+            String.valueOf(steps)
+        );
+    }
+
+    private static TagResolver.Single getHatchPercentageResolver(int percentage)
+    {
+        return Placeholder.unparsed
+        (
+            ChatMiniMessage.HATCH_PERCENTAGE_TEMPLATE_TAG_STRING,
+            String.valueOf(percentage)
+        );
+    }
+
+    private static TagResolver.Single getProgressMessageResolver(int percentage)
+    {
+        String message = percentage <= 40
+            ? ChatMiniMessage.getEgg0To40Template()
+            : percentage <= 70
+                ? ChatMiniMessage.getEgg41To70Template()
+                : percentage <= 90
+                    ? ChatMiniMessage.getEgg71To90Template()
+                    : ChatMiniMessage.getEgg91To100Template();
+
+        return Placeholder.parsed
+        (
+            ChatMiniMessage.PROGRESS_MESSAGE_TEMPLATE_TAG_STRING,
+            message
         );
     }
 

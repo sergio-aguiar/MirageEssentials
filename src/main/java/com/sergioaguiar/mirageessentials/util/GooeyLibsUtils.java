@@ -11,7 +11,6 @@ import com.sergioaguiar.mirageessentials.config.chatparser.strings.ChatStrings;
 import com.sergioaguiar.mirageessentials.gui.templates.DefaultPartyCheckGooeyTemplate;
 import com.sergioaguiar.mirageessentials.gui.templates.MiragePartyCheckGooeyTemplate;
 import com.sergioaguiar.mirageessentials.manager.CooldownManager;
-import com.sergioaguiar.mirageessentials.parser.PlaceholderResolver;
 
 import ca.landonjw.gooeylibs2.api.button.GooeyButton;
 import ca.landonjw.gooeylibs2.api.helpers.TemplateHelper;
@@ -60,9 +59,7 @@ public class GooeyLibsUtils
                     DataComponentTypes.LORE,
                     new LoreComponent
                     (
-                        NeoDaycareUtils.isEgg(pokemon)
-                            ? PlaceholderResolver.getEggTooltipTextList(pokemon)
-                            : MiniMessageUtils.renderPokeInfoLines(pokemon, true, closed.get())
+                        MiniMessageUtils.renderEggOrPokeInfoLines(pokemon, true, closed.get())
                     )
                 )
                 .onClick((action) ->
