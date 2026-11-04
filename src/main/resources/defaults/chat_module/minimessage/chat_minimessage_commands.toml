@@ -37,18 +37,18 @@ DebugShoutEmptySlot = "<commandreplyprefix> <color:<commandvaluecolor>>You can n
 # <persistentdatas> - The pokémon's persistent data list, each line using the configured <persistentdata> template.
 DebugShoutSuccess = """
 <commandreplyprefix> <color:<commandvaluecolor>>Only you can see this message!</color>
-
+<color:<labelcolor>>────────────────────────</color>
 <color:<commandlabelcolor>>Aspect List (<aspecttotal> total):</color>
 <aspects>
-
+<color:<labelcolor>>────────────────────────</color>
 <color:<commandlabelcolor>>Forced Aspect List (<forcedaspecttotal> total):</color>
 <forcedaspects>
-
+<color:<labelcolor>>────────────────────────</color>
 <color:<commandlabelcolor>>Species Features List (<speciesfeaturetotal> total):</color>
 <speciesfeatures>
-
+<color:<labelcolor>>────────────────────────</color>
 <color:<commandlabelcolor>>Persistent Data List (<persistentdatatotal> total):</color>
-<persistentdata>"""
+<persistentdatas>"""
 
 # Used by <aspects> and <forcedaspects> to list pokémon aspects (each line uses this template once).
 # You can use the following replacement templates:

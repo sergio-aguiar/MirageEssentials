@@ -985,18 +985,18 @@ public class ChatMiniMessage
     
     protected static final String DEFAULT_DEBUG_SHOUT_SUCCESS = """
         <commandreplyprefix> <color:<commandvaluecolor>>Only you can see this message!</color>
-
+        <color:<labelcolor>>────────────────────────</color>
         <color:<commandlabelcolor>>Aspect List (<aspecttotal> total):</color>
         <aspects>
-
+        <color:<labelcolor>>────────────────────────</color>
         <color:<commandlabelcolor>>Forced Aspect List (<forcedaspecttotal> total):</color>
         <forcedaspects>
-
+        <color:<labelcolor>>────────────────────────</color>
         <color:<commandlabelcolor>>Species Features List (<speciesfeaturetotal> total):</color>
         <speciesfeatures>
-
+        <color:<labelcolor>>────────────────────────</color>
         <color:<commandlabelcolor>>Persistent Data List (<persistentdatatotal> total):</color>
-        <persistentdata>""";
+        <persistentdatas>""";
     
     protected static final String DEFAULT_ASPECT = "<color:<commandlabelcolor>>-</color> <color:<commandvaluecolor>><aspectname></color>";
     protected static final String DEFAULT_SPECIES_FEATURE = "<color:<commandlabelcolor>>- <speciesfeaturename>:</color> <color:<commandvaluecolor>><speciesfeaturevalue></color>";
